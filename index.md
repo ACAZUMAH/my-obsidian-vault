@@ -4,7 +4,7 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 ## Start Here
 
-- [[WELCOME|Welcome To My Obsidian Vault]] — Human-facing introduction, architecture map, agent workflow, and public-repository safety guidance. Updated: 2026-07-21.
+- [[welcome|Welcome To My Obsidian Vault]] — Human-facing introduction, architecture map, agent workflow, and public-repository safety guidance. Updated: 2026-07-21.
 - [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map of durable preferences, project constraints, and recurring ways of working shared across agents. Type: synthesis. Updated: 2026-07-20. Sources: 3.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Compact cross-project development map with an explicit staged path for completing repository knowledge from Codex history. Type: synthesis. Updated: 2026-07-21. Sources: 6.
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Resumable checkpoint for completed and pending repository/Codex-history batches, currently after LivelyCura batch 3. Type: synthesis. Updated: 2026-07-21. Sources: 4.

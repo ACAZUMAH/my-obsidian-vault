@@ -8,14 +8,14 @@ What changed:
 
 - Initialized the vault as an independent Git repository on `main`.
 - Configured `https://github.com/ACAZUMAH/my-obsidian-vault.git` as `origin`; the GitHub repository was confirmed public and empty before the first commit.
-- Added `WELCOME.md` as the human-facing entry point with architecture, agent workflow, and public-repository safety guidance.
+- Added `welcome.md` as the human-facing entry point with architecture, agent workflow, and public-repository safety guidance.
 - Added a security-conscious `.gitignore` covering Obsidian-local state, plugin payloads, OS/editor files, credentials, certificates, signing material, databases, archives, dependencies, build output, caches, logs, and agent-local state.
 - Linked the welcome page from `index.md`.
 
 Files touched:
 
 - `.gitignore`
-- `WELCOME.md`
+- `welcome.md`
 - `index.md`
 - `log.md`
 
