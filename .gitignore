@@ -1,0 +1,81 @@
+# macOS and filesystem metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100/
+.Trashes/
+.fseventsd/
+
+# Obsidian machine-local and volatile state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+.obsidian/plugins/
+.obsidian/sandbox/
+.trash/
+Trash/
+
+# Credentials, secrets, certificates, and signing material
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+auth.json
+credentials.json
+secrets.json
+*credentials*.json
+*secrets*.json
+
+# Local databases and data stores
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Archives can silently contain private exports or credentials
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+
+# JavaScript and general build output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+tmp/
+temp/
+
+# Logs and runtime files
+*.log
+*.pid
+*.seed
+
+# Editor and temporary files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Agent-local state must not be copied into the public vault repository
+.hermes/
+.codex/
+.claude/
