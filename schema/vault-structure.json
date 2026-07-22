@@ -36,6 +36,13 @@
     "question": "_template/question-template.md",
     "synthesis": "_template/synthesis-template.md"
   },
+  "schema_documents": {
+    "schema": "schema/README.md",
+    "workflows": "schema/workflows.md",
+    "naming_conventions": "schema/naming-conventions.md",
+    "lint_checklist": "schema/lint-checklist.md",
+    "local_skills": "schema/local-skills.md"
+  },
   "required_agent_skills": [
     "obsidian-markdown",
     "obsidian-bases",

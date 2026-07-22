@@ -2,6 +2,8 @@
 
 This directory follows the Agent Skills convention and makes vault-specific capabilities available from the repository itself. It complements, rather than replaces, profile-local Hermes skills.
 
+The canonical schema-layer catalog and selection guidance lives in [schema/local-skills.md](../../schema/local-skills.md). Skill implementations remain in this directory.
+
 ## Vendored Obsidian Skills
 
 The following skills are vendored from [`kepano/obsidian-skills`](https://github.com/kepano/obsidian-skills) at revision `a1dc48e68138490d522c04cbf5822214c6eb1202`:

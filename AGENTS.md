@@ -43,7 +43,7 @@ Rules:
 
 Locations: `AGENTS.md` and `schema/`
 
-This file is the human-readable operating authority. `schema/vault-structure.json` encodes canonical paths, required directories, templates, project-local skills, frontmatter keys, statuses, and required sections for automation. `schema/wiki-frontmatter.schema.json` is the formal JSON Schema for page properties. When workflow improvements emerge, update the human and machine-readable contracts together after user approval or clear instruction.
+This file is the human-readable operating authority. `schema/README.md`, `schema/workflows.md`, `schema/naming-conventions.md`, `schema/lint-checklist.md`, and `schema/local-skills.md` are the canonical operational references. `schema/vault-structure.json` encodes canonical paths, required directories, schema documents, templates, project-local skills, frontmatter keys, statuses, and required sections for automation. `schema/wiki-frontmatter.schema.json` is the formal JSON Schema for page properties. When workflow improvements emerge, update the human and machine-readable contracts together after user approval or clear instruction.
 
 ## Directory Conventions
 
@@ -56,7 +56,7 @@ This file is the human-readable operating authority. `schema/vault-structure.jso
 - `wiki/questions/`: Filed answers to user questions that should compound into the wiki.
 - `wiki/syntheses/`: Cross-source essays, comparisons, maps, timelines, and high-level views.
 - `_template/`: Obsidian page templates and reusable structures, configured through `.obsidian/templates.json`.
-- `schema/`: Machine-readable vault paths, page contracts, and validation configuration.
+- `schema/`: Canonical operational references plus machine-readable vault paths, page contracts, and validation configuration.
 - `.agents/skills/`: Repository-local Agent Skills for Obsidian formats, CLI workflows, web extraction, and vault maintenance.
 - `scripts/`: Repository-owned validation and automation. Run `python3 scripts/validate_vault.py` after structural or durable wiki changes.
 - `index.md`: Content-oriented catalog of the wiki.

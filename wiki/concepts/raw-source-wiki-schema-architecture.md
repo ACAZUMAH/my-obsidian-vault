@@ -20,7 +20,7 @@ The architecture prevents source drift and makes the agent's responsibilities ex
 
 This separation matters because the agent can aggressively maintain the wiki without corrupting original sources. It can revise summaries, add links, and update synthesis pages while leaving the raw evidence intact for verification.
 
-The operational schema is documented in [[vault-schema-reference|Vault Schema Reference]], including the authority hierarchy, path map, frontmatter contract, page-type ownership, and coordinated-update rule.
+The operational schema is documented in the canonical [Vault Schema Reference](../../schema/README.md), including the authority hierarchy, path map, frontmatter contract, page-type ownership, and coordinated-update rule.
 
 ## Supporting Sources
 
@@ -30,9 +30,9 @@ The operational schema is documented in [[vault-schema-reference|Vault Schema Re
 
 - [[persistent-compounding-wiki|Persistent Compounding Wiki]]
 - [[ingest-query-lint-workflows|Ingest, Query, Lint Workflows]]
-- [[vault-schema-reference|Vault Schema Reference]]
-- [[vault-naming-conventions|Vault Naming Conventions]]
-- [[project-local-agent-skills|Project-Local Agent Skills]]
+- [Vault Schema Reference](../../schema/README.md)
+- [Vault Naming Conventions](../../schema/naming-conventions.md)
+- [Project-Local Agent Skills](../../schema/local-skills.md)
 - [[../syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]]
 
 ## Open Questions

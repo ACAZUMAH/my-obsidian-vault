@@ -1,29 +1,16 @@
----
-type: concept
-status: active
-created: 2026-07-22
-updated: 2026-07-22
-tags: [vault, workflow, maintenance, obsidian]
-sources: []
----
-
 # Vault Workflow Guide
 
-## Working Definition
+This is the canonical sequence for retrieving existing knowledge, integrating evidence, maintaining shared pages safely, validating the result, and committing only the intended change.
 
-The vault workflow is the repeatable sequence for retrieving existing knowledge, integrating new evidence, maintaining shared pages safely, validating the result, and committing only the intended change.
-
-## Current Synthesis
-
-### Before editing
+## Before Editing
 
 1. Read `index.md` and the relevant project, concept, or synthesis pages.
 2. Search with `rg` before creating a page so existing ownership and terminology are reused.
-3. Read the live `AGENTS.md`, relevant local skill, and machine contract.
+3. Read the live [AGENTS.md](../AGENTS.md), relevant local skill, and machine contract.
 4. Identify the evidence boundary and exclude secrets, private identifiers, generated output, dependencies, and unrelated tool chatter.
 5. Check Git status and reread every shared note immediately before patching.
 
-### Ingest workflow
+## Ingest Workflow
 
 1. Preserve raw evidence under `raw/` without rewriting it.
 2. Create or update one source summary.
@@ -34,7 +21,7 @@ The vault workflow is the repeatable sequence for retrieving existing knowledge,
 
 Conversation harvests require direct conversation evidence before project knowledge is promoted. A repository match, saved session, profile-memory write, or agent inference is not equivalent to an integrated source.
 
-### Query workflow
+## Query Workflow
 
 1. Start with `index.md` and search the wiki.
 2. Read the smallest relevant page set.
@@ -42,33 +29,23 @@ Conversation harvests require direct conversation evidence before project knowle
 4. Cite stable vault pages and distinguish fact, source claim, and inference.
 5. File the answer only when it is durable and useful beyond the immediate exchange.
 
-### Maintenance and commit workflow
+## Maintenance And Commit Workflow
 
 1. Apply focused edits; never overwrite unrelated concurrent work.
-2. Run [[vault-lint-checklist|Vault Lint Checklist]].
+2. Run the [Vault Lint Checklist](lint-checklist.md).
 3. Review `git status`, `git diff --check`, and the exact diff.
 4. Stage explicit intended paths rather than every dirty file.
 5. Commit with a scoped message that describes the durable outcome.
 6. Push only when explicitly requested.
 
-> [!warning] Shared-writer rule
-> Hermes, Codex, Obsidian, and other agents may edit the vault concurrently. A clean read from earlier in a task is not sufficient; reread each shared note immediately before modifying it.
+## Concurrent Writers
 
-## Supporting Sources
+Hermes, Codex, Obsidian, and other agents may edit the vault concurrently. A clean read from earlier in a task is not sufficient; reread each shared note immediately before modifying it.
 
-- [Vault operating authority](../../AGENTS.md)
-- [Vault-maintenance skill](../../.agents/skills/vault-maintenance/SKILL.md)
-- [Canonical validator documentation](../../scripts/README.md)
+## References
 
-## Related
-
-- [[ingest-query-lint-workflows|Ingest, Query, Lint Workflows]]
-- [[vault-schema-reference|Vault Schema Reference]]
-- [[vault-naming-conventions|Vault Naming Conventions]]
-- [[vault-lint-checklist|Vault Lint Checklist]]
-- [[project-local-agent-skills|Project-Local Agent Skills]]
-
-## Open Questions
-
-- Which recurring maintenance checks should become automated without making the validator overly prescriptive?
-- When should a frequently repeated workflow graduate into a dedicated local skill?
+- [Vault operating authority](../AGENTS.md)
+- [Vault-maintenance skill](../.agents/skills/vault-maintenance/SKILL.md)
+- [Canonical validator documentation](../scripts/README.md)
+- [Naming conventions](naming-conventions.md)
+- [Project-local skills](local-skills.md)

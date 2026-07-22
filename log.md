@@ -2,6 +2,31 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-07-22] maintenance | Correct Vault Operations Documentation Ownership
+
+What changed:
+
+- Moved the schema reference, workflow guidance, naming conventions, lint checklist, and local-skill documentation out of `wiki/concepts/` and into their canonical `schema/` ownership layer.
+- Kept the six actual skill implementations under `.agents/skills/` and linked the schema-layer skill catalog directly to them.
+- Registered all five schema documents in `schema/vault-structure.json` and extended the canonical validator to require both their files and exact `index.md` connections.
+- Removed the five duplicate concept pages and updated the architecture, workflow overview, personal operating manual, scripts guide, skills catalog, and index to point to the canonical schema documents.
+- Corrected the durable rule: vault additions belong in their canonical layer and must be indexed; being tracked in the wrong layer is insufficient.
+
+Files touched:
+
+- `AGENTS.md`, `index.md`, and `log.md`
+- `schema/README.md`, `schema/workflows.md`, `schema/naming-conventions.md`, `schema/lint-checklist.md`, `schema/local-skills.md`, and `schema/vault-structure.json`
+- `scripts/README.md` and `scripts/validate_vault.py`
+- `.agents/skills/README.md`
+- `wiki/concepts/raw-source-wiki-schema-architecture.md`, `wiki/concepts/ingest-query-lint-workflows.md`, and `wiki/syntheses/personal-operating-manual.md`
+- Removed the five superseded `wiki/concepts/` operations-reference pages.
+
+Verification:
+
+- `python3 scripts/validate_vault.py` passed with 96 wiki pages, 885 checked wikilinks, five registered schema documents, five schema-document index links, six configured templates, and six validated local skills.
+- All local Markdown links in the changed documentation resolved, the focused secret-assignment pattern scan returned no findings, and `git diff --check` passed.
+- The concurrent `.obsidian/graph.json` change was preserved and excluded from this correction commit.
+
 ## [2026-07-22] maintenance | Add Vault Operations Reference Pages
 
 What changed:

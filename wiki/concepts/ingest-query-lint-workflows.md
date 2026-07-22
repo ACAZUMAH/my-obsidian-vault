@@ -22,7 +22,7 @@ Query uses the maintained wiki to answer user questions. The agent reads `index.
 
 Lint maintains wiki health. The agent looks for broken links, stale claims, missing concept pages, contradictions, orphan pages, duplicated pages, weak citations, and research gaps.
 
-Detailed execution guidance lives in [[vault-workflow-guide|Vault Workflow Guide]]. The structural, semantic, provenance, security, and Git completion checks are maintained in [[vault-lint-checklist|Vault Lint Checklist]].
+Detailed execution guidance lives in the canonical [Vault Workflow Guide](../../schema/workflows.md). Structural, semantic, provenance, security, and Git completion checks are maintained in the [Vault Lint Checklist](../../schema/lint-checklist.md).
 
 ## Supporting Sources
 
@@ -32,10 +32,10 @@ Detailed execution guidance lives in [[vault-workflow-guide|Vault Workflow Guide
 
 - [[persistent-compounding-wiki|Persistent Compounding Wiki]]
 - [[raw-source-wiki-schema-architecture|Raw Source, Wiki, Schema Architecture]]
-- [[vault-workflow-guide|Vault Workflow Guide]]
-- [[vault-naming-conventions|Vault Naming Conventions]]
-- [[vault-lint-checklist|Vault Lint Checklist]]
-- [[project-local-agent-skills|Project-Local Agent Skills]]
+- [Vault Workflow Guide](../../schema/workflows.md)
+- [Vault Naming Conventions](../../schema/naming-conventions.md)
+- [Vault Lint Checklist](../../schema/lint-checklist.md)
+- [Project-Local Agent Skills](../../schema/local-skills.md)
 
 ## Open Questions
 

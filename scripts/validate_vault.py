@@ -83,6 +83,17 @@ def validate_structure(config: dict[str, Any]) -> None:
             counts["template_index_links"] += 1
         counts["templates"] += 1
 
+    for document, relative in config.get("schema_documents", {}).items():
+        path = ROOT / relative
+        if not path.is_file():
+            fail(f"missing {document} schema document: {relative}")
+            continue
+        if f"]({relative})" not in index_text:
+            fail(f"{document} schema document is not linked from index.md: {relative}")
+        else:
+            counts["schema_document_index_links"] += 1
+        counts["schema_documents"] += 1
+
     old_templates = ROOT / "wiki" / "templates"
     if old_templates.exists():
         fail("legacy directory still exists: wiki/templates")

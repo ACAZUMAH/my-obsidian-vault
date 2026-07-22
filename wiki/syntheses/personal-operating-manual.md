@@ -51,7 +51,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Promote stable, repeatable procedures into Hermes skills when exact operational steps would be useful.
 - Preserve exact project skill libraries for project fidelity, and synthesize recurring conventions into generalized backend, frontend-web, and frontend-mobile skills when they represent how the user builds across future projects. Keep source inventories so generalized rules remain auditable.
 - Expect multiple agents to operate simultaneously; reread shared notes before editing and preserve concurrent changes.
-- When asked to add guidance, documentation, conventions, checklists, or skills “to the vault,” create or update linked, indexed wiki content. Repository files alone do not satisfy that request, even when they are tracked and structurally valid.
+- When asked to add guidance, documentation, conventions, checklists, or skills “to the vault,” place each artifact in its canonical vault layer and connect it through `index.md`. A tracked file in the wrong ownership layer does not satisfy the request.
 - For a Hermes-conversation knowledge harvest, require a directly relevant Hermes conversation before creating a project page or promoting durable claims. Filesystem and Git-root discovery alone are not evidence; repository inspection may verify conversation-derived claims but must not replace them.
 - Expect every substantive Hermes conversation to be evaluated for durable project or workflow knowledge and promoted into this vault in the same session when safe. If promotion is deferred, preserve the exact session ID in the harvest checkpoint. Hermes session storage and compact profile memory are not substitutes for Obsidian integration.
 
@@ -84,8 +84,8 @@ This page is the central map of durable knowledge about how the user prefers to 
 - [[../concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]]
 - [[llm-wiki-operating-model|LLM Wiki Operating Model]]
 - [[software-development-operating-manual|Software Development Operating Manual]]
-- [[../concepts/vault-workflow-guide|Vault Workflow Guide]]
-- [[../concepts/project-local-agent-skills|Project-Local Agent Skills]]
+- [Vault Workflow Guide](../../schema/workflows.md)
+- [Project-Local Agent Skills](../../schema/local-skills.md)
 - [[../entities/hermes-agent|Hermes Agent]]
 - [[../entities/codex|Codex]]
 - [[../entities/obsidian|Obsidian]]
