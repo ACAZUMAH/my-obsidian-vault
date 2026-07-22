@@ -2,6 +2,43 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-07-22] maintenance | Add Vault Operations Reference Pages
+
+What changed:
+
+- Corrected the distinction between tracked repository infrastructure and first-class vault knowledge.
+- Added five linked concept pages covering the vault schema, maintenance workflow, naming conventions, lint checklist, and project-local Agent Skills.
+- Connected the detailed pages to the existing architecture and ingest/query/lint overview notes instead of creating competing ownership.
+- Added all five pages to `index.md`, with schema and workflow guidance also exposed under Start Here and every requested topic exposed under Maintenance.
+- Recorded the durable preference that “add to the vault” requires linked, indexed wiki content; tracked infrastructure files alone are insufficient.
+
+Files touched:
+
+- `wiki/concepts/vault-schema-reference.md`
+- `wiki/concepts/vault-workflow-guide.md`
+- `wiki/concepts/vault-naming-conventions.md`
+- `wiki/concepts/vault-lint-checklist.md`
+- `wiki/concepts/project-local-agent-skills.md`
+- `wiki/concepts/raw-source-wiki-schema-architecture.md`
+- `wiki/concepts/ingest-query-lint-workflows.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Schema documentation, workflow guidance, naming rules, lint completion checks, and local-skill guidance are now visible and navigable as durable Obsidian knowledge, not only as repository implementation files.
+
+Verification:
+
+- `python3 scripts/validate_vault.py` passed with 101 wiki pages, 934 checked wikilinks, six configured templates, and six validated local skills.
+- Git whitespace checks passed before commit review.
+- A concurrent `.obsidian/graph.json` change was preserved but excluded from this maintenance commit.
+
+Follow-ups:
+
+- Consider automating orphan and duplicate-stem reporting only after the semantic rules are agreed.
+
 ## [2026-07-21] ingest | Frozen Non-Subagent Hermes Ledger Complete — 130/130
 
 What changed:

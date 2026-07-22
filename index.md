@@ -5,11 +5,13 @@ This is the content-oriented map of the wiki. Read this first before answering w
 ## Start Here
 
 - [[welcome|Welcome To My Obsidian Vault]] — Human-facing introduction, architecture map, agent workflow, and public-repository safety guidance. Updated: 2026-07-21.
-- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct technical disagreement and project-specific/generalized skill expectations. Type: synthesis. Updated: 2026-07-21. Sources: 8.
+- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct technical disagreement, indexed-vault-content expectations, and project-specific/generalized skill rules. Type: synthesis. Updated: 2026-07-22. Sources: 8.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Cross-project map with provider evidence, authorization, scoped sanitization, transport consistency, list ownership, migrations, and verification rules. Type: synthesis. Updated: 2026-07-21. Sources: 39.
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs; 90 `source='subagent'` records remain separate. Type: synthesis. Updated: 2026-07-21. Sources: 52.
 - [[wiki/syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]] — Foundation with provider-test boundaries, multi-channel OTP, authorization coverage, migrations, and verification. Type: synthesis. Updated: 2026-07-21. Sources: 25 plus live repositories.
 - [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Defines the canonical vault, separate archive layers, and explicit promotion boundary. Type: concept. Updated: 2026-07-21. Sources: 4.
+- [[wiki/concepts/vault-workflow-guide|Vault Workflow Guide]] — Operational sequence for retrieval, ingest, query, concurrent maintenance, validation, and safe commits. Type: concept. Updated: 2026-07-22.
+- [[wiki/concepts/vault-schema-reference|Vault Schema Reference]] — Human and machine contracts, canonical paths, page ownership, properties, and coordinated schema changes. Type: concept. Updated: 2026-07-22.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — The current synthesis of how this second brain works. Type: synthesis. Updated: 2026-07-20. Sources: 2.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — The core concept: knowledge is integrated once, linked, maintained, and reused. Type: concept. Updated: 2026-05-13. Sources: 1.
 - [[wiki/sources/llm-wiki-idea|LLM Wiki Idea]] — Source summary for the initial idea file pasted by the user. Type: source. Updated: 2026-05-13.
@@ -75,6 +77,11 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 ## Concepts
 
+- [[wiki/concepts/vault-schema-reference|Vault Schema Reference]] — Human/machine authority hierarchy, canonical paths, page properties, and coordinated structural changes. Updated: 2026-07-22.
+- [[wiki/concepts/vault-workflow-guide|Vault Workflow Guide]] — Search-before-create, ingest/query, concurrent-editing, validation, staging, and commit workflow. Updated: 2026-07-22.
+- [[wiki/concepts/vault-naming-conventions|Vault Naming Conventions]] — Stable IDs, kebab-case page paths, link naming, skill/template names, and evidence naming. Updated: 2026-07-22.
+- [[wiki/concepts/vault-lint-checklist|Vault Lint Checklist]] — Structural, semantic, provenance, security, navigation, and Git completion checklist. Updated: 2026-07-22.
+- [[wiki/concepts/project-local-agent-skills|Project-Local Agent Skills]] — Catalog, selection rules, provenance, portability, and update process for the six repository skills. Updated: 2026-07-22.
 - [[wiki/concepts/codex-project-knowledge-harvest|Codex Project Knowledge Harvest]] — Paste-ready bounded procedure with direct Hermes execution provenance and explicit non-completion boundary. Updated: 2026-07-21. Sources: 3.
 - [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Canonical knowledge plane, tool integration layers, retrieval rules, and concurrent-write controls. Updated: 2026-07-20.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — A knowledge base pattern where the LLM incrementally integrates sources, updates cross-links, flags contradictions, and preserves synthesis. Updated: 2026-05-13.
@@ -125,16 +132,17 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs with store-qualified collision handling. Updated: 2026-07-21. Sources: 52.
 - [[wiki/syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]] — Foundation with provider evidence, multi-channel OTP, authorization coverage, migrations, and verification. Updated: 2026-07-21. Sources: 25 plus live repositories.
-- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct disagreement, mandatory promotion, paced remediation, and skill reuse. Updated: 2026-07-21. Sources: 8.
+- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct disagreement, mandatory promotion, indexed-vault-content expectations, paced remediation, and skill reuse. Updated: 2026-07-22. Sources: 8.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Shared agreements with provider evidence, authorization, scoped sanitization, transport consistency, list ownership, migrations, and verification. Updated: 2026-07-21. Sources: 39.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — A synthesis of the whole system and its operating assumptions. Updated: 2026-07-20. Sources: 2.
 
 ## Maintenance
 
-- Human-readable schema: [AGENTS.md](AGENTS.md)
-- Machine-readable schema: [schema/](schema/)
-- Project-local Agent Skills: [.agents/skills/](.agents/skills/)
-- Validation and automation: [scripts/](scripts/)
+- Schema documentation: [[wiki/concepts/vault-schema-reference|Vault Schema Reference]]; contracts: [AGENTS.md](AGENTS.md) and [schema/](schema/)
+- Workflow guidance: [[wiki/concepts/vault-workflow-guide|Vault Workflow Guide]]
+- Naming conventions: [[wiki/concepts/vault-naming-conventions|Vault Naming Conventions]]
+- Lint checklist: [[wiki/concepts/vault-lint-checklist|Vault Lint Checklist]]; automation: [scripts/](scripts/)
+- Local skills: [[wiki/concepts/project-local-agent-skills|Project-Local Agent Skills]]; tracked files: [.agents/skills/](.agents/skills/)
 - Chronological log: [log.md](log.md)
 - Raw source folder: [raw/sources/](raw/sources/)
 - Wiki folder: [wiki/](wiki/)

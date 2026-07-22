@@ -2,7 +2,7 @@
 type: concept
 status: active
 created: 2026-05-13
-updated: 2026-05-13
+updated: 2026-07-22
 tags: [architecture, llm-wiki]
 sources:
   - ../sources/llm-wiki-idea.md
@@ -20,6 +20,8 @@ The architecture prevents source drift and makes the agent's responsibilities ex
 
 This separation matters because the agent can aggressively maintain the wiki without corrupting original sources. It can revise summaries, add links, and update synthesis pages while leaving the raw evidence intact for verification.
 
+The operational schema is documented in [[vault-schema-reference|Vault Schema Reference]], including the authority hierarchy, path map, frontmatter contract, page-type ownership, and coordinated-update rule.
+
 ## Supporting Sources
 
 - [[../sources/llm-wiki-idea|LLM Wiki Idea]]
@@ -28,6 +30,9 @@ This separation matters because the agent can aggressively maintain the wiki wit
 
 - [[persistent-compounding-wiki|Persistent Compounding Wiki]]
 - [[ingest-query-lint-workflows|Ingest, Query, Lint Workflows]]
+- [[vault-schema-reference|Vault Schema Reference]]
+- [[vault-naming-conventions|Vault Naming Conventions]]
+- [[project-local-agent-skills|Project-Local Agent Skills]]
 - [[../syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]]
 
 ## Open Questions
