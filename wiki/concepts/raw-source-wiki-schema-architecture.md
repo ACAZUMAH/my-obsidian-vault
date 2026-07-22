@@ -12,13 +12,13 @@ sources:
 
 ## Working Definition
 
-The raw source, wiki, schema architecture separates evidence, generated knowledge, and operating rules into three layers.
+The raw source, wiki, schema architecture separates immutable evidence, curated knowledge, and operating rules into three layers.
 
 ## Current Synthesis
 
-The architecture prevents source drift and makes the agent's responsibilities explicit. `raw/` stores immutable evidence. `wiki/` stores the maintained interpretation of that evidence. `AGENTS.md` defines the conventions and workflows that keep the wiki coherent across sessions.
+The architecture prevents source drift and makes the agent's responsibilities explicit. `raw/` stores immutable evidence. `wiki/` stores the maintained interpretation of that evidence. Within the wiki, Source Records under `wiki/sources/` provide concise provenance and retrieval nodes that point back to raw files; they are not second copies of the evidence. `AGENTS.md` defines the conventions and workflows that keep the wiki coherent across sessions.
 
-This separation matters because the agent can aggressively maintain the wiki without corrupting original sources. It can revise summaries, add links, and update synthesis pages while leaving the raw evidence intact for verification.
+This separation matters because the agent can aggressively maintain the wiki without corrupting original sources. It can refine Source Records, add links, and update synthesis pages while leaving the raw evidence intact for exact verification. Aggregated records and shared evidence are valid when every relationship stays explicit.
 
 The operational schema is documented in the canonical [Vault Schema Reference](../../schema/README.md), including the authority hierarchy, path map, frontmatter contract, page-type ownership, and coordinated-update rule.
 
@@ -38,4 +38,4 @@ The operational schema is documented in the canonical [Vault Schema Reference](.
 ## Open Questions
 
 - Should raw sources be organized by date, domain, source type, or project?
-- Should source metadata live only in wiki summaries, or should raw sources also receive sidecar metadata files?
+- Should semantic concision checks for Source Records remain human-reviewed, or can a stable subset eventually be automated?

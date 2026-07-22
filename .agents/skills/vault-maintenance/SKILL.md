@@ -1,7 +1,7 @@
 ---
 name: vault-maintenance
 description: Use when creating, moving, validating, or maintaining content and infrastructure in this canonical Obsidian vault. Enforces the vault schema, template paths, concurrent-writer rules, and post-change validation.
-version: 1.0.0
+version: 1.1.0
 author: ACAZUMAH
 license: MIT
 metadata:
@@ -30,7 +30,7 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 ## Path Contract
 
 - Evidence: `raw/sources/`, `raw/assets/`
-- Durable knowledge: `wiki/sources/`, `wiki/concepts/`, `wiki/entities/`, `wiki/questions/`, `wiki/syntheses/`
+- Durable knowledge: curated Source Records in `wiki/sources/`, plus `wiki/concepts/`, `wiki/entities/`, `wiki/questions/`, and `wiki/syntheses/`
 - Templates: `_template/`
 - Machine-readable contracts: `schema/`
 - Project-local skills: `.agents/skills/`
@@ -52,6 +52,7 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 - [ ] No references to `wiki/templates` remain outside historical log records.
 - [ ] Every project-local skill has valid `SKILL.md` frontmatter and resolvable support-file links.
 - [ ] Wiki pages contain required frontmatter and sections.
+- [ ] Every raw source is covered by an indexed Source Record, and every Source Record resolves to raw evidence.
 - [ ] Real wikilinks resolve.
 - [ ] `python3 scripts/validate_vault.py` exits zero.
 - [ ] Git diff contains only intended work.

@@ -2,7 +2,7 @@
 type: question
 status: active
 created: 2026-05-13
-updated: 2026-05-13
+updated: 2026-07-22
 tags: [workflow, ingest-example]
 sources:
   - ../sources/llm-wiki-idea.md
@@ -12,13 +12,13 @@ sources:
 
 ## Short Answer
 
-The seed source, "LLM Wiki," was ingested by preserving the original idea as a raw source, creating a source summary, extracting core concepts, creating one tool/entity page, writing a starter synthesis, updating the index, and logging the operation.
+The seed source, "LLM Wiki," was ingested by preserving the original idea as raw evidence, creating a concise Source Record, extracting core concepts, creating one tool/entity page, writing a starter synthesis, updating the index, and logging the operation.
 
 ## Analysis
 
 The ingest followed the schema's three-layer model. The raw source lives at [2026-05-13-llm-wiki-idea.md](../../raw/sources/2026-05-13-llm-wiki-idea.md) and should not be modified during normal wiki maintenance.
 
-The source summary lives at [[../sources/llm-wiki-idea|LLM Wiki Idea]]. It captures the core claims, useful details, connections, tensions, and open questions from the raw source.
+The Source Record lives at [[../sources/llm-wiki-idea|LLM Wiki Idea]]. It provides a compact provenance and retrieval node for the core claims, useful distinctions, connections, tensions, and open questions while the full evidence remains raw.
 
 The ingest created three concept pages:
 

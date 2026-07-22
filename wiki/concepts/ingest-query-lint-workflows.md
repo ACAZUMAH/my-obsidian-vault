@@ -16,11 +16,11 @@ Ingest, query, and lint are the three recurring operating modes of the LLM Wiki.
 
 ## Current Synthesis
 
-Ingest adds new evidence to the knowledge base. The agent reads a raw source, creates a source summary, updates relevant pages, adds links, flags contradictions, updates the index, and appends to the log.
+Ingest adds new evidence to the knowledge base. The agent preserves the raw source, creates a concise Source Record for provenance and retrieval, updates relevant pages, adds links, flags contradictions, updates the index, and appends to the log. The Source Record retains only decision-relevant claims and details rather than reproducing the raw evidence.
 
 Query uses the maintained wiki to answer user questions. The agent reads `index.md`, searches the wiki, consults relevant pages, verifies against raw sources when needed, and files durable answers back into the wiki when useful.
 
-Lint maintains wiki health. The agent looks for broken links, stale claims, missing concept pages, contradictions, orphan pages, duplicated pages, weak citations, and research gaps.
+Lint maintains wiki health. The agent looks for broken links, stale claims, missing concept pages, contradictions, orphan pages, duplicated pages, weak citations, research gaps, uncovered raw evidence, unindexed Source Records, and missing raw references.
 
 Detailed execution guidance lives in the canonical [Vault Workflow Guide](../../schema/workflows.md). Structural, semantic, provenance, security, and Git completion checks are maintained in the [Vault Lint Checklist](../../schema/lint-checklist.md).
 

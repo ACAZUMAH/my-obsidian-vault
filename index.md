@@ -4,7 +4,7 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 ## Start Here
 
-- [[welcome|Welcome To My Obsidian Vault]] — Human-facing introduction, architecture map, agent workflow, and public-repository safety guidance. Updated: 2026-07-21.
+- [[welcome|Welcome To My Obsidian Vault]] — Human-facing introduction, two-layer evidence/Source Record architecture, agent workflow, and public-repository safety guidance. Updated: 2026-07-22.
 - [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct technical disagreement, indexed-vault-content expectations, and project-specific/generalized skill rules. Type: synthesis. Updated: 2026-07-22. Sources: 8.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Cross-project map with provider evidence, authorization, scoped sanitization, transport consistency, list ownership, migrations, and verification rules. Type: synthesis. Updated: 2026-07-21. Sources: 39.
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs; 90 `source='subagent'` records remain separate. Type: synthesis. Updated: 2026-07-21. Sources: 52.
@@ -14,9 +14,11 @@ This is the content-oriented map of the wiki. Read this first before answering w
 - [Vault Schema Reference](schema/README.md) — Human and machine contracts, canonical paths, page ownership, properties, and coordinated schema changes. Updated: 2026-07-22.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — The current synthesis of how this second brain works. Type: synthesis. Updated: 2026-07-20. Sources: 2.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — The core concept: knowledge is integrated once, linked, maintained, and reused. Type: concept. Updated: 2026-05-13. Sources: 1.
-- [[wiki/sources/llm-wiki-idea|LLM Wiki Idea]] — Source summary for the initial idea file pasted by the user. Type: source. Updated: 2026-05-13.
+- [[wiki/sources/llm-wiki-idea|LLM Wiki Idea]] — Source Record for the initial idea file pasted by the user. Type: source. Updated: 2026-05-13.
 
-## Sources
+## Source Records
+
+These are concise provenance and retrieval nodes for immutable evidence under `raw/sources/`, not copies of the full raw material.
 
 - [[wiki/sources/altin-mistitled-casual-greeting-continuations|Altin Mistitled Casual-Greeting Continuations]] — Apps directory, corrected module ownership, and feature-owned list/data boundaries. Updated: 2026-07-21.
 - [[wiki/sources/bora-mistitled-partner-mobile-continuations|Bora Mistitled Partner-Mobile Continuations]] — Bora session verification and production-hardening provenance under misleading titles. Updated: 2026-07-21.
@@ -77,11 +79,11 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 ## Concepts
 
-- [[wiki/concepts/codex-project-knowledge-harvest|Codex Project Knowledge Harvest]] — Paste-ready bounded procedure with direct Hermes execution provenance and explicit non-completion boundary. Updated: 2026-07-21. Sources: 3.
+- [[wiki/concepts/codex-project-knowledge-harvest|Codex Project Knowledge Harvest]] — Paste-ready bounded procedure with direct Hermes execution provenance and explicit non-completion boundary. Updated: 2026-07-22. Sources: 3.
 - [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Canonical knowledge plane, tool integration layers, retrieval rules, and concurrent-write controls. Updated: 2026-07-20.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — A knowledge base pattern where the LLM incrementally integrates sources, updates cross-links, flags contradictions, and preserves synthesis. Updated: 2026-05-13.
-- [[wiki/concepts/raw-source-wiki-schema-architecture|Raw Source, Wiki, Schema Architecture]] — The three-layer structure that separates immutable evidence, LLM-maintained knowledge, and operating rules. Updated: 2026-05-13.
-- [[wiki/concepts/ingest-query-lint-workflows|Ingest, Query, Lint Workflows]] — The recurring operating modes for adding sources, answering questions, and maintaining wiki health. Updated: 2026-05-13.
+- [[wiki/concepts/raw-source-wiki-schema-architecture|Raw Source, Wiki, Schema Architecture]] — The three-layer structure that separates immutable evidence, curated Source Records and knowledge, and operating rules. Updated: 2026-07-22.
+- [[wiki/concepts/ingest-query-lint-workflows|Ingest, Query, Lint Workflows]] — The recurring operating modes for adding evidence through Source Records, answering questions, and maintaining wiki health. Updated: 2026-07-22.
 
 ## Projects
 
@@ -121,7 +123,7 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 ## Questions
 
-- [[wiki/questions/first-ingest-example|First Ingest Example]] — Shows how the seed idea file was processed into raw source, source summary, concepts, entity page, synthesis, index, and log. Updated: 2026-05-13.
+- [[wiki/questions/first-ingest-example|First Ingest Example]] — Shows how the seed idea file was processed into raw evidence, a Source Record, concepts, an entity page, a synthesis, the index, and the log. Updated: 2026-07-22.
 
 ## Syntheses
 
@@ -141,4 +143,4 @@ This is the content-oriented map of the wiki. Read this first before answering w
 - Chronological log: [log.md](log.md)
 - Raw source folder: [raw/sources/](raw/sources/)
 - Wiki folder: [wiki/](wiki/)
-- Templates: [[_template/source-summary-template|Source Summary]], [[_template/concept-template|Concept]], [[_template/entity-template|Entity]], [[_template/project-template|Project]], [[_template/question-template|Question]], [[_template/synthesis-template|Synthesis]]
+- Templates: [[_template/source-summary-template|Source Record]], [[_template/concept-template|Concept]], [[_template/entity-template|Entity]], [[_template/project-template|Project]], [[_template/question-template|Question]], [[_template/synthesis-template|Synthesis]]

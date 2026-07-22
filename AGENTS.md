@@ -31,25 +31,25 @@ The wiki is LLM-owned. The agent creates and updates pages here.
 Rules:
 
 - Maintain pages as durable knowledge artifacts, not chat transcripts.
-- Prefer concise synthesis with links to supporting pages and source summaries.
+- Prefer concise synthesis with links to supporting pages and Source Records.
 - Preserve uncertainty, contradictions, and open questions explicitly.
-- Update all affected pages during ingest, not only the new source summary.
+- Update all affected pages during ingest, not only the new Source Record.
 - Use Obsidian-style links for internal references: `[[Page Title]]` or `[[path/to/page|Label]]`.
 - Use relative markdown links when linking to raw source files.
 - Keep each page focused on one source, concept, entity, project, question, or synthesis.
-- Do not invent citations. If a claim comes from a source, cite the source summary or raw source.
+- Do not invent citations. Prefer the curated Source Record for stable provenance; cite raw evidence directly when exact wording or detail matters.
 
 ### Schema
 
 Locations: `AGENTS.md` and `schema/`
 
-This file is the human-readable operating authority. `schema/README.md`, `schema/workflows.md`, `schema/naming-conventions.md`, `schema/lint-checklist.md`, and `schema/local-skills.md` are the canonical operational references. `schema/vault-structure.json` encodes canonical paths, required directories, schema documents, templates, project-local skills, frontmatter keys, statuses, and required sections for automation. `schema/wiki-frontmatter.schema.json` is the formal JSON Schema for page properties. When workflow improvements emerge, update the human and machine-readable contracts together after user approval or clear instruction.
+This file is the human-readable operating authority. `schema/README.md`, `schema/workflows.md`, `schema/naming-conventions.md`, `schema/lint-checklist.md`, and `schema/local-skills.md` are the canonical operational references. `schema/vault-structure.json` encodes canonical paths, required directories, schema documents, Source Record coverage policy, templates, project-local skills, frontmatter keys, statuses, and required sections for automation. `schema/wiki-frontmatter.schema.json` is the formal JSON Schema for page properties. When workflow improvements emerge, update the human and machine-readable contracts together after user approval or clear instruction.
 
 ## Directory Conventions
 
 - `raw/sources/`: Immutable source documents.
 - `raw/assets/`: Local images, attachments, PDFs, screenshots, and other source assets.
-- `wiki/sources/`: One summary page per ingested source.
+- `wiki/sources/`: Curated Source Records that map raw evidence into concise claims, connections, tensions, and questions. Aggregation and shared evidence are allowed when provenance remains explicit.
 - `wiki/concepts/`: Reusable ideas, topics, frameworks, mechanisms, and themes.
 - `wiki/entities/`: People, organizations, products, places, and other named things.
 - `wiki/projects/`: Repository- or application-scoped project knowledge with implementation provenance.
@@ -66,7 +66,7 @@ This file is the human-readable operating authority. `schema/README.md`, `schema
 
 Use lowercase kebab-case filenames:
 
-- Source summary: `wiki/sources/source-title.md`
+- Source Record: `wiki/sources/source-title.md`
 - Concept page: `wiki/concepts/concept-name.md`
 - Entity page: `wiki/entities/entity-name.md`
 - Project page: `wiki/projects/project-name.md`
@@ -99,9 +99,9 @@ Additional fields may be added when useful:
 - `supersedes`: older pages or claims.
 - `related`: important internal links.
 
-## Source Summary Format
+## Source Record Format
 
-Each source summary page should use this structure:
+Each Source Record should use the structure below. It is a compact provenance and retrieval node, not a rewritten copy of the raw evidence. Keep only decision-relevant claims and details; leave transcripts, exhaustive timelines, and full evidence in `raw/sources/`. Apply this rule to new records and existing records whenever they are otherwise touched; do not bulk-rewrite stable records solely for concision.
 
 ```markdown
 # Source Title
@@ -115,11 +115,11 @@ Each source summary page should use this structure:
 
 ## Core Claims
 
-Brief bullets or paragraphs capturing the source's main claims.
+Brief bullets or paragraphs capturing only the source's decision-relevant claims.
 
 ## Useful Details
 
-Specific facts, examples, definitions, distinctions, and evidence worth preserving.
+Only facts, distinctions, and evidence needed to understand or disambiguate the promoted claims.
 
 ## Connections
 
@@ -204,7 +204,7 @@ For a conversation-harvest task, direct conversation evidence is a prerequisite 
 1. Identify the raw source file or ask the user to provide it if it is missing.
 2. Read the source fully enough to extract its main claims, details, examples, and evidence.
 3. Start new durable pages from the matching scaffold in `_template/`.
-4. Create or update one page in `wiki/sources/`.
+4. Create or update a concise Source Record in `wiki/sources/`; it must reference at least one raw file, and every new raw file must be covered by a Source Record before completion.
 5. Update relevant concept, entity, project, synthesis, and question pages.
 6. Flag contradictions, stale claims, and confidence changes.
 7. Add missing internal links across touched pages.
@@ -220,8 +220,8 @@ When the user asks a question:
 
 1. Read `index.md` first.
 2. Search the wiki with `rg` before consulting raw sources.
-3. Read the most relevant wiki pages.
-4. Use raw sources only to verify, fill gaps, or resolve ambiguity.
+3. Read the most relevant wiki pages and Source Records.
+4. Use raw sources only to verify exact evidence, fill gaps, or resolve ambiguity.
 5. Answer with citations to wiki pages and/or raw sources.
 6. If the answer is durable, ask whether to file it, or file it directly when the user has asked for the wiki to compound automatically.
 7. If filed, update `index.md` and append to `log.md`.
@@ -238,6 +238,7 @@ When asked to lint or health-check the wiki, inspect for:
 - Weak or missing citations.
 - Broken internal links.
 - Duplicate pages that should be merged.
+- Raw sources without a Source Record, Source Records without valid raw evidence, and Source Records missing from `index.md`.
 - Data gaps that could be filled by future sources or web research.
 
 Run `python3 scripts/validate_vault.py` for the canonical structural checks. Produce a prioritized list of semantic fixes, then apply the fixes the user approves or explicitly requests.
@@ -259,7 +260,7 @@ The Maintenance template catalog must link every template registered in `schema/
 Organize by category:
 
 - Start Here.
-- Sources.
+- Source Records.
 - Concepts.
 - Entities.
 - Projects.
@@ -299,8 +300,8 @@ Do not rewrite old log entries except to fix broken formatting.
 
 Use citations that are stable inside the vault:
 
-- Cite wiki pages with Obsidian links.
-- Cite raw source files with relative markdown links.
+- Cite wiki pages and Source Records with Obsidian links.
+- Cite raw source files with relative markdown links when exact evidence is needed.
 - When possible, mention section names for precision.
 - Distinguish source claims from agent inference.
 - Mark unsourced interpretation as inference.

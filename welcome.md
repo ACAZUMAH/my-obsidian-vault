@@ -17,17 +17,18 @@ This repository contains a persistent, LLM-maintained second brain shared by Obs
 ## How The Vault Fits Together
 
 ```text
-raw/ ───────────────▶ wiki/ ───────────────▶ index.md
-source evidence        durable knowledge      navigation
-                           ▲
-_template/ ────────────────┘  page scaffolds
+raw/sources/ ──▶ wiki/sources/ ──▶ wiki knowledge ──▶ index.md
+immutable         Source Records     maintained         navigation
+evidence          (concise links)    synthesis
+                                         ▲
+_template/ ───────────────────────────────┘  page scaffolds
 
 schema/              machine-readable paths and page contracts
 .agents/skills/      repository-local capabilities for compatible agents
 scripts/             canonical validation and automation
 ```
 
-`log.md` is the append-only history of durable vault operations. `AGENTS.md` defines the human-readable operating contract; `schema/` provides its machine-readable structural subset.
+`log.md` is the append-only history of durable vault operations. Raw evidence remains immutable; Source Records provide concise provenance and retrieval without copying the full evidence. `AGENTS.md` defines the human-readable operating contract; `schema/` provides its machine-readable structural subset.
 
 ## Agent Workflow
 
@@ -48,7 +49,7 @@ Agents should:
 - `_template/` contains source, concept, entity, project, question, and synthesis scaffolds. Obsidian's core Templates plugin is configured to use this folder.
 - `schema/` defines canonical paths, frontmatter, page types, statuses, and required sections for automation.
 - `.agents/skills/` contains repository-local Agent Skills, including the five upstream Obsidian skills and the local `vault-maintenance` procedure.
-- `scripts/validate_vault.py` is the canonical structural validator and uses only the Python standard library.
+- `scripts/validate_vault.py` is the canonical structural validator and uses only the Python standard library. It enforces complete raw-evidence coverage and Source Record index connections.
 
 ## Repository Safety
 

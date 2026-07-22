@@ -2,7 +2,7 @@
 type: concept
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-07-22
 tags: [codex, project-knowledge, ingestion, second-brain]
 sources:
   - ../sources/project-knowledge-completion-and-bootstrap-directive.md
@@ -102,7 +102,7 @@ For the current batch:
 3. Extract only durable user preferences, corrections, architecture decisions, do-not-change rules, successful verification patterns, and project-specific domain knowledge.
 4. Verify each implementation claim against current package.json, README/AGENTS.md, config, and representative source files.
 5. Create or update one project page per directly conversation-supported repository under wiki/projects/<project-slug>.md with frontmatter `type: project`. Do not create pages for unmatched roots. Include: Summary, Purpose, Stack, Architecture, Folder Ownership, Commands, Runtime/Deployment, Durable Conventions, Constraints, Decisions And Rationale, Verification Expectations, Evidence, Contradictions, Confidence, and Open Questions.
-6. Create one sanitized batch evidence manifest under raw/sources/ and one source summary under wiki/sources/. The manifest must contain provenance, not full transcripts or secrets.
+6. Create one sanitized batch evidence manifest under `raw/sources/` and one concise Source Record under `wiki/sources/`. The manifest preserves evidence and provenance without full transcripts or secrets; the Source Record keeps only decision-relevant claims, connections, tensions, and questions.
 7. Update software-development-operating-manual.md only with cross-project rules and a compact project map. Keep detailed facts in the project pages.
 8. Update new-project-bootstrap-operating-manual.md only when the batch proves a reusable scaffolding convention. Label project-specific alternatives instead of forcing one default.
 9. Update index.md and append exactly one new entry at the top of log.md.

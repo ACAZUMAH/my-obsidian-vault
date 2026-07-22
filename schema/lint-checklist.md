@@ -17,6 +17,8 @@ A zero exit code proves the configured structural checks passed. It does not pro
 - [ ] Frontmatter contains required keys, valid page type/status, and `YYYY-MM-DD` dates.
 - [ ] Each wiki page lives in the directory assigned to its type.
 - [ ] Required sections are present.
+- [ ] Every Source Record references existing raw evidence and is linked from `index.md`.
+- [ ] Every non-hidden file under `raw/sources/` is covered by at least one Source Record.
 - [ ] Project-local skills have valid `SKILL.md` frontmatter and resolvable support links.
 - [ ] JSON configuration parses.
 - [ ] Real wikilinks resolve.
@@ -28,7 +30,7 @@ A zero exit code proves the configured structural checks passed. It does not pro
 - [ ] Historical outcomes are not presented as fresh verification.
 - [ ] Contradictions and superseded behavior remain visible.
 - [ ] No duplicate page or competing ownership path was introduced.
-- [ ] Source summaries connect to affected project, concept, and synthesis pages.
+- [ ] Source Records are concise provenance/retrieval nodes and connect to affected project, concept, and synthesis pages without copying exhaustive raw evidence.
 - [ ] `index.md` describes every new durable page.
 - [ ] Exactly one appropriate `log.md` entry records the operation.
 

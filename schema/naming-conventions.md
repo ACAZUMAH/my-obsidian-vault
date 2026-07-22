@@ -8,7 +8,7 @@ Use lowercase kebab-case and place each file under the directory owned by its pa
 
 | Page type | Pattern | Example |
 | --- | --- | --- |
-| Source | `wiki/sources/source-title.md` | `wiki/sources/llm-wiki-idea.md` |
+| Source Record | `wiki/sources/source-title.md` | `wiki/sources/llm-wiki-idea.md` |
 | Concept | `wiki/concepts/concept-name.md` | `wiki/concepts/persistent-compounding-wiki.md` |
 | Entity | `wiki/entities/entity-name.md` | `wiki/entities/obsidian.md` |
 | Project | `wiki/projects/project-name.md` | `wiki/projects/compflow-backend.md` |
@@ -34,6 +34,8 @@ The filename is the stable ID. The first H1 is the human-readable title and may 
 ## Evidence Naming
 
 Keep imported filenames when provenance depends on them. For agent-created harvest manifests, prefer a date-prefixed descriptive name such as `YYYY-MM-DD-project-purpose-batch-N.md`. Never put credentials, private identifiers, or secret values in filenames.
+
+Source Records use the most stable descriptive identity for the evidence set they cover. One record may aggregate multiple raw files, and one raw file may support multiple records, when the relationships are explicit and the records serve distinct retrieval purposes.
 
 ## Rename Discipline
 

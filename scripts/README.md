@@ -15,6 +15,7 @@ python3 scripts/validate_vault.py
 - Obsidian core Templates configuration.
 - Project-local Agent Skills and their linked support files.
 - Wiki frontmatter keys, types, statuses, and required sections.
+- Source Record raw-evidence coverage, raw-link existence, aggregation policy, and `index.md` connections.
 - JSON syntax for tracked vault configuration.
 - Stale references to the removed `wiki/templates/` path.
 - Real Obsidian wikilinks while ignoring fenced and inline code examples.

@@ -2,6 +2,31 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-07-22] maintenance | Tighten Raw Evidence And Source Record Model
+
+What changed:
+
+- Kept `raw/sources/` as immutable evidence and retained `wiki/sources/` as the stable curated layer, now named Source Records throughout active navigation and operating guidance.
+- Defined Source Records as concise provenance and retrieval nodes containing decision-relevant claims, connections, tensions, and questions rather than copies of exhaustive raw evidence.
+- Applied the concision rule prospectively and to records when otherwise touched; no existing Source Record was bulk-rewritten.
+- Added schema-v3 policy for required raw references, complete raw coverage, index connections, aggregation, shared evidence, and permitted direct raw citations.
+- Extended the canonical validator to enforce the policy and report raw/source coverage counters.
+
+Files touched:
+
+- `AGENTS.md`, `welcome.md`, `index.md`, and `log.md`
+- `_template/source-summary-template.md` and `.agents/skills/vault-maintenance/SKILL.md`
+- Source-model documentation and policy under `schema/`
+- `scripts/README.md` and `scripts/validate_vault.py`
+- The source architecture, ingest/query/lint, Codex harvest, and first-ingest guidance pages
+
+Verification:
+
+- `python3 scripts/validate_vault.py` passed with 63 of 63 raw files covered, 56 of 56 Source Records indexed, 64 record-to-raw relationships, five aggregated records, one shared-evidence case, 96 wiki pages, and 885 checked wikilinks.
+- Isolated temporary-vault tests correctly rejected an orphan raw file, a missing raw target, and an unindexed Source Record; a positive case also resolved a raw filename containing spaces. The temporary copies were removed afterward.
+- Local Markdown links resolved, the focused secret-assignment scan returned no findings, and `git diff --check` passed.
+- No file under `raw/sources/` changed; the concurrent `.obsidian/graph.json` change was preserved and excluded from this maintenance commit.
+
 ## [2026-07-22] maintenance | Correct Vault Operations Documentation Ownership
 
 What changed:

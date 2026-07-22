@@ -9,6 +9,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 STRUCTURE_FILE = ROOT / "schema" / "vault-structure.json"
@@ -57,6 +58,25 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], str]:
         if match:
             fields[match.group(1)] = (match.group(2) or "").strip().strip('"\'')
     return fields, "\n".join(lines[end + 1 :])
+
+
+def extract_raw_source_references(text: str, raw_relative: str) -> set[str]:
+    prefix = rf"(?:\.\./)*{re.escape(raw_relative)}/"
+    patterns = [
+        rf"\]\(<({prefix}[^>\n]+)>\)",
+        rf"\]\(({prefix}[^)\n]+)\)",
+        rf"`({prefix}[^`\n]+)`",
+        rf"^\s*-\s+({prefix}.+?)\s*$",
+        rf"^\s*-\s+[^:\n]+:\s+({prefix}.+?)\s*$",
+    ]
+    references: set[str] = set()
+    for pattern in patterns:
+        for candidate in re.findall(pattern, text, flags=re.MULTILINE):
+            candidate = unquote(candidate.strip().strip("<>\"'"))
+            if not Path(candidate).suffix or any(char in candidate for char in "*?[]"):
+                continue
+            references.add(candidate)
+    return references
 
 
 def validate_structure(config: dict[str, Any]) -> None:
@@ -182,6 +202,79 @@ def validate_wiki_pages(config: dict[str, Any]) -> None:
         counts["wiki_pages"] += 1
 
 
+def validate_source_records(config: dict[str, Any]) -> None:
+    canonical_paths: dict[str, str] = config.get("canonical_paths", {})
+    policy: dict[str, bool] = config.get("source_record_policy", {})
+    raw_relative = canonical_paths.get("raw_sources", "raw/sources").rstrip("/")
+    records_relative = canonical_paths.get("wiki_sources", "wiki/sources").rstrip("/")
+    raw_root = (ROOT / raw_relative).resolve()
+    records_root = (ROOT / records_relative).resolve()
+
+    if not raw_root.is_dir() or not records_root.is_dir():
+        return
+
+    raw_files = {
+        path.resolve()
+        for path in raw_root.rglob("*")
+        if path.is_file()
+        and not any(part.startswith(".") for part in path.relative_to(raw_root).parts)
+    }
+    source_records = sorted(records_root.rglob("*.md"))
+    raw_owners: defaultdict[Path, set[Path]] = defaultdict(set)
+    record_references: dict[Path, set[Path]] = {}
+    index_text = strip_code((ROOT / "index.md").read_text(encoding="utf-8"))
+
+    for path in source_records:
+        references: set[Path] = set()
+        for relative in extract_raw_source_references(
+            path.read_text(encoding="utf-8"), raw_relative
+        ):
+            target = (path.parent / relative).resolve()
+            if raw_root not in target.parents:
+                fail(f"raw source reference escapes {raw_relative}: {path.relative_to(ROOT)}")
+                continue
+            if not target.is_file():
+                fail(
+                    f"missing raw source referenced by {path.relative_to(ROOT)}: "
+                    f"{target.relative_to(ROOT)}"
+                )
+                continue
+            references.add(target)
+            raw_owners[target].add(path)
+
+        record_references[path] = references
+        if policy.get("require_raw_reference", True) and not references:
+            fail(f"source record has no valid raw source reference: {path.relative_to(ROOT)}")
+        if not policy.get("allow_aggregation", True) and len(references) > 1:
+            fail(f"source record aggregates raw sources: {path.relative_to(ROOT)}")
+
+        link_target = path.relative_to(ROOT).with_suffix("").as_posix()
+        if policy.get("require_index_link", True):
+            if f"[[{link_target}|" not in index_text and f"[[{link_target}]]" not in index_text:
+                fail(f"source record is not linked from index.md: {path.relative_to(ROOT)}")
+            else:
+                counts["source_record_index_links"] += 1
+
+    if policy.get("require_raw_coverage", True):
+        for path in sorted(raw_files):
+            if path not in raw_owners:
+                fail(f"raw source has no source record: {path.relative_to(ROOT)}")
+
+    if not policy.get("allow_shared_evidence", True):
+        for path, owners in sorted(raw_owners.items()):
+            if len(owners) > 1:
+                fail(f"raw source is shared by source records: {path.relative_to(ROOT)}")
+
+    counts["raw_sources"] = len(raw_files)
+    counts["raw_sources_covered"] = len(raw_files & raw_owners.keys())
+    counts["raw_sources_shared"] = sum(len(owners) > 1 for owners in raw_owners.values())
+    counts["source_record_raw_references"] = sum(map(len, record_references.values()))
+    counts["source_records"] = len(source_records)
+    counts["source_records_aggregating_raw"] = sum(
+        len(references) > 1 for references in record_references.values()
+    )
+
+
 def validate_json_files() -> None:
     paths = [
         ROOT / "schema" / "vault-structure.json",
@@ -260,6 +353,7 @@ def main() -> int:
     validate_obsidian_configuration()
     validate_agent_skills(structure)
     validate_wiki_pages(structure)
+    validate_source_records(structure)
     validate_json_files()
     validate_stale_template_references()
     validate_wikilinks()

@@ -8,7 +8,7 @@ This directory owns the canonical operational documentation and machine-readable
 | --- | --- | --- |
 | Human authority | [AGENTS.md](../AGENTS.md) | Meaning, workflow, naming, citation, concurrency, index, and log rules |
 | Operational references | This directory | Schema, workflows, naming, lint, and local-skill guidance |
-| Structural contract | [vault-structure.json](vault-structure.json) | Canonical paths, required directories, schema documents, templates, skills, statuses, page locations, and sections |
+| Structural contract | [vault-structure.json](vault-structure.json) | Canonical paths, required directories, Source Record coverage policy, schema documents, templates, skills, statuses, page locations, and sections |
 | Property contract | [wiki-frontmatter.schema.json](wiki-frontmatter.schema.json) | Frontmatter types, required properties, dates, statuses, and confidence values |
 | Enforcement | [validate_vault.py](../scripts/validate_vault.py) | Checks the live vault against the structural contract |
 
@@ -27,7 +27,7 @@ This directory owns the canonical operational documentation and machine-readable
 | --- | --- |
 | Immutable text evidence | `raw/sources/` |
 | Source assets | `raw/assets/` |
-| Source summaries | `wiki/sources/` |
+| Curated Source Records | `wiki/sources/` |
 | Reusable concepts | `wiki/concepts/` |
 | Named entities | `wiki/entities/` |
 | Repository/application knowledge | `wiki/projects/` |
@@ -46,7 +46,7 @@ The page type determines its directory and required sections. Project pages live
 
 ## Coordinated Changes
 
-A schema-document, directory, template, page-type, status, skill, or required-section change is incomplete until `AGENTS.md`, `schema/vault-structure.json`, affected templates or documentation, `index.md`, and validation agree.
+A Source Record policy, schema-document, directory, template, page-type, status, skill, or required-section change is incomplete until `AGENTS.md`, `schema/vault-structure.json`, affected templates or documentation, `index.md`, and validation agree.
 
 ## Validation
 
@@ -56,4 +56,4 @@ Run from the vault root:
 python3 scripts/validate_vault.py
 ```
 
-The validator uses only the Python standard library. It checks the live structure, index connections for every registered schema document and template, Obsidian template configuration, project-local Agent Skills, wiki frontmatter/sections, JSON files, stale template paths, and real wikilinks.
+The validator uses only the Python standard library. It checks the live structure, index connections for registered schema documents, templates, and Source Records, complete raw-evidence coverage, Source Record raw-link existence and aggregation policy, Obsidian template configuration, project-local Agent Skills, wiki frontmatter/sections, JSON files, stale template paths, and real wikilinks.

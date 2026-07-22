@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "canonical_paths": {
     "raw_sources": "raw/sources",
     "raw_assets": "raw/assets",
@@ -42,6 +42,14 @@
     "naming_conventions": "schema/naming-conventions.md",
     "lint_checklist": "schema/lint-checklist.md",
     "local_skills": "schema/local-skills.md"
+  },
+  "source_record_policy": {
+    "require_raw_reference": true,
+    "require_raw_coverage": true,
+    "require_index_link": true,
+    "allow_aggregation": true,
+    "allow_shared_evidence": true,
+    "allow_direct_raw_citations": true
   },
   "required_agent_skills": [
     "obsidian-markdown",
