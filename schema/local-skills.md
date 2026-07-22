@@ -12,14 +12,20 @@ Project-local Agent Skills are repository-tracked procedures under `.agents/skil
 | [`obsidian-cli`](../.agents/skills/obsidian-cli/SKILL.md) | Operations against a running Obsidian vault and plugin/theme development |
 | [`defuddle`](../.agents/skills/defuddle/SKILL.md) | Clean Markdown extraction from web pages before ingest |
 | [`vault-maintenance`](../.agents/skills/vault-maintenance/SKILL.md) | Vault schema, templates, concurrency, validation, navigation, and Git-review workflow |
+| [`llm-wiki-ingest`](../.agents/skills/llm-wiki-ingest/SKILL.md) | Source ingestion, conversation harvests, Source Records, promotion, and provenance closure |
+| [`llm-wiki-query`](../.agents/skills/llm-wiki-query/SKILL.md) | Retrieval-first vault answers and authorized durable filing |
+| [`llm-wiki-lint`](../.agents/skills/llm-wiki-lint/SKILL.md) | Read-only structural and semantic audits plus explicitly authorized repair routing |
 
-The first five skills are vendored from `kepano/obsidian-skills` at the revision recorded in the [local skills catalog](../.agents/skills/README.md). `vault-maintenance` is the repository-owned integration layer that connects those format/tool skills to this vault’s contracts.
+The first five skills are vendored from `kepano/obsidian-skills` at the revision recorded in the [local skills catalog](../.agents/skills/README.md). The four repository-owned skills separate operation intent from shared mutation mechanics: `llm-wiki-ingest`, `llm-wiki-query`, and `llm-wiki-lint` route the task, while `vault-maintenance` owns structural maintenance and completion checks.
 
 ## Selection Rules
 
 - Use the smallest skill set that covers the task.
 - Always read the selected `SKILL.md` before acting and follow linked references required by the task.
 - Repository instructions and explicit user direction outrank generic skill examples.
+- Use `llm-wiki-ingest` for new evidence or durable evidence promotion.
+- Use `llm-wiki-query` for retrieval and vault-backed answers; add `vault-maintenance` only when filing is authorized.
+- Use `llm-wiki-lint` for audit and health checks; add `vault-maintenance` only when repairs are explicitly requested.
 - Use `vault-maintenance` for durable edits, moves, validation, templates, index/log updates, or shared-page maintenance.
 - Use format skills only when their file type or Obsidian-specific syntax is in scope.
 

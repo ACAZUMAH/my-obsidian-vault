@@ -16,9 +16,12 @@ The following skills are vendored from [`kepano/obsidian-skills`](https://github
 
 They were installed through Hermes from the `skills.sh` registry and received a `SAFE` scanner verdict before being copied here. See `LICENSE.obsidian-skills` for the upstream MIT license.
 
-## Local Skill
+## Local Skills
 
 - `vault-maintenance` connects agents to `AGENTS.md`, `schema/vault-structure.json`, `_template/`, and `scripts/validate_vault.py`.
+- `llm-wiki-ingest` integrates authorized evidence into raw files, Source Records, linked knowledge, navigation, and the operation log.
+- `llm-wiki-query` retrieves vault-backed answers and routes authorized filing through `vault-maintenance`.
+- `llm-wiki-lint` audits structural and semantic health read-only by default and routes authorized repairs through `vault-maintenance`.
 
 ## Discovery
 

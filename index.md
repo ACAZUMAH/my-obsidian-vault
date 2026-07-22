@@ -139,7 +139,7 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 - Workflow guidance: [Vault Workflow Guide](schema/workflows.md)
 - Naming conventions: [Vault Naming Conventions](schema/naming-conventions.md)
 - Lint checklist: [Vault Lint Checklist](schema/lint-checklist.md); automation: [scripts/](scripts/)
-- Local skills: [Project-Local Agent Skills](schema/local-skills.md); implementations: [.agents/skills/](.agents/skills/)
+- Local skills: [Project-Local Agent Skills](schema/local-skills.md); nine required implementations: [.agents/skills/](.agents/skills/)
 - Chronological log: [log.md](log.md)
 - Raw source folder: [raw/sources/](raw/sources/)
 - Wiki folder: [wiki/](wiki/)

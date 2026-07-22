@@ -197,6 +197,8 @@ Required sections:
 
 ## Ingest Workflow
 
+Operation skill: [llm-wiki-ingest](.agents/skills/llm-wiki-ingest/SKILL.md)
+
 When the user asks to ingest a source:
 
 For a conversation-harvest task, direct conversation evidence is a prerequisite for promotion. Filesystem or Git-root discovery alone must not create a project page or durable claim. Repository inspection may verify current implementation only after a relevant conversation has established the project and claim scope. Use Hermes, Codex, or another archive only when that source is explicitly in scope; never substitute one archive for another.
@@ -216,6 +218,8 @@ If the source is large, inspect structure first, then process section by section
 
 ## Query Workflow
 
+Operation skill: [llm-wiki-query](.agents/skills/llm-wiki-query/SKILL.md)
+
 When the user asks a question:
 
 1. Read `index.md` first.
@@ -227,6 +231,8 @@ When the user asks a question:
 7. If filed, update `index.md` and append to `log.md`.
 
 ## Lint Workflow
+
+Operation skill: [llm-wiki-lint](.agents/skills/llm-wiki-lint/SKILL.md)
 
 When asked to lint or health-check the wiki, inspect for:
 

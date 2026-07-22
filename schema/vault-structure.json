@@ -57,7 +57,10 @@
     "json-canvas",
     "obsidian-cli",
     "defuddle",
-    "vault-maintenance"
+    "vault-maintenance",
+    "llm-wiki-ingest",
+    "llm-wiki-query",
+    "llm-wiki-lint"
   ],
   "allowed_statuses": [
     "seed",

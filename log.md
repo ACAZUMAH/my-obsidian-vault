@@ -2,6 +2,29 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-07-22] maintenance | Add LLM Wiki Operation Skills
+
+What changed:
+
+- Added repository-owned `llm-wiki-ingest`, `llm-wiki-query`, and `llm-wiki-lint` skills with generated `agents/openai.yaml` metadata.
+- Kept `vault-maintenance` as the sole shared mutation and validation foundation; no competing maintenance skill was added.
+- Registered all nine required local skills and documented the selection boundaries between ingest, query, lint, and maintenance.
+- Linked each canonical operating workflow to its matching skill without moving authority out of `AGENTS.md` or `schema/`.
+
+Files touched:
+
+- `.agents/skills/llm-wiki-ingest/`, `.agents/skills/llm-wiki-query/`, and `.agents/skills/llm-wiki-lint/`
+- `.agents/skills/README.md`, `AGENTS.md`, `index.md`, `welcome.md`, and `log.md`
+- `schema/local-skills.md`, `schema/vault-structure.json`, and `schema/workflows.md`
+
+Verification:
+
+- The skill creator's `quick_validate.py` passed for all three skills; each generated `agents/openai.yaml` parsed and exposed the intended `$skill-name` default prompt.
+- `python3 scripts/validate_vault.py` passed with nine validated local skills, 63 of 63 raw sources covered, 56 of 56 Source Records indexed, 96 wiki pages, and 885 checked wikilinks.
+- Separate disposable-vault forward tests confirmed the ingest evidence/record/index/log chain, a read-only query, and a read-only lint report that separated structural validation from semantic findings.
+- Local Markdown links resolved, the focused secret scan returned no findings, `git diff --check` passed, and no raw evidence changed.
+- The unrelated `.obsidian/graph.json` change was preserved and excluded from this scoped commit; no push was performed.
+
 ## [2026-07-22] maintenance | Tighten Raw Evidence And Source Record Model
 
 What changed:

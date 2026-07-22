@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Wiki Query"
+  short_description: "Answer questions from the canonical wiki"
+  default_prompt: "Use $llm-wiki-query to answer this question from the canonical vault."

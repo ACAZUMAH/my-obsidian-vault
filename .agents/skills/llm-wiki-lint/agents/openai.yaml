@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Wiki Lint"
+  short_description: "Audit structure and knowledge health"
+  default_prompt: "Use $llm-wiki-lint to audit the canonical vault and prioritize findings."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Wiki Ingest"
+  short_description: "Ingest evidence into the canonical wiki"
+  default_prompt: "Use $llm-wiki-ingest to ingest this evidence into the canonical vault."

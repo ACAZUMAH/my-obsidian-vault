@@ -12,6 +12,8 @@ This is the canonical sequence for retrieving existing knowledge, integrating ev
 
 ## Ingest Workflow
 
+Use [llm-wiki-ingest](../.agents/skills/llm-wiki-ingest/SKILL.md) for source ingestion, conversation harvests, and durable evidence promotion.
+
 1. Preserve raw evidence under `raw/` without rewriting it.
 2. Create or update a concise Source Record that points to the preserved raw evidence; do not duplicate exhaustive evidence or transcript detail.
 3. Promote only supported claims into existing concept, entity, project, question, and synthesis pages.
@@ -23,11 +25,17 @@ Conversation harvests require direct conversation evidence before project knowle
 
 ## Query Workflow
 
+Use [llm-wiki-query](../.agents/skills/llm-wiki-query/SKILL.md) for retrieval, vault-backed answers, and authorized durable filing.
+
 1. Start with `index.md` and search the wiki.
 2. Read the smallest relevant page set.
 3. Consult raw evidence only to verify exact evidence, resolve ambiguity, or fill a documented gap.
 4. Cite stable vault pages and distinguish fact, source claim, and inference.
 5. File the answer only when it is durable and useful beyond the immediate exchange.
+
+## Lint Workflow
+
+Use [llm-wiki-lint](../.agents/skills/llm-wiki-lint/SKILL.md) with the canonical [lint checklist](lint-checklist.md). Keep audits read-only by default, separate structural validation from semantic review, and use `vault-maintenance` only for explicitly authorized repairs.
 
 ## Maintenance And Commit Workflow
 
