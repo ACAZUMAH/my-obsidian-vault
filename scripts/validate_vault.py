@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from collections import defaultdict
@@ -129,6 +130,17 @@ def validate_obsidian_configuration() -> None:
         fail("Obsidian core Templates plugin must be enabled")
 
     counts["obsidian_configuration"] += 2
+
+
+def validate_automation(config: dict[str, Any]) -> None:
+    for name, relative in config.get("automation_files", {}).items():
+        path = ROOT / relative
+        if not path.is_file():
+            fail(f"missing {name} automation file: {relative}")
+            continue
+        if relative.startswith(".githooks/") and not os.access(path, os.X_OK):
+            fail(f"Git hook is not executable: {relative}")
+        counts["automation_files"] += 1
 
 
 def validate_agent_skills(config: dict[str, Any]) -> None:
@@ -351,6 +363,7 @@ def main() -> int:
 
     validate_structure(structure)
     validate_obsidian_configuration()
+    validate_automation(structure)
     validate_agent_skills(structure)
     validate_wiki_pages(structure)
     validate_source_records(structure)

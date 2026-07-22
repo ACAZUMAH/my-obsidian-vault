@@ -138,8 +138,9 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 - Schema documentation: [Vault Schema Reference](schema/README.md); authority: [AGENTS.md](AGENTS.md)
 - Workflow guidance: [Vault Workflow Guide](schema/workflows.md)
 - Naming conventions: [Vault Naming Conventions](schema/naming-conventions.md)
-- Lint checklist: [Vault Lint Checklist](schema/lint-checklist.md); automation: [scripts/](scripts/)
+- Lint checklist: [Vault Lint Checklist](schema/lint-checklist.md); commands: [Vault Script Commands](scripts/README.md)
 - Local skills: [Project-Local Agent Skills](schema/local-skills.md); nine required implementations: [.agents/skills/](.agents/skills/)
+- Graph configuration: [.obsidian/graph.json](.obsidian/graph.json) — folder-based color groups for the major knowledge and infrastructure layers.
 - Chronological log: [log.md](log.md)
 - Raw source folder: [raw/sources/](raw/sources/)
 - Wiki folder: [wiki/](wiki/)

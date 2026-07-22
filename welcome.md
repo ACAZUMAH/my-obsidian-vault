@@ -49,7 +49,7 @@ Agents should:
 - `_template/` contains source, concept, entity, project, question, and synthesis scaffolds. Obsidian's core Templates plugin is configured to use this folder.
 - `schema/` defines canonical paths, frontmatter, page types, statuses, and required sections for automation.
 - `.agents/skills/` contains five upstream Obsidian skills plus the repository-owned ingest, query, lint, and `vault-maintenance` procedures.
-- `scripts/validate_vault.py` is the canonical structural validator and uses only the Python standard library. It enforces complete raw-evidence coverage and Source Record index connections.
+- `scripts/wiki_tool.py` runs the standard-library-only canonical validator and separate read-only audit; the optional tracked pre-commit hook invokes the same non-strict combined check.
 
 ## Repository Safety
 

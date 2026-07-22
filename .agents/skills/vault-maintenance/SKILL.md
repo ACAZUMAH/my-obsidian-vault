@@ -24,7 +24,7 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 4. Reread every shared page immediately before patching because Hermes, Codex, Obsidian, and other agents may write concurrently. Completion criterion: focused edits preserve unrelated live changes.
 5. Keep raw evidence immutable unless the user explicitly requests a raw-source change. Completion criterion: `raw/` changes are intentional and attributable.
 6. Update `index.md` and append exactly one `log.md` entry for durable wiki or structural maintenance. Completion criterion: navigation and history describe the resulting state.
-7. Run `python3 scripts/validate_vault.py`. Completion criterion: the canonical validator exits zero.
+7. Run `python3 scripts/wiki_tool.py check`. Completion criterion: canonical validation exits zero and advisory audit findings remain separate from structural status.
 8. Review `git status` and the exact diff. Completion criterion: no unrelated concurrent work is staged, discarded, or claimed as part of the change.
 
 ## Path Contract
@@ -54,5 +54,5 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 - [ ] Wiki pages contain required frontmatter and sections.
 - [ ] Every raw source is covered by an indexed Source Record, and every Source Record resolves to raw evidence.
 - [ ] Real wikilinks resolve.
-- [ ] `python3 scripts/validate_vault.py` exits zero.
+- [ ] `python3 scripts/wiki_tool.py check` preserves a passing canonical result and separate advisory findings.
 - [ ] Git diff contains only intended work.

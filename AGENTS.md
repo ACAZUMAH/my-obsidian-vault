@@ -58,7 +58,8 @@ This file is the human-readable operating authority. `schema/README.md`, `schema
 - `_template/`: Obsidian page templates and reusable structures, configured through `.obsidian/templates.json`.
 - `schema/`: Canonical operational references plus machine-readable vault paths, page contracts, and validation configuration.
 - `.agents/skills/`: Repository-local Agent Skills for Obsidian formats, CLI workflows, web extraction, and vault maintenance.
-- `scripts/`: Repository-owned validation and automation. Run `python3 scripts/validate_vault.py` after structural or durable wiki changes.
+- `scripts/`: Repository-owned command wrapper, canonical structural validator, and read-only advisory audit. Run `python3 scripts/wiki_tool.py check` after structural or durable wiki changes.
+- `.githooks/`: Tracked optional Git hooks. They remain inactive unless a user explicitly configures `core.hooksPath`.
 - `index.md`: Content-oriented catalog of the wiki.
 - `log.md`: Append-only chronological activity record.
 
@@ -247,7 +248,7 @@ When asked to lint or health-check the wiki, inspect for:
 - Raw sources without a Source Record, Source Records without valid raw evidence, and Source Records missing from `index.md`.
 - Data gaps that could be filled by future sources or web research.
 
-Run `python3 scripts/validate_vault.py` for the canonical structural checks. Produce a prioritized list of semantic fixes, then apply the fixes the user approves or explicitly requests.
+Run `python3 scripts/wiki_tool.py check` to preserve the canonical structural result and a separate advisory audit. Produce a prioritized list of semantic fixes, then apply only the fixes the user approves or explicitly requests.
 
 ## Index Rules
 

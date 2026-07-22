@@ -13,7 +13,7 @@ description: Audit the canonical Obsidian vault for structural, provenance, sema
 
 ## Audit Workflow
 
-1. Run `python3 scripts/validate_vault.py` and preserve its exact pass/fail result and counters.
+1. Run `python3 scripts/wiki_tool.py check`; preserve the validator's exact pass/fail result and treat the audit output as an advisory baseline rather than an exhaustive semantic review.
 2. Inspect semantic health separately: unsupported or stale claims, contradictions, duplicate ownership, orphan pages, weak provenance, missing concepts, uncovered raw evidence, excessive Source Record duplication, and research gaps.
 3. Inspect security and hygiene boundaries without claiming that pattern scans prove secrets are absent.
 4. Report prioritized findings with exact file or page evidence, impact, and a bounded remediation. Distinguish confirmed defects from recommendations and open questions.

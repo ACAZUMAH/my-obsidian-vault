@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "canonical_paths": {
     "raw_sources": "raw/sources",
     "raw_assets": "raw/assets",
@@ -12,7 +12,8 @@
     "templates": "_template",
     "schemas": "schema",
     "agent_skills": ".agents/skills",
-    "scripts": "scripts"
+    "scripts": "scripts",
+    "git_hooks": ".githooks"
   },
   "required_directories": [
     "raw/sources",
@@ -26,8 +27,16 @@
     "_template",
     "schema",
     ".agents/skills",
-    "scripts"
+    "scripts",
+    ".githooks"
   ],
+  "automation_files": {
+    "command_wrapper": "scripts/wiki_tool.py",
+    "canonical_validator": "scripts/validate_vault.py",
+    "advisory_audit": "scripts/audit_vault.py",
+    "command_documentation": "scripts/README.md",
+    "optional_pre_commit_hook": ".githooks/pre-commit"
+  },
   "templates": {
     "source": "_template/source-summary-template.md",
     "concept": "_template/concept-template.md",

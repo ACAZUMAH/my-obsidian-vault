@@ -10,7 +10,7 @@ This directory owns the canonical operational documentation and machine-readable
 | Operational references | This directory | Schema, workflows, naming, lint, and local-skill guidance |
 | Structural contract | [vault-structure.json](vault-structure.json) | Canonical paths, required directories, Source Record coverage policy, schema documents, templates, skills, statuses, page locations, and sections |
 | Property contract | [wiki-frontmatter.schema.json](wiki-frontmatter.schema.json) | Frontmatter types, required properties, dates, statuses, and confidence values |
-| Enforcement | [validate_vault.py](../scripts/validate_vault.py) | Checks the live vault against the structural contract |
+| Enforcement | [wiki_tool.py](../scripts/wiki_tool.py) | Runs canonical structural validation and the separate advisory audit |
 
 `AGENTS.md` is authoritative when a semantic rule cannot be represented in JSON. Stable structural changes must update the human and machine contracts together.
 
@@ -36,7 +36,8 @@ This directory owns the canonical operational documentation and machine-readable
 | Page templates | `_template/` |
 | Schema documentation and contracts | `schema/` |
 | Project-local skill implementations | `.agents/skills/` |
-| Validation scripts | `scripts/` |
+| Validation and audit commands | `scripts/` |
+| Optional tracked Git hooks | `.githooks/` |
 
 ## Wiki Page Contract
 
@@ -50,10 +51,12 @@ A Source Record policy, schema-document, directory, template, page-type, status,
 
 ## Validation
 
-Run from the vault root:
+Run the combined read-only check from the vault root:
 
 ```bash
-python3 scripts/validate_vault.py
+python3 scripts/wiki_tool.py check
 ```
 
-The validator uses only the Python standard library. It checks the live structure, index connections for registered schema documents, templates, and Source Records, complete raw-evidence coverage, Source Record raw-link existence and aggregation policy, Obsidian template configuration, project-local Agent Skills, wiki frontmatter/sections, JSON files, stale template paths, and real wikilinks.
+The standard-library-only wrapper resolves the vault from its own file location, first invokes the canonical structural validator, then runs the advisory semantic/provenance audit. The validator checks registered automation files, the live structure, index connections for registered schema documents, templates, and Source Records, complete raw-evidence coverage, Source Record raw-link existence and aggregation policy, Obsidian template configuration, project-local Agent Skills, wiki frontmatter/sections, JSON files, stale template paths, and real wikilinks. The audit reports evidence-backed knowledge-health findings without changing the vault.
+
+See [Vault Script Commands](../scripts/README.md) for subcommands, exit semantics, machine-readable output, and optional Git-hook activation.

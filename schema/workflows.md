@@ -40,7 +40,7 @@ Use [llm-wiki-lint](../.agents/skills/llm-wiki-lint/SKILL.md) with the canonical
 ## Maintenance And Commit Workflow
 
 1. Apply focused edits; never overwrite unrelated concurrent work.
-2. Run the [Vault Lint Checklist](lint-checklist.md).
+2. Run `python3 scripts/wiki_tool.py check` and complete the [Vault Lint Checklist](lint-checklist.md).
 3. Review `git status`, `git diff --check`, and the exact diff.
 4. Stage explicit intended paths rather than every dirty file.
 5. Commit with a scoped message that describes the durable outcome.

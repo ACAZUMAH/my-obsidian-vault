@@ -2,6 +2,50 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-07-22] maintenance | Add Vault Command And Audit Tooling
+
+What changed:
+
+- Added `scripts/wiki_tool.py` as the unified entry point for canonical validation, advisory audit, and combined checks.
+- Added a standard-library-only, read-only semantic/provenance audit with text, JSON, and explicit strict modes.
+- Added an executable but inactive `.githooks/pre-commit` hook that runs the non-strict combined check when a user opts into `core.hooksPath`.
+- Registered five automation files in schema v4 and connected command usage to the vault authority, workflows, lint checklist, local skills, index, and welcome page.
+
+Files touched:
+
+- `scripts/wiki_tool.py`, `scripts/audit_vault.py`, `scripts/validate_vault.py`, and `scripts/README.md`
+- `.githooks/pre-commit`
+- `AGENTS.md`, `welcome.md`, `index.md`, and `log.md`
+- `schema/README.md`, `schema/workflows.md`, `schema/lint-checklist.md`, and `schema/vault-structure.json`
+- `.agents/skills/vault-maintenance/SKILL.md` and `.agents/skills/llm-wiki-lint/SKILL.md`
+
+Verification:
+
+- `python3 scripts/wiki_tool.py check` passed canonical validation with five registered automation files and reported 11 advisory audit findings separately without modifying the vault.
+- JSON output parsed, strict audit and strict combined modes exited 1 as documented, and the wrapper passed when invoked outside the vault root.
+- The optional hook was executable and passed while `core.hooksPath` remained inactive.
+- The read-only hash was unchanged across an audit run; `git diff --check` passed and no raw evidence changed.
+
+## [2026-07-22] maintenance | Add Obsidian Graph Color Groups
+
+What changed:
+
+- Replaced the single schema-only graph group with nine folder-based color groups for projects, concepts, entities, questions, syntheses, Source Records, raw evidence, schema, and templates.
+- Preserved the live graph's existing filter, display, force, zoom, orphan, and attachment settings.
+- Linked the graph configuration from the maintenance section of `index.md` so the visual taxonomy is discoverable.
+
+Files touched:
+
+- `.obsidian/graph.json`
+- `index.md`
+- `log.md`
+
+Verification:
+
+- `jq` parsed the configuration and confirmed all nine expected group queries in order.
+- `python3 scripts/validate_vault.py` passed with nine local skills, 63 of 63 raw sources covered, 56 of 56 Source Records indexed, and 885 checked wikilinks.
+- `git diff --check` passed and no raw evidence changed.
+
 ## [2026-07-22] maintenance | Add LLM Wiki Operation Skills
 
 What changed:

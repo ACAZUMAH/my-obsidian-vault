@@ -2,13 +2,13 @@
 
 Vault linting combines canonical structural validation with semantic, provenance, security, navigation, and Git review before a durable change is complete.
 
-## Canonical Command
+## Unified Command
 
 ```bash
-python3 scripts/validate_vault.py
+python3 scripts/wiki_tool.py check
 ```
 
-A zero exit code proves the configured structural checks passed. It does not prove that claims are correct, secrets are absent, or the change is semantically complete.
+The wrapper preserves two separate results: `validate_vault.py` is the canonical structural suite, while `audit_vault.py` is a read-only semantic and provenance baseline. Audit findings are advisory by default; use `check --strict-audit` only when intentionally enforcing a zero-finding gate. A zero exit code does not prove that claims are correct, secrets are absent, or the change is semantically complete.
 
 ## Structural Checklist
 
@@ -49,6 +49,7 @@ A zero exit code proves the configured structural checks passed. It does not pro
 - [ ] Only intended paths are staged.
 - [ ] The commit message states the durable outcome.
 - [ ] Push is performed only when requested.
+- [ ] The optional `.githooks/pre-commit` hook is enabled only when the user wants repository-local automatic checks.
 
 Report the canonical validator result separately from semantic review, secret scanning, and Git checks. Do not compress them into an unsupported “everything passed” claim.
 
