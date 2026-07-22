@@ -1,0 +1,27 @@
+## Bora Continuations #26–#30 — Sanitized Promotion Report
+
+- **`20260716_213123_3e04a2` (#26) — substantive.** Closed transactional login: OTP consumption and session persistence share one retry-safe MongoDB transaction; expected verification failures commit attempt bookkeeping, sessions close before best-effort notifications, and notification failure cannot mask committed login. Historical full-suite, randomized-order, build, and two-review evidence passed. A later opaque challenge-ID redesign reached green checks but lacked final cleanup/review at this boundary and was handed to **`20260716_220448_5c8635`**.
+- **`20260716_220448_5c8635` (#27) — substantive / historical-superseded.** Completed challenge-ID cleanup and review, which exposed resend identity/attempt-budget and delivery-failure defects; work began on those defects. The user then explicitly rejected returning challenge IDs to the frontend and corrected Bora’s contract to **email + OTP only** because existing hashing, purpose, expiry, attempt, and atomic-consumption controls were sufficient for the intended workflow. Challenge-ID work therefore ended superseded/incomplete. Successor: **`20260716_221628_2126ad`**.
+- **`20260716_221628_2126ad` (#28) — substantive / complete.** Consumed the correction and surgically removed the challenge-ID model, GraphQL, generated-type, service, and test contract while preserving prior OTP hardening. Historically reported full suite/build/focused checks green and only pre-existing resend hardening remaining. The later “next fix” reached reconnaissance only. Successor: **`20260716_224305_4b2a58`**.
+- **`20260716_224305_4b2a58` (#29) — substantive / mixed boundary.** Completed and independently approved authenticated-password-change revocation: the canonical fetched user is updated with the new password and legacy refresh-token invalidation together; reset returns no replacement session and requires sign-in again. It then implemented first-pass atomic refresh rotation for REST and GraphQL, but review found unsafe token-generation ordering, non-unique initial-login tokens, and error leakage; refresh closure remained incomplete. Successor: **`20260716_232659_ef9122`**.
+- **`20260716_232659_ef9122` (#30) — substantive / mixed boundary.** Closed the refresh-review defects: replacement tokens are generated before compare-and-swap persistence, login refresh tokens receive unique identifiers, credential failures are generic `401`, operational failures are sanitized `500`, and REST/GraphQL delegate to one rotation service. Historical final reviews passed. The user then required explicit dual-transport consistency; `POST /auth/refresh` replaced state-changing GET and GraphQL delegation coverage was added. Implementation and full-suite/build evidence were green, but the final review batch split because one reviewer treated earlier approved cache/password work as scope violations; exact-record sign-off for this last slice remained open. Successor: **`20260717_000211_40b097`**.
+
+### De-duplicated promotion
+
+- **Bora project/source:** transaction callbacks must return their final retry result; authentication notifications run only after commit/session cleanup and cannot reverse success.
+- **Explicit project correction:** keep Bora OTP verification as email + OTP; do not add a frontend challenge identifier without a new product/security decision.
+- **Session architecture:** password changes revoke refresh capability; refresh is one-time atomic rotation shared by REST and GraphQL; generate replacement credentials before compare-and-swap, sanitize failures, and use POST for state-changing refresh.
+- **Reusable manual rule:** all transports for one security operation must delegate to one owning service and receive transport-level regression coverage.
+
+### Current static reconciliation
+
+- Current source still has no challenge-ID contract and uses email + OTP, satisfying the user correction.
+- Transactional login, post-session notifications, `POST /auth/refresh`, no-cache REST responses, and shared REST/GraphQL refresh delegation remain present.
+- Refresh architecture has since advanced beyond the historical single-user hash: current code uses `sid`, `familyId`, and `jti`, atomic session rotation, and token-family revocation on reuse.
+- **Current tension:** password reset revokes session records in a separate call before updating the password/legacy refresh field; the broader session-family revocation and password write are not one database transaction.
+- The repository is materially dirty and historical plan files are currently deleted; these are static observations only.
+
+**Ledger:** 5 exact IDs classified, all substantive; frozen coverage can advance from **88/130 to 93/130**.  
+**Verification:** historical session evidence plus current read-only static inspection; no current tests were run.  
+**Files created or modified:** none.  
+**Issues:** truncated session views were resolved against the authoritative coder SQLite records; no sensitive values or transcript dumps were retained.

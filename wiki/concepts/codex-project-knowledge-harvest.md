@@ -6,6 +6,8 @@ updated: 2026-07-21
 tags: [codex, project-knowledge, ingestion, second-brain]
 sources:
   - ../sources/project-knowledge-completion-and-bootstrap-directive.md
+  - ../sources/hermes-conversation-harvest-scope-correction.md
+  - ../sources/hermes-project-bootstrap-git-continuation-batch-1.md
 confidence: high
 ---
 
@@ -17,7 +19,13 @@ A Codex project-knowledge harvest is a bounded, resumable process that compares 
 
 It is not a bulk transcript summary. Repositories provide current implementation evidence; conversations provide intent, corrections, rejected approaches, rationale, and conventions that code alone cannot explain.
 
+The initial procedure and bootstrap artifacts were produced and focused-validated in default-profile Hermes continuation `20260721_001007_1b1aea`. That session created the machinery but explicitly did not complete full archive ingestion; later family batches remain independent evidence.
+
 ## Current Synthesis
+
+### Archive scope is part of provenance
+
+Use this procedure only when Codex conversations are explicitly requested. A Hermes-conversation harvest must search Hermes history instead. In either case, a discovered repository without a directly relevant conversation cannot independently justify a conversation-derived project page or durable claim; repository inspection verifies current implementation after conversation scope is established.
 
 ### Why the harvest must be staged
 
@@ -80,6 +88,7 @@ Safety and scope rules:
 6. Historical conversations can be stale. Verify implementation claims against current repository files. Preserve contradictions instead of silently choosing one.
 7. The latest explicit user correction outranks older conversation assumptions. Live code establishes current behavior; conversation evidence explains intent and rationale.
 8. Reread every shared vault note immediately before editing it. Use focused anchored edits because Hermes and other Codex sessions may edit the vault concurrently.
+9. Do not create a project page solely because a repository exists. A conversation-harvest page requires a directly relevant conversation unless the user separately requests repository-inventory knowledge.
 
 Batching:
 - Do not process the entire archive in one run.
@@ -92,7 +101,7 @@ For the current batch:
 2. Match Codex sessions to the family using session cwd, thread title, and mentioned repository paths.
 3. Extract only durable user preferences, corrections, architecture decisions, do-not-change rules, successful verification patterns, and project-specific domain knowledge.
 4. Verify each implementation claim against current package.json, README/AGENTS.md, config, and representative source files.
-5. Create or update one project page per repository under wiki/entities/projects/<project-slug>.md. Include: Summary, Purpose, Stack, Architecture, Folder Ownership, Commands, Runtime/Deployment, Durable Conventions, Constraints, Decisions And Rationale, Verification Expectations, Evidence, Contradictions, Confidence, and Open Questions.
+5. Create or update one project page per directly conversation-supported repository under wiki/projects/<project-slug>.md with frontmatter `type: project`. Do not create pages for unmatched roots. Include: Summary, Purpose, Stack, Architecture, Folder Ownership, Commands, Runtime/Deployment, Durable Conventions, Constraints, Decisions And Rationale, Verification Expectations, Evidence, Contradictions, Confidence, and Open Questions.
 6. Create one sanitized batch evidence manifest under raw/sources/ and one source summary under wiki/sources/. The manifest must contain provenance, not full transcripts or secrets.
 7. Update software-development-operating-manual.md only with cross-project rules and a compact project map. Keep detailed facts in the project pages.
 8. Update new-project-bootstrap-operating-manual.md only when the batch proves a reusable scaffolding convention. Label project-specific alternatives instead of forcing one default.
@@ -123,6 +132,8 @@ Follow /Users/acazumah/Documents/Work Space/AGENTS.md and the full procedure in 
 ## Supporting Sources
 
 - [[../sources/project-knowledge-completion-and-bootstrap-directive|Project Knowledge Completion And Bootstrap Directive]]
+- [[../sources/hermes-conversation-harvest-scope-correction|Hermes Conversation Harvest Scope Correction]]
+- [[../sources/hermes-project-bootstrap-git-continuation-batch-1|Hermes Project Bootstrap And Git Continuation — Batch 1]]
 - [[../syntheses/software-development-operating-manual|Software Development Operating Manual]]
 - [[../syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]]
 

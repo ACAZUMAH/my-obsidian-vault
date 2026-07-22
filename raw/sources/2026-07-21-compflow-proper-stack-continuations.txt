@@ -1,0 +1,356 @@
+## Audit result
+
+All four exact non-subagent records are classified after immediate-parent/ancestor de-duplication. The already-classified root `20260710_190402_e7ba9f` is treated only as a replay boundary; none of its requests or outcomes are counted again.
+
+**Coverage impact:** the canonical checkpoint remains physically unchanged at **48/130** because this was report-only. Promoting these four exact classifications would move validated coverage to **52/130**, with **78** non-subagent conversations remaining.
+
+### Exact metadata and boundaries
+
+| Exact ID | Title | Parent | Stored runtime | Model/source/end | Message coverage | Classification |
+|---|---|---|---|---|---|---|
+| `20260711_143433_be702f` | Proper Project Stack Setup #2 | `20260710_190402_e7ba9f` | 2026-07-11 14:34:33–15:29:24 UTC | `gpt-5.5`, `tui`, compression | 417 rows; 153 inherited parent rows through message `9754`; 264 child-local rows from `9755` | **Substantive mixed-project continuation** |
+| `20260711_152924_5d0016` | Proper Project Stack Setup #3 | `20260711_143433_be702f` | 2026-07-11 15:29:24–2026-07-12 22:30:01 UTC | `gpt-5.5`, `tui`, compression | 563 rows; replay/re-execution prefix `10019–13552` (339 rows); first novel human request `13553`; 224 novel-region rows | **Substantive, replay-heavy mixed-project continuation** |
+| `20260712_223001_7e9756` | Proper Project Stack Setup #4 | `20260711_152924_5d0016` | 2026-07-12 22:30:01–2026-07-13 00:06:53 UTC | `gpt-5.6-sol`, `tui`, compression | 724 rows; replay prefix `13777–14085` (309 rows), including exact duplicates of #2/#3; runtime notice `14086`; first novel human request `14087`; 415 novel-region rows | **Substantive corrective/refactor continuation** |
+| `20260713_000653_15136d` | Proper Project Stack Setup #5 | `20260712_223001_7e9756` | started 2026-07-13 00:06:53 UTC; final content 00:58:30; orphan-reaped 2026-07-14 13:45:27 | `gpt-5.6-sol`, `tui`, `ws_orphan_reap` | 479 rows; replay prefix `14501–14893` (393 rows), with exact duplicates of #4; first novel request `14894`; 86 novel-region rows | **Substantive correction and delivery continuation** |
+
+The #3–#5 prefixes are not independent corroboration. They contain compaction summaries, copied prompts, repeated tool outcomes, or re-executions of earlier work. Only the stated novel regions contribute new coverage or promotion candidates.
+
+---
+
+## Per-record findings
+
+### 1. `20260711_143433_be702f` — #2
+
+**Actual projects**
+
+- `compflow-backend`
+- `compflow-admin`
+- newly introduced `compflow-client-portal`
+- public `compflow` only as shared runtime context
+
+**Unique requests and corrections**
+
+- The work before message `9776` merely completed the root’s in-flight backend rewrite; it is local execution evidence but not a new request.
+- The user rejected the improvised GraphQL context/JWT structure, required reference to existing projects, and explicitly removed two invented helper files.
+- The user established a new product boundary:
+  - admin portal is for internal system management;
+  - client portal is for businesses.
+- The user explicitly approved creating and wiring `compflow-client-portal`, then required the admin/client copy and responsibilities to reflect the boundary.
+
+**Architecture and implementation**
+
+- Backend context/auth was realigned toward the existing-project pattern:
+  - JWT resolution in middleware/helpers rather than a bespoke context-only abstraction;
+  - GraphQL context composed from the request and DataLoaders;
+  - DB ownership retained under `src/common/db`.
+- `compflow-client-portal` was created as a separate Yarn/Vite application, not folded into admin.
+- Client feature ownership was normalized to the existing `src/dashboard` folder instead of creating a parallel `src/client-dashboard`.
+- Admin and client UI copy were separated into internal-operator versus business-facing responsibilities.
+
+**Historical verification**
+
+- Backend: 3 tests passed, TypeScript build passed, HTTP GraphQL health responded, and the `/subscriptions` transport returned a WebSocket connection acknowledgement.
+- Admin and client portal: GraphQL generation, tests, and builds passed historically.
+- Browser checks showed both portals rendering their intended roles with clean consoles; the backend was restarted and GraphQL health was rechecked.
+- These are historical 2026-07-11 observations, not current runtime proof.
+
+**Current reconciliation**
+
+- The four repositories remain separate and clean.
+- Current client portal is substantially newer than the initial dashboard scaffold, but still preserves the business-workspace boundary.
+- Current admin remains internal.
+- Current backend retains middleware/JWT/context and WebSocket architecture, although later sessions significantly expanded it.
+- Current Git:
+  - client portal: clean `develop` at `55e4e4d160873afcd7b33fe656820b5e1e03dbfe`;
+  - admin: clean `main` at `832109de104220686171346f0f63fb34abf5cb1c`;
+  - backend: clean `main` at `b512a40b7b9e5695dc9ed6508e25f7eb629e964e`.
+
+**Commit/successor boundary**
+
+No commit was created inside the exact record. The closest successors were:
+
+- client portal first commit `0543f1ffeec6b0325ad005cdcea7b0956b8d617b`, followed by `2dbc6265947b509b588ee66564029a8b78668d61`;
+- admin update `832109de104220686171346f0f63fb34abf5cb1c`;
+- accumulated backend work was committed later, so it cannot be attributed solely to #2.
+
+**Promotion disposition**
+
+- Project split and portal responsibilities are already represented in the CompFlow project pages and prior root supplement; do not duplicate them.
+- Useful provenance: #2 is the direct continuation establishing creation of the separate client portal and the explicit admin-versus-business ownership correction.
+
+---
+
+### 2. `20260711_152924_5d0016` — #3
+
+**Actual projects**
+
+- primarily `compflow-backend`
+- public promotional site `compflow`
+- temporary, later-reverted work in `compflow-admin`
+
+**Replay boundary**
+
+Messages `10019–13552` reconstitute earlier backend/client work. The first new request is the Atlas startup failure at `13553`.
+
+**Unique requests and corrections**
+
+- Diagnose real MongoDB Atlas startup failures.
+- Remove an unsolicited DB-skipping development script and retain the normal `yarn dev → nodemon` project flow.
+- Replace provider/environment-based subscription prices with database-managed subscription plans.
+- The user initially said plans should be managed through admin, but then explicitly corrected scope: do not change `compflow-admin`; work only in backend and the promotional site.
+
+**Architecture and implementation**
+
+- Backend subscription plan CRUD/model/schema became the source of plan amount, currency, interval, limits, features, active/deleted state, and provider plan code.
+- Public `platformPlans` reads active database plans and maps them into onboarding/marketing plan contracts.
+- The promotional site initially consumed those plans through a raw `fetch` implementation with static fallback.
+- Temporary admin subscription-plan management files and edits were removed after the scope correction.
+- A temporary `dev:no-db`/DB-skip script was also removed.
+- The record incorrectly restored `adminOverview` to satisfy stale Shield/test parity; #4 superseded that decision.
+
+**Historical verification**
+
+- Before correction, backend tests/build reported 5 suites and 11 tests passing.
+- After the database-plan/public-site work:
+  - public Vitest: 1 test passed;
+  - TypeScript/Vite build passed;
+  - backend was again exercised through the full suite/build.
+- A real Atlas-backed runtime never became healthy in this record. The no-DB health check proved transport startup only.
+- Atlas access remained unresolved.
+
+**Current reconciliation**
+
+- Database-backed platform plans survive in current backend source:
+  - `SubscriptionPlanModel` lookup for active, non-deleted plans;
+  - mapping into platform plan code, billing cycle, amount, limits, features, and contact-sales behavior.
+- Current public site still queries `platformPlans` and falls back to static pricing, but #4 replaced raw `fetch` with Apollo.
+- No subscription-plan manager remains in current admin.
+- Current admin still queries the obsolete `adminOverview`, while current backend no longer exposes it.
+- The normal backend `dev` script remains `nodemon`; no DB-skipping project script survives.
+
+**Superseded/incomplete boundaries**
+
+- **Superseded:** raw `fetch` architecture → Apollo feature hook in #4.
+- **Superseded:** restoration of hardcoded `adminOverview` → complete backend removal in #4.
+- **Reverted:** admin subscription-plan UI.
+- **Incomplete:** “managed through admin” is not currently implemented in `compflow-admin`; only backend CRUD and public consumption survive.
+- **Unresolved:** live Atlas connectivity.
+
+**Promotion disposition**
+
+Most current facts are already promoted in the CompFlow backend/public/admin pages. Novel provenance worth retaining is the correction sequence:
+
+1. DB-managed plans, not provider-named amount environment variables.
+2. Do not alter admin outside the explicitly approved scope.
+3. Passing tests must not be repaired by restoring fake contracts.
+
+---
+
+### 3. `20260712_223001_7e9756` — #4
+
+**Actual projects**
+
+- `compflow-backend`
+- public promotional frontend `compflow`
+- `compflow-admin` only as an explicitly excluded scope/current contradiction
+- LivelyCura and Portfolio repositories as read-only style references
+
+**Unique requests and corrections**
+
+- Permanently remove hardcoded `adminOverview` rather than repeatedly restoring it for stale tests.
+- Rewrite the promotional site’s messy `useHomeContent` implementation to match existing frontend architecture.
+- Restore shared `getPageConnection` and align employee behavior with LivelyCura HRM:
+  - platform admins may exist without organization membership;
+  - by-ID reads should fetch the entity and derive scope from it instead of requiring redundant organization input.
+- Diagnose the persistent Atlas connection failure.
+- Create a developer platform role with all supported permissions.
+
+**Architecture and implementation**
+
+- Removed `adminOverview` from backend typedefs, resolvers, Shield, tests, generated/schema references, and invented permission entries.
+- Replaced raw promotional-site fetching with:
+  - Apollo client under services;
+  - root `ApolloProvider`;
+  - feature-local `usePlatformPlansQuery`;
+  - dedicated plan-formatting helper;
+  - small composition-only `useHomeContent`;
+  - `MockedProvider` test coverage.
+- Restored `getPageConnection`, `limit + 1`, and the common connection shape across employees, payroll runs, organizations, and subscription plans.
+- Centralized organization scope under `services/auth/organizationScope`.
+- By-ID employee/payroll operations fetch the record first, then:
+  - platform Admin/SuperAdmin bypass organization membership;
+  - tenant users are checked against the fetched record’s organization.
+- Added missing `employeeType` create/update plumbing.
+- Implemented an idempotent **standalone seed** for the developer platform role, plus assignment/effective-permission support. This architecture was rejected and superseded in #5.
+
+**Historical verification**
+
+- `adminOverview` removal: backend 5 suites, 10 tests, and TypeScript build passed.
+- Apollo promotional frontend:
+  - ESLint passed;
+  - 1 Vitest test passed;
+  - TypeScript and Vite build passed;
+  - an existing bundle-size warning remained.
+- Employee/pagination/access changes:
+  - backend 5 suites and 11 tests passed;
+  - TypeScript build passed.
+- Atlas diagnosis observed:
+  - DNS resolved;
+  - TCP reached all cluster nodes;
+  - TLS failed before certificate exchange/authentication.
+- Therefore “IP allowlist” was a plausible leading cause, not proven fact; cluster state and non-LTS Node compatibility remained alternatives.
+- Standalone role seed targeted test/build passed at the end of #4, but the record ended without a normal final response.
+
+**Current reconciliation**
+
+- Backend currently has no `adminOverview`; admin still queries it and silently falls back. This is a live integration contradiction, not a current working contract.
+- Apollo plan hook/helper/provider architecture survives exactly in current public source.
+- Shared pagination and centralized organization access survive in current backend.
+- Current `getPageConnection.pageInfo.total` is the returned edge count, not a database-wide total.
+- Current role behavior allows platform roles only for platform users and limits platform-role assignment to platform admins.
+- The standalone seed file/package command does not survive; #5 replaced it with a migration.
+
+**Promotion disposition**
+
+- `adminOverview` drift, Apollo plan lookup/fallback, pagination, and platform-admin bypass are already present in the project pages/operating manual.
+- New source provenance should connect those current facts to the user’s explicit corrective rationale.
+- Atlas evidence belongs in a source record/open question, not as a claim that current connectivity is fixed.
+
+---
+
+### 4. `20260713_000653_15136d` — #5
+
+**Actual projects**
+
+- `compflow-backend`
+- public promotional frontend `compflow`
+- LivelyCura backend as the migration-runner reference
+
+**Replay boundary**
+
+Messages `14501–14893` repeat #4’s Apollo, employee, Atlas, and standalone-seed work. Those requests and implementations remain attributed to #4. The first unique request is `14894`.
+
+**Unique requests and corrections**
+
+1. Reject the standalone role seed and package command; use the established registered-migration architecture.
+2. Resolve the promotional site’s non-fast-forward `develop` push and publish safely.
+
+**Architecture and implementation**
+
+- Removed the standalone seed command/file.
+- Added:
+  - migration model/collection;
+  - registered migration list and migration ID;
+  - idempotent `migratePlatformDeveloperAdminRole`;
+  - dynamic collection of top-level wildcard permissions;
+  - tests for idempotency, registry skip behavior, assignment, and effective permissions.
+- The role is platform-scoped, organizationless, active, and mapped to the coarse SuperAdmin system role.
+- Promotional site:
+  - local and remote `develop` had diverged by one commit each;
+  - the local change was rebased onto the remote merge;
+  - checks passed;
+  - HTTPS credential retrieval failed;
+  - existing SSH authentication was used without changing `origin`;
+  - push succeeded and local/remote SHAs matched.
+
+**Historical verification**
+
+Backend migration:
+
+- targeted migration suite: 3 tests passed;
+- first full run: transient subscription test failure (`405`);
+- subscription suite rerun alone: 2 tests passed;
+- clean full rerun: 6 suites, 14 tests passed;
+- TypeScript build passed.
+
+Promotional frontend:
+
+- ESLint passed;
+- 1 Vitest test passed;
+- TypeScript/Vite build passed;
+- bundle-size warning remained;
+- pushed `develop` SHA was verified as `03421056ea706bf9e709cadfe6df44b1b906215c`.
+
+**Current reconciliation**
+
+- Current backend at `b512a40b7b9e5695dc9ed6508e25f7eb629e964e` retains the migration model, registry, role migration, tests, role assignment restrictions, and custom-role permission aggregation.
+- Current public `develop` remains clean and aligned with `origin/develop` at the exact pushed SHA `03421056ea706bf9e709cadfe6df44b1b906215c`.
+- **Contradiction:** the #5 final response claimed startup performs:
+
+  `connectToDb → await runMigrations → createGraphqlServer`
+
+  Current committed source instead starts the HTTP server and then calls `runMigrations()` without awaiting it. The runner also catches/logs migration errors rather than propagating them. Therefore:
+  - the migration is registered and startup-triggered;
+  - “awaited before GraphQL readiness” and fail-closed startup are not current facts.
+
+**Promotion disposition**
+
+This contains the clearest new durable rule:
+
+> In LivelyCura-style backends, bootstrap data such as developer platform roles belongs in the registered migration system, not an ad hoc package seed command—unless a standalone command is explicitly requested.
+
+Promotion must retain the current caveat that CompFlow’s runner is asynchronous after server readiness and does not fail startup on migration errors.
+
+---
+
+## Aggregate promotion map
+
+### Already represented; do not duplicate
+
+- Four separate CompFlow applications.
+- Admin-internal versus client-business ownership.
+- Public `platformPlans` lookup with static fallback.
+- `getPageConnection` and `limit + 1`.
+- Platform admin/SuperAdmin organization bypass with tenant isolation.
+- Removed backend `adminOverview` versus stale admin query/fallback.
+- Historical tests/builds are not current runtime proof.
+
+### Novel or materially stronger provenance
+
+Recommended targets if promotion is later authorized:
+
+1. **New sanitized continuation-chain source page**
+   - all four exact IDs;
+   - replay boundaries;
+   - unique correction sequence;
+   - historical verification and current reconciliation.
+
+2. **`wiki/projects/compflow-backend.md`**
+   - registered developer-role migration;
+   - role assignment/effective-permission behavior;
+   - startup ordering/error-propagation contradiction;
+   - Atlas connectivity remains unresolved.
+
+3. **`wiki/projects/compflow.md`**
+   - explicit rationale for Apollo service/provider/query-hook/helper separation;
+   - preserve the current static fallback and bundle warning.
+
+4. **`wiki/projects/compflow-admin.md`**
+   - retain the stale `adminOverview` consumer contradiction;
+   - state that #3’s plan manager was reverted and current admin management remains incomplete.
+
+5. **Software/New Project Bootstrap operating manuals**
+   - registered migration over ad hoc package seed;
+   - never restore fake schema/resolver data merely to make stale tests pass;
+   - by-ID tenant access derives organization from the fetched record;
+   - copied reference architecture must be followed at file-responsibility level, not merely loaded.
+
+---
+
+## Main contradictions and open boundaries
+
+- `adminOverview`: removed from backend, still queried by admin fallback.
+- DB-managed plans exist, but no current admin plan-management UI.
+- #3 raw-fetch frontend was superseded by #4 Apollo architecture.
+- #4 standalone seed was superseded by #5 registered migration.
+- #5’s startup-order claim is contradicted by current committed `src/app.ts`.
+- Atlas TLS failure occurred before authentication, but allowlist/cluster-state remediation was not observed; current live DB health is unknown.
+- Generic `updates` commit messages and delayed commits prevent exact one-to-one attribution of most #2–#4 file changes.
+- Only #5 has an exact, session-verified delivery commit: public frontend `03421056ea706bf9e709cadfe6df44b1b906215c`.
+
+## Files and side effects
+
+- **Created or modified:** none.
+- Database, vault, repositories, services, configuration, and Git history were not written.
+- Inspection used the frozen read-only session evidence, canonical vault, current source, and read-only Git state.
+- No current tests, builds, servers, network deployment, or Atlas connection were run.

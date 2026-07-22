@@ -1,0 +1,35 @@
+## Exact-ID classification
+
+- `20260715_204220_9f3dd0` — **substantive / promote-current**: completed immutable authenticated-principal and deny-by-default GraphQL authorization, then closed atomic owner-scoped wallet update/delete writes; provider-credential isolation began but handed off to `20260716_011320_32adde`.
+- `20260716_011320_32adde` — **substantive / mixed**: completed separation of verified Paystack credential persistence from generic/public wallet writes. Began encrypted credential storage and accepted DigitalOcean encrypted-secret storage as the interim key-management choice, but encryption review and closure remained incomplete; successor `20260716_040411_a5d7e6`.
+- `20260716_040411_a5d7e6` — **substantive / incomplete boundary**: uniquely added race-safe provider-wallet upsert behavior, a unique partial credential-fingerprint index, duplicate-insert recovery, and documentation of the accepted DigitalOcean arrangement. Historical full-suite verification passed, but final review was still running and later found a key-rotation race; successor `20260716_041205_9a9677`.
+- `20260716_041205_9a9677` — **substantive / mixed**: fixed the rotation race by separating the stable credential-fingerprint secret from rotating encryption keys and closed wallet encryption after independent review. Also implemented principal-derived withdrawal contact identity, but its focused review remained pending; successor `20260716_042317_bee1bf`.
+- `20260716_042317_bee1bf` — **substantive / mixed**: closed withdrawal identity review, then acted on the user’s architectural correction that resolvers must not query databases or own business logic. Withdrawal, deposit, user relations, profile, diagnostics, and investment-goal enrichment were moved toward service ownership, but compression occurred before final verification and dead-loader deletion completed; direct successor `20260716_052127_c0e9a7` closed that work.
+
+**Group result:** five substantive, zero interrupted, zero shells. Parent/replayed material was not re-credited.
+
+## Merged durable findings
+
+- **GraphQL security:** HTTP and subscription authentication use an immutable canonical principal; explicit disabled accounts are rejected while legacy records without the flag remain enabled. GraphQL Shield is deny-by-default and current source still contains these boundaries.
+- **Wallet authorization:** owner scope must remain in the final atomic mutation, not only the preliminary read. Current update/delete writes include canonical wallet ID, authenticated owner, and active state.
+- **Provider credential boundary:** generic wallet services reject provider-managed payment fields. Verified Paystack processing uses a dedicated writer that is not exported through the GraphQL-facing wallet-service barrel. Current source still supports this.
+- **Credential protection:** new Paystack authorization credentials are encrypted before persistence, hidden from default projections, bound to owner/provider context, and decrypted only at charge time. Temporary legacy plaintext read compatibility and the uncompleted migration remain explicit.
+- **User decision:** DigitalOcean encrypted environment storage was accepted as the interim home for application encryption material; payment credentials themselves remain encrypted in MongoDB, not environment variables.
+- **Resolver architecture:** resolvers are transport adapters; canonical user loading, input whitelisting, ownership checks, provider calls, branching, normalization, and data access belong to owning services. Batch goal enrichment belongs behind the investment-account service boundary rather than GraphQL DataLoaders.
+- **Exact completion boundary:** record #15 did not finish the all-resolver refactor. Its direct successor reported final closure with 42 suites/209 tests, build/format/diff checks, independent reviews, DataLoader removal, and notification-failure isolation. Current source corroborates thin transaction/user/general/investment-account resolvers and no surviving `src/dataLoaders`.
+- **Historical verification:** #11 closed at 33 suites/176 tests; #12’s provider split at 33/181; #13 reached 37/193 before unresolved review; #14 closed encryption after focused review and reached 37/196 with withdrawal locally implemented. These are historical outcomes, not fresh verification.
+- **Current static contradiction:** #14’s rotation-safe key-ring plus independent stable fingerprint-key design survives in committed `HEAD`, but the current dirty working tree has replaced it with one scalar encryption key, derives encryption and fingerprint subkeys from that same root, and rejects envelope versions other than the active version. Thus the historical cross-version rotation guarantee is **superseded in current static state** and needs explicit reconciliation before deployment.
+- Later security commits contain the resulting architecture, but they postdate these sessions and are containment evidence—not exact delivery attribution.
+
+## Promotion targets
+
+- **Source:** one sanitized Bora GraphQL/wallet-security continuation source covering exact IDs #11–#15 and the #16 closure boundary.
+- **Project:** `wiki/projects/bora-capital-backend.md` — add exact provenance under Evidence; preserve the key-ring-versus-current-single-key tension under Contradictions; record incomplete legacy migration/index-deployment checks. No supported mobile-page change.
+- **Manuals:** thin-resolver/service ownership and deny-by-default guidance already exist in the Software Development and Bootstrap manuals; de-duplicate rather than add new rules. Add provenance only if desired.
+- **Checkpoint:** classify each of the five exact IDs once; all five are evidence-bearing.
+
+## Audit state
+
+- No files created or modified.
+- No project tests, builds, providers, databases, or deployments were run.
+- Main issue encountered: the live repository is dirty, and its wallet-credential implementation materially differs from committed `HEAD`; both states were preserved rather than conflated.

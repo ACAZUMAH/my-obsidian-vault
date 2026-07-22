@@ -41,10 +41,10 @@ sources:
 
 - [[../syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]]
 - [[../syntheses/software-development-operating-manual|Software Development Operating Manual]]
-- [[../entities/projects/livelycura-backend|LivelyCura Backend]]
-- [[../entities/projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
-- [[../entities/projects/livelycura-customer-portal|LivelyCura Customer Portal]]
-- [[../entities/projects/livelycura-courier-mobile|LivelyCura Courier Mobile]]
+- [[../projects/livelycura-backend|LivelyCura Backend]]
+- [[../projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
+- [[../projects/livelycura-customer-portal|LivelyCura Customer Portal]]
+- [[../projects/livelycura-courier-mobile|LivelyCura Courier Mobile]]
 
 ## Contradictions Or Tensions
 

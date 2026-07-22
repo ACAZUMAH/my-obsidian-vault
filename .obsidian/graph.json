@@ -5,7 +5,7 @@
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
-  "collapse-color-groups": true,
+  "collapse-color-groups": false,
   "colorGroups": [
     {
       "query": "path:raw  ",
@@ -18,14 +18,14 @@
       "query": "path:wiki  ",
       "color": {
         "a": 1,
-        "rgb": 14725458
+        "rgb": 2211971
       }
     },
     {
-      "query": "path:tools  ",
+      "query": "path:_template  ",
       "color": {
         "a": 1,
-        "rgb": 2069308
+        "rgb": 2311889
       }
     }
   ],
@@ -39,6 +39,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.7682489571261838,
-  "close": false
+  "scale": 0.6340766438847942,
+  "close": true
 }

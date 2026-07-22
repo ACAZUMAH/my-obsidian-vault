@@ -1,0 +1,334 @@
+# Sanitized audit report
+
+## Outcome
+
+- Classified all four exact coder continuations as **substantive Bora Capital backend records with replay-heavy leading shells**.
+- None is a shell-only record, unrelated project, or independent Hermes-recovery result.
+- The chain is:
+
+`20260714_133535_83849e` *(classified baseline)*  
+→ `20260714_183503_dea58d`  
+→ `20260714_185052_a2dc32`  
+→ `20260714_191715_4cf650`  
+→ `20260714_202812_edffb3`  
+→ successor `20260714_213232_242ff1` *(not audited here)*
+
+- Recommended frozen-ledger effect: **69/130 → 73/130 classified**, leaving **57**.
+- Exact replay counts below are conservative lower bounds; compaction summaries and abbreviated tool records create additional semantic replay that is not byte-identical.
+
+## Exact metadata and replay coverage
+
+| Exact ID | Parent | UTC span | Messages / tool calls | Exact replay vs direct parent | Exact replay vs any ancestor | Classification |
+|---|---|---:|---:|---:|---:|---|
+| `20260714_183503_dea58d` | `20260714_133535_83849e` | Jul 14 18:35:03–18:50:52 | 275 / 186 | 118 | 118 | Substantive continuation with inherited-intent shell |
+| `20260714_185052_a2dc32` | `20260714_183503_dea58d` | Jul 14 18:50:52–19:17:15 | 365 / 232 | 133 | 134 | Substantive execution continuation; no new human directive |
+| `20260714_191715_4cf650` | `20260714_185052_a2dc32` | Jul 14 19:17:15–20:28:12 | 463 / 293 | 207 | 218 | Mixed substantive record: one completed fix and one interrupted fix |
+| `20260714_202812_edffb3` | `20260714_191715_4cf650` | Jul 14 20:28:12–21:32:32 | 370 / 225 | 148 | 167 | Substantive closure plus next completed fix |
+
+All four are coder-profile TUI records using `gpt-5.6-sol`, archived `0`, ending through compression. Only the root carries repository metadata; child attribution comes from replay ancestry and exact Bora file/tool evidence.
+
+---
+
+## Per-record classification
+
+### 1. `20260714_183503_dea58d`
+
+**Replay/shell boundary**
+
+- The disappeared-chat discussion and canonical-ID request are inherited from the classified root.
+- No unique project pivot or new human correction was found.
+- First evidence-bearing child write: message `16042`, creating canonical-document-ID regression coverage.
+
+**Net-new Bora work**
+
+- Began implementation of the root-owned rule:
+  1. Resolve externally supplied IDs at the responsible service boundary.
+  2. Use the fetched document’s canonical `_id` and relationship IDs downstream.
+  3. Do not re-fetch IDs already obtained from trusted fetched documents.
+- Added/expanded tests around canonical identity usage across user notification-token persistence, accounts, goals, and auto-top-ups.
+- Began the corresponding source corrections.
+
+**Historical evidence**
+
+- Initial RED: **1 suite / 5 tests failed**.
+- Expanded RED: **2 suites; 7 failed, 8 passed**.
+- Focused GREEN: **2 suites / 15 tests passed**.
+- No post-change full suite or build belongs to this exact record.
+
+**Boundary**
+
+- **Incomplete by itself**: focused test closure only.
+- Superseded operationally by `20260714_185052_a2dc32`, which finished the broader implementation and full verification.
+
+**Promotion**
+
+- `promote/current`, but merge with its direct successor rather than presenting it as an independently finished feature.
+
+---
+
+### 2. `20260714_185052_a2dc32`
+
+**Replay/shell boundary**
+
+- Replays the same canonical-ID directive and parent work.
+- Contains no novel human request; its value is unique implementation and verification.
+
+**Net-new Bora work**
+
+Completed the canonical-ID changes across:
+
+- Auto-top-up update: resolve raw user identity, then owner-scope auto-top-up and wallet operations with the canonical user.
+- Auto-top-up creation: use the fetched goal’s canonical goal and owner IDs, including default-wallet selection.
+- Authentication:
+  - Logout resolves the user before mutation.
+  - Password reset resolves canonical user identity before updating.
+- Goal/manual contribution paths: use fetched goal owner, goal ID, portfolio, and account relationships.
+- Notification persistence: Expo push-token user mutations use fetched user identity.
+- Portfolio/account linkage and canonical-ID regression coverage.
+
+This is a cross-domain Bora backend correction, not a project pivot: auth, notifications, goals, wallets, and portfolio logic all share the same identity invariant.
+
+**Historical evidence**
+
+Intermediate failures were intentionally exposed and repaired:
+
+- Auto-top-up focused run: **1/7 failed**, then **7/7 passed**.
+- Auth focused run: **2/11 failed**, then **11/11 passed**.
+- Canonical/account tests had staged failures before passing.
+- Focused aggregate: **6 suites / 39 tests passed**.
+- First full pass: **24 suites / 138 tests**.
+- After the final default-wallet correction:
+  - Focused: **9/9 passed**.
+  - Full: **24 suites / 139 tests passed**.
+  - TypeScript build passed.
+  - Scoped Prettier and diff check passed.
+
+**Boundary**
+
+- **Complete historical implementation** of the “resolve raw IDs once” convention.
+- Exact auth/session mechanics were later strengthened, but the identity invariant remains current.
+
+**Promotion**
+
+- `promote/current`.
+- Existing backend and software-development pages already contain the durable rule; this record primarily supplies missing exact-session provenance and historical verification.
+
+---
+
+### 3. `20260714_191715_4cf650`
+
+**Unique human input**
+
+- `continue` authorized completion of the interrupted security work.
+- A completion-check question added no new requirement.
+- `next` explicitly authorized moving from auto-top-up cancellation to deposit initialization.
+
+#### Completed segment: auto-top-up cancellation authorization
+
+**Implementation**
+
+- GraphQL cancellation binds identity to authenticated context.
+- Service performs owner-scoped lookup before mutation.
+- Cancellation uses the fetched auto-top-up’s canonical ID.
+- Unauthorized/missing-owner paths fail without mutating either auto-top-up or goal.
+- Added resolver and service authorization regressions.
+
+**Historical evidence**
+
+- Staged focused failures were repaired.
+- Final focused authorization: **2 suites / 16 tests passed**.
+- Full: **24 suites / 143 tests passed**.
+- Build, scoped Prettier, and diff check passed.
+
+**Status:** complete and current in principle.
+
+#### Interrupted segment: deposit initialization identity binding
+
+**Implementation started**
+
+- Deposit initialization switched from client-controlled `userId` to authenticated context.
+- Public GraphQL input removed `userId`.
+- Boundary and schema regressions were added.
+- Local generated-type compatibility work began.
+
+**Historical evidence within this exact record**
+
+- Security regression first failed with caller-selected identity, then passed.
+- Schema test failed during adjustment, then focused verification reached **2 suites / 8 tests passed**.
+- Build passed.
+- Local codegen eventually loaded, but produced a large interim generated diff.
+- A temporary schema-only server was started for canonical generation.
+
+**Boundary**
+
+- **Fix 16 complete.**
+- **Fix 17 incomplete in this exact ID**: canonical codegen, compatibility cleanup, full suite, and temporary-server cleanup belong to the successor.
+
+**Promotion**
+
+- Split record-level promotion:
+  - Cancellation: `promote/current`.
+  - Deposit work: `promote/incomplete`, with closure delegated to `20260714_202812_edffb3`.
+
+---
+
+### 4. `20260714_202812_edffb3`
+
+**Replay/shell boundary**
+
+- The leading portion semantically replays the parent’s canonical-ID, cancellation, and partial deposit work.
+- A later fresh `next` authorizes the investment-account fix.
+
+#### Closure of deposit initialization identity binding
+
+**Net-new work**
+
+- Completed canonical GraphQL type generation.
+- Cleaned up the temporary schema server and confirmed no listener remained.
+- Separated trusted internal wallet/provider input from the public GraphQL input after generation exposed a type mismatch.
+- Preserved provider-managed wallet authorization fields for trusted internal Paystack flows while keeping them unavailable to clients.
+
+**Historical evidence**
+
+- Targeted: **4 suites / 21 tests passed**.
+- Full: **25 suites / 145 tests passed**.
+- Build, GraphQL generation, scoped Prettier, and diff check passed.
+- Historical temporary server was stopped and deleted.
+
+**Frontend contract**
+
+- Clients must omit `userId` from deposit initialization; identity comes from authenticated backend context.
+
+#### Investment-account query authorization
+
+**Net-new work**
+
+- Bound `getMyInvestmentAccount` to authenticated context.
+- Removed public `userId` from `GetMyInvestmentAccountInput`.
+- Kept a distinct trusted internal service input.
+- Added authorization and schema regressions.
+- Repaired concurrent auto-top-up changes by restoring fail-closed cancel/pause/resume behavior while preserving raw-goal-to-canonical-goal resolution.
+
+**Historical evidence**
+
+- Initial regression failed with caller-selected identity.
+- Targeted: **4 suites / 22 tests passed**.
+- Full: **26 suites / 147 tests passed**.
+- Build, GraphQL generation, Prettier, and diff check passed.
+- Temporary server cleanup was reverified.
+
+**Boundary**
+
+- Both Fix 17 and Fix 18 are historically complete.
+- The direct successor is `20260714_213232_242ff1`, started at the same compression boundary; its body was intentionally not absorbed into this audit.
+
+**Promotion**
+
+- `promote/current`.
+
+---
+
+## Domain attribution
+
+### Bora Capital Backend
+
+All unique implementation belongs here:
+
+- Canonical Mongo/Mongoose identity handling.
+- Auth logout/password-reset mutation identity.
+- Expo notification-token persistence.
+- Auto-top-up create/update/list/cancel/pause/resume authorization.
+- Goal contribution and portfolio relationship identity.
+- Paystack deposit initialization boundary.
+- Public-versus-internal wallet provider contracts.
+- Investment-account query authorization.
+
+### Bora Capital Mobile
+
+No mobile files were modified in these four sessions, but Fixes 17–18 changed the client contract:
+
+- Deposit initialization sends account, amount, and optional narration—no `userId`.
+- Single investment-account queries send only `accountNumber`.
+
+Current mobile source statically complies with both contracts.
+
+### Hermes process recovery
+
+- The chain title and initial “disappeared chat” discussion are replay inherited from the root.
+- No unique recovery architecture or Hermes configuration outcome should be promoted from these four records.
+- The temporary `.hermes` schema-server files were repository-local codegen tooling, not Hermes Agent process recovery.
+
+### Unrelated projects
+
+- None detected.
+
+---
+
+## Current repository reconciliation
+
+### Backend
+
+Current static state:
+
+- Repository: `bora-capital-backend`
+- Branch: `feature/updates`
+- HEAD: `49fe85765b8cbf893a0e9c845412876a5887530a`
+- Working tree remains substantially dirty from later security/provider work.
+
+Current source confirms:
+
+- GraphQL uses immutable `principal.userId` rather than the historical context user document.
+- Deposit and investment-account public inputs omit `userId`.
+- Auto-top-up cancellation is owner-scoped and uses fetched identity.
+- Canonical-ID and authorization regression files remain present.
+- Current password reset/logout additionally revoke sessions, strengthening the historical implementation.
+- Public/internal wallet separation survives, though the exact internal type layout evolved.
+
+No commit or push command occurred in the four audited sessions. A later aggregate commit,
+
+`fdd5d83eaf53cfad4a0ad687739192643d359680` — `feat(update): security hardening` — 2026-07-16,
+
+is the first visible committed carrier for many exact-session-owned paths. It is a large combined commit, so it is repository delivery evidence, not proof of a one-record/one-commit mapping.
+
+### Mobile
+
+Current static state:
+
+- Repository: `bora-frontend-mobile-app`
+- Branch: `develop`
+- HEAD: `393bac0ef0dcf99fa926c547e1c9405cd6fd5f1f`
+- Pre-existing modification: `package-lock.json`.
+
+Current source confirms both client contracts omit `userId`. One utility comment still names deposit initialization as though it accepts a backend `userId`; that documentation is stale relative to current GraphQL types.
+
+No tests, builds, providers, migrations, services, or runtime commands were executed during this audit.
+
+---
+
+## Contradictions and boundaries
+
+- The existing vault has no exact references to these four IDs, despite already containing their durable identity rules. Provenance coverage is incomplete even where synthesis is accurate.
+- Earlier history retained explicit deposit `userId` with ownership validation; these continuations and current backend/mobile instead derive identity from authenticated principal context.
+- Historical summaries refer to context `user._id`; current code uses `principal.userId`. This is a later architectural hardening, not a reversal.
+- The exact “resolve incoming IDs” rule does **not** require repeated database lookups for IDs already obtained from fetched documents.
+- Fix 17 must not be credited as complete in `20260714_191715_4cf650`; its codegen, full verification, type compatibility, and server cleanup belong to `20260714_202812_edffb3`.
+- Historical suite/build counts are session-attributed only and are not current verification of the dirty repository.
+- The internal auto-top-up lookup still supports an ownerless trusted path; public GraphQL paths are scoped, but the helper is not universally fail-closed.
+- Current mobile source complies with principal-derived identity, but its `authUser` commentary partially reflects the superseded explicit-ID contract.
+
+## Promotion targets
+
+Recommended updates, without duplicating existing rules:
+
+1. Add one sanitized raw/source record covering the four exact IDs and replay-aware lineage.
+2. Add exact-session provenance and Fixes 16–18 to `bora-capital-backend.md`.
+3. Add backend-contract provenance for deposit/account inputs to `bora-capital-mobile-app.md`.
+4. Update harvest coverage from **69/130 to 73/130**, remaining **57**.
+5. Update the vault index/checkpoint to reference the new source record.
+6. Do not add new operating-manual rules; canonical identity, authenticated-principal binding, and explicit `next` authorization are already promoted. Add provenance backlinks only.
+
+## Changes and issues
+
+- **Files created or modified:** none.
+- **Primary issue encountered:** plain read-only SQLite opening failed; immutable URI access succeeded.
+- **Evidence integrity:** frozen coder snapshot queried read-only; repository reconciliation was static/read-only; no secrets, private fixtures, transcripts, prompts, or tool chatter retained.

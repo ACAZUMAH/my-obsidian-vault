@@ -1,0 +1,85 @@
+# Sanitized Audit Report
+
+## Exact-ID disposition
+
+| Exact requested ID | Supplied title | Database result | Lineage / replay boundary | Classification | Promotion | Coverage |
+|---|---|---|---|---|---|---|
+| `20260719_175837_1ec339` | `Hermes Workspace Memory Setup` | **0 `sessions` rows; 0 `messages` rows** in `/Users/acazumah/.hermes/profiles/coder/state.db` | No parent, child, message, or replay boundary can be established | **unresolved / missing-source locator** | **incomplete** | **+0** |
+| `20260719_180345_da029a` | `Hermes Workspace Memory Setup #2` | **0 `sessions` rows; 0 `messages` rows** in the same store | The `#2` label is not evidence of a database continuation; no parent or direct successor can be established | **unresolved / missing-source locator** | **incomplete** | **+0** |
+
+Both IDs are also absent from the frozen 2026-07-21 17:12:06 GMT metadata manifest. The supplied titles therefore remain request-supplied, unverified metadata. Per the archive-audit rules, these locators must not be forced into `substantive`, `duplicate`, or `interrupted`, and no nearby session may be substituted.
+
+**Checkpoint consequence:** validated primary coverage remains **58/130**, with **72** in-denominator conversations pending. These two unsupported locators do not increment or reduce that denominator.
+
+## Per-record recoverability
+
+For both exact IDs, the following cannot be recovered or responsibly attributed:
+
+- Actual human requests or preference corrections.
+- Workspace, memory, configuration, file, or Git operations.
+- Historical command or validation outcomes.
+- Completion claims, failures, or rollback boundaries.
+- Physical replay, semantic replay, or inherited-request execution.
+- Parent, direct successor, archive status, model, source, cwd, or timestamps.
+- Ownership of any canonical-vault or bootstrap decision.
+
+No full transcript or alternate transcript source exists for either exact locator in the permitted evidence set.
+
+## Canonical decisions already promoted — actual owners
+
+The missing IDs own **none** of the currently promoted architecture or bootstrap decisions. The existing vault attributes those decisions to a different, independently verified chain:
+
+- `20260720_232004_8ea4d4` — initial second-brain request, all-profiles-plus-Codex correction, communication preference, and bootstrap/harvest directive; already promoted.
+- `20260721_001007_1b1aea` — initial bootstrap/harvest artifacts and public-vault Git publication.
+- `20260721_013536_83fcd9` — initial schema, skills, scripts, templates, and Obsidian infrastructure; exact-session validation remained incomplete.
+- `20260721_020029_f66b3b` — later validation/cleanup closure for the transitional infrastructure.
+
+These are **not asserted as successors** of either missing July 19 locator. They are listed only to prevent duplicate or false ownership attribution.
+
+## Current versus superseded architecture
+
+### Current static architecture
+
+- Canonical long-form vault: `/Users/acazumah/Documents/Work Space`.
+- Retrieval starts with `index.md`, then the personal and software-development operating manuals.
+- The coder profile’s current `USER.md` and `MEMORY.md` statically confirm:
+  - concise but architecture-aware communication;
+  - the canonical-vault pointer;
+  - profile memory as a compact discovery/role layer;
+  - mandatory evaluation and promotion of substantive sessions;
+  - concurrent-agent reread and focused-edit expectations.
+- Profile session databases remain separate. A shared model, instructions, or vault pointer does not merge archives.
+- Durable conversation knowledge counts as integrated only after explicit vault promotion or exact-ID checkpointing.
+- Current vault infrastructure uses direct `wiki/projects/` ownership and has evolved beyond the earlier transitional schema.
+- Current classified Hermes coverage is 58/130, not complete archive ingestion.
+
+### Superseded or transitional states
+
+- A coder-only second-brain setup was superseded by the explicit all-Hermes-profiles-plus-Codex architecture.
+- The transitional five-template/entity-project infrastructure attributed to `20260721_013536_83fcd9` was superseded by the current six-template/direct-project structure.
+- Initial bounded bootstrap and Git publication did not complete the project-history harvest.
+- Later passing canonical validation is present-state or successor evidence; it cannot be retroactively attributed to either requested missing locator.
+
+## Contradictions and evidence limits
+
+1. The request asserts that two exact coder-profile records exist, but the named live store and frozen manifest contain neither ID.
+2. The supplied `#2` naming suggests a continuation but cannot replace a verified `parent_session_id`.
+3. The current vault documents profile-environment integration, while this audit directly confirmed only the safe compact memory files. Secret-bearing environment files were deliberately not inspected, and no profile was relaunched.
+4. No historical validation can be credited to the missing records. No fresh vault validator, Git command, project command, build, test, service, or runtime probe was run.
+5. Existing shared-brain/bootstrap pages are already promoted from other verified records; assigning them to these missing IDs would create false provenance.
+
+## Promotion disposition
+
+- **New source summary:** none.
+- **Project/manual changes:** none.
+- **Canonical rule promotion:** none.
+- **Checkpoint increment:** none.
+- **Required follow-up:** correct the two source locators or provide the database/export that contains them. Only then can requests, operations, lineage, replay, validation, and successor ownership be classified.
+
+## Completion
+
+- Audited exactly the two requested locators against the named coder database and frozen checkpoint.
+- Reconciled the current canonical vault and safe coder-profile memory state.
+- Excluded secrets, environment values, system prompts, full transcripts, and tool chatter.
+- **Files created or modified:** none.
+- **Primary issue:** both requested exact IDs are unsupported/missing-source locators.

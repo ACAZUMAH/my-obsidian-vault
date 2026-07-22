@@ -1,0 +1,161 @@
+# Sanitized audit report
+
+## Outcome
+
+- **`20260721_113041_3f113d` owns Portfolio Batch 1 integration.**
+- **`20260721_150209_773080` does not own those writes.** Its opening Portfolio operations are replayed history. Its unique tail inventories unrelated standalone repositories, writes nothing, receives no final validation, and hands off to `20260721_155121_9e9cc3`.
+- Both exact default-profile records are valid, populated, non-subagent conversations inside the frozen 130-record denominator.
+- Conditional checkpoint effect when promoted: **60 → 62 of 130 classified**, leaving **68**. Only the first adds Portfolio integration provenance; neither adds new Portfolio product rules.
+- No files, databases, profiles, repositories, configuration, or Git state were modified during this audit.
+
+## Exact identity and lineage
+
+| Exact ID / physical row | Metadata | Classification | Promotion |
+|---|---|---|---|
+| Default `20260721_113041_3f113d` | `/Users/acazumah/.hermes/state.db`; `desktop`; model `gpt-5.6-sol`; parent `20260721_112003_2f277e`; null title/cwd; started **2026-07-21 11:30:41 GMT**; last message **14:59:08**; ended **15:02:09**, `compression`; **213 messages: 4 user / 42 assistant / 167 tool** | **Process-control with substantive inherited-request closure**, followed by an interrupted later phase | Mixed: `promote/current` for Portfolio integration ownership; `historical/superseded` for the deleted mock-up and limited-search claim; `incomplete` for the later Standalone request |
+| Coder shell `20260721_113041_3f113d` | `/Users/acazumah/.hermes/profiles/coder/state.db`; title **Portfolio Vault Knowledge Promotion**; started **11:31:31**; source `unknown`; no parent/model/cwd; **0 messages** | Metadata mirror/handoff shell; not a second conversation | De-duplication control only; **+0 coverage** |
+| Default `20260721_150209_773080` | `/Users/acazumah/.hermes/state.db`; `desktop`; model `gpt-5.6-sol`; parent `20260721_113041_3f113d`; null title/cwd; started **15:02:09 GMT**; last message **15:41:05**; ended **15:51:21**, `compression`; **224 messages: 4 user / 62 assistant / 158 tool** | **Interrupted process-control continuation** with unique read-only reconnaissance | `reference-only` for process provenance; `historical/superseded` for the repository-only Standalone direction; `incomplete` for integration |
+| Coder lookup for `20260721_150209_773080` | **0 session rows / 0 message rows** | No shell or collision | None |
+
+All timestamps and rows precede the frozen **2026-07-21 17:12:06 GMT** cutoff.
+
+## Replay and evidence boundaries
+
+### `20260721_113041_3f113d`
+
+- Semantic replay/compaction occupies the opening block through message **5518**. Exact role/content/tool comparison finds **at least 75 of 213** rows duplicated from the parent; this is a lower bound because compacted outputs were re-emitted in altered form.
+- The first child-attributable event is the inherited Portfolio worker completion at **5519**; first unique execution begins at **5520**.
+- The preserved task-list row is runtime state, not a fresh human request.
+- Portfolio Batch 1 is completed in this exact record, with a supported final report at **5626**.
+- The first novel human request is **5627**: resume the next staged Codex project-family harvest. This starts a separate Standalone-project phase.
+- That later phase only loads skills and reads the checkpoint, procedure, vault authority, manuals, index, and log before compression. It performs no discovery or write in this record.
+
+### `20260721_150209_773080`
+
+- Opening messages **5641–5715** semantically replay the first record’s Portfolio closure and its later Standalone setup. Exact comparison finds **at least 35 of 224** ancestor matches; compacted write and validation results account for additional semantic replay.
+- The replayed `write_file` and `patch` results at the start are **not new writes** and must not be re-credited.
+- First unique execution is a read-only metadata inventory attempt at **5716**. It is blocked because approval had not yet been given.
+- The first novel human request is **5721**, approving that read-only inventory. Successful unique reconnaissance follows.
+- The record inventories six unrelated standalone repositories, finds zero direct Codex matches, dispatches three source-marked read-only children, consumes their reports, and prepares for vault writing.
+- It ends while the write task is still in progress. Its unique tail contains **no successful `write_file` or `patch` result**, no post-write validator, and no final synthesis.
+
+## Exact Portfolio Batch 1 ownership
+
+`20260721_113041_3f113d` has successful write results for **12 distinct vault paths**:
+
+### Source and project artifacts
+
+1. `raw/sources/2026-07-21-portfolio-project-knowledge-harvest-batch-1.md`
+2. `wiki/sources/portfolio-project-knowledge-harvest-batch-1.md`
+3. `wiki/projects/portfolio-workspace.md`
+4. `wiki/projects/portfolio-backend.md`
+5. `wiki/projects/portfolio-admin-portal.md`
+6. `wiki/projects/portfolio-client-portal.md`
+7. `wiki/projects/portfolio-mockup-prototype.md`
+
+### Synthesis, catalog, and log integration
+
+8. `wiki/syntheses/software-development-operating-manual.md`
+9. `wiki/syntheses/new-project-bootstrap-operating-manual.md`
+10. `wiki/syntheses/project-knowledge-harvest-status.md`
+11. `index.md`
+12. `log.md`
+
+One broad integration patch failed atomically with **no files modified**. The record then used successful focused patches.
+
+### Explicit non-ownership
+
+Neither audited record wrote:
+
+- `AGENTS.md`
+- `schema/vault-structure.json`
+- `schema/wiki-frontmatter.schema.json`
+- `_template/project-template.md`
+- Any other template, validator, skill, Portfolio application repository, or Git history
+
+Schema v2 predates this chain: the current machine contract was present around **01:57–02:14 GMT**, and the project template around **02:13 GMT**, well before the Portfolio integration began at 11:30. Their current untracked state still does not identify the external/concurrent author.
+
+## Validation and Git outcomes
+
+### Historical record evidence
+
+`20260721_113041_3f113d` reported:
+
+- Canonical vault validation passed after integration: **55 wiki pages, 448 resolved wikilinks, six templates, six template-index links**.
+- A focused validation initially paused at an approval guard; after explicit approval it passed.
+- Canonical validation was rerun after the final log amendment and passed again.
+- `git diff --check` passed.
+- Exactly one Portfolio Batch 1 log heading was confirmed.
+- Portfolio parent and nested repository states remained unchanged.
+- No application build, test, install, service, database, deployment, commit, or push occurred.
+
+`20260721_150209_773080`:
+
+- Replays the above validation but owns none of it.
+- Performs no unique vault validator or Git-diff closure.
+- Has no unique Git publication or repository mutation.
+
+### Current static Git reconciliation
+
+Current revisions remain the same as the historical Portfolio batch:
+
+| Root | Current revision/state |
+|---|---|
+| Canonical vault | `main@10f7baf9a347`, aligned with upstream but heavily dirty: **110 normal / 155 `-uall` entries** |
+| Portfolio parent launcher | `main@8621a0286205`, **55 normal / 348 `-uall` entries**, ahead 1 / behind 4 |
+| Portfolio Backend | `main@c211320705f5`, clean and aligned |
+| Portfolio Admin Portal | `main@b0a86f9009d7`, clean and aligned |
+| Portfolio Client Portal | `main@d54e1e4466d9`, clean and aligned |
+| Historical mock-up repository | `main@a8c12d52b492`, clean and aligned |
+
+The Portfolio source/project artifacts remain untracked in the current vault, while the manuals, checkpoint, index, and log are modified relative to the vault’s older committed `HEAD`. Therefore:
+
+- The conversation write results establish exact historical ownership.
+- Current Git provides **no delivery-commit containment** for Portfolio Batch 1.
+- The dirty parent launcher must not be treated as an aggregate snapshot of the clean nested applications.
+- Normal and `-uall` status counts are separate modes and should not be compared as if equivalent.
+
+No fresh validator, build, test, browser, service, or project command was run for this audit.
+
+## Current, superseded, and incomplete boundaries
+
+### Current
+
+- The first record’s integration ownership is supported.
+- The raw manifest, source summary, four production project pages, both manual rules, checkpoint section, index entry, and historical log entry remain represented.
+- App-local Yarn ownership, nested repository separation, feature ownership, data-backed public claims, design-reference boundaries, asset validation, responsive rails, and historical verification limits remain current in the vault.
+- Current clean nested revisions continue to corroborate the static architecture.
+
+### Superseded
+
+- `portfolio-mockup-prototype.md`, created by `20260721_113041_3f113d`, was later deleted after the user rejected repository-only promotion without relevant conversation evidence.
+- The first record’s “five project pages” completion statement is therefore historical; only four production Portfolio project pages remain.
+- The limited search claim that no direct Portfolio Hermes implementation record existed was later superseded for Client Portal Featured Projects by separately audited June records. These two process-control IDs are not themselves implementation records.
+- The second record’s repository-only Standalone direction was later rejected. Its successor’s unsupported project pages were deleted or reduced to provenance-review placeholders.
+
+### Incomplete
+
+- The first record’s later Standalone-project request is incomplete within that exact ID.
+- The second record completes reconnaissance but not writing, validation, or synthesis.
+- Current runtime, browser acceptance, deployment, and focused application-test status remain unverified.
+
+## Successor and unrelated-work links
+
+- Database child of `20260721_113041_3f113d`: **`20260721_150209_773080`**.
+- Direct desktop successor of `20260721_150209_773080`: **`20260721_155121_9e9cc3`**.
+- Three additional direct children of the second record are `source='subagent'` read-only inventory workers. They do not advance primary coverage and do not own integration.
+- `20260721_155121_9e9cc3` owns the later Standalone artifact writes and validation—not the audited second record—and also receives the user’s explicit scope correction.
+- Descendants `20260721_162605_759657` and `20260721_164555_84be3a` carry that correction through approval-gated cleanup; the latter reports deletion/renaming closure.
+- The Standalone repository inventory is unrelated to Portfolio Batch 1 and must not be promoted into Portfolio project knowledge.
+
+## Recommended de-duplicated promotion
+
+1. Create one sanitized raw/source audit for these two exact IDs.
+2. Resolve the open ownership question in `vault-reconciliation-portfolio-reconnaissance-chain.md`: **`20260721_113041_3f113d` is the integration owner**.
+3. Add that exact integration provenance to the existing Portfolio Batch 1 source rather than duplicating its project rules.
+4. Checkpoint both IDs once: **62/130 classified, 68 remaining**.
+5. Update the harvest-status synthesis, index, and exactly one log entry.
+6. Add **no new Portfolio product rule**, project page, schema/template claim, or operating-manual rule.
+7. Preserve the second record only as interrupted/superseded process provenance with its direct-successor boundary.
+
+**Files created or modified during this audit:** none.

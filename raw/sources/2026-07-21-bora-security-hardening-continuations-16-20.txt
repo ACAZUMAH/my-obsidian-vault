@@ -1,0 +1,34 @@
+## Exact continuation classifications
+
+- **#16 `20260716_052127_c0e9a7` — substantive.** Closed the resolver/service refactor, DataLoader removal, owner-scoped account-goal enrichment, and best-effort notification handling after accepted BCL transactions; independent resolver and financial-correctness reviews passed. It then opened authentication-purpose hardening but did not finish it. **Successor:** `20260716_134549_6f6505`.
+- **#17 `20260716_134549_6f6505` — substantive.** Implemented the first purpose-aware code verification, resend, and password-recovery design, but final reviews found material concurrency, transaction, password-policy, compatibility, and uniqueness defects. Its local green checks must not be promoted as closure. **Successor:** `20260716_142249_3aba14`.
+- **#18 `20260716_142249_3aba14` — substantive.** Added exact observed-state predicates, stale-resend protection, password validation/hashing, transactional recovery, separate public recovery versus authenticated password change, and one challenge per user. It ended with a remaining flaw: recovery verification failures aborted the transaction and rolled back attempt tracking or cleanup. **Successor:** `20260716_144609_559128`.
+- **#19 `20260716_144609_559128` — substantive.** Corrected transaction/error classification so expected verification failures commit attempt tracking or cleanup, while user-update/database failures roll back code consumption. Two independent final reviews passed; this is the historical closure for the purpose-aware recovery slice. **Successor:** `20260716_150130_fcc0ef`.
+- **#20 `20260716_150130_fcc0ef` — substantive.** Completed authentication structural cleanup: shared interfaces, dedicated helpers, typed claims/errors, project-style documentation, and intentionally explicit security predicates. It also established the user’s rule that current review edits must not be overwritten. It only identified plaintext authentication-code storage as the next fix; implementation belongs to **#21 `20260716_171024_ddce8b`**, with further closure in **#22 `20260716_173700_e3851f`**.
+
+## Merged durable findings
+
+- **Resolver boundary:** GraphQL resolvers adapt arguments and principal identity, call one owning service, and return; MongoDB `_id` to GraphQL `id` is the only intentional resolver-local transformation. Canonical loading, authorization, whitelisting, persistence, provider calls, enrichment, and notifications are service-owned.
+- **Financial outcome invariant:** Notification failure after an accepted BCL deposit or withdrawal is logged but cannot turn provider success into failure or leave synchronization incomplete solely because notification delivery failed.
+- **Authentication invariant:** Code purpose and complete observed state must remain bound through attempt reservation, expiration/exhaustion cleanup, successful consumption, and resend replacement. Stale same-purpose operations fail closed.
+- **Recovery boundary:** Authenticated password change remains separate from public, rate-limited password recovery. Recovery validates and hashes the password before code consumption, issues no login tokens, and transactionally couples code consumption with password/session revocation.
+- **Transaction semantics:** Only explicitly marked verification failures are handled as expected outcomes so attempt tracking or cleanup commits. Unexpected database/user-update failures abort and roll back consumption.
+- **Deployment boundary:** The current model enforces one challenge per user, but no duplicate-record preflight or migration was found. Existing production data must be audited before relying on index creation.
+- **User corrections:** Avoid unexplained abbreviations and define necessary technical terms. Current user-reviewed files and diffs outrank earlier assistant versions.
+- **Historical verification:** Strict resolver and financial-correctness reviews passed in #16; final authentication security reviews passed in #19. These are historical outcomes, not fresh verification of the later dirty tree.
+
+## Current static reconciliation
+
+- Current source confirms hashed authentication-code persistence, exact hash/state predicates, legacy plaintext removal/fail-closed handling, purpose-preserving resend, separate recovery, the unique user index, and refresh-token families.
+- Therefore, #20’s plaintext-storage and refresh-family boundaries are superseded by successors/current source.
+- Challenge identifiers remain absent, and rate limiting is still process-local rather than shared across replicas.
+- The vault already captures thin resolvers, domain-owned helpers/interfaces, project JSDoc style, and preservation of live user edits; do not duplicate those rules.
+
+## Promotion targets
+
+- **Source:** new `wiki/sources/bora-resolver-authentication-hardening-hermes-chain.md` covering these five exact records, review-failure boundaries, and #21/#22 reconciliation.
+- **Project:** `wiki/projects/bora-capital-backend.md` for the authentication invariants, transaction semantics, DataLoader removal, notification isolation, index rollout prerequisite, and current challenge/rate-limit gaps.
+- **Manual:** `wiki/syntheses/software-development-operating-manual.md` only for the net-new communication rule—avoid unexplained abbreviations and define necessary terms. Existing live-reread and thin-resolver rules already cover the other corrections.
+
+**Files created or modified:** none.  
+**Issues:** none remaining; partial compact views for #18/#20 were resolved against exact session semantics and the verified continuation ledger.

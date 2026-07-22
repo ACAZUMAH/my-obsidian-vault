@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "canonical_paths": {
+    "raw_sources": "raw/sources",
+    "raw_assets": "raw/assets",
+    "wiki_sources": "wiki/sources",
+    "wiki_concepts": "wiki/concepts",
+    "wiki_entities": "wiki/entities",
+    "wiki_projects": "wiki/projects",
+    "wiki_questions": "wiki/questions",
+    "wiki_syntheses": "wiki/syntheses",
+    "templates": "_template",
+    "schemas": "schema",
+    "agent_skills": ".agents/skills",
+    "scripts": "scripts"
+  },
+  "required_directories": [
+    "raw/sources",
+    "raw/assets",
+    "wiki/sources",
+    "wiki/concepts",
+    "wiki/entities",
+    "wiki/projects",
+    "wiki/questions",
+    "wiki/syntheses",
+    "_template",
+    "schema",
+    ".agents/skills",
+    "scripts"
+  ],
+  "templates": {
+    "source": "_template/source-summary-template.md",
+    "concept": "_template/concept-template.md",
+    "entity": "_template/entity-template.md",
+    "project": "_template/project-template.md",
+    "question": "_template/question-template.md",
+    "synthesis": "_template/synthesis-template.md"
+  },
+  "required_agent_skills": [
+    "obsidian-markdown",
+    "obsidian-bases",
+    "json-canvas",
+    "obsidian-cli",
+    "defuddle",
+    "vault-maintenance"
+  ],
+  "allowed_statuses": [
+    "seed",
+    "active",
+    "needs-review",
+    "superseded"
+  ],
+  "required_frontmatter": [
+    "type",
+    "status",
+    "created",
+    "updated",
+    "tags",
+    "sources"
+  ],
+  "page_type_directories": {
+    "source": "wiki/sources",
+    "concept": "wiki/concepts",
+    "entity": "wiki/entities",
+    "project": "wiki/projects",
+    "question": "wiki/questions",
+    "synthesis": "wiki/syntheses"
+  },
+  "required_sections": {
+    "source": [
+      "Source",
+      "Core Claims",
+      "Useful Details",
+      "Connections",
+      "Contradictions Or Tensions",
+      "Open Questions"
+    ],
+    "concept": [
+      "Working Definition",
+      "Current Synthesis",
+      "Supporting Sources",
+      "Related",
+      "Open Questions"
+    ],
+    "entity": [
+      "Summary",
+      "Known Facts",
+      "Related",
+      "Supporting Sources",
+      "Open Questions"
+    ],
+    "project": [
+      "Summary",
+      "Purpose",
+      "Stack",
+      "Architecture",
+      "Folder Ownership",
+      "Commands",
+      "Runtime/Deployment",
+      "Durable Conventions",
+      "Constraints",
+      "Decisions And Rationale",
+      "Verification Expectations",
+      "Evidence",
+      "Contradictions",
+      "Confidence",
+      "Open Questions"
+    ],
+    "question": [
+      "Short Answer",
+      "Analysis",
+      "Citations",
+      "Follow-Up Questions"
+    ],
+    "synthesis": [
+      "Thesis",
+      "Evidence",
+      "Implications",
+      "Contradictions Or Tensions",
+      "Related",
+      "Sources",
+      "Open Questions"
+    ]
+  }
+}

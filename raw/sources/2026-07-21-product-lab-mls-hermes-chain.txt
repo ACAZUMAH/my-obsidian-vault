@@ -1,0 +1,227 @@
+# Sanitized Audit — Product Lab Badge / MLS Chain
+
+## Verdict
+
+- **Yes:** `20260624_123800_8292b3` is the semantic successor that completed the unanswered product-table badge request at the end of `20260624_105536_89348f`.
+- It is **not** a database child of that predecessor; it is an independent root started eight minutes later with the same request expanded by failure evidence.
+- The five requested records are actually **two lineages**:
+  ```text
+  20260624_105536_89348f  (predecessor; request unanswered there)
+      ⇢ topical successor: 20260624_123800_8292b3
+
+  20260624_150414_7af362
+      └─ 20260625_122343_c6ac8f
+          └─ 20260626_114510_a5cc1c
+              └─ 20260626_140332_cf7d64
+  ```
+- The “MLS Refresh Button Fix” chain pivots after the refresh repair into general product stock behavior, non-stock sales, bundles, BOMs, UOM conversion, and returns. The inherited titles do not describe most later work.
+- **All five exact IDs are substantive. None is a standalone replay shell.** Compaction notices, preserved task lists, and repeated user rows inside the continuations were treated as runtime/replay context rather than independent requests.
+
+## Metadata and classification
+
+Source for all records: read-only logical locators in `/Users/acazumah/.hermes/profiles/coder/state.db`; `source=cli`, model `gpt-5.5`, unarchived. No post-cutoff messages existed at the frozen cutoff.
+
+| ID | Start / last substantive message UTC | Parent | Active U/A/T | Historical cwd | Classification |
+|---|---|---|---:|---|---|
+| `20260624_123800_8292b3` | Jun 24 12:45 / 14:23 | none | 3/76/139 | `/Users/acazumah/Documents` | `substantive`, mixed current/superseded |
+| `20260624_150414_7af362` | Jun 24 15:10 / Jun 25 12:23 | none | 5/91/192 | `/Users/acazumah/Documents` | `substantive`, mixed current/incomplete |
+| `20260625_122343_c6ac8f` | Jun 25 12:23 / Jun 26 11:43 | `…7af362` | 9/174/262 | inherited/empty metadata | `substantive`, mixed current/superseded |
+| `20260626_114510_a5cc1c` | Jun 26 11:45 / 14:03 | `…c6ac8f` | 8/275/393 | inherited/empty metadata | `substantive`, mixed current/superseded/incomplete |
+| `20260626_140332_cf7d64` | Jun 26 14:03 / 20:48 | `…a5cc1c` | 10/288/422 | inherited/empty metadata | `substantive`, mixed current/superseded |
+
+The Jun 29/Jul 14 `ws_orphan_reap` timestamps on the two roots and final child are metadata cleanup, not work dates.
+
+## Replay de-duplication
+
+| Child | Exact direct-parent replay | Fresh boundary |
+|---|---:|---|
+| `…c6ac8f` | 103 rows: 2 user, 47 assistant, 54 tool | After the inherited “proceed and implement”; the child independently implemented and verified stock behavior. |
+| `…a5cc1c` | 233 rows: 6 user, 135 assistant, 92 tool | After replaying the parent through its final bundle/BOM correction; the child independently performed the BOM refactor. |
+| `…cf7d64` | 312 rows: 7 user, 147 assistant, 158 tool | After replaying the BOM implementation and rejected purpose-enum design. Two exact copies plus one bullet-prefixed copy of the purpose correction were collapsed into one instruction. |
+
+Exact matches are a lower bound; rewritten compaction summaries and task lists were also excluded semantically.
+
+## Per-record findings
+
+### `20260624_123800_8292b3` — Product lab test badge fix
+
+**Requests and corrections**
+
+1. Complete the predecessor’s frontend request:
+   - products table must distinguish a lab test from a normal product;
+   - POS should show a “Lab test” badge when `testDefinitionId` exists;
+   - investigate why one browser result returned `testDefinitionId: null` despite legacy database fields.
+2. User correction: `labTestId`, `labTestDefinitionId`, and `testDefinitionId` represented the same relationship; legacy rows had been deleted, so retain **only canonical `testDefinitionId`**, not compatibility fields or a fallback resolver.
+3. Subject pivot: diagnose an aborted POS sale transaction.
+
+**Historical outcomes**
+
+- A first fallback resolver/model design for the legacy fields was implemented, then explicitly reverted after the correction.
+- The Pharmacy Portal products query added `testDefinitionId`; the products table gained a lab-test/normal Type badge.
+- Reported verification:
+  - backend build passed;
+  - changed frontend files passed lint;
+  - full frontend type-check was initially blocked by unrelated existing errors.
+- The transaction failure was attributed to a stale unique DocumentCounter index. The session:
+  - added and registered an idempotent migration to drop it;
+  - reported running that migration;
+  - reported an aborted transaction smoke check with no test sale or invoice persisted;
+  - reported backend build success and 10/10 MLS sale-generation integration tests.
+
+**Promotion status**
+
+- Canonical `testDefinitionId` rule and stale-index migration: **`promote/current`**.
+- Initial legacy fallback resolver: **`historical/superseded`**.
+- Products-table lab Type column: **historically complete but now `historical/superseded`**.
+- Post-fix browser acceptance: **`incomplete`**.
+
+### `20260624_150414_7af362` — MLS Refresh Button Fix
+
+**Requests and pivots**
+
+1. Test Definitions and Test Requests refresh buttons must call Apollo `query.refetch`.
+2. Repair the broader frontend build failures exposed afterward.
+3. Pivot to item-driven sale behavior: stocked products, services/non-stock items, and bundles must share one sale pipeline while stock movement and COGS depend on product behavior. The user then said to implement it.
+
+**Historical outcomes**
+
+- Refresh handlers changed from direct `onClick={onRefresh}` to wrappers calling `onRefresh()` so React’s click event was not passed as Apollo variables.
+- Added a focused two-test refresh regression suite and accessibility labels.
+- Repaired unrelated frontend compile failures, including MLS `Samples` path casing, menu typings, and the missing `openInNewTab` prop.
+- Reported verification:
+  - refresh suite: 2 tests passed;
+  - focused lint passed;
+  - after build repairs: type-check, production build, targeted lint, and 12 MLS tests passed.
+- The final stock-behavior task was analyzed and planned but **not implemented in this root**; execution moved to `…c6ac8f`.
+
+**Promotion status**
+
+- Refresh wrapper behavior: **`promote/current`**.
+- Broad build repair: supporting/current provenance.
+- Final stock directive in this ID: **`incomplete`**.
+- Browser verification: **`incomplete`**.
+
+### `20260625_122343_c6ac8f` — MLS Refresh Button Fix #2
+
+**Unique work after replay**
+
+- Implemented item-driven stock behavior in the backend:
+  - `isStockItem` and `isBundle`;
+  - nullable `SaleItem.inventoryId`;
+  - stock-only movement planning;
+  - non-stock/service revenue without phantom inventory or COGS;
+  - initial embedded bundle-component representation;
+  - migration and focused tests.
+- User corrected a mistaken direct-import workaround. The accepted diagnosis preserved barrel imports and changed incompatible TypeScript `ignoreDeprecations` configuration.
+- Updated the frontend product create/settings/list/POS/Sell flows for stock, non-stock, and bundle behavior.
+- Final correction requested replacing embedded bundle items with the existing BOM subsystem.
+
+**Reported verification**
+
+- Backend: 3 unit suites/16 tests, one non-stock integration test, and build passed.
+- Import/config repair: build plus 11 focused tests passed.
+- Frontend: type-check and production build passed.
+- Sale returns were explicitly left as a follow-up.
+
+**Promotion status**
+
+- Stock/non-stock flags, nullable inventory, movement/COGS separation, frontend behavior: **`promote/current`**.
+- Embedded `bundleItems` design: **`historical/superseded`** by `…a5cc1c`.
+- Return support in this record: **`incomplete`**.
+
+### `20260626_114510_a5cc1c` — MLS Refresh Button Fix #3
+
+**Unique work after replay**
+
+- Implemented the inherited correction to remove Product-owned bundle components and use BOMs.
+- Added a stored BOM `purpose` enum distinguishing manufacturing and bundles, scoped default uniqueness by purpose, and updated backend/frontend contracts.
+- The final user correction rejected stored purpose because switching a product between manufacturing and bundle behavior would require updating every BOM.
+
+**Reported verification**
+
+- Backend build passed.
+- Three unit suites/16 tests and one integration test passed.
+- Frontend type-check and build passed.
+
+**Promotion status**
+
+- “Use BOM rather than duplicate Product-owned bundle components”: **`promote/current`**.
+- Stored `BillOfMaterialPurpose`: **`historical/superseded`**.
+- Purpose-removal request: **`incomplete` in this exact ID**, resolved by `…cf7d64`.
+
+### `20260626_140332_cf7d64` — MLS Refresh Button Fix #4
+
+**Unique work after replay**
+
+1. Removed BOM purpose state and derived UI purpose from the linked product’s current `isBundle`/`manufacturable` flags.
+2. Fresh second request:
+   - selling a bundle must deduct all BOM components;
+   - account for BOM UOM conversions;
+   - returns must restore the exact component quantities deducted.
+
+**Historical outcomes**
+
+- Purpose enum/field/filter/index usage was removed; default BOM uniqueness returned to product scope.
+- The session implemented bundle sale/return support using a sale-time `inventoryReliefItems` snapshot and `saleItemId`-based returns.
+- Reported verification:
+  - backend build passed;
+  - three unit suites/16 tests passed;
+  - targeted integration suite passed two tests, including bundle sale and return;
+  - frontend type-check and build passed;
+  - the larger pre-existing sale-return integration suite hit timeout failures.
+
+**Promotion status**
+
+- Derived BOM purpose, BOM-backed bundles, UOM-aware component relief, and sold-line return identity: **`promote/current` as durable rules**.
+- Historical embedded `inventoryReliefItems` mechanism: **`historical/superseded`** by later movement-ledger architecture.
+- Full sale-return suite closure and browser acceptance: **`incomplete`**.
+
+## Current static reconciliation
+
+### Still current
+
+- POS product search requests `testDefinitionId`, and `PosProductCard.tsx` still renders the Lab test badge.
+- Both MLS headers retain `onClick={() => onRefresh()}` and refresh accessibility labels.
+- `isStockItem`, `isBundle`, nullable inventory, product-level sale lines, movement-only batch/component relief, `saleItemId` returns, exact `lineCost`, and product-scoped BOMs remain in current source.
+- The stock-behavior migration remains registered as V2 and removes both old BOM purpose state and embedded `bundleItems`.
+- The stale DocumentCounter-index migration remains present and registered; the current model and integration test encode organization/type/period/series uniqueness.
+- The BOM table derives its displayed purpose from `product.isBundle` or `product.manufacturable`.
+
+### Superseded or missing
+
+- The current products query still fetches `testDefinitionId`, but `ProductTableColumns.tsx` no longer renders the requested lab-test/normal Type column. It now renders **Stock Behavior** instead.
+- The historical focused `RefreshHeaders.test.tsx` is absent; only static current handler evidence remains.
+- `inventoryReliefItems` is absent from current `SaleItem`. Current returns reverse original sale movement rows linked by `sourceItemId`, proportionally handling batch splits, bundle components, and partial returns. This is a later and more general mechanism.
+
+### Current-code tension
+
+`createBillOfMaterial.ts` calls `assertProductManufacturable(product)` before its explicit “manufacturable or bundle” check. Because that assertion rejects a pure bundle, current static source appears to block creating a BOM for `isBundle: true, manufacturable: false` products despite the accepted chain rule. This is a likely current bug requiring focused verification; no project command was run.
+
+## Coverage and promotion targets
+
+- **Classification coverage:** five newly classified unique non-subagent records.
+- Conditional checkpoint movement: **48/130 → 53/130**, leaving **77**.
+- **Evidence-bearing coverage:** all five records; no replay-only shell among the exact IDs.
+- Recommended authorized promotion:
+  1. One sanitized raw five-record chain report and one coherent source summary.
+  2. Update LivelyCura Backend and Pharmacy Portal project pages with exact provenance and current tensions.
+  3. Resolve the active open question in the Portfolio/LivelyCura supplement that asks whether the badge request was completed.
+  4. Preserve the predecessor raw report’s statement that the request was unanswered **in that exact predecessor**.
+  5. Advance the checkpoint to 53/130.
+  6. Do not duplicate already-promoted stock/sale/BOM rules; add earlier provenance and the products-table/current-BOM contradictions.
+
+## Successor boundaries
+
+- `…8292b3` has no direct database child.
+- `…cf7d64` has no direct database child.
+- Later **topical**, not lineage, successors include:
+  - `20260627_113946_8a0b7e` → `20260627_153636_3d38e3` for Product nullability/migration correction;
+  - the four-record chain beginning `20260628_134341_c8f843` for later product-level sale, return, movement, and migration architecture.
+- Later stock/sales supplements remain authoritative for the final current contract.
+
+## Audit boundary
+
+- Files created or modified: **none**.
+- No repository builds/tests, browser automation, Git mutation, database mutation, migration, service, or project command was run.
+- Verification is transcript-reported historical evidence plus read-only current static inspection.
+- No secrets, private fixture values, full transcripts, screenshots, or tool chatter are included.

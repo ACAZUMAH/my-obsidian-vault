@@ -1,0 +1,27 @@
+## Bora continuations #41–#45 — sanitized promotion report
+
+All five exact coder records are **substantive**. Replay was excluded; classification coverage advances **103/130 → 108/130**.
+
+| Exact ID | Classification / boundary | Durable outcome and promotion | Immediate successor |
+|---|---|---|---|
+| **#41** `20260717_235541_b19a5b` | **Substantive — completed.** Closed the inherited BCL boundary work, then independently fixed deposit initialization. | **Promote/current:** commit the local claim before BCL; call BCL outside Mongo transactions; finalize deposit/goal state in a short transaction; notify only after commit. Persist `bclSync` attempts and ambiguous-result state, require a BCL ERP reference, and keep transitions monotonic. BCL account lookup and Paystack initialization also run outside transactions. The session reported the full gate passing at 56 suites/289 tests. | `20260718_001950_896bb0` |
+| **#42** `20260718_001950_896bb0` | **Substantive — completed, next inbox task handed off.** | **Promote/current:** a signed webhook is only a trigger; payment reference, amount, currency, status, and provider ID must come from server-to-server Paystack verification before BCL credit. Historical full gate: 56 suites/290 tests. | `20260718_003414_a6fd49` |
+| **#43** `20260718_003414_a6fd49` | **Substantive — inbox completed; later go-live concern unanswered in-record.** | **Promote/current:** persist a safe webhook receipt before provider verification; store digest/metadata, not raw payload; atomically claim duplicate delivery; support bounded retry, stale-claim recovery, processed/failed/dead-letter outcomes, and no receipt for invalid signatures. Historical full gate: 56 suites/292 tests. The final user concern about endless scope passed unresolved to the successor. | `20260718_005111_f5dcf8` |
+| **#44** `20260718_005111_f5dcf8` | **Substantive decision/correction; no new implementation closure.** | **Mixed:** the user’s shipping correction moved the broad hardening roadmap to post-launch and froze active scope to confirmed release blockers. The final request to remove server verification and the inbox was **incomplete here and superseded** by #45’s later instruction to keep them. No fresh verification belongs to this ID. | `20260718_010140_297ee6` |
+| **#45** `20260718_010140_297ee6` | **Substantive but incomplete.** Began removing verification/inbox, produced a failing targeted test and a partial handler rewrite, then received the reversing correction. | **Promote correction/current via successor:** keep the important controls, finish once, and split orchestration by established file responsibility rather than concentrating it in one file. This record compressed before repair or post-write verification. | `20260718_010657_7ecbd1`, which restored/retained the controls, split webhook and BCL responsibilities, and historically reported 19 focused tests plus the 56-suite/292-test full gate passing. |
+
+### Merged durable findings and current tensions
+
+- Current static source retains the accepted architecture: external Paystack/BCL calls outside Mongo transactions, server verification, durable webhook inbox, atomic claims, post-commit notification, and modular `webhookInbox/` and `bclSync/` ownership.
+- Later source adds hourly webhook retry/reconciliation and BCL alerts. Ambiguous BCL money movement remains deliberately **manual/alert-only**, not automatically resubmitted.
+- **Material contradiction:** #41 explicitly closed monotonic finalization, but current `bclSync/finalizeDeposit.ts` updates by transaction `_id` alone rather than requiring `PROCESSING + IN_PROGRESS`. `markReconciliation.ts` retains the exact-state guard; successful finalization does not.
+- Historical GO/test reports do not certify the current tree: it remains substantially dirty at base `49fe85765b8c`, and no tests were freshly run for this audit.
+
+### Promotion targets
+
+- Merge these rows with sibling-audited #36–#40 into one Bora financial/go-live continuation source.
+- Add exact-ID provenance and the current monotonic-finalization tension to `wiki/projects/bora-capital-backend.md`.
+- **No new operating-manual rule needed:** external-call boundaries, finite go-live scope, and one-operation-per-file are already canonical; add provenance only, avoiding duplicate rules.
+
+**Files created or modified:** none.  
+**Verification:** immutable pre-cutoff archive evidence plus current static inspection only; no fresh build or tests.

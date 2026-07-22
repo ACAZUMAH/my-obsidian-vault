@@ -42,9 +42,9 @@ sources:
 - [[../syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]]
 - [[../syntheses/software-development-operating-manual|Software Development Operating Manual]]
 - [[../syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]]
-- [[../entities/projects/livelycura-backend|LivelyCura Backend]]
-- [[../entities/projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
-- [[../entities/projects/livelycura-check-city-app|LivelyCura CheckCity App]]
+- [[../projects/livelycura-backend|LivelyCura Backend]]
+- [[../projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
+- [[../projects/livelycura-check-city-app|LivelyCura CheckCity App]]
 
 ## Contradictions Or Tensions
 

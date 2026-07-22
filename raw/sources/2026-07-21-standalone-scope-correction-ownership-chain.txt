@@ -1,0 +1,227 @@
+# Sanitized Standalone Correction-Chain Audit
+
+## Outcome
+
+The three default-profile records form a clear ownership chain:
+
+1. **`20260721_155121_9e9cc3` owns the unsupported Standalone integration writes** and the later **user scope-correction request**, but not its implementation.
+2. **`20260721_162605_759657` owns the corrective writes, renames/placeholders, approved deletions, and durable provenance-rule edits**, but ends before post-edit validation and the required log entry.
+3. **`20260721_164555_84be3a` is a replay-heavy human-intent shell with unique cleanup closure**: it owns the correction log and final validation, not the earlier corrective files or deletions.
+
+The already-classified parent `20260721_150209_773080` was used only as a replay boundary and receives no duplicate credit.
+
+## Evidence Boundary
+
+- Frozen metadata anchor: `raw/sources/2026-07-21-hermes-session-coverage-audit.md`
+- Frozen cutoff: **2026-07-21 17:12:06 GMT**
+- Exact body locator: `/Users/acazumah/.hermes/state.db` → `sessions.id` and `messages.session_id`
+- The live exact default rows still match the frozen counts **239, 124, and 103**, and all their messages predate the cutoff.
+- No transcript files were inferred.
+- Current vault and repositories were inspected statically and read-only; no current validator, build, test, service, migration, or deployment was run.
+
+## Exact Record Classification
+
+| Exact ID | Verified metadata | Replay and fresh boundary | Classification / promotion |
+|---|---|---|---|
+| `20260721_155121_9e9cc3` | Default; `desktop`; `gpt-5.6-sol`; no cwd/title; parent `20260721_150209_773080`; started 15:51:21; ended 16:26:05 by compression; last message 16:23:24; **239 rows: 4 user / 67 assistant / 168 tool** | 67 rows and 106 tool-call IDs exactly match the direct parent. Last replayed execution is at message 6192; first unique execution is message 6200, a write. First novel human request is message 6266, after the unsupported batch’s completion report. | **Process-control.** Unsupported integration is `historical/superseded`; explicit scope correction is `promote/current`, but correction execution is incomplete in this record. |
+| `20260721_162605_759657` | Default; `desktop`; no cwd/title; parent `20260721_155121_9e9cc3`; started 16:26:05; ended 16:45:55 by compression; last message 16:43:31; **124 rows: 4 / 38 / 82** | 29 exact rows and 30 call IDs replay the parent. First unique execution is message 6338, inspecting the correction targets. The correction request itself is replayed; the only novel human message is explicit deletion approval at message 6366. | **Process-control with substantive corrective execution.** Successful correction writes/deletions are `promote/current`; post-edit validation and completion reporting are incomplete here. |
+| `20260721_164555_84be3a` | Default; `desktop`; no cwd/title; parent `20260721_162605_759657`; started 16:45:55; no `ended_at`; last message 16:48:04; **103 rows: 2 / 35 / 66** | 40 exact rows and 52 call IDs replay the parent. Both user-role rows are replay/control rows, including the earlier approval. First unique execution is message 6493. Unique work consists of task closure, focused searches, log patches, validation, and final synthesis. | **Process-control human-intent shell with unique closure.** Replayed correction is reference-only; cleanup log and verification closure are `promote/current`. |
+
+Exact-match counts are lower bounds because compaction can re-emit semantically identical material with changed formatting.
+
+## Ownership Ledger
+
+### 1. Unsupported integration owner — `20260721_155121_9e9cc3`
+
+The record performed **15 successful whole-file writes and six successful patch calls**, touching **13 distinct vault paths**:
+
+- Standalone raw manifest and source summary.
+- Six repository-derived project pages:
+  - MovieFlix Mobile
+  - mywork Git History Generator
+  - Playground
+  - Magical Goodall
+  - GoAPI
+  - the incorrectly named Cando Backend
+- Software Development Operating Manual.
+- New Project Bootstrap Operating Manual.
+- Project Knowledge Harvest Status.
+- `index.md`.
+- `log.md`.
+
+It also promoted the repository-derived package-script safety rule and claimed the staged queue complete at 30 discovered Git roots. These promotions were invalid because the record reported:
+
+- zero direct matching conversation records;
+- zero transcript bodies processed;
+- project claims derived from repository inspection alone.
+
+One broad checkpoint patch failed atomically with no modification; focused patches later succeeded.
+
+Historical verification attributable to this record:
+
+- Initial validator: **failed with 72 schema errors**.
+- After rewrites: **passed with 62 wiki pages and 486 wikilinks**, six templates, and six template-index links.
+- `git diff --check`: passed.
+- A focused 12-file sensitive-pattern/whitespace scan succeeded with no findings.
+- A later redundant invariant check was guard-blocked and not retried.
+- No application repository, commit, push, dependency, build, test, service, database, migration, or deployment was changed.
+
+The final user correction arrived only after this completion report. The record then inspected the affected vault surfaces and performed limited current-profile history searches, but compressed before any corrective write.
+
+### 2. Correction and deletion owner — `20260721_162605_759657`
+
+This record owns:
+
+- The compact user-memory correction that direct requested-archive evidence is required.
+- Six successful whole-file writes:
+  - raw scope-correction source;
+  - integrated scope-correction source;
+  - superseded Standalone source summary;
+  - MovieFlix placeholder;
+  - GoAPI placeholder;
+  - initial Let’s Ride Backend placeholder.
+- Eleven successful focused patches across:
+  - `AGENTS.md`;
+  - Personal Operating Manual;
+  - Software Development Operating Manual;
+  - New Project Bootstrap Operating Manual;
+  - Project Knowledge Harvest Status;
+  - `index.md`;
+  - Codex harvest concept;
+  - Portfolio and Bora source summaries.
+- Removal of the unsupported package-script rule and the false 30-root completion boundary.
+- Five approved deletions:
+  - Magical Goodall;
+  - mywork Git History Generator;
+  - Playground;
+  - Portfolio Mock-up Prototype;
+  - old `cando-backend.md`.
+
+The deletion boundary is exact:
+
+1. The first deletion command was blocked because no destructive-action confirmation had reached the guard.
+2. The assistant stopped and asked for confirmation.
+3. The user explicitly approved deletion in this record.
+4. The exact retry succeeded and reported approval.
+
+The approval row replayed in the next child is not a second approval, and the child does not own the deletion.
+
+Two broad correction patches failed atomically with no files modified; focused replacements succeeded afterward. This record did **not** create the top-level correction log entry and did **not** run post-correction canonical validation before compression.
+
+### 3. Cleanup-closure owner — `20260721_164555_84be3a`
+
+All correction writes, memory results, and deletions visible before message 6493 are replay from the parent.
+
+Unique ownership is limited to:
+
+- two successful patches to `log.md`;
+- focused checks for:
+  - removed links and filenames;
+  - stale Cando naming;
+  - the unsupported package-script rule;
+  - residual repository-derived project descriptions;
+- canonical validation and `git diff --check`;
+- the final supported completion report.
+
+Historical closure results:
+
+- Pre-log validator: **59 wiki pages, 480 wikilinks**.
+- After adding the log: **59 pages, 481 wikilinks**.
+- The log’s reported link count was corrected from 480 to 481.
+- Final validator rerun: **59 pages, 481 wikilinks**, six templates and six template-index links.
+- `git diff --check`: passed.
+- No commit or push occurred.
+
+Although the default session has no `ended_at`, it contains a final synthesis at 16:48:04. That supported final answer, rather than metadata cleanup, is the cleanup outcome boundary.
+
+## Current Canonical State
+
+| Artifact | Current disposition |
+|---|---|
+| Original Standalone raw manifest | Still present and untracked; immutable audit history only, not active project evidence. |
+| Standalone source summary | Present with `status: superseded`; the original integration belongs to `155121`, the superseding rewrite to `162605`. |
+| Scope-correction raw and wiki sources | Present and active; owned by `162605`. |
+| Magical Goodall, mywork, Playground, Portfolio Mock-up Prototype | Deleted and absent from active project/index links. |
+| Old Cando page | Deleted. Canonical identity is Let’s Ride Backend. |
+| MovieFlix and GoAPI | Current low-confidence provenance-review placeholders written by `162605`; repository-derived architecture remains retracted. |
+| Initial Let’s Ride placeholder | Superseded by a later 19:32 rewrite using direct Hermes evidence. The **name correction remains current**, while the placeholder content does not. |
+| Current Let’s Ride page | Active, direct-Hermes-backed foundation page supported by the later Ride Ordering chain; stale Cando package/README branding remains a current tension. |
+| Unsupported package-script rule | Absent from active syntheses. |
+| Portfolio prototype classification | Preserved only in immutable raw history; active Portfolio source explicitly marks it superseded. |
+| AGENTS/manual provenance rule | Still current: repository discovery may verify conversation-derived claims but cannot create conversation-harvest knowledge. |
+| Index/log/checkpoint | Later amended. The correction remains represented, but the current checkpoint has additional later classifications. |
+| Schema/template/validator | **No target record wrote these.** Schema v2 and the project template predate this chain by over thirteen hours and remain untracked in the vault Git tree. Authorship is outside this lineage. |
+
+## Static Repository and Git Reconciliation
+
+The current application roots still match the revisions/states reported during the unsupported inventory:
+
+- MovieFlix: `cf26207fe998…`, three modified files.
+- mywork: `01b38bcfa82f…`, clean.
+- Playground: unborn `master`, clean.
+- Magical Goodall: `9733dd0366b5…`, clean.
+- GoAPI: `e5c3dfeca4fb…`, clean.
+- Let’s Ride Backend: `c82998912814…`, clean.
+- Portfolio prototype: `a8c12d52b492…`, clean.
+
+This corroborates that the chain changed the vault, not those repositories. It does **not** restore the retracted repository-derived claims as conversation evidence.
+
+The vault is currently on `main` at `10f7baf9a3476032100845dbf56584fd3ee9f785`, with the relevant correction/source/project artifacts either modified or untracked. Therefore:
+
+- conversation write results establish historical ownership;
+- current Git has no delivery-commit containment for these artifacts;
+- no target record committed or pushed the correction.
+
+## Same-ID Collision and Coverage
+
+`20260721_164555_84be3a` is also present in the coder store, but it is **not an empty alias shell**:
+
+- Coder metadata title: `Approved Wiki Project Cleanup`.
+- No parent.
+- Different, later body beginning at 17:08 with a Hermes archive-coverage challenge.
+- Through the exact cutoff, it had already begun read-only archive analysis and dispatched three source-marked workers.
+- Those workers belong to the coder coverage-audit record, not the default cleanup record.
+
+The two physical rows are materially different conversations sharing one exact ID. The coder row is at most a temporal/profile-handoff successor candidate; there is no database parent edge from it to the default body. Its later direct desktop child is `20260721_173155_61ea87`, post-cutoff.
+
+This exposes a contradiction in the frozen ledger, which de-duplicated by exact ID. Since the coder form of `164555` was already counted among the current 67:
+
+- `155121`: **+1**
+- `162605`: **+1**
+- default `164555`: newly classified physical body, but **+0 additional exact-ID increment** unless the denominator is redesigned around store-qualified conversations.
+
+Thus the safe frozen-ledger promotion would be **69/130, 61 remaining**, with the existing `164555` row replaced by a dual-store composite. A physically faithful denominator would require a separate centralized recount; it should not be silently changed to claim 70/130.
+
+## Contradictions Requiring Promotion
+
+1. The current scope-correction source still describes Let’s Ride as a placeholder/open provenance question, but later direct Hermes evidence now supports the active foundation page.
+2. The checkpoint likewise calls Let’s Ride “renamed and reduced to a placeholder” in one section while later acknowledging direct foundation evidence.
+3. The raw correction’s no-direct-session statement was based on a scoped profile search. It is superseded for Let’s Ride and must not be interpreted archive-wide.
+4. The frozen manifest/checkpoint treats the coder/default `164555` collision like a de-duplicatable ID, despite both bodies being populated and materially different.
+5. The original Standalone raw manifest and original log entry remain intentionally preserved but contradict current active knowledge.
+6. Schema v2, templates, and validator infrastructure are current but unowned by this chain; timestamps establish preexistence, not external authorship.
+
+## Recommended Promotion Targets
+
+If centrally integrated later:
+
+1. Create one sanitized raw report and one source summary for this exact correction chain.
+2. Add exact ownership boundaries to:
+   - `hermes-conversation-harvest-scope-correction.md`;
+   - `portfolio-batch1-integration-standalone-reconnaissance.md`;
+   - the superseded Standalone source.
+3. Update the checkpoint to:
+   - classify `155121` and `162605`;
+   - replace the prior one-body `164555` row with a store-qualified composite;
+   - advance the frozen exact-ID ledger to **69/130**;
+   - correct the stale Let’s Ride placeholder statement.
+4. Add provenance—not duplicate rules—to AGENTS and the manuals; the durable archive-scope rule is already current.
+5. Do not create or restore any deleted project page.
+6. Do not alter the immutable raw manifests.
+7. Update `index.md` and append exactly one log entry only during an authorized central promotion.
+
+## Audit Mutation Statement
+
+- **Files created or modified by this audit:** none.
+- **Commands run now:** read-only SQLite, filesystem reads/searches, timestamps, and read-only Git status/revision inspection.
+- **Issues:** the same-ID coder/default collision prevents a truthful one-row-per-ID model without a store-qualified composite; the current 130 denominator should remain frozen until centrally reconsidered.

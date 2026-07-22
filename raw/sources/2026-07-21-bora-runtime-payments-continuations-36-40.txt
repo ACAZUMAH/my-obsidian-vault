@@ -1,0 +1,25 @@
+## Bora continuations #36–#40 — promotion report
+
+- `20260717_160904_8adba5` — **substantive**: completed the user-directed rollback to Bora’s original single-API lifecycle—GraphQL subscriptions, app-managed crons/migrations, `/` and `/health`, and simple `StartServer()`/signal handling. Correctly removed global `mongoose.set('sanitizeFilter', true)`, which had corrupted trusted `$lte` cron filters. CORS/Helmet restoration began but was not closed here. **Successor:** `20260717_181727_d2d2a0`.
+- `20260717_181727_d2d2a0` — **substantive**: completed the CORS/Helmet correction—development/staging origins allowed, production checked against the static whitelist, originless native requests allowed—and removed the replacement environment contract. Added the user-approved four-file Docker/Compose layout patterned after LivelyCura; schema validation was historical, but no container runtime was available. Production-readiness assessment remained open. **Successor:** `20260717_185333_99a99e`.
+- `20260717_185333_99a99e` — **substantive**: established the release path `feature/updates → develop/staging → main/production`; accepted the user’s correction that an empty browser whitelist does not block ordinary React Native requests and that Compose files are inert unless invoked. Explained CodeQL/Dependabot as repository automation. Ended on the failing licensed Gitleaks action without resolving it. **Successor:** `20260717_210544_8446e4`.
+- `20260717_210544_8446e4` — **substantive**: removed the broken Gitleaks job and mandatory-scanner documentation while preserving ordinary CI; historically verified a clean, pushed branch and approved staging, but did not perform the deployment. Identified the BCL call inside a retryable MongoDB transaction as a duplicate-credit risk and selected a claim → external call → local finalize/reconcile design. Explicitly corrected scope: the existing hashed, purpose-bound, atomically consumed OTP was adequate; `challengeId` was incremental hardening requiring a mobile contract change and was not to be forced. BCL implementation started but remained incomplete. **Successor:** `20260717_231534_72cf41`.
+- `20260717_231534_72cf41` — **substantive**: completed the BCL boundary refactor—atomic local claim, BCL call outside MongoDB transactions, transactional local finalization, notification after commit, durable sync states, stable external reference, and reconciliation-required handling for ambiguous failures. Historical full-gate verification passed. Automatic retry remained intentionally blocked pending a BCL idempotency or lookup guarantee; the next security domain began only as “continues.” **Successor:** `20260717_235541_b19a5b`.
+
+### De-duplicated durable promotions
+
+- Never place non-transactional financial provider calls or notifications inside retryable database transaction callbacks; use **claim → external side effect → transactional finalization → post-commit notification**.
+- Ambiguous provider outcomes must enter durable reconciliation state rather than blind retry unless the provider confirms idempotency or reference lookup.
+- Avoid global ODM filter sanitization when trusted application queries use operators such as `$lte`; scope sanitization to untrusted input boundaries.
+- Preserve Bora’s approved runtime contract: one API process owns subscriptions, crons, and startup migrations unless the user explicitly approves a new worker/process architecture.
+- Security hardening must not silently replace established CORS, Helmet, startup, endpoint, or mobile API contracts.
+
+### Current static reconciliation
+
+- **Still present:** app-managed crons/migrations, GraphQL subscriptions, restored CORS/Helmet behavior, originless native-request allowance, no `challengeId`, and the BCL claim/call/finalize/reconciliation architecture—now modularized under `payment/bclSync/`.
+- **Superseded:** #39’s “no session-family model” gap; current source contains durable session records, family IDs, refresh-token state, and assurance levels.
+- **Contradictions:** the Docker/Compose files from #37 and CodeQL/Dependabot files discussed in #38 are currently absent. Gitleaks remains absent, consistent with #39. The branch is currently dirty, so #39’s clean/pushed state is historical only.
+- **Still open:** BCL reconciliation alerts exist, but no safe automatic BCL resubmission was found; the external idempotency/lookup dependency remains.
+
+**Promotion targets:** Bora project page for runtime/CORS/BCL/OTP decisions; software-development manual for transaction-boundary and scoped-sanitization rules.  
+**Files modified:** none. **Verification:** authoritative-history review plus fresh static source/git reconciliation; no tests executed and no credentials retained.

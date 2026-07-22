@@ -1,0 +1,31 @@
+## Sanitized promotion report
+
+### Exact-ID classification
+
+- **`20260718_022740_80c5a4` — substantive; actual project: Bora Capital Backend.** The Altin logo/Commitizen work, security request, initial refresh-rotation implementation, and CORS rerun are ancestor-owned replay and must not be re-credited. Unique work begins with closing the inherited authentication repair: updating stale auth tests, focused verification, formatting/build, and a full historical result of **57/57 suites, 295/295 tests**. It then reconciled security audits and wrote the Bora production-hardening plan, but ended at compression with plan validation still pending. **Immediate successor:** `20260718_030844_e9e1dc`.
+
+- **`20260718_030844_e9e1dc` — substantive; actual project: Bora Capital Backend.** It has no novel human request—the opening implementation and plan-write rows are replay, followed by a preserved-task-list shell. Unique work validated and corrected the plan, changed its Yarn Classic gate to **`yarn run check`** rather than ambiguous `yarn check`, and historically passed format, build, **58/58 suites and 302/302 tests**, production audit, and diff checks. The audit had two explicitly time-bounded dependency exceptions. **Successor/end state:** no database child; final substantive report was at 2026-07-18 03:11 UTC, while the later 2026-07-21 end time was only WebSocket orphan cleanup.
+
+### Durable findings to promote
+
+- Refresh-token rotation must use an atomic session-scoped compare-and-swap, store only token hashes, and revoke the affected family on confirmed reuse without changing public GraphQL response contracts.
+- Do not add a production route merely to satisfy a CORS test; the historical CORS failure passed on rerun without that workaround.
+- Fintech release gates must prioritize: secret-safe logging and credential rotation, server-verified payment proof before BCL credit, truthful provider/OTP failure handling, stable provider idempotency, durable contribution bookkeeping, safe reconciliation without blind BCL reposts, transport-complete session revocation, and supply-chain controls.
+- Use `yarn run check` with Yarn Classic when invoking the repository script.
+
+### Current static reconciliation
+
+- **Still current:** `rotateSessionTokens` remains implemented and exported; Altin’s replayed `SvgXml` logo and Commitizen setup also survive, but add no new Altin promotion.
+- **Still contradictory/open in Bora:** current source retains the unredacted Winston logger and `productions` typo, public client-supplied `depositCash`, and Resend’s string-coerced missing configuration plus boolean false-failure behavior.
+- The historical plan file is currently deleted in the dirty working tree, as are the former CodeQL and Dependabot files; therefore the plan is historical provenance, not a live operational manual.
+- Rollbar-specific plan steps are stale because the current dirty tree is moving toward Sentry, though the independent Winston-redaction issue remains.
+
+### Promotion disposition
+
+- Add both IDs as one grouped Bora source/provenance update; do not create duplicate Altin rules.
+- Promote the completion boundaries, `yarn run check` correction, and still-open security contradictions to `bora-capital-backend`.
+- Do not promote the deleted plan verbatim as current guidance; reconcile it with later Bora security continuations and current Sentry/runtime architecture first.
+
+**Coverage:** 2 exact IDs classified; 2 evidence-bearing.  
+**Files modified:** none.  
+**Verification:** historical command results plus current read-only static inspection; no fresh tests or builds run.

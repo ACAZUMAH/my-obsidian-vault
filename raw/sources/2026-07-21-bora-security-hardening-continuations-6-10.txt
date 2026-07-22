@@ -1,0 +1,42 @@
+## Bora Continuations #6–#10 — Sanitized Promotion Report
+
+### Exact-ID classifications
+
+- `20260714_213232_242ff1` — **substantive**. After de-duplicating parent-owned canonical-ID/deposit/account work, uniquely completed principal-bound `updateUser` and removed the unsafe public `getUserById` query rather than inventing an unsupported admin role. Historical full-suite verification reached 27 suites/151 tests. **Successor:** `20260715_002615_32b411`.
+- `20260715_002615_32b411` — **substantive**. Removed caller-selected identity from public wallet-list and wallet-create inputs while retaining required ownership in internal service DTOs; reported full-suite, generation, build, formatting, and diff-check closure. **Successor:** `20260715_005953_b67276`.
+- `20260715_005953_b67276` — **substantive**. Changed investment-goal lookup to fail closed and perform owner scoping in its first database query, eliminating cross-owner existence disclosure and redundant unscoped auto-top-up lookup. Also correlated OTP completion to email plus code with generic unknown-user/challenge responses. Historical closure reached 30 suites/161 tests. **Successor:** `20260715_181830_be101e`.
+- `20260715_181830_be101e` — **substantive**. Added atomic OTP consumption before token issuance and made JWT signing/verification reject absent, blank, or unsupported secret configuration. The user then corrected the workflow: these were interim controls, not completion of the saved hardening tasks; roadmap ordering and full acceptance criteria remain authoritative. Task 1.1 was only started here. Historical closure reached 31 suites/166 tests. **Successor:** `20260715_201033_443f8f`.
+- `20260715_201033_443f8f` — **substantive, exact-record closure incomplete**. Implemented the Task 1.1 core: immutable canonical principal, HTTP/WebSocket principal contexts, explicit root policies, deny-by-default Shield fallback, disabled-user rejection, and policy-coverage tests. It reported 33 suites/173 tests and two favorable reviews, but ended while correcting resolver spread order and requesting delta review. **Successor:** `20260715_204220_9f3dd0`, which owns final corrections, 33 suites/176 tests, delta verification, review closure, and the Task 1.1 completion claim.
+
+**Batch classification:** 5 substantive, 0 interrupted, 0 shells. Central checkpoint effect would be **73 → 78 of 130**.
+
+### Merged durable findings
+
+- Self-scoped GraphQL operations must omit caller-selected identity. Services receive server-derived principal identity after public input spreading so client data cannot override it.
+- A customer-facing arbitrary-user query should remain absent until a real privileged identity model, persisted role source, authorization policy, and negative tests exist.
+- Owner-protected resources must be filtered by owner in the initial database query and return indistinguishable not-found behavior for absent and cross-owner records.
+- Authentication challenges must be bound to a known subject and purpose, use generic failure responses, reserve attempts atomically, and be consumed conditionally before any session or token is issued.
+- JWT helpers must fail closed at use time, while startup must validate required and distinct access/refresh secrets before opening the server port.
+- GraphQL authorization should use an immutable server-derived principal, explicit policy coverage for every root field, and a deny fallback. A passing focused sub-control does not complete a broader saved-plan task.
+- Saved security plans govern ordering, exclusions, and completion criteria; interim remediation must not be reported as full backend hardening.
+
+### Current static reconciliation
+
+- Current backend source retains the principal-bound profile and wallet contracts, omits public `getUserById`, owner-scopes investment-goal lookup, and preserves generic not-found behavior.
+- OTP handling has evolved beyond these records: current code stores hashes, filters allowed purposes, reserves attempts atomically, conditionally consumes challenges, and uses a `VerifyOtpInput` object. Current mobile operations and contract tests match that input and omit wallet identity.
+- Current JWT helpers reject missing secrets; `main.ts` initializes environment validation before importing/starting the application, and current configuration rejects missing or identical access/refresh secrets.
+- Current Shield uses `fallbackRule: deny`; a focused security test compares every Query/Mutation field with the explicit policy registry. The immutable principal and disabled-user guard remain present.
+- **Contradiction:** the historically authoritative hardening plans are currently deleted in the dirty backend working tree. Preserve the decisions as historical evidence, but do not claim the live `.hermes/plans` path is presently available.
+- No fresh build or test was run. Present-state claims are static only; historical verification belongs to the records and successor.
+
+### Promotion targets
+
+- **Raw/source:** grouped sanitized report plus `wiki/sources/bora-security-hardening-hermes-continuations-6-10.md`.
+- **Project:** `wiki/projects/bora-capital-backend.md` for exact provenance, OTP/JWT/principal architecture, saved-plan correction, and the #10/#11 closure boundary.
+- **Mobile:** no independent project promotion; use `wiki/projects/bora-capital-mobile-app.md` only for supporting current-contract reconciliation.
+- **Manuals:** `wiki/syntheses/software-development-operating-manual.md` for self-scoped contracts, owner-first lookup, atomic challenge consumption, deny-by-default coverage, and task-completion discipline; `wiki/syntheses/new-project-bootstrap-operating-manual.md` for startup secret validation and explicit GraphQL authorization coverage.
+
+### Mutation and issues
+
+- **Files created or modified:** none.
+- **Issues:** backend working tree was already dirty; the saved plan files are deleted locally. No project commands, runtime services, databases, providers, or deployments were exercised.

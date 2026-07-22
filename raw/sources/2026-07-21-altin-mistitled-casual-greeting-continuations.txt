@@ -1,0 +1,25 @@
+## Sanitized promotion report
+
+**Attribution:** Both generic-titled records belong to **Altin Partner Mobile** (`C.E.Q.A/altin-partner-mobile`). **SERLP Mobile was reference material only**; neither record belongs to Bora. Both are populated only in the coder store and form the direct lineage `…6755f9 → …50d0c5 → …d709a6`.
+
+- **`20260719_015234_50d0c5` — substantive; mixed `promote/current` + `historical/superseded`.** Parent-owned theme/tab work is replay and should not be re-credited. Unique work starts with the Apps-directory request: it built Altin-owned sections, corrected the initial SERLP-like appearance to grouped target-branded light/dark surfaces, improved light-mode separation, and wired module navigation/header/drawer shells. The session reported TypeScript, formatting, diff checks, visual interaction checks, and iOS exports passing. **Boundary:** Apps directory, grouped-list UI, and typed navigation remain durable; the centralized `AppModuleScreen`/`AppFeatureScreen` module architecture was technically completed and verified here but explicitly rejected by the direct successor. **Successor:** `20260719_035336_d709a6`.
+
+- **`20260719_035336_d709a6` — substantive; `promote/current`.** Its opening module-shell completion is replay from `…50d0c5`, not new ownership. Unique work begins with the architectural correction: every module must own its root screen, drawer, sections, constants/styles, future data, and concrete feature screens; `Apps` owns discovery metadata and root navigation only, while shared components remain presentation-only. It then added reusable `ListHeader`, generic `EntityList`, and `FiltersModal` mechanics and composed all three in fourteen module-owned feature screens. Each feature retains ownership of future queries, filter state/controls, entity types, row rendering, and navigation; no fake API model was introduced. The session reported TypeScript, formatting, diff checks, light/dark browser flows, no runtime errors, and iOS exports passing. **Boundary/end state:** architecture and list shells completed, but business data remains unimplemented. No direct successor exists; the session row remains open, and rows after the final project report are only delayed process notices.
+
+### Current static reconciliation
+
+- Current source supports module-local ownership and shows **42 primitive usages across fourteen feature screens**.
+- Those screens remain honest empty-data shells (`data={[]}`), not completed business workflows.
+- Rejected generic files—`AppModuleScreen`, `AppFeatureScreen`, `useAppModule`, plus their stale interface—still exist but appear inactive with no external runtime consumer. Their physical residue contradicts the accepted architecture without overturning current route ownership.
+- The earlier sibling-reference and module-ownership rules are already promoted. Add provenance rather than duplicate them.
+
+### Promotion disposition
+
+1. Add both exact IDs to the existing Altin source/project evidence.
+2. Preserve `…50d0c5`’s centralized module shell only as rejected historical provenance.
+3. Promote from `…d709a6` the still-missing reusable rule: **shared list primitives own mechanics and presentation; concrete feature screens own data/query/filter/entity/rendering/navigation concerns**.
+4. Update the Altin contradiction/open item for deletion of inactive generic shell residue. No Bora page change is warranted.
+
+**Coverage:** +2 classified IDs; 2 evidence-bearing IDs.  
+**Verification:** historical reports plus current static inspection only; no fresh project commands.  
+**Files modified:** none.

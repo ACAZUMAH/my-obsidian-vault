@@ -8,6 +8,28 @@ sources:
   - ../sources/project-knowledge-completion-and-bootstrap-directive.md
   - ../sources/livelycura-project-knowledge-harvest-batch-2.md
   - ../sources/livelycura-project-knowledge-harvest-batch-3.md
+  - ../sources/livelycura-project-knowledge-harvest-batch-4.md
+  - ../sources/compflow-project-knowledge-harvest-batch-1.md
+  - ../sources/compflow-hermes-project-knowledge-harvest-supplement-1.md
+  - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
+  - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
+  - ../sources/ceqa-altin-project-knowledge-harvest-batch-2.md
+  - ../sources/ceqa-altin-project-knowledge-harvest-batch-3.md
+  - ../sources/portfolio-project-knowledge-harvest-batch-1.md
+  - ../sources/hermes-conversation-harvest-scope-correction.md
+  - ../sources/ceqa-altin-hermes-conversation-harvest-supplement-1.md
+  - ../sources/compflow-checkcity-hermes-conversation-harvest-supplement-1.md
+  - ../sources/hermes-livelycura-skills-keks-pharmacy-harvest-batch-1.md
+  - ../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1.md
+  - ../sources/livelycura-stock-sales-hermes-supplement-1.md
+  - ../sources/livelycura-stock-sales-hermes-supplement-2.md
+  - ../sources/hermes-project-bootstrap-git-continuation-batch-1.md
+  - ../sources/livelycura-stock-sales-hermes-supplement-3.md
+  - ../sources/hermes-vault-infrastructure-continuation-batch-2.md
+  - ../sources/graphql-product-bora-paystack-hermes-chain.md
+  - ../sources/product-lab-badge-mls-hermes-chain.md
+  - ../sources/compflow-proper-stack-hermes-continuations.md
+  - ../sources/compflow-backend-auth-hermes-continuations.md
 confidence: medium
 ---
 
@@ -25,12 +47,37 @@ This manual captures conventions verified from representative LivelyCura, CompFl
 
 - TypeScript is the default language.
 - Existing folder names, package manager, lockfile, aliases, and sibling-project patterns must be preserved.
-- Yarn is the established package manager in the inspected reference backends; existing lockfiles remain authoritative.
+- A shared parent folder is not authorization to create a monorepo. When the user names application folders, scaffold and verify each application in that root unless an existing contract says otherwise.
+- A root launcher may delegate child commands without owning dependencies. Do not add root workspaces, root `node_modules`, or hoisted dependency ownership when each application has its own Yarn lockfile and lifecycle.
+- TypeScript and bundler aliases are configured together. Unless a repository establishes another explicit convention, use absolute imports across top-level feature roots and relative imports within one root feature.
+- Yarn is the established package manager in the inspected reference backends; one existing lockfile is authoritative, while competing lockfiles are an explicit conflict to resolve before dependency changes.
 - Backend baseline: Express, Apollo GraphQL, GraphQL subscriptions, MongoDB/Mongoose, JWT/auth context, structured error handling, validation, and Winston logging.
 - Web/admin baseline: Vite React, Apollo Client, Redux Toolkit, React Router, a design-system provider such as Mantine, GraphQL Codegen, typed hooks, and feature-owned folders.
 - Mobile baseline: Expo with React Navigation, Redux Toolkit, Apollo Client, feature-first modules, shared presentation primitives, theme/safe-area handling, and persistent auth state.
 - Expo system-theme support includes native automatic appearance and system-UI integration, with a native rebuild in the acceptance path.
+- Mobile distribution configuration includes accurate public naming, concrete permission purpose strings, declared device support, and a reviewer-access path for protected functionality without documenting credentials.
 - Shared infrastructure must stay contract-focused and prop-driven; create, edit, view, and list flows retain their own pages, forms, queries, and mutations instead of being collapsed into one business-aware generic runtime.
+- Frontend features separate components, hooks/queries, helpers, interfaces, constants, and list/item iteration ownership. One large page or modal must not become the transport, conversion, state, and presentation layer at once.
+- Form schemas own field validity, while async selectors commit interdependent values only when the full valid result is ready; scaffolds should provide clear mapper/action boundaries for those transitions.
+- Repository-local agent skills and their linked references are file-level execution checklists when present; inspect and follow them before copying patterns from sibling projects or historical transcripts. Passing tests/builds does not prove architectural parity when ownership or runtime wiring differs from the accepted references.
+- Keep exact project skills for repository fidelity and synthesize a separate generalized stack layer only when the user requests cross-project reuse. Preserve source inventories and remove project-only assumptions from generalized skills.
+- If startup owns migrations, the runner owns the database lifecycle. Migration modules import domain models, stream production-sized work, preserve dependency-safe update order, backfill before making fields required, and ship focused rerun/reference-integrity tests.
+- Required bootstrap data such as platform roles belongs in that registered migration lifecycle, not an ad hoc package seed command unless explicitly requested. Confirm whether startup awaits migration completion and propagates failure before claiming fail-closed readiness.
+- Identity-changing financial migrations update persisted fields, indexes, APIs, generated/client contracts, and presentation as one staged transition. They detect conflicts before replacement uniqueness and never silently merge conflicting financial rows.
+- Migration diagnostics stringify malformed historical identifiers defensively so an error-message path cannot hide the primary conflict.
+- Migration registries are once-after-success locally, not exactly-once across providers. Startup migrations with external side effects require stable keyed input mapping, provider idempotency, partial-failure reconciliation, redacted output, and rerun tests.
+- File generation or bulk editing is not complete until every touched file is reread and the relevant static/runtime checks pass. Do not use regex-only rewrites for TypeScript/TSX structure when targeted edits can preserve syntax and component logic.
+- Financial-provider integrations keep provider transport, configuration, persistence, orchestration, and GraphQL entry points separate. External calls stay outside database transactions; verified provider state, idempotent claims, and reconciliation protect local finalization.
+- Mocked provider adapters prove deterministic orchestration only; live credentials, signatures, network behavior, settlement, and delivery require separate verification.
+- Multi-channel OTP delivery succeeds when at least one configured channel succeeds and fails when all configured channels fail; preserve channel-specific diagnostics without logging private messages or credentials.
+- When tightening GraphQL output nullability, backfill null/missing persisted values and normalize create/update writes. Do not add fallback field resolvers merely to conceal legacy data after migration is selected.
+- Permission-aware frontends establish one permission catalog plus protection at direct routes, navigation/discovery, and mutating actions; privileged bypass behavior is explicit and tested.
+- By-ID authorization fetches the entity first and derives tenant scope from persisted ownership; platform-role bypass remains explicit, and redundant client-supplied organization IDs are not trusted as the scope source.
+- Never restore invented schema/resolver data merely to make stale tests pass. Remove the unsupported contract and repair consumers, permissions, generated types, and tests together.
+- Shared frontend appearance establishes one accessible System/Dark/Light state across authentication, discovery, and application shells; decorative transitions preserve readability and honor reduced-motion preferences.
+- Retryable create operations distinguish an in-flight UI lock from request idempotency. The idempotency key remains stable for the same semantic payload and rotates when meaningful input changes or the operation completes.
+- A generation script is not proof of generated-contract readiness. Verify that its config exists, its schema path resolves, and its output ownership matches the consuming application.
+
 - A scaffold is not complete until install, generation, type checking, tests, build, startup, and real endpoint/page checks have been attempted and accurately reported.
 
 ### Project-specific choices that must be confirmed from references
@@ -49,9 +96,9 @@ This manual captures conventions verified from representative LivelyCura, CompFl
 
 1. Identify the exact target folder and whether it already exists, even if empty.
 2. Inspect sibling/reference projects named by the user.
-3. Read `AGENTS.md`, README, package manifests, lockfiles, TypeScript config, environment examples, build/deployment files, and representative startup files.
+3. Read `AGENTS.md`, repository-local `.agent/skills` or `.agents/skills`, README, package manifests, lockfiles, TypeScript config, environment examples, build/deployment files, and representative startup files.
 4. Classify each application: backend API, public web, admin/operations portal, client portal, or mobile app.
-5. Preserve product responsibility boundaries. Do not merge separate applications or create a root monorepo unless requested or already present.
+5. Preserve product responsibility boundaries. Do not merge separate applications or create a root monorepo unless requested or already present; an empty named application folder is still an intentional destination.
 6. Record the package manager, runtime version, default ports, API URL, subscription URL, database assumptions, and deployment target.
 
 ### 2. Define the pre-feature acceptance contract
@@ -78,6 +125,8 @@ Folders should express responsibility:
 - Models own persistence shape.
 - Shared helpers remain domain-neutral.
 - Frontend/mobile features own their pages/screens, components, hooks, GraphQL operations, interfaces, constants, and styles.
+- Feature-owned interface folders hold root-feature component and state contracts; import them according to the selected feature-boundary rule rather than mixing alias and relative styles arbitrarily.
+- List/picker components own repeated option rendering when that is the established feature pattern; parent pages and modals compose them instead of reimplementing every mapping loop.
 - Shared components are presentation primitives, not centralized business runtimes.
 - Separate flow ownership from reusable engines: route-level create/edit/detail/list folders may share builders, renderers, mappers, and design primitives through explicit props, but shared folders do not own flow-specific queries or mutations.
 - Identify existing catalogs, relation services, and transaction owners before scaffolding domain models. Do not create a parallel taxonomy, link table, billing path, or inventory path merely because a new feature references those concepts.
@@ -174,6 +223,7 @@ Use current compatible versions from the selected reference repository rather th
 - `@graphql-tools/schema`.
 - `graphql-ws` and `ws` for subscriptions.
 - `graphql-middleware` and `graphql-shield` when permission rules are part of the established architecture.
+- When Shield permits by fallback for compatibility, add a root-operation coverage test that fails every unmapped query, mutation, and subscription; prefer deny-by-default when compatibility allows.
 - GraphQL Codegen packages for schema/resolver types.
 
 #### Database and authentication
@@ -410,12 +460,18 @@ Create only genuinely reusable primitives:
 - Application shell/layout.
 - Loading, empty, error, and unauthorized states.
 - Route guards.
+- Permission-aware navigation/action primitives when the backend exposes permissions.
+- Native interactive primitives and accessible names; CSS group behavior must not replace button/link semantics.
+- One shared appearance control/state for System, Dark, and Light, with accessible selected-state exposure and a reduced-motion path.
 - Error boundary.
 - Notification/toast bridge.
 - Form and validation adapters when a common pattern exists.
+- Safe optional-value and async-form adapters when feature inputs arrive in stages; presentation conditionals are not substitutes for guarding property access.
 - Typed Redux hooks.
 - API/Apollo client and link configuration.
 - Constants and environment access.
+- API/CMS-backed public claims and counts with explicit fallbacks; never invent metrics to fill a scaffold.
+- Asset-format validation before integration, plus section-specific responsive rails when an immersive hero must not be squeezed by the rest of the page.
 
 Do not build product-specific pages in shared `components`, and do not centralize every feature into one generic renderer.
 
@@ -517,6 +573,9 @@ Before scaffolding a custom native module, check maintained Expo-compatible pack
 7. Add module roots and concrete empty feature screens only when their ownership is established.
 8. Configure app identifiers, schemes, icons/splash, permissions, and EAS profiles before device/distribution work.
 9. If system theme is supported, configure native appearance as automatic, add the family-compatible Expo system-UI package/plugin, and make the system preference clear any manual React Native color-scheme override.
+10. If authentication uses OTP, implement it as controlled native input with numeric filtering, paste/autofill, exact-length validation, and one typed value feeding submit state; do not assume a hidden overlay behaves identically across Android, iPhone, and iPad.
+11. If authentication uses OAuth/OIDC in a public mobile client, use Authorization Code with PKCE, exact registered redirect schemes, centralized refresh/revocation, and public identifiers only; review token persistence against platform secure-storage expectations.
+12. Before store review, confirm the public product name, truthful purpose strings with concrete feature examples, every declared device class, and reviewer access to seeded representative data. Keep review credentials outside source control and the knowledge vault.
 
 ### Mobile baseline verification
 
@@ -527,7 +586,7 @@ yarn format:check
 yarn start
 ```
 
-Then verify at least the intended platform path—Expo Go, development build, simulator/emulator, or device—and run an Expo export or EAS-compatible validation when appropriate. Check login persistence, stack/tab navigation, safe areas, keyboard behavior, back handling, drawer dismissal, and system/light/dark theme behavior. Rebuild the native binary after native appearance, plugins, identifiers, permissions, or native dependencies change; a JavaScript reload is not sufficient. Where a native capability is optional, also verify startup without the linked module.
+Then verify at least the intended platform path—Expo Go, development build, simulator/emulator, or device—and run an Expo export or EAS-compatible validation when appropriate. Check login persistence, OTP typing/paste/delete/autofill and button state, stack/tab navigation, safe areas, keyboard behavior, back handling, drawer dismissal, Android/iOS shadow parity, bottom-sheet system-bar coverage, and system/light/dark theme behavior. Exercise every declared phone/tablet class where store support claims it. Rebuild the native binary after native appearance, plugins, identifiers, permissions, or native dependencies change; a JavaScript reload is not sufficient. Where a native capability is optional, also verify startup without the linked module.
 
 ## Environment And Configuration Contract
 
@@ -601,13 +660,15 @@ Do not add these without project evidence or explicit scope:
 
 - New projects should be compared against the nearest successful sibling before scaffolding.
 - The complete foundation should be built and verified once, then product features can grow inside stable ownership boundaries.
-- Repeated corrections discovered during the Codex history harvest should update this manual only when they are reusable across projects; project-specific details belong in project entity pages.
+- Repeated corrections discovered during the Codex history harvest should update this manual only when they are reusable across projects; project-specific details belong in project pages.
 
 ## Contradictions Or Tensions
 
 - The reference repositories contain both Jest and Vitest, and multiple frontend folder variants. This manual deliberately preserves them as choices resolved by the target project family.
 - Existing repositories may retain older dependency versions or legacy structure. Matching architecture does not require copying known vulnerabilities or obsolete versions; choose current compatible versions without silently redesigning ownership.
 - Altin’s inspected tree still exposed names associated with an earlier centralized module-shell anti-pattern, while the durable correction requires module-local ownership. The correction defines the desired architecture; live cleanup status must be verified before changes.
+- CompFlow currently contains competing client-portal lockfiles and unresolved GraphQL Codegen inputs. These are verification examples, not defaults to copy.
+- Portfolio confirms that a useful root command launcher can coexist with independent app-local dependencies, but its dirty/diverged parent history is a provenance failure to avoid. Its current empty-suite-permitting test scripts also show why a green command is not proof of coverage.
 
 ## Related
 
@@ -621,7 +682,26 @@ Do not add these without project evidence or explicit scope:
 - [[../sources/project-knowledge-completion-and-bootstrap-directive|Project Knowledge Completion And Bootstrap Directive]]
 - [[../sources/livelycura-project-knowledge-harvest-batch-2|LivelyCura Project Knowledge Harvest — Batch 2]]
 - [[../sources/livelycura-project-knowledge-harvest-batch-3|LivelyCura Project Knowledge Harvest — Batch 3]]
-- Live representative project manifests and startup/source layouts inspected on 2026-07-21 under `/Users/acazumah/Documents/LivelyCura`, `/Users/acazumah/Documents/compFlow`, and `/Users/acazumah/Documents/C.E.Q.A`.
+- [[../sources/livelycura-project-knowledge-harvest-batch-4|LivelyCura Project Knowledge Harvest — Batch 4]]
+- [[../sources/compflow-project-knowledge-harvest-batch-1|CompFlow Project Knowledge Harvest — Batch 1]]
+- [[../sources/compflow-hermes-project-knowledge-harvest-supplement-1|CompFlow Hermes Project Knowledge Harvest — Supplement 1]]
+- [[../sources/kusantec-bora-project-knowledge-harvest-batch-1|Kusantec/Bora Project Knowledge Harvest — Batch 1]]
+- [[../sources/ceqa-altin-project-knowledge-harvest-batch-1|C.E.Q.A/Altin Project Knowledge Harvest — Batch 1]]
+- [[../sources/ceqa-altin-project-knowledge-harvest-batch-2|C.E.Q.A/Altin Project Knowledge Harvest — Batch 2]]
+- [[../sources/ceqa-altin-project-knowledge-harvest-batch-3|C.E.Q.A/Altin Project Knowledge Harvest — Batch 3]]
+- [[../sources/portfolio-project-knowledge-harvest-batch-1|Portfolio Project Knowledge Harvest — Batch 1]]
+- [[../sources/hermes-conversation-harvest-scope-correction|Hermes Conversation Harvest Scope Correction]]
+- [[../sources/ceqa-altin-hermes-conversation-harvest-supplement-1|C.E.Q.A/Altin Hermes Conversation Harvest — Supplement 1]]
+- [[../sources/compflow-checkcity-hermes-conversation-harvest-supplement-1|CompFlow And CheckCity Hermes Conversation Harvest — Supplement 1]]
+- [[../sources/hermes-livelycura-skills-keks-pharmacy-harvest-batch-1|Hermes LivelyCura Skills, Keks, And Pharmacy Harvest — Batch 1]]
+- [[../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1|Hermes Generalized Skills And Courier Recovery Harvest — Batch 1]]
+- [[../sources/livelycura-stock-sales-hermes-supplement-1|LivelyCura Stock And Sales Hermes Supplement — 1]]
+- [[../sources/livelycura-stock-sales-hermes-supplement-2|LivelyCura Stock And Sales Hermes Supplement — 2]]
+- [[../sources/hermes-project-bootstrap-git-continuation-batch-1|Hermes Project Bootstrap And Git Continuation — Batch 1]]
+- [[../sources/livelycura-stock-sales-hermes-supplement-3|LivelyCura Stock And Sales Hermes Supplement — 3]]
+- [[../sources/hermes-vault-infrastructure-continuation-batch-2|Hermes Vault Infrastructure Continuation — Batch 2]]
+- [[../sources/graphql-product-bora-paystack-hermes-chain|GraphQL Product And Bora Paystack Hermes Chain]]
+- Live representative project manifests and startup/source layouts inspected on 2026-07-21 under `/Users/acazumah/Documents/LivelyCura`, `/Users/acazumah/Documents/compFlow`, `/Users/acazumah/Documents/C.E.Q.A`, and `/Users/acazumah/Documents/Portfolio`.
 - Coder-profile `project-scaffolding-workflows` skill and linked correction references inspected on 2026-07-21.
 
 ## Open Questions

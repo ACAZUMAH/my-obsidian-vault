@@ -1,0 +1,28 @@
+## Bora Continuations #51–#52 — Sanitized Promotion Report
+
+Parent `20260718_032701_a0bb20` and replayed ancestor work were reference-only and not re-credited.
+
+- **`20260718_035439_fd6fd5` (#51; 478 messages) — substantive; inherited cleanup closed, later correction incomplete.** Completed #50’s interrupted structural work: shared interfaces/types moved into established common domains, auth guards into auth helpers, internal session/transaction/webhook states converted to uppercase enums, and an idempotent persisted-value normalization migration added and registered. Historical verification reported formatting, build, production audit, diff check, **59/59 suites and 303/303 tests** passing; `withdraw.ts` remained unchanged. A fresh user correction then made complete JSDoc for every new/exported function and one deliberate `http-errors` throw per catch durable conventions. #51 began that repair but ended after a malformed comment edit, without a post-edit build. **Successor:** `20260718_042843_74753d`.
+
+- **`20260718_042843_74753d` (#52; 329 messages) — substantive; inherited quality repair closed, final Sentry request interrupted.** After de-duplicating replay of #50/#51, it repaired the malformed source, completed JSDoc/error-flow cleanup, strengthened the reusable convention audit, and historically reported an AST audit over 72 changed TypeScript files plus formatting, build, production audit, diff check, **59/59 suites and 303/303 tests** passing. It later established that GitHub successfully triggered deployment and the exact deployed commit passed a clean frozen install/build; the unresolved failure was inside DigitalOcean’s component build and required provider build logs. The user accepted that boundary. A later fresh request to replace Rollbar with Sentry reached only repository/path reconnaissance; filesystem interruptions prevented reads, and the record contains no Sentry writes or verification. **Successor:** none; last substantive work ended at that incomplete request, with later metadata cleanup recorded as `ws_orphan_reap`.
+
+### De-duplicated durable promotion
+
+- Shared contracts belong in established interface domains; helpers and services retain implementation responsibilities.
+- Persisted enum casing changes require an idempotent, registered data migration; external provider protocol values remain unchanged.
+- New/exported functions require complete JSDoc—no empty tags—and changed TypeScript should receive an AST-backed convention audit.
+- Catch blocks should produce one deliberate mapped error outcome, not unchanged rethrows or multiple competing throws.
+- Deployment-trigger success, repository build success, and provider-platform component-build success are distinct verification layers.
+
+### Current static reconciliation and contradictions
+
+- Current source retains centralized interface ownership, uppercase session/transaction/webhook enums, and the registered normalization migration.
+- **Migration race:** the server announces readiness and starts crons before calling unawaited `runMigrations()`. Uppercase-only reads/jobs can therefore race legacy-value normalization.
+- The current dirty tree contains unchanged caught-error rethrows in three services, contradicting the accepted repository-wide error-flow convention.
+- Sentry is now present and imported across error-reporting paths; Rollbar source/package usage is absent. However, these are later uncommitted static changes and do **not** retroactively complete #52’s interrupted Sentry request.
+- Historical green gates are not fresh readiness evidence for the materially dirty current tree.
+
+**Promotion targets:** extend the merged Bora #36–#50 source to #36–#52; update `bora-capital-backend.md` with exact closure/Sentry boundaries and the migration-order contradiction; add provenance—not duplicate rules—to the software-development manual’s existing JSDoc, catch-flow, migration, and layered-verification sections.
+
+**Ledger:** +2 classified, +2 evidence-bearing; frozen coverage becomes **120/130**.  
+**Files created or modified:** none. **Verification:** historical command evidence plus fresh read-only static inspection; no tests rerun.

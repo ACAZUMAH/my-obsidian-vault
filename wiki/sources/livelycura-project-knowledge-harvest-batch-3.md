@@ -42,12 +42,12 @@ sources:
 - [[../syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]]
 - [[../syntheses/software-development-operating-manual|Software Development Operating Manual]]
 - [[../syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]]
-- [[../entities/projects/livelycura-backend|LivelyCura Backend]]
-- [[../entities/projects/livelycura-admin-portal|LivelyCura Admin Portal]]
-- [[../entities/projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
-- [[../entities/projects/livelycura-check-city-app|LivelyCura CheckCity App]]
-- [[../entities/projects/livelycura-loop-app|LivelyCura Loop App]]
-- [[../entities/projects/serlp-mobile|SERLP Mobile]]
+- [[../projects/livelycura-backend|LivelyCura Backend]]
+- [[../projects/livelycura-admin-portal|LivelyCura Admin Portal]]
+- [[../projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]]
+- [[../projects/livelycura-check-city-app|LivelyCura CheckCity App]]
+- [[../projects/livelycura-loop-app|LivelyCura Loop App]]
+- [[../projects/serlp-mobile|SERLP Mobile]]
 
 ## Contradictions Or Tensions
 

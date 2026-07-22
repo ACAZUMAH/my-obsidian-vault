@@ -1,0 +1,38 @@
+## Sanitized Promotion Report
+
+**Scope:** six frozen, populated default-profile IDs. Parent `20260713_213541_c58421` and all within-chain replays were reference-only and not re-credited.
+
+### Exact-ID classifications
+
+- **`20260714_004726_db109b` — substantive / promote-current.** Unique tail completed **Fix 6**: wallet updates bind the authenticated owner at the resolver and service, use owner-scoped lookup, and return non-enumerating not-found behavior; the trusted Paystack caller supplied its known owner. Historical build, Prettier, diff check, and **20 suites/113 tests** passed. Ended with `next`; successor: `20260714_012250_ad27cc`.
+- **`20260714_012250_ad27cc` — substantive / promote-current.** After replaying Fix 6, uniquely completed **Fix 7**: wallet deletion/deactivation gained the same resolver/service owner binding and indistinguishable not-found behavior. Historical build, Prettier, diff check, and **20 suites/115 tests** passed. Ended with `next`; successor: `20260714_012850_992578`.
+- **`20260714_012850_992578` — substantive / promote-current.** After replaying Fixes 6–7, uniquely completed **Fix 8**: public `CreateWalletInput` no longer accepts provider-managed payment credentials/metadata, while the trusted provider ingestion path remains internal. Historical build, Prettier, diff check, and **20 suites/116 tests** passed. Ended with `next`; successor: `20260714_023558_3a7c70`.
+- **`20260714_023558_3a7c70` — substantive / promote-current.** Uniquely completed **Fix 9**, removing the same provider-managed fields from public wallet updates, and **Fix 10**, requiring an explicitly selected auto-top-up wallet to be owned, active, reusable, and payment-method compatible before record/goal mutation. Historical closure progressed from **20 suites/117 tests** to **21 suites/118 tests**, with build, formatting, and diff checks passing. Ended with `next`; successor: `20260714_032503_c35046`.
+- **`20260714_032503_c35046` — substantive / promote-current.** Uniquely completed **Fix 11** for replacement-wallet ownership and eligibility. The user then explicitly corrected duplicated ownership logic: known wallet IDs must resolve through shared `getWalletById`; auto-top-up-specific eligibility checks follow that owner-scoped lookup, and only the fetched canonical ID is persisted. Both create and update paths were refactored accordingly. Historical build, Prettier, diff check, and **21 suites/119 tests** passed. Ended with “next issue”; successor: `20260714_040859_2b8be1`.
+- **`20260714_040859_2b8be1` — substantive / promote-current.** Uniquely completed **Fix 12**: `updateAutoTopUp` passes authenticated identity into owner-capable `getAutoTopUpById`, preventing cross-owner edits and existence disclosure. Verification was temporarily interrupted, but resumed within the same exact record after the user asked whether it was done; historical targeted checks, build, Prettier, diff check, and **22 suites/120 tests** passed. This is **not** an interrupted classification. No database child exists.
+
+**Classification:** 6 substantive, 0 interrupted, 0 shells; 6 evidence-bearing IDs. Proposed frozen-ledger effect: **120 → 126 of 130**.
+
+### De-duplicated durable findings
+
+- Wallet update and deactivation require authenticated-owner binding at both resolver and service boundaries; absent and cross-owner records share not-found behavior.
+- Public wallet create/update contracts must exclude provider-managed credentials and metadata. Verified provider processing owns a separate trusted write path.
+- Auto-top-up wallet selection requires ownership plus active, reusable, and payment-method eligibility checks before mutation.
+- Resolve known IDs through the shared owner-scoped service, then apply domain-specific validation and use the fetched canonical ID downstream.
+- Auto-top-up record mutation must first resolve the record under authenticated ownership.
+
+### Current static reconciliation
+
+- Current source retains all core outcomes. Wallet update/delete now additionally include owner and active state in the final atomic mutation predicate.
+- The historical generic trusted Paystack upsert has evolved into a dedicated encrypted provider-credential writer; generic wallet create/update services now also reject provider-managed fields. This strengthens rather than reverses the public/internal boundary.
+- Auto-top-up create/update still use shared `getWalletById` followed by eligibility checks, and public GraphQL paths pass principal identity.
+- **Static tension:** `getAutoTopUpById` still permits an ownerless internal `findById` fallback when `userId` is omitted. Public paths are scoped, but the helper is not universally fail-closed.
+- Historical checks were not rerun against the later source.
+
+### Terminal state and promotion targets
+
+- Final exact message: **2026-07-14 04:30 UTC**; metadata later closed at **14:55 UTC** with `agent_close`, with no intervening messages.
+- No database successor follows `20260714_040859_2b8be1`. Later coder-profile root `20260714_133535_83849e` is a **semantic continuation**, not a lineage child; it owns the subsequent auto-top-up fixes already documented elsewhere.
+- Promote as one grouped source for these six IDs; update the Bora backend project with exact provenance and the ownerless-helper tension. Add provenance—not duplicate rules—to the software-development manual’s owner-first lookup, canonical-ID, and trusted-provider-boundary guidance.
+- **Files created or modified:** none.
+- **Verification:** historical session results plus current read-only static inspection only.

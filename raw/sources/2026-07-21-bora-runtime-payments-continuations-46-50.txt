@@ -1,0 +1,31 @@
+## Bora Continuations #46–#50 — Sanitized Promotion Report
+
+Parent `20260718_010140_297ee6` was reference-only; replayed/restored-runtime work is not re-credited.
+
+- **`20260718_010657_7ecbd1` (#46) — substantive; implementation complete, roadmap handoff incomplete.** Established the deposit safety architecture: durable pre-provider claim, BCL outside MongoDB transactions, short monotonic finalization transaction, ambiguous outcomes marked `RECONCILIATION_REQUIRED`, and notifications isolated after commit. Split BCL sync and webhook-inbox responsibilities into focused modules after the user rejected scope churn and monolithic handlers. Historical gate: 56/56 suites, 292/292 tests, build/format/audit/diff checks passed. Its broad repository-side GO claim was later explicitly corrected. **Successor:** `20260718_012431_daf649`.
+
+- **`20260718_012431_daf649` (#47) — substantive; bounded fix complete, final correction unanswered in-record.** Moved both BCL portfolio lookup and Paystack checkout initialization out of the MongoDB transaction; only pending-record creation remains transactional, and failed initialization persists a failed local state. Historical gate: 56/56 suites, 289/289 tests plus build/format/audit/diff checks. The user explicitly rejected the premature go-live claim, prohibited withdrawal changes, and challenged newly introduced reconciliation complexity; this supersedes the earlier GO framing. **Successor:** `20260718_013411_326127`.
+
+- **`20260718_013411_326127` (#48) — substantive; partial handoff.** Continued the bounded payment work with durable Paystack webhook receipt/claim/outcome modules and began integrating server-side session-family token issuance into OTP login. The login integration reached a passing targeted test, but session lifecycle, reuse handling, full verification, and final synthesis were not completed here. Withdrawal remained outside scope. **Successor:** `20260718_023215_ef5e17`.
+
+- **`20260718_023215_ef5e17` (#49) — substantive; security closure complete, later cleanup request incomplete.** Completed server-side sessions with `sid`/family/JTI claims, hash-only refresh storage, atomic rotation and family revocation on reuse, active-session access checks, device logout, password-reset revoke-all, and transactional legacy-token migration. Added bounded Paystack webhook retries and manual alerts for ambiguous BCL outcomes; critically, BCL money movement is never automatically retried without a provider status/lookup contract. Historical gate: 58/58 suites, 302/302 tests; `withdraw.ts` unchanged. The user then explicitly required interfaces in `common/interfaces`, enums in `common/enums`, no mixed model/service types, and uppercase persisted transaction/session enum values; that cleanup opened but did not finish here. **Successor:** `20260718_032701_a0bb20`.
+
+- **`20260718_032701_a0bb20` (#50) — substantive; final component interrupted.** Advanced the requested structural cleanup and enum normalization, including centralized interfaces and a persisted-value migration, but ended after renaming interface declarations while three consuming imports/annotations remained unchanged. The blocked multi-file edit produced no writes; no final build or repository gate supports exact-record completion. **Successor:** `20260718_035439_fd6fd5`, which completed the cleanup/migration and historically reported 59/59 suites and 303/303 tests passing.
+
+### De-duplicated durable promotion
+
+- External providers and notifications must never run inside retryable MongoDB transaction callbacks.
+- Financial orchestration uses durable claims, monotonic transitions, short local transactions, and manual reconciliation for ambiguous provider outcomes when provider lookup/idempotency is unavailable.
+- Keep webhook and BCL orchestration thin; separate receipt, claim, provider post, finalization, reconciliation, and notification by failure/transaction boundary.
+- Server-side session families support rotation, reuse revocation, device logout, password-reset revocation, and bounded legacy migration.
+- Go-live claims must cover the agreed acceptance scope—not merely the latest green slice.
+- Preserve the explicit “do not modify withdrawal” boundary.
+- Models/services/helpers must not own shared interfaces; persisted enum-value casing changes require a migration.
+
+### Current static reconciliation
+
+Current source retains the modular webhook/BCL architecture, hourly reconciliation cron, session-family services, uppercase enums, and enum-normalization migration. Reconciliation retries Paystack verification only; BCL ambiguity still alerts without resending money. Historical Rollbar alerts are superseded by the current Sentry conversion. `withdraw.ts` has no current diff. The repository is dirty from later monitoring/security work, so historical green gates are not fresh runtime proof.
+
+**Promotion targets:** merged Bora #36–#52 family source; `bora-capital-backend.md`; software-development manual sections on provider/transaction boundaries, bounded reconciliation, session families, structural ownership, migrations, and completion reporting.
+
+**Files modified:** none. **Verification:** historical command evidence plus fresh read-only static inspection; no tests rerun.

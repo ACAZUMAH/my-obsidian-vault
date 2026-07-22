@@ -1,0 +1,230 @@
+## Sanitized exact-ID audit
+
+**Scope:** default-profile `/Users/acazumah/.hermes/state.db`, frozen cutoff `2026-07-21 17:12:06Z`; canonical vault and relevant Git roots inspected read-only. No full transcripts, prompts, secrets, private payloads, or tool chatter reproduced.
+
+### Executive determination
+
+- `20260721_032543_0fdcc0` is a **process-control continuation with substantive, successful reconciliation closure** after a replay prefix. It owns the focused Hermes reconciliation amendments for C.E.Q.A/Altin Batch 3, but **not** the underlying Codex harvest and **not** schema v2.
+- `20260721_112003_2f277e` is an **interrupted process-control continuation with unique read-only Portfolio reconnaissance** after replay. It wrote nothing, ran no fresh validator, and did not integrate Portfolio Batch 1.
+- **Neither record owns schema v2, the sixth/project template, or direct `wiki/projects/` placement.**
+- Both are in the frozen non-subagent denominator. Once durably checkpointed, classification coverage should advance from **58/130 to 60/130**, leaving **70**. The coder zero-message alias for the first ID does not add another count.
+- Net new application-project claims requiring promotion: **0**. The first record adds exact closure provenance; the second is reference-only/incomplete.
+
+## Exact metadata
+
+| Field | `20260721_032543_0fdcc0` | `20260721_112003_2f277e` |
+|---|---|---|
+| Store | Default `/Users/acazumah/.hermes/state.db` | Same |
+| Source / model | `desktop` / `gpt-5.6-sol` | `desktop` / `gpt-5.6-sol` |
+| Parent | `20260721_031558_72a825` | `20260721_032543_0fdcc0` |
+| Started | `2026-07-21 03:25:43.474559Z` | `2026-07-21 11:20:03.828850Z` |
+| Ended | `2026-07-21 11:20:03.828329Z` | `2026-07-21 11:30:41.756396Z` |
+| Last message | `2026-07-21 11:17:26.185411Z` | `2026-07-21 11:29:22.210176Z` |
+| Cleanup gap | `157.642918s` | `79.546220s` |
+| Parent gap | `0.025631s` | `0.000521s` |
+| End reason | `compression` | `compression` |
+| Title / cwd / profile | `NULL` / `NULL` / `NULL` | `NULL` / `NULL` / `NULL` |
+| Archived | `0` | `0` |
+| Rows | 115: 4 user / 32 assistant / 79 tool | 192: 4 user / 33 assistant / 155 tool |
+| Message-ID span | `4945–5059` | `5060–5387`, non-contiguous because child rows interleave |
+| Post-cutoff rows | 0 | 0 |
+
+### Physical alias/replay shell
+
+The coder store contains a second physical row for `20260721_032543_0fdcc0`:
+
+- Source `unknown`; started `2026-07-21 03:30:45.162234Z`
+- Title `Altin Batch Validation Status`
+- No parent, cwd, profile, end timestamp, messages, tools, or API calls
+- This is a **zero-message metadata mirror/shell**, not an independent conversation. Count the populated default record once.
+
+No coder-store row exists for `20260721_112003_2f277e`.
+
+## Per-record classification and ownership
+
+### `20260721_032543_0fdcc0`
+
+**Classification:** `process-control`; not a whole-record duplicate.  
+**Promotion:** mixed—`promote/current` for exact reconciliation provenance, `historical/superseded` for later-disproved absence claims, and `incomplete` for its final fresh request.
+
+#### Replay boundary
+
+- Rows `4945–4974`: 30-row compaction/replay preamble.
+- 23 rows exactly match the parent, including the failed atomic patch result.
+- The asynchronous child result and preserved task list are runtime context, not fresh human instructions.
+- First unique execution: row `4975`.
+
+#### Unique inherited-request closure
+
+The record retried the parent’s failed all-at-once patch as focused writes and successfully amended eight distinct vault files:
+
+- C.E.Q.A Batch 3 raw manifest and source summary
+- Altin, Keks, and Call Center project pages
+- Harvest checkpoint
+- `index.md`
+- `log.md` twice
+
+One intermediate `log.md` patch failed without modification; the record then applied focused replacements successfully.
+
+It owns these reconciliation corrections:
+
+- Altin’s generic shell machinery had no active route/barrel consumer.
+- Keks had tracked CI but no tracked deployment target.
+- Call Center had acquired a flat ESLint configuration.
+- C.E.Q.A/Altin Codex coverage closed at 21/21.
+- A discovered CompFlow Hermes record was queued separately rather than misattributed to C.E.Q.A.
+
+It **does not** own:
+
+- The underlying five-record Codex Batch 3 research.
+- Operating-manual writes—the successful write set contains no operating-manual path despite the final summary claiming they were updated.
+- Schema, template, validator, or project-directory changes.
+- Any application-repository implementation.
+
+#### Historical verification
+
+After its focused reconciliation:
+
+- Canonical validator: pass at 48 wiki pages, 393 wikilinks, six templates, and six template-index links.
+- Focused secret-assignment scan: pass.
+- Git whitespace/diff check: pass.
+- C.E.Q.A repositories: clean at their recorded branches/revisions.
+- A concurrent Portfolio worker temporarily raised validation to 54 pages/406 links; after those transient drafts disappeared, validation returned to 48/393.
+- No stage, commit, push, branch, remote, project build, project test, service, or deployment operation occurred.
+
+#### Later fresh request
+
+At `2026-07-21 11:16:48Z`, the record received its first fresh human request: resume the next pending project-family harvest.
+
+- It loaded procedures, read current evidence, and ran a pre-edit validator/status check.
+- It made **no write** after this request.
+- The CompFlow supplement already existed by `08:46:37Z`, before this request; it is not owned by this record.
+- The fresh request remained incomplete and passed into `20260721_112003_2f277e`.
+
+### `20260721_112003_2f277e`
+
+**Classification:** interrupted `process-control` with unique reconnaissance; not a whole-record duplicate.  
+**Promotion:** `reference-only` / `incomplete`; zero new project claims.
+
+#### Replay boundary
+
+- Rows `5060–5108`: 49-row replay/compaction preamble.
+- 32 exact matches against the parent, including the prior completion report, fresh request, reads, and validator result.
+- First unique row `5109` is a generated preserved task list, not a fresh human request.
+- Unique tail: 143 rows.
+- There is **no fresh human request or correction** in this record.
+
+#### Unique Portfolio reconnaissance
+
+The record independently established:
+
+- Five Portfolio Git roots: dirty parent launcher, backend, admin, client, and historical mock-up.
+- Four direct Codex rollouts plus one index-only/missing-rollout shell.
+- The parent was dirty while all four nested repositories were clean.
+- Current application behavior must be attributed to the clean nested roots rather than the dirty parent snapshot.
+- The mock-up is an older standalone prototype lineage, not the current production lineage.
+
+Delegation boundaries:
+
+- Three source-marked children were dispatched and their consolidated read-only result was consumed before the record ended.
+- `20260721_112900_7e99fb` was dispatched later but did not finish or surface before the parent’s last message.
+- A direct desktop successor began immediately afterward.
+
+The record performed no patch/write call, no fresh vault validation, and no final integration synthesis. Current Portfolio Batch 1 artifacts have birth timestamps beginning around `11:36:43Z`, after this record ended and during its successor’s lifetime; they cannot be credited here.
+
+## Lineage and successor boundaries
+
+```text
+20260721_031558_72a825
+  ├─ subagent 20260721_031617_ee4e93
+  └─ desktop  20260721_032543_0fdcc0
+                └─ desktop 20260721_112003_2f277e
+                     ├─ subagents 20260721_112249_06c630
+                     │            20260721_112249_5609f0
+                     │            20260721_112249_2b4948
+                     │            20260721_112900_7e99fb
+                     └─ desktop 20260721_113041_3f113d
+                                  └─ desktop 20260721_150209_773080
+```
+
+- `20260721_032543_0fdcc0` owns consumption and successful focused closure of the reconciliation work dispatched/researched earlier.
+- `20260721_112003_2f277e` owns Portfolio reconnaissance only.
+- Direct successor `20260721_113041_3f113d` started `0.000483s` after the second record ended. Its body was not classified here; current artifact timing makes it the primary candidate for Portfolio integration ownership.
+- `20260721_150209_773080` is the next direct continuation and should follow in the audit sequence.
+
+## Schema v2 / six-template / direct-project ownership
+
+**Determination: neither exact record owns the transition.**
+
+Static controls:
+
+- `_template/project-template.md` existed by `2026-07-21 02:13:37Z`.
+- Schema v2 files were modified by approximately `02:13–02:14Z`.
+- This predates even parent `20260721_031558_72a825`, which started at `03:15:58Z`.
+- The first record’s successful write set contains no schema, template, validator, or `AGENTS.md` path.
+- The second record has zero write-capable results.
+- The first record’s six-template validator passes merely observed the already-existing contract.
+- Schema, project template, validator, C.E.Q.A Batch 3 files, and direct project pages remain untracked in vault Git, so Git cannot name an author.
+
+Ownership remains unresolved. The correct provenance target is the concurrent Codex/external activity around `2026-07-21 02:13–02:14Z`, not this default-profile chain.
+
+## Current static reconciliation
+
+At inspection time:
+
+### Vault
+
+- Schema version 2 is present.
+- Six templates are registered.
+- Project pages live directly under `wiki/projects/`.
+- C.E.Q.A/Altin Codex coverage is represented as 21/21.
+- The earlier limited-search claim of no direct C.E.Q.A Hermes implementation record is now explicitly superseded by a later full-store audit that recovered five direct records.
+
+Vault Git:
+
+- Branch `main`, `HEAD` `10f7baf9a3476032100845dbf56584fd3ee9f785`
+- Local `origin/main` tracking ref matches; `0/0` ahead/behind, without a fresh fetch
+- Two commits total; current `HEAD` predates these sessions
+- Zero staged files
+- 150 file-level porcelain entries under `-uall`: 14 modified, 15 deleted, 121 untracked
+
+### C.E.Q.A repositories
+
+All remain clean:
+
+- Altin Partner Mobile: `main@f05077b67018`
+- Keks Admin Portal: `develop@3521aaadf7ba`
+- Call Center Web App: `develop@6a9cff6b681f`
+
+### Portfolio repositories
+
+- Parent: `main@8621a0286205`, currently dirty with 348 file-level entries under `-uall`
+- Backend: `main@c211320705f5`, clean
+- Admin: `main@b0a86f9009d7`, clean
+- Client: `main@d54e1e4466d9`, clean
+- Historical mock-up: `main@a8c12d52b492`, clean
+
+No current vault validator, project build, test, service, or runtime command was run by this audit.
+
+## Contradictions requiring preservation
+
+1. The first record’s final report says it updated both operating manuals; its successful writes contain no manual path.
+2. Its claim that no direct C.E.Q.A Hermes implementation record existed was based on limited search and is superseded by five later-recovered direct records.
+3. “21/21 complete” refers to discovered C.E.Q.A/Altin **Codex** records, not complete Hermes archive coverage.
+4. The second record’s interim claim that no direct Portfolio Hermes implementation record existed is superseded by later default-profile Featured Projects evidence.
+5. Current vault files prove present state, not exact authorship; much of the vault remains untracked.
+6. Portfolio Batch 1 artifacts appeared only after the second record ended, so later/current completion cannot retroactively complete it.
+
+## Recommended targets
+
+1. Checkpoint both records:
+   - `20260721_032543_0fdcc0` — process-control, successful reconciliation closure.
+   - `20260721_112003_2f277e` — interrupted process-control, unique reconnaissance.
+   - Coverage: **60/130 classified; 70 remaining**.
+2. Add provenance to the existing vault-continuation source rather than duplicating C.E.Q.A or Portfolio project rules.
+3. Audit `20260721_113041_3f113d` next for Portfolio write/integration ownership, then `20260721_150209_773080`.
+4. Audit concurrent Codex provenance around `02:13–02:14Z` if exact schema-transition authorship is required.
+5. Correct the checkpoint’s stale “remains pending” and open-question wording during a separately authorized write pass.
+
+**Files created or modified by this audit:** none.  
+**Issues:** no substantive blocker; schema authorship remains unresolved because the relevant files are uncommitted and neither exact record contains a successful schema/template write.

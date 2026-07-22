@@ -36,14 +36,14 @@ Rules:
 - Update all affected pages during ingest, not only the new source summary.
 - Use Obsidian-style links for internal references: `[[Page Title]]` or `[[path/to/page|Label]]`.
 - Use relative markdown links when linking to raw source files.
-- Keep each page focused on one source, entity, concept, question, or synthesis.
+- Keep each page focused on one source, concept, entity, project, question, or synthesis.
 - Do not invent citations. If a claim comes from a source, cite the source summary or raw source.
 
 ### Schema
 
-Location: `AGENTS.md`
+Locations: `AGENTS.md` and `schema/`
 
-This file defines how the agent operates. When workflow improvements emerge, propose edits and update this schema after user approval or clear instruction.
+This file is the human-readable operating authority. `schema/vault-structure.json` encodes canonical paths, required directories, templates, project-local skills, frontmatter keys, statuses, and required sections for automation. `schema/wiki-frontmatter.schema.json` is the formal JSON Schema for page properties. When workflow improvements emerge, update the human and machine-readable contracts together after user approval or clear instruction.
 
 ## Directory Conventions
 
@@ -51,11 +51,14 @@ This file defines how the agent operates. When workflow improvements emerge, pro
 - `raw/assets/`: Local images, attachments, PDFs, screenshots, and other source assets.
 - `wiki/sources/`: One summary page per ingested source.
 - `wiki/concepts/`: Reusable ideas, topics, frameworks, mechanisms, and themes.
-- `wiki/entities/`: People, organizations, products, projects, places, and named things.
+- `wiki/entities/`: People, organizations, products, places, and other named things.
+- `wiki/projects/`: Repository- or application-scoped project knowledge with implementation provenance.
 - `wiki/questions/`: Filed answers to user questions that should compound into the wiki.
 - `wiki/syntheses/`: Cross-source essays, comparisons, maps, timelines, and high-level views.
-- `wiki/templates/`: Page templates and reusable structures.
-- `tools/`: Optional helper scripts for search, linting, or automation.
+- `_template/`: Obsidian page templates and reusable structures, configured through `.obsidian/templates.json`.
+- `schema/`: Machine-readable vault paths, page contracts, and validation configuration.
+- `.agents/skills/`: Repository-local Agent Skills for Obsidian formats, CLI workflows, web extraction, and vault maintenance.
+- `scripts/`: Repository-owned validation and automation. Run `python3 scripts/validate_vault.py` after structural or durable wiki changes.
 - `index.md`: Content-oriented catalog of the wiki.
 - `log.md`: Append-only chronological activity record.
 
@@ -66,6 +69,7 @@ Use lowercase kebab-case filenames:
 - Source summary: `wiki/sources/source-title.md`
 - Concept page: `wiki/concepts/concept-name.md`
 - Entity page: `wiki/entities/entity-name.md`
+- Project page: `wiki/projects/project-name.md`
 - Question answer: `wiki/questions/question-slug.md`
 - Synthesis page: `wiki/syntheses/synthesis-title.md`
 
@@ -77,7 +81,7 @@ All wiki pages should start with YAML frontmatter:
 
 ```yaml
 ---
-type: source | concept | entity | question | synthesis | template
+type: source | concept | entity | project | question | synthesis | template
 status: seed | active | needs-review | superseded
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -119,7 +123,7 @@ Specific facts, examples, definitions, distinctions, and evidence worth preservi
 
 ## Connections
 
-Links to relevant concept, entity, synthesis, and question pages.
+Links to relevant concept, entity, project, synthesis, and question pages.
 
 ## Contradictions Or Tensions
 
@@ -160,6 +164,10 @@ Required sections:
 
 Add domain-specific sections only when useful.
 
+## Project Page Format
+
+Project pages live directly under `wiki/projects/`, use frontmatter `type: project`, and remain distinct from generic entities. They require `Summary`, `Purpose`, `Stack`, `Architecture`, `Folder Ownership`, `Commands`, `Runtime/Deployment`, `Durable Conventions`, `Constraints`, `Decisions And Rationale`, `Verification Expectations`, `Evidence`, `Contradictions`, `Confidence`, and `Open Questions`. Frontmatter `sources` remains the machine-readable provenance map.
+
 ## Synthesis Page Format
 
 Synthesis pages are cross-source outputs.
@@ -191,15 +199,18 @@ Required sections:
 
 When the user asks to ingest a source:
 
+For a conversation-harvest task, direct conversation evidence is a prerequisite for promotion. Filesystem or Git-root discovery alone must not create a project page or durable claim. Repository inspection may verify current implementation only after a relevant conversation has established the project and claim scope. Use Hermes, Codex, or another archive only when that source is explicitly in scope; never substitute one archive for another.
+
 1. Identify the raw source file or ask the user to provide it if it is missing.
 2. Read the source fully enough to extract its main claims, details, examples, and evidence.
-3. Create or update one page in `wiki/sources/`.
-4. Update relevant concept, entity, synthesis, and question pages.
-5. Flag contradictions, stale claims, and confidence changes.
-6. Add missing internal links across touched pages.
-7. Update `index.md`.
-8. Append exactly one entry to `log.md`.
-9. Report the changed files and the key takeaways to the user.
+3. Start new durable pages from the matching scaffold in `_template/`.
+4. Create or update one page in `wiki/sources/`.
+5. Update relevant concept, entity, project, synthesis, and question pages.
+6. Flag contradictions, stale claims, and confidence changes.
+7. Add missing internal links across touched pages.
+8. Update `index.md`.
+9. Append exactly one entry to `log.md`.
+10. Run `python3 scripts/validate_vault.py`, then report the changed files and key takeaways.
 
 If the source is large, inspect structure first, then process section by section. If images or attachments are central, view them separately and record what they add.
 
@@ -229,7 +240,7 @@ When asked to lint or health-check the wiki, inspect for:
 - Duplicate pages that should be merged.
 - Data gaps that could be filled by future sources or web research.
 
-Produce a prioritized list of fixes, then apply the fixes the user approves or explicitly requests.
+Run `python3 scripts/validate_vault.py` for the canonical structural checks. Produce a prioritized list of semantic fixes, then apply the fixes the user approves or explicitly requests.
 
 ## Index Rules
 
@@ -243,12 +254,15 @@ Each entry should include:
 - Updated date.
 - Source count when useful.
 
+The Maintenance template catalog must link every template registered in `schema/vault-structure.json`. The canonical validator enforces this one-to-one connection.
+
 Organize by category:
 
 - Start Here.
 - Sources.
 - Concepts.
 - Entities.
+- Projects.
 - Questions.
 - Syntheses.
 - Maintenance.
@@ -322,6 +336,8 @@ Capture information when it is likely to be useful again, especially:
 - Project conventions, durable constraints, and non-obvious exclusions.
 - Reusable lessons from failures or successful troubleshooting.
 
+Every substantive Hermes conversation must be evaluated for durable knowledge before it is treated as complete. Promote supported corrections, decisions, constraints, rationale, reusable failure lessons, and verification provenance into the existing vault pages in the same session when safe. If same-session promotion is blocked, record the exact Hermes session ID in `wiki/syntheses/project-knowledge-harvest-status.md` as pending. A saved Hermes session, a profile-memory write, repository inspection, or use of the same model as Codex does not count as vault integration.
+
 Before asking the user to repeat an established workflow or preference, read `index.md`, search `wiki/`, and inspect the relevant pages. When new information changes an existing rule, update the existing page, preserve provenance, and link the supporting source rather than creating a duplicate note.
 
 Use the layered memory model documented in `wiki/concepts/hermes-obsidian-memory-architecture.md`:
@@ -343,5 +359,7 @@ From now on, treat every interaction in this vault as part of the LLM Wiki workf
 - For source-like input, offer or perform ingest.
 - For durable answers, file them into `wiki/questions/` or `wiki/syntheses/` when useful.
 - For maintenance discoveries, update the wiki or propose a concise fix.
+- For substantive Hermes project work, either complete the durable vault promotion or leave an explicit session-ID checkpoint; never imply that session persistence alone harvested the knowledge.
 - Always protect raw sources.
 - Always keep `index.md` and `log.md` synchronized with durable wiki changes.
+- Always run `python3 scripts/validate_vault.py` after durable structural changes and report its result accurately.

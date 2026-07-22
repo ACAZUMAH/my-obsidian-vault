@@ -1,0 +1,402 @@
+# Sanitized audit: CompFlow Backend Authentication Setup continuations #2–#6
+
+## Scope and evidence basis
+
+- Audited only the five requested continuations; root `20260711_165753_68ff6f` was used solely for replay detection and was **not counted or re-attributed**.
+- Used the read-only, pre-cutoff coder snapshot at:
+  - `/Users/acazumah/.hermes/profiles/coder/state-snapshots/20260719-030741-pre-update/state.db`
+- The live coder database had been modified after the frozen cutoff, so it was excluded from historical metadata decisions.
+- Replay ownership was determined by exact role/content matching against each direct parent, then by separating inherited execution from genuinely new human requests.
+- Current reconciliation was static only: source reads and Git inspection. No project commands, builds, tests, services, provider calls, or writes were performed.
+- Sensitive provider configuration, private fixtures, test identities, OTPs, and credentials are omitted.
+
+---
+
+## 1. Exact chain metadata
+
+| Continuation | Exact ID | Parent | Model | Start GMT | Recorded end GMT | End reason | Stored rows | User / assistant / tool |
+|---|---|---|---|---|---|---|---:|---:|
+| #2 | `20260711_221940_e79205` | `20260711_165753_68ff6f` | `gpt-5.5` | 2026-07-11 22:19:40 | 2026-07-12 02:16:21 | `compression` | 621 | 6 / 164 / 451 |
+| #3 | `20260712_021621_84e0f7` | `20260711_221940_e79205` | `gpt-5.5` | 2026-07-12 02:16:21 | 2026-07-12 03:10:59 | `compression` | 451 | 5 / 119 / 327 |
+| #4 | `20260712_031059_c7fd2c` | `20260712_021621_84e0f7` | `gpt-5.6-sol` | 2026-07-12 03:10:59 | 2026-07-12 10:20:48 | `compression` | 544 | 8 / 144 / 392 |
+| #5 | `20260712_102048_b1481f` | `20260712_031059_c7fd2c` | `gpt-5.6-sol` | 2026-07-12 10:20:48 | 2026-07-12 15:54:04 | `compression` | 478 | 6 / 117 / 355 |
+| #6 | `20260712_155404_4a08ff` | `20260712_102048_b1481f` | `gpt-5.6-sol` | 2026-07-12 15:54:04 | 2026-07-14 13:45:26 | `ws_orphan_reap` | 317 | 6 / 82 / 229 |
+
+The #6 end timestamp is administrative: its final substantive edit occurred on **2026-07-12 at 16:12:08 GMT**; no project work was found on July 14.
+
+### Replay partitions
+
+| ID | De-duplicated inherited prefix | Unique record-owned portion | Fresh human intent |
+|---|---:|---:|---|
+| #2 | Messages `10734–11251` — 518 rows | `11252–11354` — 103 rows | 1 correction |
+| #3 | `11355–11656` — 302 rows | `11657–11805` — 149 rows | 2 requests/pivots |
+| #4 | `11806–12094` — 289 replay rows, plus replayed request marker `12095` | `12096–12349` — 254 rows | 1 correction; also executes #3’s inherited payroll request |
+| #5 | `12350–12588` — 239 rows | `12589–12827` — 239 rows | 2 requirements plus “continue” |
+| #6 | `12828–13079` — 252 replay/shell rows | `13080–13144` — 65 execution rows | **0; shell-only for human-intent accounting** |
+
+Background-process notifications, model-change notices, compaction summaries, and preserved task-list payloads are classified as shells, not human requests.
+
+---
+
+# 2. Per-record classification
+
+## Continuation #2 — `20260711_221940_e79205`
+
+**Classification:** substantive continuation with one new onboarding correction.
+
+### Request ownership
+
+The prefix repeats root-owned authentication and “build the other features/APIs” requests. These must remain attributed to the root.
+
+The only fresh human correction in #2 was:
+
+- Make promotional-site customer onboarding the primary subscription flow.
+- Admin-created subscriptions may remain available, but should not be the normal customer path.
+- Follow the LivelyCura platform-subscription pattern while using Paystack instead of Paddle.
+
+### Execution coverage
+
+Before the correction, #2 continued root-owned work and implemented:
+
+- Admin-managed subscription plans.
+- Subscription checkout and payment verification.
+- Organization creation after successful payment.
+- Owner attachment.
+- Pending-document-review state.
+- Admin document approval/rejection flow.
+- Paystack webhook handling.
+
+The fresh correction then introduced the customer-driven platform flow:
+
+1. Public plan discovery.
+2. Platform signup.
+3. OTP verification.
+4. Authenticated subscription checkout.
+5. Payment verification/webhook.
+6. Organization and owner provisioning only after successful payment.
+7. Organization enters pending review.
+8. Admin review remains downstream.
+
+### Historical verification
+
+- `yarn build && yarn test` passed.
+- **3 suites / 6 tests** passed.
+- Integration coverage exercised the signup → OTP → authenticated checkout → payment → organization provisioning → review path.
+- Paystack behavior was deterministic/mocked in test mode.
+- **No live Paystack transaction or production deployment evidence** was found.
+
+### Boundary and promotion
+
+- **Current:** customer-driven onboarding, authenticated checkout, post-payment organization provisioning, pending review, admin approval.
+- **Superseded:** the early environment-backed/static platform-plan pricing was later replaced by database-managed subscription plans.
+- **Not owned here:** foundational login/OTP/auth architecture from the root.
+- **Promotion targets:**  
+  `wiki/projects/compflow-backend.md` → Onboarding/Subscriptions;  
+  `wiki/projects/compflow-admin.md` → Plan and organization review;  
+  `wiki/projects/compflow.md` → Promotional-site customer journey.
+
+---
+
+## Continuation #3 — `20260712_021621_84e0f7`
+
+**Classification:** completed provider pivot followed by a new payroll-project pivot handed to #4.
+
+### Fresh requests
+
+1. **Hackathon provider pivot**
+   - Integrate Moolre payments and SMS.
+   - Send OTP through email and SMS.
+   - Send a payment-success email.
+   - Keep Paystack available for switching back after the hackathon.
+
+2. **Product/domain pivot**
+   - Build the remaining core MVP from a payroll/HR-compliance proposal for Ghanaian MSMEs.
+   - Prioritize employee records, payroll, PAYE, SSNIT, payslips, reports, and compliance.
+   - Follow the LivelyCura backend structure.
+   - Complete submission-critical MVP features that day.
+
+The payroll proposal arrived as #3’s final human request; its implementation belongs to #4.
+
+### Implemented provider architecture
+
+- Moolre SMS adapter added for OTP delivery.
+- Email and SMS attempted concurrently when both contacts exist.
+- Authentication/signup proceeds if at least one channel succeeds and fails if all channels fail.
+- Moolre payment-link initialization and verification added.
+- Moolre webhook endpoint added.
+- A callback-token mechanism was used because the supplied provider material did not establish a native signature convention.
+- Paystack implementation retained behind a provider switch.
+- Payment-success email added after successful provisioning.
+
+### Historical verification
+
+- Build passed.
+- **3 suites / 6 tests** passed.
+- Test mode covered mock email, mock SMS, Moolre checkout, verification/webhook, organization creation, and success email.
+- No live Moolre or Paystack call was demonstrated.
+- The private provider fixture was used as implementation reference only and is not reproduced.
+
+### Boundary and promotion
+
+- **Current:** dual notification channels; Moolre and Paystack adapters; provider switch; Moolre webhook token; Paystack signature validation; payment-success email.
+- **Unresolved product intent:** the requested post-hackathon switch back to Paystack never occurred. Current code still defaults to Moolre unless configured otherwise.
+- **Handoff only:** the payroll proposal is request-owned by #3 but implementation-owned by #4.
+- **Promotion targets:**  
+  `wiki/projects/compflow-backend.md` → Payments and Notifications;  
+  `wiki/projects/compflow.md` → Timeline/Product pivot;  
+  source note → provider-evidence boundary.
+
+---
+
+## Continuation #4 — `20260712_031059_c7fd2c`
+
+**Classification:** executes #3’s payroll-MVP request, then receives and acts on one structural correction.
+
+### Inherited request executed
+
+#4 implemented the payroll proposal first introduced at the end of #3:
+
+- Employee management and salary setup.
+- Configurable annual tax rules.
+- PAYE and SSNIT calculations.
+- Payroll runs and per-employee run items.
+- Draft/approve/paid lifecycle.
+- Payroll reports and payslips.
+- CSV/Excel-compatible output.
+- Real PDF generation via PDFKit.
+- Integer minor-unit money representation.
+- Organization-scoped GraphQL APIs.
+
+### Historical verification before refactor
+
+- Build passed.
+- Full suite passed with **4 suites / 7 tests**.
+- Payroll integration test exercised:
+  - Admin tax-rule configuration.
+  - Employee creation.
+  - Payroll calculation.
+  - PAYE/SSNIT results.
+  - Report and payslip generation.
+  - PDF output.
+  - Approval and paid transitions.
+- Verification used GraphQL integration tests and an in-memory database, not a production runtime.
+
+### Fresh correction
+
+The user objected to monolithic files and instructed the implementation to match LivelyCura’s modular folder/file structure.
+
+The record then split payroll into:
+
+- Separate `TaxRule`, `PayrollRun`, and `PayrollRunItem` models.
+- Employee action-per-file services.
+- Payroll subdomains for rules, runs, run items, reports, helpers, and validations.
+- Split GraphQL submodules and root aggregators.
+
+### Incomplete boundary
+
+The assistant attempted to remove four replaced monolithic files, but destructive-action confirmation blocked deletion:
+
+- `src/models/payroll/Payroll.ts`
+- `src/services/payroll/helpers.ts`
+- `src/services/payroll/reportHelpers.ts`
+- `src/services/payroll/validations.ts`
+
+The record ended without deletion and without a post-refactor build/test cycle. Unrelated frontend-process notifications at the end are shells.
+
+### Current reconciliation
+
+- The modular directories and aggregators remain in current source.
+- All four files whose deletion was blocked still exist at current `HEAD`.
+- `Payroll.ts` is not exported by the current payroll model index.
+- A root `helpers.ts` file coexists with a `helpers/` directory while payroll code uses extensionless imports, leaving structural ambiguity and showing that the cleanup was never fully reconciled.
+
+### Promotion targets
+
+- `wiki/projects/compflow-backend.md` → Employees, Payroll, Static caveats.
+- `wiki/projects/compflow-client-portal.md` → Employee/payroll API surface.
+- Architecture note → action-per-file and subdomain module layout.
+- Incomplete-work register → four retained legacy files.
+
+---
+
+## Continuation #5 — `20260712_102048_b1481f`
+
+**Classification:** two fresh architecture/security requests; implementation reaches a clean build but no tests.
+
+### Fresh request 1 — separation of concerns
+
+The user required:
+
+- Organization creation/update to live in dedicated organization service files.
+- User creation/update to live in dedicated user service files.
+- Subscription completion to orchestrate those services rather than accessing models inline.
+- User and organization GraphQL ownership separated from auth GraphQL.
+- Structure aligned with prior projects.
+
+### Implemented separation
+
+- Extracted organization/user service actions.
+- Removed direct model access from subscription/auth orchestration paths.
+- Moved login metadata and organization lookup behind services.
+- Split GraphQL type ownership:
+  - auth owns auth operations and payloads;
+  - users own user types/fields;
+  - organizations own organization types/fields;
+  - subscription plans own plan types.
+- Preserved post-payment provisioning as the only customer-subscription creation point.
+
+### Fresh request 2 — permissions and organization lifecycle
+
+The user then requested:
+
+- GraphQL Shield protection.
+- RBAC roles and permissions.
+- Explicit internal-admin organization creation.
+- Organization update.
+- Rejected-document resubmission.
+- Internal admin management flows.
+- A continuation directive to finish the work.
+
+### Implemented in #5
+
+- Role model and user `roleIds`.
+- Coarse built-in roles plus custom permission roles.
+- Permission tree and default role permissions.
+- Role CRUD and assignment services/GraphQL.
+- `myPermissions` and permission-tree exposure.
+- Organization create/update/delete/review/reject/resubmit/suspend services.
+- Tenant-scope checks for organization, employee, and payroll access.
+- Shield modules for auth, organizations, employees, payroll, roles, subscriptions, and plans.
+- Schema middleware integration.
+- Internal-admin and organization-scoped paths.
+
+### Historical verification
+
+- Initial build failed due a duplicate enum entry.
+- The duplicate was fixed.
+- Final #5 build passed in **3.09 seconds**.
+- **No authorization tests or full suite were completed in #5.**
+- No final delivery summary or commit occurred before compression.
+
+### Boundary and promotion
+
+- **Request ownership:** separation/RBAC/organization lifecycle belongs to #5.
+- **Execution closure:** continued into shell #6.
+- **Promotion targets:**  
+  `wiki/projects/compflow-backend.md` → Service boundaries, GraphQL ownership, Security/RBAC, Organization lifecycle;  
+  `wiki/projects/compflow-admin.md` → Admin organization and role-management capabilities.
+
+---
+
+## Continuation #6 — `20260712_155404_4a08ff`
+
+**Classification:** **continuation shell with no unique human request**, but substantial execution and verification evidence.
+
+All human-language requirements in #6 are exact replays of #5’s separation/RBAC request and “continue” directive. The additional task-list row is a system shell. Therefore #6 must not be promoted as a new request source.
+
+### Continuation work
+
+#6 completed and hardened #5-owned RBAC/organization work:
+
+- Fixed optional-user uniqueness behavior with partial indexes.
+- Corrected authorization and tenant-scope behavior.
+- Exercised organization creation/review/resubmission paths.
+- Added explicit Shield coverage checks for every root GraphQL operation.
+- Protected the then-existing admin overview while keeping health public.
+- Added platform-admin permission handling.
+- Repeatedly corrected test and schema failures uncovered by real runs.
+
+### Historical verification sequence
+
+1. Full suite initially failed: **1 failed suite / 3 passed; 2 failed tests / 5 passed**.
+2. Focused subscription coverage passed: **2 tests**.
+3. Authorization suite initially failed, then passed with **3 tests**.
+4. Build passed in **2.03 seconds**.
+5. Full suite passed: **5 suites / 10 tests**.
+6. Adding root Shield-coverage validation initially failed.
+7. After explicit rules were added, focused authorization passed: **4 tests**.
+8. Build passed again in **2.13 seconds**.
+9. Final full suite failed only because a legacy foundation test still called the newly protected admin overview anonymously:
+   - **4 suites passed / 1 failed**
+   - **10 tests passed / 1 failed**
+10. The record patched permission lookup afterward but ended without rerunning build or tests.
+
+### Exact closure status
+
+- **Substantive RBAC/organization implementation:** supported and promoted under #5’s request.
+- **Intermediate full-suite state:** proven green at 5 suites / 10 tests.
+- **Final record state:** incomplete because the last patches were not reverified.
+- **Delivery:** no final assistant summary, commit, push, deploy, or production runtime.
+- **Promotion target:** execution/test evidence under #5-owned Security/RBAC and Organization Lifecycle sections; retain #6 separately as a shell record.
+
+---
+
+# 3. Current static reconciliation
+
+At audit time, `/Users/acazumah/Documents/compFlow/compflow-backend` was clean on `main` at:
+
+`b512a40b7b9e5695dc9ed6508e25f7eb629e964e`
+
+### Architecture currently present
+
+- Unified email/phone OTP login and verification.
+- OTP email and SMS with at-least-one-channel delivery semantics.
+- Public plan discovery backed by database-managed subscription plans.
+- Platform signup verification before authenticated checkout.
+- Moolre default provider with optional Paystack selection.
+- Paystack signature validation and Moolre callback-token validation.
+- Post-payment owner/organization provisioning and pending-document-review state.
+- Organization rejection/resubmission lifecycle.
+- Employee, tax-rule, payroll-run, run-item, report, payslip, CSV, and PDF modules.
+- Built-in roles, custom role IDs, permission tree, GraphQL Shield, and tenant scoping.
+- Partial unique indexes for optional email and phone fields.
+- Root-operation Shield coverage test in current tests.
+
+### Current caveats
+
+- Shield still uses `fallbackRule: allow`; safety depends on the root-operation coverage test preventing unmapped additions.
+- The four blocked legacy payroll files remain.
+- Current platform plans are database-managed, superseding the earlier environment/static plan implementation.
+- The requested temporary Moolre period never ended in source defaults.
+- The historical `adminOverview` field and permission introduced in #6 were removed by a later successor.
+- The #6 early-return optimization for both Admin and SuperAdmin was later revised; current code returns early only for SuperAdmin, allowing expanded role behavior for other platform users.
+- Naming varies historically among CompFlow, ComFlow, and ComplianceFlow; this is a product-naming inconsistency, not three separate projects.
+
+---
+
+# 4. Commits, delivery, and successors
+
+| Commit | Classification |
+|---|---|
+| `ab082bef2988d61441c141ef87ff521678f4c33e` — 2026-07-11 19:59 GMT | Authentication baseline committed before #2; belongs to root/reference, not these continuations. |
+| `eb0f12700300826db095954ebfc358a2c1c38106` — 2026-07-12 17:05 GMT | Aggregate post-#6 commit containing onboarding, providers, payroll, RBAC, and organization work. Cannot be assigned to one continuation. |
+| `abae215176241f2b8853bce532a14f7e9f51be30` | Employee-type semantic successor. |
+| `27770b684c4d85476ee1edf4d9d4961b6e09c284` | Later scoping/plan/general-schema reconciliation; removed the historical admin-overview surface. |
+| `b512a40b7b9e5695dc9ed6508e25f7eb629e964e` | Current HEAD; later role-assignment and platform-role migration successor. |
+
+No `git commit`, `git push`, deployment, or live provider execution occurred inside the five exact records. Delivery was limited to working-tree implementation, historical local verification, and several assistant summaries. #5 and #6 ended without final delivery summaries.
+
+The later “Proper Project Stack” records are **semantic successors**, not direct descendants of this chain, and must not be represented as exact continuations #7+.
+
+---
+
+# 5. Corrections to prior knowledge and promotion decision
+
+1. All five IDs are valid, populated, and directly chained.
+2. None may be discarded as invalid aliases.
+3. #6 is the only **human-intent shell**: it has meaningful execution but no new human request.
+4. Root authentication requests must not be re-promoted from #2’s replay.
+5. The payroll pivot belongs to #3; implementation belongs to #4.
+6. The modular-structure correction belongs to #4.
+7. Separation-of-concerns and RBAC/organization-lifecycle requests belong to #5.
+8. #6 supplies continuation and verification evidence for #5.
+9. Existing claims based on the invalid Hermes locator should be replaced by this exact chain accounting.
+10. The overall validated coverage remains **60/130** unless the parent harvest explicitly promotes these five records and updates its checkpoint.
+
+## Files created or modified
+
+- **None.** This was a read-only audit.
+
+## Issue encountered
+
+- The live coder `state.db` had post-cutoff changes during the audit. The immutable July 19 coder snapshot was used for exact metadata and lineage so the **2026-07-21 17:12:06 GMT** cutoff remained respected.

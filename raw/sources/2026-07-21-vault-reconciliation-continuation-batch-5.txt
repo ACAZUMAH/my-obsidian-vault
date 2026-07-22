@@ -1,0 +1,92 @@
+## Outcome
+
+- **Classification:** `process-control` with independent reconciliation/verification work, but **interrupted before integration**.
+- **Not a whole-record duplicate:** the inherited prefix is replay, but the tail contains unique execution.
+- **C.E.Q.A/Altin Batch 3:** **not integrated by this exact record.** Its only integration patch failed atomically and modified no files.
+- **Six-template/direct-`wiki/projects/` transition:** **not owned.** Schema v2 and the project template predated this session; neither this record nor its direct successor patched schema.
+- **Unrelated work:** no unrelated application work. One CompFlow lookup was queue/provenance management, and one harvest-preference memory write was process-related.
+- **Project-evidence promotion:** **zero new project claims** from this ID.
+
+## Sanitized exact metadata
+
+| Field | Verified value |
+|---|---|
+| Exact ID | `20260721_031558_72a825` |
+| Store | Default profile: `/Users/acazumah/.hermes/state.db` |
+| Logical locator | `sessions.id` and `messages.session_id` equal the exact ID |
+| Started | `2026-07-21 03:15:58.726257 UTC` |
+| Ended | `2026-07-21 03:25:43.448928 UTC` |
+| Last recorded message | `2026-07-21 03:22:08.547943 UTC` |
+| Metadata-cleanup gap | `214.900985` seconds |
+| Source | `desktop` |
+| Parent | `20260721_030948_da545b` |
+| Parent→child gap | `0.000608` seconds |
+| End reason | `compression` |
+| Archived | `0` |
+| Profile / cwd / title | `NULL` / `NULL` / `NULL` |
+| Frozen-cutoff rows | 4 user / 47 assistant / 166 tool |
+| Post-cutoff rows | `0` |
+| Coder-store collision | None |
+
+## Replay de-duplication
+
+- Rows `4566–4733` are a **168-row replay/compaction preamble**.
+- **103 exact predecessor matches:** 28 assistant, 73 tool, 2 user; this is a lower-bound replay control.
+- Rows `4734–4925` are the **49-row unique tail:** 15 assistant, 33 tool, 1 runtime-generated user-role delegation result.
+- There is **no fresh human request or correction** in the unique tail. The original harvest directive, preference correction, and task lists are inherited context.
+
+## Component status
+
+| Component | Status |
+|---|---|
+| Inherited staged-harvest directive | `duplicate` / `reference-only` |
+| Fresh request or correction | None |
+| Final-five C.E.Q.A reconnaissance | Unique process work; `historical/reference-only` |
+| Current-source and commit-lineage inspection | Completed read-only |
+| Canonical validation | Historical pre-edit pass: 48 wiki pages and 392 links |
+| Batch 3 integration | `incomplete`; one eight-file atomic patch failed and changed nothing |
+| Schema/template transition | Not implemented or owned |
+| Git | Read-only status/log/show only; no stage, commit, push, branch, or remote mutation |
+| Profile-side effect | One related harvest-preference memory write; not vault integration |
+| Adjacent CompFlow check | Queue/provenance discovery only; no project implementation |
+| Unrelated project work | None |
+| New project claims promoted | 0 |
+
+The failed patch targeted the Batch 3 raw/source pages, three C.E.Q.A project pages, checkpoint, index, and log. Patch validation rejected it before applying any hunk. There was no final synthesis after that failure.
+
+## Successor boundary
+
+- Source-marked child `20260721_031617_ee4e93` ran read-only verification and ended at `2026-07-21 03:24:21.241498 UTC`; its result was not consumed before this target’s last message.
+- Direct desktop successor `20260721_032543_0fdcc0` began `0.025631` seconds after metadata end.
+- That successor retried the work as focused patches, successfully updated the Batch 3 evidence/project/checkpoint/index/log surfaces, reran validation, and reported C.E.Q.A/Altin coverage complete at **21/21**.
+- Therefore, the direct successor owns the **Hermes reconciliation closure**, while the existing source still attributes the underlying batch to **Codex with Hermes reconciliation**.
+- The successor’s patch set contained no schema or template file. It therefore does **not** establish six-template/direct-project ownership either.
+- Its later 11:16 request and continuation `20260721_112003_2f277e` require separate exact-record classification.
+
+## Current static reconciliation
+
+- Current vault state has schema version 2, six templates, direct `wiki/projects/`, integrated Batch 3, and C.E.Q.A/Altin at 21/21.
+- The schema and project template were present before this target began; static timestamps and the absence of schema-writing calls corroborate non-ownership, but do not identify the external/concurrent author.
+- Vault Git remains uncommitted:
+  - `main` at `10f7baf9a3476032100845dbf56584fd3ee9f785`
+  - local `origin/main` tracking ref is `0/0` ahead/behind; no fresh fetch
+  - 99 porcelain entries, 0 staged
+  - 29 tracked changes: 14 modified and 15 deleted
+  - 115 untracked files, with porcelain collapsing some directories
+- Schema, project template, Batch 3 artifacts, and C.E.Q.A project pages are absent from committed `HEAD`; Git cannot attribute their authorship.
+- Current application repositories are clean:
+  - Altin Partner Mobile: `main` at `f05077b6701885aaf928fca79281b95dee0babcf`
+  - Keks Admin Portal: `develop` at `3521aaadf7ba45474880115d8f8b53e805648d95`
+  - Call Center Web App: `develop` at `6a9cff6b681fd558761683d591865d76298891fc`
+- Current vault files include later/post-cutoff evolution and must not retroactively complete this exact record. No fresh vault validator or application command was run during this audit.
+
+## Recommended targets
+
+1. Checkpoint this exact ID as `process-control`, advancing classification coverage from **48/130 to 49/130**, leaving **81**. Project-promotion increment: **0**.
+2. Audit `20260721_032543_0fdcc0` separately for exact Batch 3 closure and its later inherited task before moving to the Product Lab Badge/MLS chain.
+3. Resolve the open questions in the prior validation/reconnaissance source pages: this ID owns neither Batch 3 integration nor the schema transition.
+4. Do not add duplicate C.E.Q.A project claims from this record; current Batch 3 already owns them.
+5. If exact schema authorship is required, inspect concurrent Codex provenance around the schema/project-template transition rather than assigning it to this default-profile lineage.
+
+**Files created or modified by this audit:** none.  
+**Issues:** no blocker; schema authorship remains unresolved because the relevant artifacts are uncommitted and this exact lineage contains no successful schema write.

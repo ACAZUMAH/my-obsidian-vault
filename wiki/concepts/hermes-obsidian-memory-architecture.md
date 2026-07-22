@@ -2,12 +2,13 @@
 type: concept
 status: active
 created: 2026-07-20
-updated: 2026-07-20
+updated: 2026-07-21
 tags: [hermes, codex, obsidian, memory, second-brain, multi-agent]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
   - ../sources/shared-brain-all-agents-directive.md
   - ../sources/hermes-persistent-memory-import.md
+  - ../sources/hermes-session-coverage-audit-2026-07-21.md
 aliases: [Hermes–Obsidian Memory Architecture]
 confidence: high
 ---
@@ -43,6 +44,8 @@ Every Hermes profile has:
 
 Profiles retain specialization, but shared long-form knowledge is promoted to Obsidian instead of copied between profiles.
 
+Each profile also owns a separate Hermes session store. Sharing a model, instructions, or vault pointer does not merge those stores with Codex or with another Hermes profile. A conversation becomes part of the shared brain only after its durable evidence is explicitly promoted to the vault or its exact session ID is placed in the pending-harvest checkpoint.
+
 ### Codex Integration Layer
 
 Codex uses its officially supported global instruction chain:
@@ -57,6 +60,7 @@ Codex uses its officially supported global instruction chain:
 - Repository instructions hold project-local rules.
 - Session history holds temporary conversation and task progress.
 - None of these replaces the canonical long-form knowledge plane.
+- Session persistence proves retrievability, not ingestion. Substantive Hermes sessions must be evaluated for durable corrections, decisions, constraints, rationale, reusable lessons, and verification provenance.
 
 ## Capture Threshold
 
@@ -82,6 +86,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 ## Failure Modes And Controls
 
 - **Divergent profile memory:** promote shared facts to the vault and retain only pointers or role hints locally.
+- **Archive ingestion gap:** inventory every profile store, classify primary sessions separately from duplicate subagents, and checkpoint exact pending IDs; never infer coverage from the model identity or repository list.
 - **Stale project knowledge:** verify against live repositories and preserve uncertainty.
 - **Vault noise:** apply the capture threshold and avoid task diaries.
 - **Concurrent overwrite:** reread before editing and use narrow anchored changes.
@@ -93,6 +98,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 - [[../sources/hermes-obsidian-second-brain-kickoff|Hermes–Obsidian Second Brain Kickoff]]
 - [[../sources/shared-brain-all-agents-directive|Shared Brain Across Hermes Profiles And Codex]]
 - [[../sources/hermes-persistent-memory-import|Hermes Persistent Memory Import]]
+- [[../sources/hermes-session-coverage-audit-2026-07-21|Hermes Session Coverage Audit — 2026-07-21]]
 
 ## Related
 

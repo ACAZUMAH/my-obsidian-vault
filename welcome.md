@@ -17,25 +17,17 @@ This repository contains a persistent, LLM-maintained second brain shared by Obs
 ## How The Vault Fits Together
 
 ```text
-raw/sources/       Sanitized source evidence and provenance
-        │
-        ▼
-wiki/sources/      Structured source summaries
-        │
-        ├───────────────┐
-        ▼               ▼
-wiki/entities/     wiki/concepts/
-projects/things    reusable ideas and mechanisms
-        │               │
-        └───────┬───────┘
-                ▼
-wiki/syntheses/  operating manuals and cross-source conclusions
-                │
-                ▼
-index.md         canonical navigation map
+raw/ ───────────────▶ wiki/ ───────────────▶ index.md
+source evidence        durable knowledge      navigation
+                           ▲
+_template/ ────────────────┘  page scaffolds
+
+schema/              machine-readable paths and page contracts
+.agents/skills/      repository-local capabilities for compatible agents
+scripts/             canonical validation and automation
 ```
 
-`log.md` is the append-only history of durable vault operations. `AGENTS.md` defines the schema, provenance rules, contradiction handling, and concurrent-edit protocol.
+`log.md` is the append-only history of durable vault operations. `AGENTS.md` defines the human-readable operating contract; `schema/` provides its machine-readable structural subset.
 
 ## Agent Workflow
 
@@ -48,7 +40,15 @@ Agents should:
 5. Promote only durable knowledge; keep temporary task state in sessions.
 6. Reread shared notes immediately before focused edits because multiple agents may work simultaneously.
 7. Update `index.md` and append exactly one `log.md` entry for durable wiki operations.
-8. Validate frontmatter, links, provenance, and secret hygiene before committing.
+8. Run `python3 scripts/validate_vault.py` after durable structural changes.
+9. Validate provenance, secret hygiene, and the exact Git diff before committing.
+
+## Core Repository Infrastructure
+
+- `_template/` contains source, concept, entity, project, question, and synthesis scaffolds. Obsidian's core Templates plugin is configured to use this folder.
+- `schema/` defines canonical paths, frontmatter, page types, statuses, and required sections for automation.
+- `.agents/skills/` contains repository-local Agent Skills, including the five upstream Obsidian skills and the local `vault-maintenance` procedure.
+- `scripts/validate_vault.py` is the canonical structural validator and uses only the Python standard library.
 
 ## Repository Safety
 

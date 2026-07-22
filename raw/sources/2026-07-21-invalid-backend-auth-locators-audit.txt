@@ -1,0 +1,75 @@
+# Backend Auth Flow Chain Audit
+
+## Outcome
+
+The five supplied IDs are **not valid conversation locators** in the frozen Hermes archive. They are absent from:
+
+- `/Users/acazumah/.hermes/profiles/coder/state.db`
+- `/Users/acazumah/.hermes/state.db`
+- Researcher, personal, and devops profile stores
+- The frozen 2026-07-21 17:12:06 GMT inventory
+- The coder pre-update snapshot checked as secondary corroboration
+
+For every ID, direct read-only queries returned:
+
+- `sessions.id`: **0 rows**
+- `messages.session_id`: **0 rows**
+- Sessions naming the ID as `parent_session_id`: **0 rows**
+
+Therefore, none is an empty/title-only shell. A shell would have a `sessions` row with zero messages; these have no row at all.
+
+## Per-record classification
+
+| Requested ID | Verified metadata | Record classification | Promotion | Coverage effect | Requests, implementation, verification, commits, successors |
+|---|---|---|---|---:|---|
+| `20260713_201517_37251f` | No session/message row; no source, parent, title, cwd, model, dates, archive state, or Git metadata | `unresolved/missing-source locator` | `incomplete` | +0 | None recoverable or attributable |
+| `20260714_130217_33cce1` | Same | `unresolved/missing-source locator` | `incomplete` | +0 | None recoverable or attributable |
+| `20260714_221929_58010f` | Same | `unresolved/missing-source locator` | `incomplete` | +0 | None recoverable or attributable |
+| `20260715_170835_50bb8f` | Same | `unresolved/missing-source locator` | `incomplete` | +0 | None recoverable or attributable |
+| `20260715_223341_f7fb60` | Same | `unresolved/missing-source locator` | `incomplete` | +0 | None recoverable or attributable |
+
+The timestamp-shaped prefixes are not verified dates; no timezone or session metadata can be inferred from them.
+
+## Lineage, replay, and subject pivots
+
+- No parent/child lineage exists for the requested IDs.
+- No continuation rows or replayed prefixes exist to de-duplicate.
+- No first novel request, inherited execution, correction, implementation, test/build/runtime/provider evidence, or subject pivot can be established.
+- Current source or commits cannot retroactively populate missing historical records.
+- Classification coverage remains **58/130**, with **72 pending**. These five locators contribute neither classification coverage nor promoted evidence.
+
+## Likely locator error — not substituted
+
+The coder store contains a real, source-backed chain titled `Backend Authentication Setup`:
+
+| Verified ID | Parent | Title | Started UTC |
+|---|---|---|---|
+| `20260711_165753_68ff6f` | — | `Backend Authentication Setup` | 2026-07-11 16:57:56 |
+| `20260711_221940_e79205` | `20260711_165753_68ff6f` | `Backend Authentication Setup #2` | 2026-07-11 22:19:40 |
+| `20260712_021621_84e0f7` | `20260711_221940_e79205` | `Backend Authentication Setup #3` | 2026-07-12 02:16:21 |
+| `20260712_031059_c7fd2c` | `20260712_021621_84e0f7` | `Backend Authentication Setup #4` | 2026-07-12 03:10:59 |
+| `20260712_102048_b1481f` | `20260712_031059_c7fd2c` | `Backend Authentication Setup #5` | 2026-07-12 10:20:48 |
+| `20260712_155404_4a08ff` | `20260712_102048_b1481f` | `Backend Authentication Setup #6` | 2026-07-12 15:54:04 |
+
+This is a CompFlow backend chain, not a verified LivelyCura chain. Its root is already classified and promoted. The other five verified continuations appear to be the probable intended pending batch, but I did **not** substitute or classify them under the supplied IDs.
+
+Existing root evidence supports CompFlow’s OTP flow, Winston/AJV conventions, Resend/React Email ownership, and payment-before-provisioning boundary. None of that evidence may be attributed to the five missing locators.
+
+## Contradictions and promotion targets
+
+- The canonical checkpoint and `log.md` mention `20260713_201517_37251f` as the start of a “Backend Auth Flow” chain, but the frozen inventory and all live stores contradict that locator.
+- The remaining four supplied IDs have no vault or archive provenance.
+- **Project promotion target:** none from these IDs.
+- **Maintenance target:** replace the unsupported checkpoint/log locator only in a separately authorized write pass.
+- **Next evidence target:** audit the five verified `Backend Authentication Setup #2–#6` IDs above, de-duplicating replay against the already-promoted root and promoting only unique continuation evidence.
+
+## Completion
+
+- Exact requested IDs checked: **5**
+- Valid records: **0**
+- Missing-source locators: **5**
+- Shells: **0**
+- Evidence-bearing records: **0**
+- Files created or modified: **none**
+- Verification: read-only database, frozen-manifest, vault, and existing project-evidence inspection; no builds, tests, services, providers, migrations, deployments, or repository commands
+- Sanitization: no secrets, private fixtures, full transcripts, or tool chatter included.
