@@ -2,11 +2,12 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-10-21
 tags: [project, bora-capital, mobile, expo, investment]
 sources:
   - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
   - ../sources/bora-canonical-identity-authorization-hermes-chain.md
+  - ../sources/bora-push-device-binding.md
 confidence: high
 ---
 
@@ -72,6 +73,7 @@ Current app configuration disables Expo updates even though update hooks/workflo
 - The production deposit UI uses Paystack initialization and backend verification only; do not fall back to the legacy direct-deposit mutation.
 - Deposit initialization sends account, amount, and optional narration without `userId`; single investment-account lookup sends only account number because identity is backend-principal-owned.
 - Treat push registration as optional/degraded: register by app/OS, handle token rotation, back off on provider failures, preserve local per-user history, and deep-link by notification type.
+- From the 2026-10-21 backend change, registration must send a per-install `installationId` (kept across sign-out, device-only keychain class), `buildType`, and `appId`; register after every sign-in, on every launch, and on token change; never register from Expo Go or web; and send every sign-out through `logout`. Route `NEW_SIGNIN` pushes to security settings. Contract: section 3 of the backend's `docs/frontend-handoff-2026-10-17.md`; see [[../sources/bora-push-device-binding|Bora Push Notifications Bound To Device And Session]].
 - Production configuration must reject local/non-HTTPS endpoints, public secret-like variables, KYC bypass, and invalid TLS-pinning ownership.
 
 ## Constraints

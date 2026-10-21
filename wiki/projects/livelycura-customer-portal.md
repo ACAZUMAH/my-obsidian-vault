@@ -2,10 +2,12 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-09-14
 tags: [project, livelycura, customer, web, laboratory-results]
 sources:
+  - ../sources/livelycura-result-link-environments.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
+  - ../sources/customer-portal-support-rendering-conventions.md
 confidence: high
 ---
 
@@ -28,6 +30,8 @@ Supports product discovery, cart/checkout/payment, orders, prescriptions, settin
 - Yarn is used by scripts, but an npm lockfile also exists.
 
 ## Architecture
+
+The authenticated support center implements the marketplace customer side of [[../concepts/livelycura-customer-support-architecture|LivelyCura Customer Support Architecture]], while public phone, WhatsApp, and Instagram contact information remains visible before login. Support replies can reach registered browsers through strict case-thread deep links.
 
 `src/app`, `providers`, `redux`, `router`, and `services` compose shared runtime. Customer domains live directly under `src`. `ssr/` is a separate crawler package.
 
@@ -60,11 +64,13 @@ Vite static application with Docker/Compose files and a separately buildable SSR
 - Extend the portal’s existing theme and interaction language; do not introduce an unrelated visual system.
 - Public flows may sit outside the authenticated app shell while retaining the product theme and their own task-explaining page header.
 - Complex features own focused components, hooks, helpers, interfaces, and PDF code rather than one monolithic page.
+- Use the existing `Conditional` component for conditional JSX rather than ternary/null rendering; keep optional child expressions safe. Support CSS belongs in `src/support/styles`. Preserve the user's accepted layout, and show the latest chat in support-history rows rather than the case number. See [[../sources/customer-portal-support-rendering-conventions|Customer Portal Support Rendering Conventions]].
 
 ## Constraints
 
 - The public laboratory-result flow omits the main application header, not the page-level explanatory header.
-- Access uses the customer phone plus OTP before exposing a finalized report.
+- Online access uses the customer phone plus OTP before exposing a finalized report. An emailed PDF is a separate attached copy.
+- Do not turn a generic OTP-request accepted response into an unconditional claim that an SMS was sent. Explain current-link and matching-number requirements and point to the newest result email/SMS because resending revokes earlier links. See [[../sources/livelycura-result-link-environments|Result Link Environments]].
 - Internal AI findings and staff-only notes are not customer report content.
 - Explanation failure must not block the report.
 

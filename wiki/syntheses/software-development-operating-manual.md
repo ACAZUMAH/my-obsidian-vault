@@ -2,9 +2,15 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-07-21
+updated: 2026-10-19
 tags: [software-development, operating-manual, project-conventions]
 sources:
+  - ../sources/altin-reports-mobile.md
+  - ../sources/altin-profile-inline-edit-correction.md
+  - ../sources/altin-formik-onsubmit-correction.md
+  - ../sources/altin-profile-separate-editors-correction.md
+  - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
+  - ../sources/livelycura-graphql-contract-compatibility.md
   - ../sources/hermes-persistent-memory-import.md
   - ../sources/shared-brain-all-agents-directive.md
   - ../sources/project-knowledge-completion-and-bootstrap-directive.md
@@ -16,6 +22,8 @@ sources:
   - ../sources/compflow-project-knowledge-harvest-batch-1.md
   - ../sources/compflow-hermes-project-knowledge-harvest-supplement-1.md
   - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
+  - ../sources/bora-realtime-support-subscriptions.md
+  - ../sources/bora-notifications-marketing.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-2.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-3.md
@@ -44,6 +52,17 @@ sources:
   - ../sources/bora-authentication-session-hardening-continuations-21-35.md
   - ../sources/bora-runtime-payment-safety-continuations-36-50.md
   - ../sources/altin-mistitled-casual-greeting-continuations.md
+  - ../sources/typescript-service-conditional-flow-decision.md
+  - ../sources/altin-orders-mobile-web-reference.md
+  - ../sources/altin-mobile-brand-system.md
+  - ../sources/altin-theme-navigation-runtime-corrections.md
+  - ../sources/altin-permission-gating.md
+  - ../sources/altin-module-builds-and-scope-corrections.md
+  - ../sources/altin-profile-support.md
+  - ../sources/bora-fund-administration-access-control.md
+  - ../sources/bora-bcl-error-passthrough-and-secret-files.md
+  - ../sources/bora-single-user-update-path.md
+  - ../sources/bora-admin-portal-ci-cd-convention.md
 confidence: medium
 ---
 
@@ -105,6 +124,8 @@ This page centralizes durable development preferences and project conventions th
 - When a financial line changes identity, migrate persistence fields, indexes, API contracts, clients, and presentation together. Detect conflicting active rows before creating replacement uniqueness, never silently merge financial conflicts, and remove stale one-movement presentation that no longer matches the domain.
 - When a provider defines suggestions and selected-place resolution as one billable/logical session, generate one token at search start, reuse it through selection resolution, and clear it only after consumption or cancellation.
 - Reread live files before editing because the user may modify code during review; preserve those changes.
+- New code copies the structure of the nearest existing sibling (hook shape, error handling, where types live) instead of introducing patterns the codebase does not use, such as inline response interfaces or custom error classes in a hook. See [[../sources/call-center-wider-search-hook-and-action-correction|Call Center Wider Search Hook And Action Correction]].
+- When the user names a live sibling implementation as the source of truth, reread that exact implementation immediately before editing and compare its complete contract with the destination. Never restore an earlier agent-authored version over newer user changes; preserve the newer code and adapt only what the destination requires.
 - Do not treat cached reads, unchanged tool responses, or a successful-looking edit command as proof that source changed. Reread every touched file and run the relevant checks before claiming completion; avoid regex-based bulk edits of TypeScript/TSX structure when targeted edits can preserve syntax and logic.
 
 ### Change Control
@@ -112,10 +133,14 @@ This page centralizes durable development preferences and project conventions th
 - Handle security remediation one issue at a time.
 - Explain and verify each fix before starting the next issue.
 - A question about continuing is not authorization to edit. During review-gated remediation, wait for the user’s explicit next instruction.
+- Never read `.env` or other secret-bearing files (credentials, keys, tokens), not even to make a live or staging provider call. When a check needs real credentials, give the user the exact call to run instead. See [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]].
 - Mirror exact UI and scaffolding references when the user asks for exact fidelity. When screenshots are examples, preserve the established system visual language and extract only the requested interaction pattern.
 - When the user asks to copy a sibling implementation exactly, transfer its real components, dependencies, theme/form contracts, and platform assumptions; adapt only the destination project’s business hooks and navigation. A visual approximation is not equivalent.
 - Treat visual references as inspiration unless exact fidelity is requested. Preserve approved regions while iterating on unresolved regions, and validate real asset formats before integration rather than trusting filename extensions.
 - Stay within requested scope and distinguish launch blockers from long-term roadmap work.
+- Web portal CI/CD copies the `livelycura-pharmacy-portal` workflows: reusable CI, self-contained `staging.yml` (`develop`) and `production.yml` (`main`) with build → artifact → Netlify deploy jobs. API URLs are repository variables named per environment (`STAGING_…`/`PRODUCTION_…`), secrets are repository-level and environment-named (`NETLIFY_STAGING_SITE_ID`); never hardcode API URLs in workflow YAML or rely on environment-scoped values. See [[../sources/bora-admin-portal-ci-cd-convention|Bora Admin Portal CI/CD Convention]].
+- A mutation check counts only when the mutated code compiles and a test assertion fails; a compile error is a false pass for the test suite.
+- Yarn v1 can leave stale nested packages that `yarn install --force` does not prune. `yarn check --verify-tree` exposes them and rebuilding the affected scopes fixes them; a cached build image can carry the same drift, so clear the build cache when a newly imported dependency fails to load.
 
 - Make the narrow requested change without deleting or collapsing adjacent architecture. Preserve existing reads, filters, permission rules, loaders, hooks, and extension points unless removal is explicitly in scope.
 - Verify UI work in the real running page after static checks when a live surface is available; say which visual paths were not exercised.
@@ -127,12 +152,21 @@ This page centralizes durable development preferences and project conventions th
 ### TypeScript And Backend Boundaries
 
 - Add JSDoc to every new or exported TypeScript function.
+- Write functional code: exported functions and factory functions that return plain objects with closure state. Do not author classes, including infrastructure adapters and test fakes; when a library expects a subclass, wrap a library instance in a factory. Instantiating library-provided classes remains acceptable.
+- Confirm deployment topology—instance count and process model—before adding cross-process infrastructure. An in-process event bus is correct for a single instance; keep the swap point to one export so scaling later does not touch callers.
+- Pass related function parameters as one typed data object rather than positional arguments; define that input in the domain-owned interface layer.
+- Do not chain or nest conditional expressions to orchestrate service work. Use explicit branches and move loading, validation, calculation, and document construction into documented, domain-owned helpers.
 - Map catch blocks to one deliberate `http-errors` outcome; do not rethrow an unchanged error with `throw error`.
-- Keep GraphQL resolvers thin: pass input and principal identity to services. User loading, input whitelisting, authorization, and business logic belong in services.
+- Keep GraphQL resolvers transport-only: use generated operation argument types and enums, delegate mapping, filtering, calculation, normalization, and response construction to the owning service, and never repeat schema enums as handwritten string unions. A nested field resolver may pass its parent value and generated field arguments directly to a service when GraphQL supplies arguments at that field. For root operations, pass one typed domain object named `data` to the owning service. When actor identity is required, add only the authenticated actor ID to that object; do not pass a full user document or split related input across positional arguments. GraphQL Shield owns endpoint permission and tenant-context checks where the project already routes them through Shield; services fetch referenced records and own business validation, domain invariants, and scoped persistence without repeating those endpoint checks.
+- Let each feature service own its model queries and persistence. Keep helper directories pure; name database services for the domain operation they perform. Start and close a transaction in the concrete multi-document workflow that needs atomicity instead of routing unrelated CRUD through a feature-wide transaction wrapper.
+- Never pass the full `GraphqlContext` into a domain service. Resolve only required transport-owned values at the GraphQL boundary—such as actor ID, organization IDs, platform scope, or client-app classification—and merge that subset into the service's typed `data` object.
+- When a GraphQL query or mutation needs multiple client values, expose one generated input-object argument (normally `data`) and type the resolver with the generated operation args; do not declare multiple root-field arguments or hand-write resolver arg shapes.
 - When a non-null GraphQL contract exposes invalid legacy storage, backfill persisted data and normalize writes rather than masking bad state with fallback field resolvers when migration is the accepted correction.
+- When cleanup is explicitly deferred for retired values inside an enum list, filter output against the current enum at the owning GraphQL field boundary. Do not restore a retired enum member merely to serialize stale storage. Separately, remove deleted backend fields from every client operation, filter, view, generated type, and fixture.
 - Do not restore fake schema fields, resolvers, permissions, or hardcoded data merely to satisfy stale tests. Remove the unsupported contract and update consumers, Shield rules, generated artifacts, and tests honestly.
 - Separate domain concerns into owned folders, interfaces, models, services, and tests. Do not centralize a feature in one file or import a convenient helper from an unrelated business domain.
 - Reuse established domain infrastructure—such as agent workflows, email templates, and generated GraphQL contracts—before creating parallel mechanisms.
+- Write a repeated operation once and import it everywhere. When the same model write, query options, or projection appears in several services, extract one shared function instead of copying it. Keep transactional and non-transactional variants separate, with the session as a required parameter on the transactional one (for example Bora's `updateUserInSession` and `updateUser`). User corrections, 2026-10-16. See [[../sources/bora-single-user-update-path|Bora User-Update Paths]].
 - Search for existing catalogs and relationship services before adding a new model. Reuse first-class records and dedicated add/remove operations rather than creating parallel taxonomies or link tables.
 - Give materially different domain transitions their own services, mutations, permissions, and tests. Do not overload publish, update, or another nearby action to implement activate, deactivate, archive, or status progression.
 - Keep commercial and operational ownership explicit. A new domain side effect should join the established transaction when atomicity is required; it should not duplicate inventory, billing, audit, or accounting responsibility.
@@ -141,6 +175,10 @@ This page centralizes durable development preferences and project conventions th
 - When one security operation is exposed through multiple transports, delegate every transport to one owning service and add transport-level regression coverage so REST, GraphQL, and subscription behavior cannot drift.
 - When multiple notification channels are acceptable alternatives, attempt them independently or concurrently, proceed only when at least one configured channel succeeds, and fail when all configured channels fail. Preserve channel-specific diagnostics without exposing private payloads.
 - Mocked provider adapters prove deterministic orchestration, not live credentials, signatures, network behavior, settlement, or production delivery. State live-provider evidence separately.
+- Before building on existing infrastructure, prove it is live: trace its callers and history, and load it outside mocked tests. A helper with no callers may have lost its API, and a dependency that tests always mock may not load at all.
+- Validate every field of the owning record before uploading its file, so rejected requests never leave objects in storage.
+- When marketing sends are queued or paced, check consent again at send time; an opt-out must stop messages already queued.
+- With graphql-shield on graphql-middleware, a Subscription field that has a custom `resolve` is authorized per event, not at `subscribe`; guard stream setup explicitly in the subscribe path. Return deliberate `http-errors` from Shield rules—thrown rule errors are replaced by the generic fallback error—and configure a client-facing `fallbackError` so denials never surface as internal server errors.
 - If GraphQL authorization uses an allow fallback, maintain an exhaustive root-operation coverage test that fails for every unmapped query, mutation, and subscription. Deny-by-default remains safer when the project can adopt it without compatibility breakage.
 - Treat current package scripts and test configuration as authoritative when historical docs name a superseded runner. New tests use the repository's current runner.
 - Keep one canonical identifier per route/domain concept. When an existing external payload uses a different field location, map it at the consumer boundary rather than adding duplicate backend aliases or route fallbacks for the same value.
@@ -149,19 +187,35 @@ This page centralizes durable development preferences and project conventions th
 
 ### Frontend State And Rendering Boundaries
 
+- A named mobile reference requires reuse of its actual composition patterns: shared screens, compact rows, skeletons, and state presentation, with data/filter/navigation logic still feature-owned. Show a few useful scan fields and reveal full information in details rather than filling each card with every field. The [[../sources/altin-orders-mobile-web-reference|Altin compact-card and SERLP reuse correction]] supplies direct evidence.
+
+- Use the established `const Component: React.FC<Props> = (...) => ...` declaration style, with `React.FC` for no-props components and props interfaces in owned interface files. The direct [[../sources/altin-orders-mobile-web-reference|Altin React.FC correction]] makes this preference explicit; changing annotation style must preserve enum/literal value safety and existing behavior.
+- Reuse the project’s existing Conditional and skeleton components. In the established mobile feature structure, list and detail screens occupy sibling feature folders. UI cleanup preserves the user’s current card/navigation structure and intervening edits; it does not authorize restoring removed elements or creating parallel runtimes when the app is already running. The [[../sources/altin-orders-mobile-web-reference|Altin Orders corrections]] provide direct evidence.
+
 - Keep feature components, hooks/queries, helpers, constants, and interfaces in their established owned files or folders. Do not accumulate transport, iteration, conversion, and presentation concerns in one large component.
+- Keep one primary UI component per component file when that is the project's established structure. Compose named files at the parent boundary instead of creating files that bundle several independent editors or sections.
+- Do not create a feature-level `shared` folder as a default home for unrelated forms, scope wrappers, uploaders, helpers, and list components. Keep code in the owning create, list, detail, or update flow until repeated current implementations prove a stable shared abstraction.
+- Each GraphQL operation hook owns exactly one query, mutation, or subscription. Keep operations in separate hook files and compose those hooks at the screen or component boundary; never combine different GraphQL operations in one hook. Do not bundle separate count/list reads as aliased roots in an overview query.
+- Follow the user's actual Apollo hook contract: private complete gql in the hook file; typed useQuery with context/filters, named domain data/pageInfo, error/empty display flags, then `...result`. Mutation hooks use typed useMutation with relevant refetchQueries, a generated-input named action with try/catch success/error feedback, successful server-data return and mutation-owned Toast feedback; the current mobile reference exposes a named action plus loading. Keep screen interactions outside operation hooks; do not replace this pattern with a generic request engine or bare mutation tuple. The [[../sources/altin-orders-mobile-web-reference|September 12 exact hook examples]] explicitly require consulting the available reference projects and Obsidian before implementing.
 - Preserve native interactive semantics. Use styling classes for group selectors, keep buttons exposed as buttons, and add specific accessible names instead of replacing semantic roles for CSS convenience.
 - Keep one shared System/Dark/Light appearance state across application surfaces, expose selection accessibly, and honor reduced-motion preferences for decorative transitions.
 - Configure TypeScript and the bundler with the same aliases. Use absolute imports across top-level feature roots and relative imports within the same root feature unless the selected repository establishes a different explicit rule.
 - Make visible filters match the selected API contract. Do not copy a control from an adjacent report when its endpoint does not accept that parameter; keep shareable filter state URL-backed when that is the established pattern.
-- Treat form-schema validity as authoritative when Formik/Yup or an equivalent schema already owns validation. Fix the schema or state transition that makes a complete form invalid instead of duplicating field-presence rules in the submit component.
+- Avoid proliferating form-specific folders, wrapper files and schema factories where the reference declares fields and rules directly. The user explicitly rejected Altin’s outletForm layer and the supplied order schema/controller; moving the same code into different files is not a correction. See [[../sources/altin-orders-mobile-web-reference|the form-layer rejection]].
+- Preserve the same form code structure across projects: inspect actual hooks and component bindings before editing. Use private module-level `const validationSchema = yup.object().shape(...)`, named `use…Form` hooks and real Formik bindings in components; requests run from screen handlers, not onSubmit (see the 2026-10-09 rule above). Do not substitute callback-driven form controllers, single-use schema folders or promise orchestration merely because Formik/Yup are installed; the user explicitly rejected that migration. See [[../sources/altin-orders-mobile-web-reference|the cross-project form-structure correction]].
+- Formik `onSubmit` never makes backend requests (user correction 2026-10-09; supersedes the SERLP onSubmit shape and the repo-committed-hooks rule). Form hooks hold state only: private Yup schema, `initialValues` (edit forms: record parameter, `useMemo`, `enableReinitialize: true`), `validateOnMount: true`, `onSubmit: () => {}`, `return form`. Screens own `handleSubmit`, which reads `form.values`, calls the named mutation action and navigates on success; multi-step screens use a `use…Screen` hook. Buttons use mutation `loading` and `form.isValid`. Reference the LivelyCura pharmacy portal (`accounting/createCurrency`), admin portal (`organizationBasicInfoSection`) and Check City (`login/components/Auth.tsx`, `cart/hooks/useCheckoutScreen.ts`). See [[../sources/altin-formik-onsubmit-correction|the Formik onSubmit correction]].
+- Values saved by different APIs get separate editors and separate saves; never bundle them into one form to save several mutations. Phone inputs in LivelyCura-family apps take local numbers and convert with `awesome-phonenumber` (`validatePhoneNumber`, `getPhoneNumberWithCode`, `getPhoneNumberWithZero`, region GH); never make users type the country code. See [[../sources/altin-profile-separate-editors-correction|the separate editors correction]].
+- Mutation errors belong in the hook's Toast feedback, including actual API validation field messages. Do not add ApiError/assertion/response-unwrapping layers or rethrow merely to populate form banners. Failed actions return no successful result; forms keep drafts and advance only on success. Use Apollo loading instead of parallel saving refs. Keep client Yup and read-query errors distinct. See [[../sources/altin-orders-mobile-web-reference|the mutation Toast correction]].
+- Use Formik and Yup for forms, following Caleb’s actual reference hooks: typed useFormik, validationSchema, validateOnMount and onSubmit, returning the real form to the UI. Formik owns values, errors/touched, dirty state and validity; screens own submission. Fix schemas or state transitions instead of duplicating field-presence rules or introducing manual form engines. See [[../sources/altin-orders-mobile-web-reference|the explicit Formik/Yup correction]].
 - Presentation conditionals do not make unsafe JSX expressions lazy. Derive optional values safely before constructing child elements.
 - Commit interdependent async form values as one valid transition. If coordinates require a resolved address, do not publish the coordinates first and leave the form in an invalid intermediate state.
 - Keep controls visible but disabled with specific feedback when the workflow benefits from spatial continuity and the user must satisfy a prerequisite.
+- Scope asynchronous loading state to the control that initiated the request. A shared mutation loading flag must not make independent sibling upload or action buttons appear busy.
 - Drive public product claims, counts, profile facts, and capability labels from authoritative API/CMS data with explicit fallbacks; do not invent metrics to fill a layout.
 - Use section-specific responsive rails when a hero or immersive surface needs breathing room. Do not constrain the entire page with one percentage width; verify mobile, tablet, desktop, and ultra-wide behavior plus reduced-motion paths.
 - When one selection invalidates derived state, reset all dependents before accepting the new source value and recompute every affected line or total. Do not carry branch-dependent addresses, estimates, availability, or pricing into a new branch context.
 - Keep pricing eligibility separate from the deduction itself. A threshold decides whether a discount applies; the configured fixed or percentage discount value decides how much to deduct.
+- With Apollo's normalized cache, every object a query shares with another query must select its `id`. Without it Apollo replaces the shared object, which can trigger refetches that remount providers or navigation. See [[../sources/altin-module-builds-and-scope-corrections|the Altin module builds record]].
 
 ### React Native
 
@@ -176,6 +230,11 @@ This page centralizes durable development preferences and project conventions th
 - A floating-header list should remain full-screen so content can pass underneath. Disable surprise automatic inset adjustment and use explicit safe-area content insets/offsets plus visible, themed pull-to-refresh placement.
 - Bottom-sheet modals that must reach the Android screen edge should account for full device dimensions and translucent system bars; verify after a cold/full reload, not only fast refresh.
 - System-area color consistency spans every mounted layer: root, safe-area provider, status bar, navigation theme, scene/tab containers, screens, and headers. Preserve accepted navigation structure when the request is color normalization, not redesign.
+- Before dynamically importing a native Expo package, check `requireOptionalNativeModule`; on a binary built before the package was added, the import is a fatal error under Metro rather than a rejected promise. A native `Modal` covers the root toast host, so a modal that runs mutations needs its own host while open. See [[../sources/altin-profile-support|the Altin Profile and Support record]].
+- After adding a native Expo module, confirm the iOS rebuild actually happened before debugging a missing module. `pod install` fails silently without a UTF-8 locale, so set `LANG=en_US.UTF-8`. See [[../sources/altin-reports-mobile|the Altin Reports record]].
+- When an app-gating query reads a root field (such as `currentUser`) without normalizable ids, any other query on that field must use `no-cache`: writing it can replace the gating data and unmount navigation, even when ids match, because the response envelope itself is not normalized. See [[../sources/altin-profile-support|the Altin Profile and Support record]].
+- Do not wrap a scrollable sheet panel in a Pressable; it claims scroll and switch touches. Put a separate backdrop Pressable behind the panel. A Pressable style function must not return `undefined` for a property the styled component sets, because it overrides the base fill; set it only in the pressed branch. See [[../sources/altin-module-builds-and-scope-corrections|the Altin module builds record]].
+- Gate mobile screens the SERLP way: keep every route registered and wrap guarded screens so a failed check shows a No access screen. Unregistering routes makes navigation fail silently and ejects users when permissions change. Gate the buttons and screens that trigger mutations; mutation hooks do not re-check permissions, and the backend stays authoritative. Query hooks keep their permission skip because they run on mount and are reused on ungated screens, and refetches need the same gate since Apollo Client 3 `refetch()` sends a skipped query. See [[../sources/altin-permission-gating|the Altin permission gating decision]].
 - Store-review readiness includes concrete permission purpose strings, every declared device class, accurate public product naming, and a reviewer-accessible seeded account when protected functionality cannot otherwise be inspected. Never persist review credentials in the vault.
 
 ### Financial Separation
@@ -254,7 +313,7 @@ This page centralizes durable development preferences and project conventions th
 - Mobile partner operations: [[../projects/altin-partner-mobile|Altin Partner Mobile]].
 - Workforce administration and reports: [[../projects/keks-admin-portal|Keks Admin Portal]].
 - Assisted selling and order operations: [[../projects/call-center-web-app|Call Center Web App]].
-- Preserve `#F40F1B` as primary and `#F9F1EF` as background.
+- Altin mobile theming follows the repository's `docs/app-theme-guide.md` (palette, light/dark semantic colors, system typography, spacing, radii), with the user's later token tuning taking precedence. The user rejected the [[../sources/altin-mobile-brand-system|Brand Book]] palette and Plus Jakarta Sans / IBM Plex fonts as the app theme; never restore them or the old look. Keep the supplied lockups and app icon masters. Primary icons in icon wells look identical in both appearances, and a visual request changes only the named detail. See [[../sources/altin-theme-navigation-runtime-corrections|the theme correction]].
 - SERLP is architecture and configuration only.
 - SERLP does not authorize copying Altin branding, typography, spacing, radii, shadows, modules, or product identity.
 - Each app module owns its root screen, local drawer, sections, constants, styles, hooks, data, and concrete feature screens.
@@ -269,7 +328,8 @@ This page centralizes durable development preferences and project conventions th
 - Call-center branch changes remain available for non-empty carts, reprice every line, and invalidate branch-dependent fulfillment state. Delivery area and exact location are mutually exclusive, while search suggestions and map pins commit address plus coordinates atomically.
 - Call-center exact-location pricing dispatches by branch courier type: Altin courier uses an Altin cart estimate; other courier types use ordinary delivery-price calculation. Form-schema validity remains the checkout field gate.
 - Call-center threshold discounts use base line total for eligibility and the configured fixed/percentage discount value for deduction; current delivery estimates contribute to the cart total.
-- Call-center product selection treats `familyConfig` as ordered variant dimensions and preferences as annotations on the selected variant; required preferences gate cart insertion and selected values travel with the cart line.
+- Call-center product selection is preference-first for the exact opened product: non-empty `preferences` suppress `familyConfig` pickers and preserve that product's own price; only products without preferences enter ordered family-dimension selection. Family expansion uses `exactFamily` so normal, `PLUS`, and `ASSORTED` families cannot mix. Required preferences gate cart insertion and selected values travel with the cart line.
+- Treat changing catalog content as data, not application logic: never hardcode product IDs, names, family names, prices, preference keys/labels, or option labels in production selection behavior. Derive the complete picker and pricing state from the latest API metadata; use concrete catalog examples only as contract-focused test fixtures.
 - Preserve the call-center backend-compatible coordinate mapping until the backend contract is deliberately normalized and tested.
 
 ### Standalone Projects
@@ -285,6 +345,10 @@ This page centralizes durable development preferences and project conventions th
 - Split a project into its own page when its section becomes too large or needs independent sources and contradictions.
 
 ## Contradictions Or Tensions
+
+The later September 12 mutation-error correction supersedes earlier assistant guidance to forward full Apollo mutation results and rethrow/map errors into forms. It keeps query-result spreading and client validation intact; the SERLP source supports consuming errors in Toast with a null/no-result return.
+
+The 2026-09-12 Formik/Yup correction makes the required form tools explicit; the earlier “or an equivalent schema” wording must not be used to substitute a custom form implementation. See [[../sources/altin-orders-mobile-web-reference|the source]].
 
 - Exact mirroring and established architecture take precedence when they conflict with generic framework conventions.
 - Compact answers should still expose the architectural relationship needed to understand the decision.
@@ -309,6 +373,8 @@ This page centralizes durable development preferences and project conventions th
 - [[../sources/compflow-project-knowledge-harvest-batch-1|CompFlow Project Knowledge Harvest — Batch 1]]
 - [[../sources/compflow-hermes-project-knowledge-harvest-supplement-1|CompFlow Hermes Project Knowledge Harvest — Supplement 1]]
 - [[../sources/kusantec-bora-project-knowledge-harvest-batch-1|Kusantec/Bora Project Knowledge Harvest — Batch 1]]
+- [[../sources/bora-realtime-support-subscriptions|Bora Realtime Support Subscriptions]]
+- [[../sources/bora-notifications-marketing|Bora Notifications, Campaigns, And Banners]]
 - [[../sources/ceqa-altin-project-knowledge-harvest-batch-1|C.E.Q.A/Altin Project Knowledge Harvest — Batch 1]]
 - [[../sources/ceqa-altin-project-knowledge-harvest-batch-2|C.E.Q.A/Altin Project Knowledge Harvest — Batch 2]]
 - [[../sources/ceqa-altin-project-knowledge-harvest-batch-3|C.E.Q.A/Altin Project Knowledge Harvest — Batch 3]]
@@ -327,6 +393,7 @@ This page centralizes durable development preferences and project conventions th
 - [[../sources/livelycura-stock-sales-hermes-supplement-3|LivelyCura Stock And Sales Hermes Supplement — 3]]
 - [[../sources/hermes-vault-infrastructure-continuation-batch-2|Hermes Vault Infrastructure Continuation — Batch 2]]
 - [[../sources/graphql-product-bora-paystack-hermes-chain|GraphQL Product And Bora Paystack Hermes Chain]]
+- [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]]
 
 ## Open Questions
 

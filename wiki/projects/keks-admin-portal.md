@@ -2,9 +2,11 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-09-16
 tags: [project, ceqa, keks, admin, hrm, permissions]
 sources:
+  - ../sources/keks-backend-errors-and-bulk-time-punches.md
+  - ../sources/keks-analytics-ui-scope-correction.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-2.md
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-3.md
@@ -76,14 +78,21 @@ Give administrators a protected operational interface for employees, organizatio
 
 ## Durable Conventions
 
+- Single-employee updates use `PUT /users` with the existing internal `id` and editable `employee_id`; preserve branch and role assignments. Bulk-import updates keep `PATCH /users/bulk`. Do not infer a field is uneditable by checking only the PATCH schema; read the supplied operation contract. Apply create-form validation, optional-field, and layout improvements to editing too. See [[../sources/keks-backend-errors-and-bulk-time-punches|Keks Backend Errors And Bulk Time Punches]].
+
+- Preserve backend error messages across mutation notifications, including multiple validation errors; generic text is a fallback. Keep the create-user form's required fields limited to first name, last name, gender, phone number, and role, with optional payload fields omitted when blank. See [[../sources/keks-backend-errors-and-bulk-time-punches|Keks Backend Errors And Bulk Time Punches]].
+- Bulk manual time punching processes unique selected shift owners sequentially with per-employee outcomes and progress. The override contract accepts employee IDs and follows pending punch requests; do not assume it accepts a selected shift ID.
+
 - Add features without redesigning unrelated existing interfaces.
+- UI criticism means restyle the requested section while preserving its data, actions, and presence. When feedback targets recent additions, change only those additions; do not redesign the whole page or remove a disliked section. For analytics, preserve both Workforce Attendance and Needs Attention. See [[../sources/keks-analytics-ui-scope-correction|Keks Analytics UI Scope Correction]].
 - Roles and Designations remain separate domain folders with independent components, hooks, interfaces, helpers, bulk import, and exports.
-- Use Formik for input-heavy forms when that is the established local form pattern.
+- Use Formik for input-heavy forms when that is the established local form pattern. Reuse onBlur and touched/error handling at the inputs. In stepped forms, disable Next until the current step is valid; avoid submit-time bulk-touching and automatic step jumping. See [[../sources/keks-backend-errors-and-bulk-time-punches|Keks Backend Errors And Bulk Time Punches]].
 - Send supported `search` filters to APIs, normally through debounced/URL-backed state; do not replace server search with local filtering of one fetched page.
 - Make report filters match the selected endpoint. Employee/user reports do not send or display `scope`; branch and exceptions reports keep it where the backend supports it.
 - Keep report filters URL-driven across query cards, headers, and detail navigation. A selected branch and date range must remain visible after navigating to a single-branch report.
 - Report date controls default and reset to `today`; use system-native date inputs inside the established Chakra visual language rather than copying example screenshots literally.
 - Keep feature components, helpers, hooks, constants, and interfaces in separate owned files/folders. Do not collapse them into one convenient component file.
+- Use the shared `Conditional` component from `@/Components/Conditional` for conditional JSX rendering rather than ternary-rendered UI branches. Preserve mutually exclusive loading, error, empty, permission, and content states. See [[../sources/keks-analytics-ui-scope-correction|Keks Analytics UI Scope Correction]].
 - Map backend report-detail keys and values into audience-readable labels, local datetimes, and durations before tables, CSV, or PDF output.
 - Shared API selectors expose loading, empty, error, and search states and adapt Chakra detail events at the component boundary.
 - Permission constants are first-class product contracts. Protect routes, navigation/launchpad entries, and mutating actions; preserve `super_admin` bypass.
@@ -143,6 +152,8 @@ Give administrators a protected operational interface for employees, organizatio
 - Direct Hermes session `20260621_010814_92d057` in [[../sources/hermes-livelycura-skills-keks-pharmacy-harvest-batch-1|Hermes LivelyCura Skills, Keks, And Pharmacy Harvest — Batch 1]] is the original completed report-log selector fix. It establishes `createListCollection(...)` plus detail-event adaptation and historically reports a passing production build with unrelated pre-existing lint failures; the two short-shell records are duplicate summaries.
 
 ## Contradictions
+
+- [[../sources/keks-analytics-ui-scope-correction|Keks Analytics UI Scope Correction]] rejects the assistant's interpretation that a disliked new section should be removed. Preserve the section and improve its UI; no deletion was requested.
 
 - The README remains the generic Vite template and does not document Keks architecture or commands beyond scaffold defaults.
 - Permission support is broad, but some routes are unguarded and Announcements is currently commented out; “permission synchronization” is not proof of universal coverage.

@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-08-30
 tags: [project, livelycura, expo, customer, mobile]
 sources:
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
@@ -27,6 +27,8 @@ Current feature ownership includes home/product discovery, categories, favorites
 - Yarn.
 
 ## Architecture
+
+The tracked support center implements the marketplace-mobile side of [[../concepts/livelycura-customer-support-architecture|LivelyCura Customer Support Architecture]], with Profile/Get Care/order entry points, private image attachments, foreground polling, unread state, and strict support-notification navigation.
 
 `App.tsx` composes native providers. `src/navigation` owns route structure. Customer domains live directly under `src`; shared infrastructure remains in `apollo`, `redux`, `theme`, `system`, `components`, `hooks`, and `helpers`.
 

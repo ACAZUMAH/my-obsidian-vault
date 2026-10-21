@@ -2,9 +2,11 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-10-10
 tags: [project, serlp, expo, erp, mobile]
 sources:
+  - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
+  - ../sources/marketplace-scoped-admin-catalog-order-restructure.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
   - ../sources/livelycura-project-knowledge-harvest-batch-3.md
   - ../sources/livelycura-stock-sales-hermes-supplement-1.md
@@ -20,7 +22,7 @@ Expo mobile application for SERLP ERP operators, adapted from the established Li
 
 ## Purpose
 
-Provides mobile access to workspace, dashboard, selling, buying, inventory, accounting, HRM, CRM, courier, marketplace, manufacturing, approvals, prescriptions, reports, and configuration concerns.
+Provides mobile access to workspace, dashboard, selling, buying, inventory, accounting, HRM, CRM, marketplace, manufacturing, approvals, prescriptions, reports, and configuration concerns.
 
 ## Stack
 
@@ -57,6 +59,7 @@ Expo/EAS application with CI, preview, and production GitHub workflows.
 - Use Pharmacy Portal as the ERP GraphQL/domain reference, adapted to mobile interaction rather than copied as desktop UI.
 - Apollo hooks own GraphQL operations; Redux persistence owns auth, workspace, and settings state.
 - Shared components remain presentation-focused; domains own operational behavior.
+- Ordinary mobile ERP product/category flows remain marketplace-agnostic. Marketplace category assignment and Business Product publication are Admin Portal concerns.
 - Product create/settings flows preserve compatible stock, bundle, manufacturing, selling, and purchasing behavior. Sale returns key quantities and inputs by `SaleItem.id` and submit `saleItemId` rather than an inventory record ID.
 - Optional store-update checks follow the LivelyCura mobile reference pattern: production-only/non-web execution, dynamic module import inside the effect, module injection into the checker, and soft failure so an unavailable native module cannot crash startup.
 - Distribution artwork uses the exact identity “SERLP” and real application screenshots. Do not add “SERLP Mobile,” “by LivelyCura,” an invented rounded badge, phone shadows, dark backing, or a fabricated dashboard. Proven exports are `1242x2688` for iPhone, `2048x2732` for iPad, and `1024x500` for the Play featured graphic, all RGB without alpha.
@@ -70,7 +73,10 @@ Expo/EAS application with CI, preview, and production GitHub workflows.
 
 ## Decisions And Rationale
 
-Reusing the proven family mobile shell reduces divergent navigation, state, and GraphQL patterns while allowing SERLP operator features to remain mobile-specific.
+- Retire the existing company Courier navigation as part of the independent Fleet rebuild. SERLP Mobile is distinct from SERLP Dispatch, which continues to fulfill platform network work. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Independent Fleet and platform dispatch decision]].
+- Fleet jobs use the `FleetJob` naming (2026-10-10): `src/fleet/fleetJobs`, `createFleetJob`, `fleetJobDetails`, `FleetJob*` components, hooks and helpers, and the navigation param `fleetJobId`. Deep-link paths (`fleet/jobs...`), `routes.fleetJob*` keys and visible labels stay unchanged. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Fleet jobs naming decision]].
+
+Reusing the proven family mobile shell reduces divergent navigation, state, and GraphQL patterns while allowing SERLP operator features to remain mobile-specific. Keeping marketplace classification out of product forms preserves the same ordinary ERP contract for organizations regardless of marketplace access.
 
 ## Verification Expectations
 
@@ -83,6 +89,7 @@ Run codegen, type check, formatting, and intended native platform. Verify auth p
 - Session `019edbb8…` in [[../sources/livelycura-project-knowledge-harvest-batch-3|LivelyCura Project Knowledge Harvest — Batch 3]].
 - Direct Hermes session `20260629_173939_b6748a` plus current stock/settings/return source in [[../sources/livelycura-stock-sales-hermes-supplement-1|LivelyCura Stock And Sales Hermes Supplement — 1]].
 - Direct continuation `20260629_193407_346702` plus current update-check source in [[../sources/livelycura-stock-sales-hermes-supplement-2|LivelyCura Stock And Sales Hermes Supplement — 2]].
+- [[../sources/marketplace-scoped-admin-catalog-order-restructure|Marketplace-Scoped Admin Catalog And Order Restructure]] removes the temporary marketplace-category product UI. On 2026-08-08 `yarn type-check`, formatting, and `git diff --check` passed while unrelated brand compatibility edits were preserved.
 
 ## Contradictions
 

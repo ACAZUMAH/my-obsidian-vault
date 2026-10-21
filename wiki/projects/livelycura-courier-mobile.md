@@ -2,9 +2,11 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-10-06
 tags: [project, livelycura, expo, courier, mobile]
 sources:
+  - ../sources/livelycura-marketplace-single-delivery.md
+  - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
   - ../sources/livelycura-project-knowledge-harvest-batch-4.md
   - ../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1.md
@@ -57,10 +59,15 @@ Expo/EAS application with CI, preview, and production GitHub workflows. Public a
 ## Durable Conventions
 
 - The product is not pharmacy-only; riders serve any ERP merchant.
-- Courier companies and standalone riders are distinct provider modes.
-- One courier handles all stops in an accepted multi-pickup route.
+- Every rider is an independent LivelyCura network rider paid through LivelyCura; the courier-company provider model was removed (2026-10-05). The Deliveries tab has Ongoing, Completed and Failed segments; a LivelyCura-paid failed delivery stays with the rider until Admin confirms the parcel's return.
+- Every delivery is a single task with one pickup and one drop-off; multi-pickup routes were removed for launch. Source: [[../sources/livelycura-marketplace-single-delivery|Marketplace single delivery decision]].
 - Customer delivery fee, provider quote, rider payout, collected amount, and remittance are separate monetary concepts.
 - Delivery progress and cash-remittance state are separate lifecycles.
+- Courier Mobile is read-only for cash handover confirmation. It shows the order value awaiting remittance and updates to the receiver-confirmed handover state; the rider never confirms their own handover.
+- For order-owned COD, the rider collects the full `cashOnDeliveryAmount`, remits only `cashRemittanceAmount`, and retains the delivery-price difference. Performance collections total only unconfirmed remittable cash, not the full customer collection.
+- Mutations that change authenticated rider data must refetch the active `System` query and await that refresh. `SystemProvider` owns updating the Redux user snapshot; station status and task-action guards must derive from that canonical authenticated delivery agent rather than feature-local shadow state.
+- Task detail synchronization is event-driven: an authorized task-scoped GraphQL subscription invalidates the cached task after lifecycle changes, and screen focus performs one silent fallback refetch. Do not use fixed-interval task-detail polling. Background updates must never replace populated content with the initial skeleton or unmount OTP, proof, payment, or handover input.
+- The rider obtains the pickup code from dispatch staff at the stop. Courier Mobile must not query the protected ERP pickup-code field or offer a pickup-code resend action; drop-off resend remains available because drop-off delivery uses its own notification workflow.
 - Notification taps map the backend’s existing nested task identifier to the app’s one canonical `{ taskId }` route parameter. In-app cards and `TaskScreen` use the same name; do not introduce `id`/`taskId` fallbacks for one concept.
 - Authentication uses native controlled numeric input behavior for the four-digit OTP, with paste/autofill and tablet/Android behavior included in platform QA.
 - Match iOS card restraint on Android by auditing `elevation` separately from iOS shadow properties; station, task, today, performance, and single-task card surfaces intentionally use zero elevation.
@@ -69,11 +76,12 @@ Expo/EAS application with CI, preview, and production GitHub workflows. Public a
 - Public store artwork and copy use `SERLP Dispatch`, never the internal repository name. The Play featured graphic uses the courier identity at `1024x500`; current phone/tablet screenshot artifacts are external release assets.
 - When exact sibling behavior is requested, transfer the real component, dependency, theme, and form contract, then adapt only Courier-owned mutations and navigation. Do not substitute a visual approximation.
 - Preserve Courier’s flat tab/header layout when the request concerns color consistency. Normalize every mounted layer—root, safe area, status bar, navigation theme, scene/tab containers, screens, and headers—rather than redesigning the navigation.
+- Account appearance uses explicit, accessible theme choice rows with descriptive copy and visible selected state. Do not use a segmented control for theme selection. Delivery-detail utility cards use semantic `surface`, `divider`, `text`, and `textSecondary` tokens so dark mode never pairs a light card with dark-theme text.
 - Rounded bottom header borders may need an absolute overlay with bottom/side borders and matching radii; a bottom border alone does not paint rounded side arcs reliably.
 
 ## Constraints
 
-- COD may involve cash or mobile money and requires an exact collection amount.
+- COD requires one exact collection amount. The customer payment channel is irrelevant to the courier contract and is not stored as a courier collection method.
 - Provider acceptance precedes company rider assignment; standalone acceptance combines provider and rider responsibility.
 - Proof and remittance policy are contract/configuration driven, not one hard-coded rule.
 - Public account creation does not mean unrestricted task access: identity/profile approval can gate operational courier features for safety and compliance.
@@ -81,7 +89,9 @@ Expo/EAS application with CI, preview, and production GitHub workflows. Public a
 
 ## Decisions And Rationale
 
-The separation supports prepaid and COD orders, courier-company fleets, and standalone riders without treating the rider’s earnings as the merchant-facing delivery fee. Public distribution and operational approval are intentionally separate: anyone eligible can discover/sign up for SERLP Dispatch, while approval protects delivery operations.
+- SERLP Dispatch remains the rider fulfillment app for the LivelyCura network managed in Admin. It is separate from the independent company Fleet product replacing ERP Courier; optional company network participation must be explicit. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Independent Fleet and platform dispatch decision]].
+
+The separation supports prepaid and COD orders, courier-company fleets, and standalone riders without treating the rider’s earnings as the merchant-facing delivery fee. Receiver confirmation avoids self-attested rider handovers, and the separate remittance amount lets the rider retain the delivery price while returning the order value. Public distribution and operational approval are intentionally separate: anyone eligible can discover/sign up for SERLP Dispatch, while approval protects delivery operations.
 
 ## Verification Expectations
 
@@ -97,11 +107,11 @@ Run codegen, type check, and platform checks. Verify phone and OTP entry, paste/
 
 ## Contradictions
 
-- The approved network/payment model exceeds the current backend task schema and therefore should not be described as shipped behavior.
+- Receiver-confirmed remittance and separate COD/remittance amounts are implemented, but offline reconciliation and authenticated end-to-end staging remain unverified.
 - The App Store auth-copy session ended with an explicit revert. Current auth later contains a public-sign-up hint, but that session is negative evidence rather than the provenance of current copy.
 - A reusable `CustomOtpInput` was historically integrated and still exists, but current `Auth.tsx` uses an inline native controlled `TextInput`; treat the unused component as unresolved cleanup, not current auth architecture.
 - Historical store identifiers and external screenshot outputs changed. Current config is authoritative, and external/binary artifacts were not validated by this harvest.
-- `HomeHeader` and `AnimatedTabItem` remain tracked but unimported after the rejected floating-tab redesign. They are dormant residue, not current UI behavior.
+- The unused floating-tab redesign leftovers (`src/components/home-header/HomeHeader.tsx`, `AnimatedTabItem`) and the patient-app template helpers were deleted in the 2026-10-06 courier cleanup; the live home header is `src/home/components/HomeHeader.tsx`.
 
 ## Confidence
 
@@ -110,6 +120,6 @@ High for current structure, public identity, auth/update/task routing, and platf
 ## Open Questions
 
 - Which screens and GraphQL contracts will own provider acceptance versus rider acceptance?
-- How will proof, COD confirmation, and remittance be represented offline and reconciled safely?
+- How should receiver-confirmed remittance be represented offline and reconciled safely?
 - Should the unused `CustomOtpInput` be removed or restored after current Android/iPad regression testing?
 - Is the seeded App Review account verified as approved and populated in the current release process without documenting its credentials?

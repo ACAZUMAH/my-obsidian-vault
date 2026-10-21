@@ -2,7 +2,7 @@
 type: source
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-10-07
 tags: [ceqa, altin, keks, hermes, project-knowledge, provenance]
 sources:
   - ../../raw/sources/2026-07-21-ceqa-altin-hermes-conversation-harvest-supplement-1.md
@@ -50,6 +50,7 @@ confidence: high
 
 ## Contradictions Or Tensions
 
+- The Notifications tab in this record's navigation claim was later replaced by Reports. See [[altin-theme-navigation-runtime-corrections|the Reports tab correction]].
 - Batch 3’s statement that no direct C.E.Q.A Hermes implementation session was found is superseded by this direct database audit.
 - Current Altin module destinations are registered and navigable, superseding the session-era unavailable-destination limitation.
 - Current Altin source structurally preserves the accepted theme/navigation direction while some exact icon and surface details evolved.

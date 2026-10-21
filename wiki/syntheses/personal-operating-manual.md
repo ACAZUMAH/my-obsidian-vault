@@ -2,7 +2,7 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-07-22
+updated: 2026-10-11
 tags: [personal-workflows, preferences, operating-manual, second-brain]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
@@ -13,6 +13,9 @@ sources:
   - ../sources/kusantec-bora-hermes-conversation-harvest-supplement-1.md
   - ../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1.md
   - ../sources/graphql-product-bora-paystack-hermes-chain.md
+  - ../sources/altin-module-builds-and-scope-corrections.md
+  - ../sources/altin-profile-support-ui-corrections.md
+  - ../sources/bora-bcl-error-passthrough-and-secret-files.md
 confidence: high
 ---
 
@@ -37,6 +40,10 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Explain each fix and verify it before starting the next issue.
 - Prefer a paced sequence that avoids confusion and overload over a large batch of simultaneous changes.
 - A question about whether work can continue is not authorization to edit. During a paced sequence, wait for an explicit next instruction.
+- Change only what was asked for. Treat an unanswered proposal as declined; a broader instruction does not approve it. See [[../sources/altin-module-builds-and-scope-corrections|the Altin scope corrections]].
+- When the user says to update or do something, complete its whole reasonable scope. Do not do part of it and then ask whether to do the rest. See [[../sources/altin-module-builds-and-scope-corrections|the Altin scope corrections]].
+- Do not report UI work done until every new or changed screen has been viewed on the running device; type-checks and code review are not enough. If the device is unavailable, say the UI is unverified. Mirror the reference app's fields and explain any that cannot work instead of dropping them. See [[../sources/altin-profile-support-ui-corrections|the Altin UI corrections]].
+- Never read `.env` or other secret-bearing files in any project, even to make a live provider call; the user runs credentialed calls. See [[../sources/bora-bcl-error-passthrough-and-secret-files|the 2026-10-11 secret-file direction]].
 
 ### Project-Specific Constraints
 
@@ -100,6 +107,9 @@ This page is the central map of durable knowledge about how the user prefers to 
 - [[../sources/kusantec-bora-hermes-conversation-harvest-supplement-1|Kusantec/Bora Hermes Conversation Harvest — Supplement 1]]
 - [[../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1|Hermes Generalized Skills And Courier Recovery Harvest — Batch 1]]
 - [[../sources/graphql-product-bora-paystack-hermes-chain|GraphQL Product And Bora Paystack Hermes Chain]]
+- [[../sources/altin-module-builds-and-scope-corrections|Altin Module Builds and Scope Corrections]]
+- [[../sources/altin-profile-support-ui-corrections|Altin Profile and Support UI Corrections]]
+- [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]]
 
 ## Open Questions
 

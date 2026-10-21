@@ -2,13 +2,14 @@
 type: concept
 status: active
 created: 2026-07-20
-updated: 2026-07-21
-tags: [hermes, codex, obsidian, memory, second-brain, multi-agent]
+updated: 2026-09-29
+tags: [hermes, codex, claude-code, obsidian, memory, second-brain, multi-agent]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
   - ../sources/shared-brain-all-agents-directive.md
   - ../sources/hermes-persistent-memory-import.md
   - ../sources/hermes-session-coverage-audit-2026-07-21.md
+  - ../sources/claude-code-shared-brain-integration.md
 aliases: [Hermes–Obsidian Memory Architecture]
 confidence: high
 ---
@@ -17,7 +18,7 @@ confidence: high
 
 ## Working Definition
 
-A multi-agent knowledge architecture in which Obsidian is the canonical long-form knowledge plane, while each Hermes profile and Codex carries a compact tool-native pointer that retrieves relevant context from the same indexed vault.
+A multi-agent knowledge architecture in which Obsidian is the canonical long-form knowledge plane, while each Hermes profile, Codex, and Claude Code carries a compact tool-native pointer that retrieves relevant context from the same indexed vault.
 
 ## Current Synthesis
 
@@ -53,6 +54,17 @@ Codex uses its officially supported global instruction chain:
 - `~/.codex/AGENTS.md` provides the shared-brain pointer, retrieval and capture rules, communication style, and concurrency policy for every Codex run.
 - `~/.codex/config.toml` exposes `OBSIDIAN_VAULT_PATH` to Codex shell environments.
 - Repository and subdirectory `AGENTS.md` files layer project-specific rules over the global context and remain more specific.
+
+### Claude Code Integration Layer
+
+Claude Code mirrors the Codex layer through its own global instruction chain:
+
+- `~/.claude/CLAUDE.md` provides the shared-brain pointer, retrieval and capture rules, communication style, and concurrency policy for every Claude Code session.
+- `~/.claude/settings.json` exposes `OBSIDIAN_VAULT_PATH` to Claude Code environments.
+- `~/.claude/skills/` symlinks the vault's project-local skills from `.agents/skills/`, so the vault remains the single skill source.
+- Repository `CLAUDE.md` or `AGENTS.md` files layer project-specific rules over the global context. Per-repository Claude Code auto-memory is session-adjacent context, not vault integration.
+
+See [[../entities/claude-code|Claude Code]] and [[../sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]].
 
 ### Skills And Session History
 
@@ -99,6 +111,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 - [[../sources/shared-brain-all-agents-directive|Shared Brain Across Hermes Profiles And Codex]]
 - [[../sources/hermes-persistent-memory-import|Hermes Persistent Memory Import]]
 - [[../sources/hermes-session-coverage-audit-2026-07-21|Hermes Session Coverage Audit — 2026-07-21]]
+- [[../sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]]
 
 ## Related
 
@@ -107,6 +120,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 - [[ingest-query-lint-workflows|Ingest, Query, Lint Workflows]]
 - [[../entities/hermes-agent|Hermes Agent]]
 - [[../entities/codex|Codex]]
+- [[../entities/claude-code|Claude Code]]
 - [[../entities/obsidian|Obsidian]]
 - [[../syntheses/personal-operating-manual|Personal Operating Manual]]
 - [[../syntheses/software-development-operating-manual|Software Development Operating Manual]]
