@@ -7312,3 +7312,27 @@ Key result:
 Follow-ups:
 
 - Check the existing HRM approvals and approver notifications against the rule.
+
+## [2026-11-23] ingest | Record Altin Partner Glass UI Redesign
+
+What changed:
+
+- Preserved the user's 2026-11-23 request for a premium glassmorphism look and what the session built and verified.
+- Added a Source Record; a convention, evidence line and contradiction on the Altin Partner Mobile page; one React Native glass-gotchas bullet in the development manual; and an index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-23-altin-glass-ui-redesign.md`
+- `wiki/sources/altin-glass-ui-redesign.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Altin Partner Mobile's look is glass over warm light, carried by theme tokens and shared components, with real blur only on non-modal chrome; agents avoid the four React Native pitfalls the pass hit.
+
+Follow-ups:
+
+- Check the glass on Android, where chrome falls back to opaque fills.

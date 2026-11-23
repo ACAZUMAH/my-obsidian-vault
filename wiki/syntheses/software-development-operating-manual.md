@@ -2,7 +2,7 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-11-16
+updated: 2026-11-23
 tags: [software-development, operating-manual, project-conventions]
 sources:
   - ../sources/agent-workload-limit-on-owner-laptop.md
@@ -68,6 +68,7 @@ sources:
   - ../sources/bora-bcl-error-passthrough-and-secret-files.md
   - ../sources/bora-single-user-update-path.md
   - ../sources/bora-admin-portal-ci-cd-convention.md
+  - ../sources/altin-glass-ui-redesign.md
 confidence: medium
 ---
 
@@ -239,6 +240,7 @@ This page centralizes durable development preferences and project conventions th
 - System-area color consistency spans every mounted layer: root, safe-area provider, status bar, navigation theme, scene/tab containers, screens, and headers. Preserve accepted navigation structure when the request is color normalization, not redesign.
 - Before dynamically importing a native Expo package, check `requireOptionalNativeModule`; on a binary built before the package was added, the import is a fatal error under Metro rather than a rejected promise. A native `Modal` covers the root toast host, so a modal that runs mutations needs its own host while open. See [[../sources/altin-profile-support|the Altin Profile and Support record]].
 - After adding a native Expo module, confirm the iOS rebuild actually happened before debugging a missing module. `pod install` fails silently without a UTF-8 locale, so set `LANG=en_US.UTF-8`. See [[../sources/altin-reports-mobile|the Altin Reports record]].
+- Glass UI in React Native: write CSS radial gradients as `ellipse Rpx Rpx at x y` (React Native 0.81 drops the position after a single `circle Rpx` size); pass `boxShadow` and `experimental_backgroundImage` through the instance `style`, because styled-components rewrites or drops them and ignores `attrs({ style })`; give translucent borders one uniform radius, since non-uniform radii render a stretched band on iOS; and do not expect `expo-blur` to blur inside a `Modal` on iOS. See [[../sources/altin-glass-ui-redesign|the Altin glass redesign record]].
 - When an app-gating query reads a root field (such as `currentUser`) without normalizable ids, any other query on that field must use `no-cache`: writing it can replace the gating data and unmount navigation, even when ids match, because the response envelope itself is not normalized. See [[../sources/altin-profile-support|the Altin Profile and Support record]].
 - Do not wrap a scrollable sheet panel in a Pressable; it claims scroll and switch touches. Put a separate backdrop Pressable behind the panel. A Pressable style function must not return `undefined` for a property the styled component sets, because it overrides the base fill; set it only in the pressed branch. See [[../sources/altin-module-builds-and-scope-corrections|the Altin module builds record]].
 - Gate mobile screens the SERLP way: keep every route registered and wrap guarded screens so a failed check shows a No access screen. Unregistering routes makes navigation fail silently and ejects users when permissions change. Gate the buttons and screens that trigger mutations; mutation hooks do not re-check permissions, and the backend stays authoritative. Query hooks keep their permission skip because they run on mount and are reused on ungated screens, and refetches need the same gate since Apollo Client 3 `refetch()` sends a skipped query. See [[../sources/altin-permission-gating|the Altin permission gating decision]].

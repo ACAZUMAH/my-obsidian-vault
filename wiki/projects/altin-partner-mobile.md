@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-21
+updated: 2026-11-23
 tags: [project, ceqa, altin, expo, react-native, partner-operations]
 sources:
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
@@ -25,6 +25,7 @@ sources:
   - ../sources/altin-profile-separate-editors-correction.md
   - ../sources/altin-reports-mobile.md
   - ../sources/altin-onboarding-gate.md
+  - ../sources/altin-glass-ui-redesign.md
 confidence: high
 ---
 
@@ -96,6 +97,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Durable Conventions
 
+- The app's look is glass over warm light (user direction, 2026-11-23): translucent `surface`/`border` tokens and a `glass` group in `src/theme/constants.ts`, `AmbientBackdrop` first in every screen root, cards on `GlassCardView`/`GlassCardPressable`, real `expo-blur` only on the tab bar and Home's scroll-under header, and a frosted `GlassFill` for sheets and the drawer because Modals cannot blur. Palette, system fonts, icon wells and 0.3 borders are unchanged. Repository rules live in `DESIGN.md` "Glass layer" and `AGENTS.md`. See [[../sources/altin-glass-ui-redesign|the glass redesign record]].
 - Mutation hooks own business/API validation and transport error toasts, including returned field messages. Remove assertion/ApiError/unwrapping layers and rethrows; forms keep client Yup validation and drafts, and advance only on successful results. Current mobile hooks expose named actions and loading. Use Apollo loading and `form.isValid` instead of saving refs; Formik never submits requests (superseded 2026-10-09, see [[../sources/altin-formik-onsubmit-correction|the Formik onSubmit correction]]). See [[../sources/altin-orders-mobile-web-reference|the latest mutation error correction]].
 
 - Do not recreate the rejected outlet/group form-feature layers or extra edit-form wrappers. Bind fields in the owning screens, keep straightforward field rules in the form hooks and prefer built-in numeric Yup validators. The supplied multi-schema/promise-controller code is rejected evidence. Preserve the user’s `src/orders/createOrder` rename. See [[../sources/altin-orders-mobile-web-reference|the latest form-layer correction]].
@@ -207,6 +209,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Evidence
 
+- [[../sources/altin-glass-ui-redesign|Altin Glass UI Redesign]]: the user's 2026-11-23 request, the built theme and shared glass components, and four React Native findings verified on the iPhone 17 Pro simulator in light and dark. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-onboarding-gate|Altin Onboarding and the Post-Sign-In Gate]]: direct user requests and decisions on 2026-10-20 and 2026-10-21, research in the web partner and admin apps, the repository's `docs/onboarding.md` and `AGENTS.md` section, 118 offline checks, and read-only simulator checks. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-reports-mobile|Altin Reports Mobile]]: direct user corrections and decisions on 2026-10-18 and user-approved fixes on 2026-10-20, the repository's `docs/reports.md` and `AGENTS.md` Reports section, offline checks, and a read-only simulator check of every report screen and most exports. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-profile-separate-editors-correction|Altin Profile Separate Editors Correction]]: direct user correction on 2026-10-09 and the LivelyCura phone helpers.
@@ -234,6 +237,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Contradictions
 
+- The glass redesign supersedes the opaque surfaces and Home's "flat tonal depth" as the implemented look; the theme guide still governs palette, type, spacing and radii. See [[../sources/altin-glass-ui-redesign|the glass redesign record]].
 - The admin app says approval requires a verified KYC profile, but a live active organization had no profile or documents. The onboarding screen calls approved organizations "approved", not "verified". See [[../sources/altin-onboarding-gate|the onboarding record]].
 - The Reports build supersedes the statement that the Reports tab is a placeholder. Its card-per-record correction replaces the first build's horizontally scrolling tables. See [[../sources/altin-reports-mobile|the Reports record]].
 - Scaling rate fractions is a user-approved departure from exports identical to the web's, because the web's rates are 100 times too small. Since 2026-10-20 the repository's `docs/reports.md` and `AGENTS.md` say exports print the web's values except rates, which are scaled to percentages. See [[../sources/altin-reports-mobile|the Reports record]].
