@@ -2,7 +2,7 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-10-11
+updated: 2026-11-23
 tags: [personal-workflows, preferences, operating-manual, second-brain]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
@@ -16,6 +16,7 @@ sources:
   - ../sources/altin-module-builds-and-scope-corrections.md
   - ../sources/altin-profile-support-ui-corrections.md
   - ../sources/bora-bcl-error-passthrough-and-secret-files.md
+  - ../sources/agent-context-handoffs-directive.md
 confidence: high
 ---
 
@@ -58,6 +59,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Promote stable, repeatable procedures into Hermes skills when exact operational steps would be useful.
 - Preserve exact project skill libraries for project fidelity, and synthesize recurring conventions into generalized backend, frontend-web, and frontend-mobile skills when they represent how the user builds across future projects. Keep source inventories so generalized rules remain auditable.
 - Expect multiple agents to operate simultaneously; reread shared notes before editing and preserve concurrent changes.
+- The user switches agent accounts often, so in-flight work must be resumable by the next agent. Use the `agent-context` skill: save a snapshot to `raw/agent-contexts/` after verified milestones, decisions, and authorization changes, and when the user says they are switching. Check for an open handoff before starting repository work. Snapshots stay local and never contain secrets. See [[../sources/agent-context-handoffs-directive|the 2026-11-23 agent-context handoffs directive]].
 - When asked to add guidance, documentation, conventions, checklists, or skills “to the vault,” place each artifact in its canonical vault layer and connect it through `index.md`. A tracked file in the wrong ownership layer does not satisfy the request.
 - For a Hermes-conversation knowledge harvest, require a directly relevant Hermes conversation before creating a project page or promoting durable claims. Filesystem and Git-root discovery alone are not evidence; repository inspection may verify conversation-derived claims but must not replace them.
 - Expect every substantive Hermes conversation to be evaluated for durable project or workflow knowledge and promoted into this vault in the same session when safe. If promotion is deferred, preserve the exact session ID in the harvest checkpoint. Hermes session storage and compact profile memory are not substitutes for Obsidian integration.
@@ -110,6 +112,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - [[../sources/altin-module-builds-and-scope-corrections|Altin Module Builds and Scope Corrections]]
 - [[../sources/altin-profile-support-ui-corrections|Altin Profile and Support UI Corrections]]
 - [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]]
+- [[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]]
 
 ## Open Questions
 

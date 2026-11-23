@@ -2,6 +2,71 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-23] maintenance | Agent Context SessionStart Hook
+
+What changed:
+
+- Added an `agent_context.py hook` subcommand and registered it as a Claude Code SessionStart hook (`startup|resume|clear`, 15-second timeout) in `~/.claude/settings.json`. Open handoffs for the session's repository now surface automatically.
+- Preserved the user's go-ahead as raw evidence and folded it into the existing Source Record.
+
+Files touched:
+
+- `.agents/skills/agent-context/scripts/agent_context.py`
+- `.agents/skills/agent-context/SKILL.md`
+- `raw/sources/2026-11-23-agent-context-session-start-hook.md`
+- `wiki/sources/agent-context-handoffs-directive.md`
+- `wiki/concepts/hermes-obsidian-memory-architecture.md`
+- `index.md`
+- `log.md`
+- Outside the vault: `~/.claude/settings.json`, `~/.claude/CLAUDE.md`
+
+Key result:
+
+- The hook prints nothing when no handoff is open and exits 0 on any error, so it cannot block a session. It was pipe-tested on real, worktree, empty, malformed, and missing-directory payloads.
+
+Follow-ups:
+
+- Confirm the hook fires in a fresh session.
+- Hermes profile memories are still not wired.
+
+## [2026-11-23] maintenance | Agent Context Handoffs
+
+What changed:
+
+- Added `raw/agent-contexts/` as a local-only, append-only handoff layer so agents can continue work after the user switches accounts. Everything except its README is gitignored.
+- Added the `agent-context` skill with a standard-library helper (`new`, `status`, `transcripts`, `digest`) for save, resume, and recover-from-native-transcript.
+- Registered the path and skill in `schema/vault-structure.json` (version 5), the schema docs, and the skills catalog. Documented the layer in `AGENTS.md`.
+- Preserved the user's directive as raw evidence with a Source Record, and updated the shared-brain architecture concept and the personal operating manual.
+- Outside the vault: symlinked `~/.claude/skills/agent-context`, and added a Session Handoffs section to `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`.
+
+Files touched:
+
+- `.gitignore`
+- `raw/agent-contexts/README.md`
+- `.agents/skills/agent-context/SKILL.md`
+- `.agents/skills/agent-context/scripts/agent_context.py`
+- `.agents/skills/README.md`
+- `schema/vault-structure.json`
+- `schema/README.md`
+- `schema/local-skills.md`
+- `AGENTS.md`
+- `raw/sources/2026-11-23-agent-context-handoffs-directive.md`
+- `wiki/sources/agent-context-handoffs-directive.md`
+- `wiki/concepts/hermes-obsidian-memory-architecture.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Snapshots are curated rather than copied transcripts. Recovery orders native transcripts by the last record's timestamp because file mtimes on this machine were rewritten in bulk.
+
+Follow-ups:
+
+- Hermes profile memories are not wired to the skill yet.
+- A Claude Code SessionStart hook could surface open handoffs automatically.
+- No snapshot pruning policy yet.
+
 ## [2026-10-21] ingest | Record Bora Push Device Binding And Input-Object Convention
 
 What changed:

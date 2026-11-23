@@ -22,6 +22,7 @@ They were installed through Hermes from the `skills.sh` registry and received a 
 - `llm-wiki-ingest` integrates authorized evidence into raw files, Source Records, linked knowledge, navigation, and the operation log.
 - `llm-wiki-query` retrieves vault-backed answers and routes authorized filing through `vault-maintenance`.
 - `llm-wiki-lint` audits structural and semantic health read-only by default and routes authorized repairs through `vault-maintenance`.
+- `agent-context` saves, resumes, and recovers local-only session handoffs in `raw/agent-contexts/` so work continues across account switches and agents. Its helper script is `agent-context/scripts/agent_context.py`.
 
 ## Discovery
 

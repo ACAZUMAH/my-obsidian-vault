@@ -2,9 +2,10 @@
 type: entity
 status: active
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-11-23
 tags: [claude-code, agent, tooling, memory]
 sources:
+  - ../sources/agent-context-handoffs-directive.md
   - ../sources/claude-code-shared-brain-integration.md
 aliases: [Claude Code CLI, Claude Code Desktop]
 ---
@@ -19,7 +20,7 @@ Claude Code is Anthropic's coding agent, connected to the same Obsidian second b
 
 - Global instructions live at `/Users/acazumah/.claude/CLAUDE.md`.
 - `/Users/acazumah/.claude/settings.json` exposes `OBSIDIAN_VAULT_PATH=/Users/acazumah/Documents/Work Space`.
-- `~/.claude/skills/` symlinks the nine vault skills from `<vault>/.agents/skills/`; the vault copy is authoritative.
+- `~/.claude/skills/` symlinks the ten vault skills from `<vault>/.agents/skills/`; the vault copy is authoritative. The tenth, `agent-context`, was added on 2026-11-23 for session handoffs across account switches ([[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]]).
 - Claude Code also keeps a per-repository auto-memory under `~/.claude/projects/<encoded-path>/memory/`. That store is session-adjacent context, not vault integration; durable knowledge still requires promotion into the vault.
 - Current repositories and live system state remain authoritative for changeable facts.
 

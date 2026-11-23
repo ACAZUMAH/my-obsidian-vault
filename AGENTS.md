@@ -22,6 +22,20 @@ Rules:
 - Store source attachments, screenshots, figures, and downloaded article images in `raw/assets/`.
 - When a source references images or files, inspect them separately when they matter to the analysis.
 
+### Agent Contexts
+
+Location: `raw/agent-contexts/`
+
+Session handoff snapshots that let Claude Code, Codex, and Hermes continue work across account switches, usage-limit cutoffs, and agent changes. Operation skill: [agent-context](.agents/skills/agent-context/SKILL.md).
+
+Rules:
+
+- Store snapshots as `raw/agent-contexts/<workstream>/<YYYY-MM-DDTHHMMSSZ>--<topic>.md`; the newest file per topic is the current state.
+- Snapshots are append-only: each save creates a new file, and earlier snapshots are never edited, renamed, or deleted unless the user asks.
+- Everything except `raw/agent-contexts/README.md` is gitignored and local-only. Never commit or push snapshots.
+- Never copy secrets or account identifiers into a snapshot.
+- Snapshots are operational state, not ingest evidence: they need no Source Record and are not listed in `index.md`. Durable knowledge they mention still goes through normal capture.
+
 ### Wiki
 
 Location: `wiki/`
@@ -49,6 +63,7 @@ This file is the human-readable operating authority. `schema/README.md`, `schema
 
 - `raw/sources/`: Immutable source documents.
 - `raw/assets/`: Local images, attachments, PDFs, screenshots, and other source assets.
+- `raw/agent-contexts/`: Local-only, gitignored session handoff snapshots for continuing work across accounts and agents.
 - `wiki/sources/`: Curated Source Records that map raw evidence into concise claims, connections, tensions, and questions. Aggregation and shared evidence are allowed when provenance remains explicit.
 - `wiki/concepts/`: Reusable ideas, topics, frameworks, mechanisms, and themes.
 - `wiki/entities/`: People, organizations, products, places, and other named things.
@@ -355,8 +370,9 @@ Use the layered memory model documented in `wiki/concepts/hermes-obsidian-memory
 - Obsidian holds linked long-form operating knowledge.
 - Hermes skills hold mature executable procedures.
 - Session history holds temporary conversational context and task progress.
+- `raw/agent-contexts/` holds local-only handoff snapshots so in-flight work survives account switches and agent changes.
 
-Do not capture credentials, API keys, secrets, raw private identifiers, or short-lived task status by default. Do not turn the personal operating manual into a chat diary.
+Do not capture credentials, API keys, secrets, raw private identifiers, or short-lived task status by default; the one exception for task status is a handoff snapshot in `raw/agent-contexts/`. Do not turn the personal operating manual into a chat diary.
 
 Hermes profiles and Codex may edit this vault simultaneously. Reread every shared note immediately before modifying it, prefer focused anchored patches over whole-file rewrites, preserve concurrent changes, and avoid duplicate pages.
 

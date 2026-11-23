@@ -5,11 +5,11 @@ This is the content-oriented map of the wiki. Read this first before answering w
 ## Start Here
 
 - [[welcome|Welcome To My Obsidian Vault]] — Human-facing introduction, two-layer evidence/Source Record architecture, agent workflow, and public-repository safety guidance. Updated: 2026-07-22.
-- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct technical disagreement, the never-read-secret-files rule, indexed-vault-content expectations, and project-specific/generalized skill rules. Type: synthesis. Updated: 2026-10-11. Sources: 11.
+- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct technical disagreement, the never-read-secret-files rule, indexed-vault-content expectations, and project-specific/generalized skill rules. Type: synthesis. Updated: 2026-11-23. Sources: 11.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Cross-project map with the never-read-`.env` rule, Altin app-theme-guide rules, SERLP-style mobile permission gating, explicit service control flow, owned helpers, exact Apollo query/mutation contracts, state-only Formik hooks with screen-owned submission (pharmacy/admin portal/Check City), mutation-owned error toasts and Formik submission state and one operation per hook, typed data-object parameters, transport-context isolation, transport-only resolvers, generated GraphQL enum reuse, authorization, migrations, native-rebuild checks, and verification rules. Type: synthesis. Updated: 2026-10-19. Sources: 57.
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs; 90 `source='subagent'` records remain separate. Type: synthesis. Updated: 2026-07-21. Sources: 52.
 - [[wiki/syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]] — Foundation with provider-test boundaries, multi-channel OTP, authorization coverage, migrations, and verification. Type: synthesis. Updated: 2026-07-21. Sources: 25 plus live repositories.
-- [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Defines the canonical vault, Hermes/Codex/Claude Code integration layers, separate archive layers, and explicit promotion boundary. Type: concept. Updated: 2026-09-29. Sources: 5.
+- [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Defines the canonical vault, Hermes/Codex/Claude Code integration layers, separate archive layers, and explicit promotion boundary. Type: concept. Updated: 2026-11-23. Sources: 5.
 - [Vault Workflow Guide](schema/workflows.md) — Canonical sequence for retrieval, ingest, query, concurrent maintenance, validation, and safe commits. Updated: 2026-07-22.
 - [Vault Schema Reference](schema/README.md) — Human and machine contracts, canonical paths, page ownership, properties, and coordinated schema changes. Updated: 2026-07-22.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — The current synthesis of how this second brain works. Type: synthesis. Updated: 2026-07-20. Sources: 2.
@@ -19,6 +19,7 @@ This is the content-oriented map of the wiki. Read this first before answering w
 ## Source Records
 
 - [[wiki/sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]] — Connects Claude Code to the canonical vault through `~/.claude/CLAUDE.md`, `OBSIDIAN_VAULT_PATH`, and symlinked vault skills; records Obsidian CLI vault targeting. Type: source. Updated: 2026-09-29.
+- [[wiki/sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]] — The user's 2026-11-23 directive to save agent contexts so work continues across account switches: local-only, append-only snapshots in `raw/agent-contexts/` via the `agent-context` skill, with recovery from native transcripts and a Claude Code SessionStart hook that surfaces open handoffs. Type: source. Updated: 2026-11-23.
 
 - [[wiki/sources/bora-fund-administration-access-control|Bora Fund Administration And Access Control]] — LivelyCura-aligned `Role`/`platformRoles` RBAC, named transport-only resolvers, generated GraphQL enum reuse, documented services, staff invitations/admin authentication, single-record draft/published fund facts, CIS enrichment, and production seeds. Type: source. Updated: 2026-09-28.
 
@@ -174,7 +175,7 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 
 - [[wiki/concepts/livelycura-customer-support-architecture|LivelyCura Customer Support Architecture]] — Verified-channel ownership, tenant isolation, CRM/Admin responder boundaries, private threads/attachments, lifecycle, idempotency, and privacy-safe notification routing across all customer surfaces. Updated: 2026-08-30.
 - [[wiki/concepts/codex-project-knowledge-harvest|Codex Project Knowledge Harvest]] — Paste-ready bounded procedure with direct Hermes execution provenance and explicit non-completion boundary. Updated: 2026-07-22. Sources: 3.
-- [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Canonical knowledge plane, Hermes/Codex/Claude Code integration layers, retrieval rules, and concurrent-write controls. Updated: 2026-09-29.
+- [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Canonical knowledge plane, Hermes/Codex/Claude Code integration layers, retrieval rules, and concurrent-write controls. Updated: 2026-11-23.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — A knowledge base pattern where the LLM incrementally integrates sources, updates cross-links, flags contradictions, and preserves synthesis. Updated: 2026-05-13.
 - [[wiki/concepts/raw-source-wiki-schema-architecture|Raw Source, Wiki, Schema Architecture]] — The three-layer structure that separates immutable evidence, curated Source Records and knowledge, and operating rules. Updated: 2026-07-22.
 - [[wiki/concepts/ingest-query-lint-workflows|Ingest, Query, Lint Workflows]] — The recurring operating modes for adding evidence through Source Records, answering questions, and maintaining wiki health. Updated: 2026-07-22.
@@ -214,7 +215,7 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 
 - [[wiki/entities/hermes-agent|Hermes Agent]] — The model-facing operator that reads and maintains the second brain while retaining compact persistent memory. Updated: 2026-07-20.
 - [[wiki/entities/codex|Codex]] — Coding agent connected through global instructions and environment to the same canonical vault. Updated: 2026-07-20.
-- [[wiki/entities/claude-code|Claude Code]] — Coding agent connected through `~/.claude/CLAUDE.md`, environment, and symlinked vault skills to the same canonical vault. Updated: 2026-09-29.
+- [[wiki/entities/claude-code|Claude Code]] — Coding agent connected through `~/.claude/CLAUDE.md`, environment, and symlinked vault skills to the same canonical vault. Updated: 2026-11-23.
 - [[wiki/entities/obsidian|Obsidian]] — The local markdown knowledge-base app used as the human-facing IDE for browsing and visualizing the wiki. Updated: 2026-07-20.
 
 ## Questions
@@ -225,7 +226,7 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs with store-qualified collision handling. Updated: 2026-07-21. Sources: 52.
 - [[wiki/syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]] — Foundation with provider evidence, multi-channel OTP, authorization coverage, migrations, and verification. Updated: 2026-07-21. Sources: 25 plus live repositories.
-- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct disagreement, mandatory promotion, indexed-vault-content expectations, paced remediation, secret-file avoidance, and skill reuse. Updated: 2026-10-11. Sources: 11.
+- [[wiki/syntheses/personal-operating-manual|Personal Operating Manual]] — Central map including direct disagreement, mandatory promotion, indexed-vault-content expectations, paced remediation, secret-file avoidance, and skill reuse. Updated: 2026-11-23. Sources: 11.
 - [[wiki/syntheses/software-development-operating-manual|Software Development Operating Manual]] — Shared agreements with React.FC component typing, SERLP-style mobile permission gating, explicit service control flow, owned helpers, exact Apollo query/mutation contracts, state-only Formik hooks with screen-owned submission (pharmacy/admin portal/Check City), mutation-owned error toasts and Formik submission state and one operation per hook, typed data-object parameters, transport-context isolation, transport-only resolvers, generated GraphQL enum reuse, authorization, migrations, never reading `.env` or secret files, native-rebuild checks, and verification. Updated: 2026-10-19. Sources: 57.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — A synthesis of the whole system and its operating assumptions. Updated: 2026-07-20. Sources: 2.
 
@@ -235,9 +236,10 @@ These are concise provenance and retrieval nodes for immutable evidence under `r
 - Workflow guidance: [Vault Workflow Guide](schema/workflows.md)
 - Naming conventions: [Vault Naming Conventions](schema/naming-conventions.md)
 - Lint checklist: [Vault Lint Checklist](schema/lint-checklist.md); commands: [Vault Script Commands](scripts/README.md)
-- Local skills: [Project-Local Agent Skills](schema/local-skills.md); nine required implementations: [.agents/skills/](.agents/skills/)
+- Local skills: [Project-Local Agent Skills](schema/local-skills.md); ten required implementations: [.agents/skills/](.agents/skills/)
 - Graph configuration: [.obsidian/graph.json](.obsidian/graph.json) — folder-based color groups for the major knowledge and infrastructure layers.
 - Chronological log: [log.md](log.md)
 - Raw source folder: [raw/sources/](raw/sources/)
+- Agent handoffs (local-only, gitignored): [Agent Contexts README](raw/agent-contexts/README.md)
 - Wiki folder: [wiki/](wiki/)
 - Templates: [[_template/source-summary-template|Source Record]], [[_template/concept-template|Concept]], [[_template/entity-template|Entity]], [[_template/project-template|Project]], [[_template/question-template|Question]], [[_template/synthesis-template|Synthesis]]

@@ -15,8 +15,9 @@ Project-local Agent Skills are repository-tracked procedures under `.agents/skil
 | [`llm-wiki-ingest`](../.agents/skills/llm-wiki-ingest/SKILL.md) | Source ingestion, conversation harvests, Source Records, promotion, and provenance closure |
 | [`llm-wiki-query`](../.agents/skills/llm-wiki-query/SKILL.md) | Retrieval-first vault answers and authorized durable filing |
 | [`llm-wiki-lint`](../.agents/skills/llm-wiki-lint/SKILL.md) | Read-only structural and semantic audits plus explicitly authorized repair routing |
+| [`agent-context`](../.agents/skills/agent-context/SKILL.md) | Local-only session handoffs: save, resume, and recover work across account switches and agents |
 
-The first five skills are vendored from `kepano/obsidian-skills` at the revision recorded in the [local skills catalog](../.agents/skills/README.md). The four repository-owned skills separate operation intent from shared mutation mechanics: `llm-wiki-ingest`, `llm-wiki-query`, and `llm-wiki-lint` route the task, while `vault-maintenance` owns structural maintenance and completion checks.
+The first five skills are vendored from `kepano/obsidian-skills` at the revision recorded in the [local skills catalog](../.agents/skills/README.md). The repository-owned `llm-wiki-*` and `vault-maintenance` skills separate operation intent from shared mutation mechanics: `llm-wiki-ingest`, `llm-wiki-query`, and `llm-wiki-lint` route the task, while `vault-maintenance` owns structural maintenance and completion checks.
 
 ## Selection Rules
 
@@ -27,6 +28,7 @@ The first five skills are vendored from `kepano/obsidian-skills` at the revision
 - Use `llm-wiki-query` for retrieval and vault-backed answers; add `vault-maintenance` only when filing is authorized.
 - Use `llm-wiki-lint` for audit and health checks; add `vault-maintenance` only when repairs are explicitly requested.
 - Use `vault-maintenance` for durable edits, moves, validation, templates, index/log updates, or shared-page maintenance.
+- Use `agent-context` to save, resume, or recover in-flight work across accounts and agents; it writes only to `raw/agent-contexts/` and never feeds Source Records.
 - Use format skills only when their file type or Obsidian-specific syntax is in scope.
 
 ## Portability And Updates

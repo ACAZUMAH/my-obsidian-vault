@@ -27,6 +27,7 @@ This directory owns the canonical operational documentation and machine-readable
 | --- | --- |
 | Immutable text evidence | `raw/sources/` |
 | Source assets | `raw/assets/` |
+| Local-only session handoffs (gitignored) | `raw/agent-contexts/` |
 | Curated Source Records | `wiki/sources/` |
 | Reusable concepts | `wiki/concepts/` |
 | Named entities | `wiki/entities/` |

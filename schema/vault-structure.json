@@ -1,8 +1,9 @@
 {
-  "version": 4,
+  "version": 5,
   "canonical_paths": {
     "raw_sources": "raw/sources",
     "raw_assets": "raw/assets",
+    "agent_contexts": "raw/agent-contexts",
     "wiki_sources": "wiki/sources",
     "wiki_concepts": "wiki/concepts",
     "wiki_entities": "wiki/entities",
@@ -18,6 +19,7 @@
   "required_directories": [
     "raw/sources",
     "raw/assets",
+    "raw/agent-contexts",
     "wiki/sources",
     "wiki/concepts",
     "wiki/entities",
@@ -69,7 +71,8 @@
     "vault-maintenance",
     "llm-wiki-ingest",
     "llm-wiki-query",
-    "llm-wiki-lint"
+    "llm-wiki-lint",
+    "agent-context"
   ],
   "allowed_statuses": [
     "seed",

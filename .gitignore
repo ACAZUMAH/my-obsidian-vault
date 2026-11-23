@@ -79,3 +79,7 @@ temp/
 .hermes/
 .codex/
 .claude/
+
+# Agent session handoffs are local-only operational state (may hold client project details)
+raw/agent-contexts/*
+!raw/agent-contexts/README.md

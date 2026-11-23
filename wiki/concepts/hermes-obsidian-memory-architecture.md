@@ -2,7 +2,7 @@
 type: concept
 status: active
 created: 2026-07-20
-updated: 2026-09-29
+updated: 2026-11-23
 tags: [hermes, codex, claude-code, obsidian, memory, second-brain, multi-agent]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
@@ -10,6 +10,7 @@ sources:
   - ../sources/hermes-persistent-memory-import.md
   - ../sources/hermes-session-coverage-audit-2026-07-21.md
   - ../sources/claude-code-shared-brain-integration.md
+  - ../sources/agent-context-handoffs-directive.md
 aliases: [Hermes–Obsidian Memory Architecture]
 confidence: high
 ---
@@ -66,11 +67,22 @@ Claude Code mirrors the Codex layer through its own global instruction chain:
 
 See [[../entities/claude-code|Claude Code]] and [[../sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]].
 
+### Session Handoff Layer
+
+In-flight work must survive account switches, usage-limit cutoffs, and changes of agent. Native session stores are per agent and can be tied to the signed-in account, so continuity uses an agent-neutral layer:
+
+- `raw/agent-contexts/<workstream>/<UTC-stamp>--<topic>.md` holds curated, append-only handoff snapshots. The newest snapshot per topic is the current state.
+- The folder is gitignored except its README. Snapshots are local operational state, never pushed to the public repository and never ingest evidence.
+- The `agent-context` skill saves after verified milestones, decisions, and authorization changes. It resumes by checking the newest snapshot against live Git state, and recovers from native Claude Code or Codex transcripts when a session died before saving.
+- Claude Code and Codex reach it through the Session Handoffs section of their global instruction files. Claude Code also runs a SessionStart hook that injects open handoffs for the session's repository. Hermes profiles are not wired yet.
+
+See [[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]].
+
 ### Skills And Session History
 
 - Hermes skills hold mature executable procedures with exact steps, tools, pitfalls, and verification.
 - Repository instructions hold project-local rules.
-- Session history holds temporary conversation and task progress.
+- Session history holds temporary conversation and task progress; handoff snapshots in `raw/agent-contexts/` carry the part of it needed to continue elsewhere.
 - None of these replaces the canonical long-form knowledge plane.
 - Session persistence proves retrievability, not ingestion. Substantive Hermes sessions must be evaluated for durable corrections, decisions, constraints, rationale, reusable lessons, and verification provenance.
 
@@ -85,7 +97,7 @@ Capture information when it is likely to be useful again, especially when the us
 - teaches a reusable procedure;
 - resolves a recurring failure with a durable lesson.
 
-Do not capture credentials, API keys, secrets, raw private identifiers, short-lived task progress, or ordinary chat noise by default. Update an existing page instead of creating a duplicate when the concept already exists.
+Do not capture credentials, API keys, secrets, raw private identifiers, short-lived task progress, or ordinary chat noise by default. The one bounded exception for task progress is a local-only handoff snapshot in `raw/agent-contexts/`. Update an existing page instead of creating a duplicate when the concept already exists.
 
 ## Retrieval Rule
 
@@ -102,6 +114,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 - **Stale project knowledge:** verify against live repositories and preserve uncertainty.
 - **Vault noise:** apply the capture threshold and avoid task diaries.
 - **Concurrent overwrite:** reread before editing and use narrow anchored changes.
+- **Lost in-flight work on account switch:** save `agent-context` snapshots at milestones; recover from native transcripts when a session ends abruptly.
 - **Context overload:** retrieve relevant pages instead of injecting the entire vault into every prompt.
 - **Instruction collision:** global shared-brain guidance yields to more specific repository and subdirectory instructions.
 
@@ -112,6 +125,7 @@ Hermes profiles and Codex may run simultaneously. Before editing a shared note, 
 - [[../sources/hermes-persistent-memory-import|Hermes Persistent Memory Import]]
 - [[../sources/hermes-session-coverage-audit-2026-07-21|Hermes Session Coverage Audit — 2026-07-21]]
 - [[../sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]]
+- [[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]]
 
 ## Related
 
