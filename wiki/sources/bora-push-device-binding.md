@@ -2,7 +2,7 @@
 type: source
 status: active
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-10-22
 tags: [bora-capital, backend, notifications, push, expo, sessions, security]
 sources:
   - ../../raw/sources/2026-10-21-bora-push-device-binding.md
@@ -36,7 +36,7 @@ confidence: high
 - Expo tickets are stored for a day; a five-minute leased cron reads receipts about 15 minutes after sending.
 - Migration `PURGE_USER_EXPO_PUSH_TOKENS_V1` removes the old per-user arrays through the raw collection, because a model update on a field no longer in the schema is a silent no-op.
 - Release order: an app build sending the new fields goes on every test phone before the backend deploys; the deploy deletes all old tokens.
-- Frontend contract: section 3 of `docs/frontend-handoff-2026-10-17.md`.
+- Frontend contract: section 1 of `docs/frontend-handoff-2026-10-22.md`. The raw note names section 3 of the 2026-10-17 handoff; that file had already been sent, so the contract moved on 2026-10-22 (see [[bora-frontend-handoff-frozen|Bora Frontend Handoffs Frozen Once Sent]]).
 
 ## Connections
 

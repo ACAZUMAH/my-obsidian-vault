@@ -2,7 +2,7 @@
 type: source
 status: active
 created: 2026-10-11
-updated: 2026-10-13
+updated: 2026-11-19
 tags: [bora-capital, backend, security, rate-limiting, digitalocean]
 sources:
   - ../../raw/sources/2026-10-11-bora-client-ip-app-platform.md
@@ -50,6 +50,7 @@ confidence: high
 ## Contradictions Or Tensions
 
 - The original review assumed Cloudflare and `X-Forwarded-For`; on App Platform that header is DigitalOcean's ingress address, so the proposed `trust proxy` fix would not work.
+- Superseded (recorded 2026-11-19): the 20-per-IP-per-hour signup cap above is historical. Commit `8da3912` (2026-10-30) raised it to 200 per hour because Ghanaian mobile carriers put many customers behind one IP, which also answers the first open question; the user said not to lower it. See [[bora-accepted-risks-deposit-path-and-api-domain|Bora Accepted Risks, Deposit Path, And API Domain]].
 
 ## Open Questions
 

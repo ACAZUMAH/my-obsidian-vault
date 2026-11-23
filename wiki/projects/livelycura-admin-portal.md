@@ -2,9 +2,10 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-09-26
+updated: 2026-10-23
 tags: [project, livelycura, admin, web]
 sources:
+  - ../sources/livelycura-hrm-holidays-decisions.md
   - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/livelycura-graphql-contract-compatibility.md
   - ../sources/marketplace-scoped-admin-catalog-order-restructure.md
@@ -83,6 +84,7 @@ Static Vite web application with Docker and development/production Compose files
 ## Decisions And Rationale
 
 - Own LivelyCura network dispatch for standalone riders and requests from marketplaces, custom apps, and manual intake, fulfilled through SERLP Dispatch. Company fleet operations belong to the independent ERP Fleet product. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Independent Fleet and platform dispatch decision]].
+- Organization country (2026-10-23, decided, not yet built): Add Organization and the organization edit forms use the same 88-country picker as every other screen, and the country drives which nationwide public holidays are imported, with an "add your holidays" warning when the feed has none. Source: [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]].
 
 The repository boundary keeps platform administration distinct from day-to-day ERP and customer workflows. Custom-app assignment is a platform-administration decision; assigned-app banner operations stay with the organization’s ERP surface. Marketplace selection establishes the administrative scope so catalog classification, organization access, category trees, bidding demand, direct fulfillment, and capability settings cannot drift across separate global pages.
 

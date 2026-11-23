@@ -2,12 +2,16 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-21
+updated: 2026-11-23
 tags: [project, bora-capital, mobile, expo, investment]
 sources:
   - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
   - ../sources/bora-canonical-identity-authorization-hermes-chain.md
   - ../sources/bora-push-device-binding.md
+  - ../sources/bora-kyc-supervision-and-statement-update.md
+  - ../sources/bora-accepted-risks-deposit-path-and-api-domain.md
+  - ../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md
+  - ../../raw/sources/2026-11-22-bora-a1-customer-pays-paystack-fee-implementation.md
 confidence: high
 ---
 
@@ -64,16 +68,20 @@ EAS owns native builds and store submission. GitHub Actions use Node 22/npm for 
 
 Current app configuration disables Expo updates even though update hooks/workflow paths exist. The inspected `develop` branch was based at `393bac0ef0dc` with a pre-existing modified `package-lock.json`; this harvest did not change it.
 
+Distribution (user statement, 2026-11-06): the app ships only through TestFlight, with no public store builds. Breaking backend GraphQL input changes can therefore ship with a new TestFlight build and no deprecate-then-remove phase; the first was the KYC ID image change (send `imgIDFrontString` and `imgIDBackString` only; `imgIDString` removed). Re-check once the app is publicly released. See [[../sources/bora-kyc-supervision-and-statement-update|Bora KYC Supervision And Statement Update]].
+
+API host (user statements, 2026-11-19): production uses `api-production-bora-x7evx.ondigitalocean.app`, and the app pins its `ondigitalocean.app` certificate, so moving to the recommended `api.boradvisors.com` custom domain needs a new mobile build. Never point the app at `boracapital.com`, which Bora does not control. See [[../sources/bora-accepted-risks-deposit-path-and-api-domain|Bora Accepted Risks, Deposit Path, And API Domain]].
+
 ## Durable Conventions
 
 - This project uses Expo Router; do not replace it with another navigation architecture based on unrelated family defaults.
 - Route files should remain entry/composition points while reusable behavior lives under the owning `src` feature/hook/service.
 - Secure tokens use SecureStore; Redux/provider state drives routing and shared UI.
 - Financial actions require authenticated state, current KYC, and transaction authorization where configured.
-- The production deposit UI uses Paystack initialization and backend verification only; do not fall back to the legacy direct-deposit mutation.
+- The production deposit UI uses Paystack initialization and backend verification only; do not fall back to the legacy direct-deposit mutation. The backend removed that mutation (`depositCash`) on 2026-11-19, pending deploy.
 - Deposit initialization sends account, amount, and optional narration without `userId`; single investment-account lookup sends only account number because identity is backend-principal-owned.
 - Treat push registration as optional/degraded: register by app/OS, handle token rotation, back off on provider failures, preserve local per-user history, and deep-link by notification type.
-- From the 2026-10-21 backend change, registration must send a per-install `installationId` (kept across sign-out, device-only keychain class), `buildType`, and `appId`; register after every sign-in, on every launch, and on token change; never register from Expo Go or web; and send every sign-out through `logout`. Route `NEW_SIGNIN` pushes to security settings. Contract: section 3 of the backend's `docs/frontend-handoff-2026-10-17.md`; see [[../sources/bora-push-device-binding|Bora Push Notifications Bound To Device And Session]].
+- From the 2026-10-21 backend change, registration must send a per-install `installationId` (kept across sign-out, device-only keychain class), `buildType`, and `appId`; register after every sign-in, on every launch, and on token change; never register from Expo Go or web; and send every sign-out through `logout`. Route `NEW_SIGNIN` pushes to security settings. Contract: section 1 of the backend's `docs/frontend-handoff-2026-10-22.md`; see [[../sources/bora-push-device-binding|Bora Push Notifications Bound To Device And Session]].
 - Production configuration must reject local/non-HTTPS endpoints, public secret-like variables, KYC bypass, and invalid TLS-pinning ownership.
 
 ## Constraints
@@ -92,6 +100,21 @@ Current app configuration disables Expo updates even though update hooks/workflo
 - Paystack verification remains server-owned so a browser redirect or client state cannot credit investments.
 - Local notification history improves offline continuity while the backend/Expo delivery path remains authoritative for push transport.
 - OTA fingerprint validation prevents JavaScript updates from crossing an incompatible native runtime boundary.
+- Written 2026-11-22 as the backend's `docs/frontend-handoff-2026-11-22.md` (uncommitted, not sent; [evidence](../../raw/sources/2026-11-22-bora-frontend-handoff-2026-11-22.md)). Its app items:
+  - the fee (A1);
+  - deposit result wording (A4, the agent's copy, approved by the owner 2026-11-23: [evidence](../../raw/sources/2026-11-23-bora-a4-wording-approved-bcl-email-case-deferred.md));
+  - withdrawal refusals (C23);
+  - Oye limits: current builds send up to 6,000 characters of history in the prompt and the backend now refuses over 2,000;
+  - the side note.
+
+  The payout step is not in it. The owner's item list it was written from (decisions, 2026-11-21):
+  - Deposit result copy. BCL accepting the deposit means it went through, and BCL has already alerted the customer, so drop "your investment account has been credited". Proposed: "Deposit successful. You'll get a confirmation message when it reflects on your portfolio." When the server returns `PROCESSING`, show "Payment received, awaiting confirmation". Keep the neutral "checking your payment, do not pay again" wording for the `PROCESSING` the app sets itself after client errors. The exact wording is the owner's.
+  - "That verification code is incorrect" only for the server's own code errors (wrong, expired, too many attempts). Today `mapVerificationError` matches any message containing "invalid", so BCL's "Invalid Account Number" refusal shows as a code error. Show BCL's refusal text instead.
+  - Show amount, Paystack fee and total on the deposit, goal top-up and auto top-up screens. The customer bears the fee. The backend fee change is built (A1, 2026-11-22, uncommitted) and is on at deploy, so builds without it show only the deposit while Paystack asks for the total. Read the quote from `getDepositFeeQuote(amount)` before confirming, or from `amount`/`fee`/`total` on the checkout reply; payment results carry the same fields; `AutoTopUp` has `fee` and `total` per run. Keep "Total Investment" meaning the deposit. Evidence: [A1](../../raw/sources/2026-11-22-bora-a1-customer-pays-paystack-fee-implementation.md).
+  - Later, a "pay to" step (bank or Mobile Money) for withdrawals, once BCL adds payout fields.
+  - App-only side note, the developer's call (owner decision, 2026-11-21): on a phone keyboard that uses a decimal comma, typing "500,50" in the withdrawal amount becomes "50050". The confirm screen shows 50,050 before the customer confirms, so the customer can see it, but it is an older input issue in `sanitizeAmountInput` (`app/withdrawals/amount.tsx`).
+
+  See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|Bora Deposit And Withdrawal Flow Decisions And Fix Backlog]].
 
 ## Verification Expectations
 

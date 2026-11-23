@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-09
+updated: 2026-10-31
 tags: [project, ceqa, call-center, checkout, orders, react]
 sources:
   - ../sources/call-center-customer-detail-navigation-correction.md
@@ -14,6 +14,7 @@ sources:
   - ../sources/call-center-product-category-filter-contract.md
   - ../sources/call-center-product-grid-container-responsiveness.md
   - ../sources/call-center-wider-search-hook-and-action-correction.md
+  - ../sources/ceqa-react-hook-form-migration.md
 confidence: high
 ---
 
@@ -35,7 +36,7 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 - Redux Toolkit/Redux Persist.
 - TanStack Query.
 - GraphQL HTTP, request/client hooks, WebSocket subscriptions, and GraphQL Codegen.
-- Formik/Yup, Google Maps/location tooling, Recharts, Vitest, and Testing Library.
+- React Hook Form with the Yup resolver (Formik removed 2026-10-31), Google Maps/location tooling, Recharts, Vitest, and Testing Library.
 - ESLint with a tracked flat configuration, Husky, Commitlint, and Commitizen.
 
 ## Architecture
@@ -103,7 +104,7 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 - Checkout idempotency is tied to a stable fingerprint of branch, cart, form values, and gift recipients.
 - Reuse the same key for retries/double-clicks of the same payload; rotate it when relevant input changes or a checkout finishes.
 - Keep an in-flight guard to avoid unnecessary concurrent submits, but do not treat button disabling as the idempotency guarantee.
-- Keep Formik/Yup `form.isValid` authoritative for checkout field validity. Do not duplicate the schema with ad hoc field-presence checks in the cart component.
+- Keep React Hook Form/Yup `form.formState.isValid` authoritative for checkout field validity. Do not duplicate the schema with ad hoc field-presence checks in the cart component. Programmatic checkout writes use `setValue(..., { shouldValidate: true })` and write `address` last in multi-field transitions. The delivery-location rule lives on `address` (Formik silently dropped it as an object-level error), and the checkout form re-checks validity after every reset so Checkout is never enabled on an empty form. Form hooks: `authentication/hooks/useLoginForm.ts` and `cart/hooks/useOrderCheckoutForm.ts`. See [[../sources/ceqa-react-hook-form-migration|C.E.Q.A React Hook Form Migration]].
 - Exact-location checkout requires both human-readable address and coordinates/fulfillment state.
 - When location changes can reset branch/form state, commit reset-producing coordinate changes before writing the selected address.
 - A map pin is not a valid exact location until reverse geocoding succeeds; commit the location and address together only after a non-empty address is available.
@@ -189,9 +190,11 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 - Verify login limbo routing, fail-soft membership preservation, unavailable-brand disabling, same-token and ambiguous-response switching, active-account refresh, tenant-key isolation for list and family-variant queries, cart/filter/query-cache reset, layout remounting, transport/envelope 401 cleanup, 403 account refresh, and logout cleanup on both success and failure.
 - Verify the Profile menu hierarchy, authenticated `/profile` navigation and unauthenticated redirect, tenant-logo failure fallback, grid/list selected state, and constrained product-picker scrolling with enough variants to overflow naturally.
 - Do not run Codegen casually against live staging; confirm schema availability and intended generated diff first.
+- Verify checkout gating per order and payment method, the delivery-location error under the location control, MoMo auto-fill from the customer phone, and that Checkout stays disabled on an empty form after a cart clear or completed cash order.
 
 ## Evidence
 
+- [[../sources/ceqa-react-hook-form-migration|C.E.Q.A React Hook Form Migration]]: user migration decision and structure correction; commit `310dbac` on `feature/react-hook-form`, stacked on `c780f8c`; RHF behaviour checks and live checkout verification.
 - [[../sources/call-center-customer-detail-navigation-correction|Call Center Customer Detail Navigation Correction]]: direct acceptance of styling and rejection of inline profile navigation, with current route/folder ownership and theme-contrast verification.
 
 - Current repository: `/Users/acazumah/Documents/C.E.Q.A/call-center-web-app`, branch `develop`, base commit `6a9cff6b681f`; the multi-brand integration remained uncommitted at verification.

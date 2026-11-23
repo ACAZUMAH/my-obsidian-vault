@@ -2,6 +2,53 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-23] ingest | Bora Email Matching And BCL Fix Pushed
+
+What changed:
+
+- Recorded the owner-instructed commits and pushes on `feature/updates`:
+  - `1ab2559`: case-insensitive email matching;
+  - `6f053be`: the BCL sign-in 403 fix.
+- The first push also carried `ca3cfa1`, the backlog.
+- Replaced the stale "Uncommitted" and "Not pushed" statuses.
+
+Files touched:
+
+- `raw/sources/2026-11-23-bora-email-matching-and-bcl-fix-committed-and-pushed.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `log.md`
+
+Key result:
+
+- Agents know `feature/updates` matches origin at `6f053be`, with no PR and no deploy.
+
+Follow-ups:
+
+- A PR or deploy happens only when the owner asks.
+
+## [2026-11-23] ingest | Bora BCL Sign-In 403 Hang Fixed
+
+What changed:
+
+- Preserved the owner's approval ("Yes, fix it") and the uncommitted fix.
+  - The BCL client's 403 retry skips the sign-in request, so a refused sign-in fails at once instead of hanging every BCL call until a restart.
+
+Files touched:
+
+- `raw/sources/2026-11-23-bora-bcl-sign-in-403-hang-fix.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- Agents know the sign-in 403 hang is fixed, not open. Verification: 217 suites, 2,026 tests; 3 mutation checks caught.
+
+Follow-ups:
+
+- Commit when the owner asks.
+
 ## [2026-11-23] maintenance | Capture-First Auto-Publish Rule
 
 What changed:
@@ -16,6 +63,32 @@ Files touched: `AGENTS.md`, `schema/{workflows.md,lint-checklist.md,README.md,va
 Key result: the publisher was tested in a throwaway clone with a bare remote. Covered: push, isolation from other agents' staged and untracked work, secret and email blocks, validation blocks, refusals, no-op, deletion, diverged remote, offline recovery, and lock serialization. Each publish takes about 0.4 s.
 
 Follow-ups: decide whether to publish the uncommitted backlog from earlier sessions, and whether a Claude Code hook should enforce publishing.
+
+## [2026-11-23] ingest | Bora A4 Wording Approved, BCL Email Case Deferred
+
+What changed:
+
+- Preserved the owner's 2026-11-23 answers:
+  - the A4 deposit result wording in the sent 2026-11-22 handoff is approved;
+  - the BCL email letter-case check is deferred until production raises it;
+  - the production email audit is done and the emails handoff is sent.
+- Recorded the agent's reproduction of the BCL sign-in 403 hang and of the proposed fix. The fix is still undecided.
+
+Files touched:
+
+- `raw/sources/2026-11-23-bora-a4-wording-approved-bcl-email-case-deferred.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `log.md`
+
+Key result:
+
+- Agents stop treating A4 as an open question and stop listing the BCL email case check.
+
+Follow-ups:
+
+- The owner decides whether to apply the one-line BCL sign-in 403 fix in `src/services/bcl/client.ts`.
 
 ## [2026-11-23] maintenance | Agent Context SessionStart Hook
 
@@ -81,6 +154,1725 @@ Follow-ups:
 - Hermes profile memories are not wired to the skill yet.
 - A Claude Code SessionStart hook could surface open handoffs automatically.
 - No snapshot pruning policy yet.
+
+## [2026-11-22] ingest | Bora Remaining Fixes Done, Handoff Ready
+
+What changed:
+
+- Preserved the owner's instruction to do every remaining fix at once, and the fixes themselves:
+  - customer wording for refunded goal top-ups;
+  - `limit: null` giving the default;
+  - the restored `NEW_SIGNIN` description;
+  - wallet paging fetching one extra row.
+- Preserved the final four-agent review: 7 of 8 findings confirmed and applied.
+- Marked the handoff check's findings settled on the backlog record and the backend page.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-remaining-fixes-and-handoff-ready.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- `docs/frontend-handoff-2026-11-22.md` is ready for the owner to send. Everything is uncommitted; the BCL client's 403 sign-in retry is still undecided.
+
+## [2026-11-22] update | Bora Email Lowercasing Reverted
+
+What changed:
+
+- Preserved the owner's decision to keep email lookups exact, with the reasoning: staging users came from the app, production is TestFlight only, and those users linked successfully.
+- Recorded the revert of the agent's lowercasing, the tests now guarding emails kept as typed, and the new handoff section telling the app to stop lowercasing.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-email-as-typed-revert-and-handoff.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Emails stay as typed end to end; the frontend handoff carries the app change.
+
+## [2026-11-22] update | Bora Emails Kept Exactly As Typed
+
+What changed:
+
+- Preserved the owner's correction: BCL keeps an email exactly as the customer typed it, neither Bora nor the app may change its letter case, and the app's lowercasing goes to the frontend handoff.
+- Replaced the agent's "store emails lowercased" rule on the backend page and reopened the finding on the backlog record.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-email-kept-as-typed-owner-correction.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents never lowercase or reformat a stored email. The owner has not yet said whether email lookups should ignore letter case.
+
+## [2026-11-22] ingest | Bora Linked-Account Email Case Fixed
+
+What changed:
+
+- Preserved the fix for password recovery failing for linked investors whose BCL email has capitals: linked accounts now store the email lowercased. Also preserved its tests, three mutation checks and the independent review.
+- Marked the finding resolved on the backlog record and the backend page, with the rule that account emails are stored trimmed and lowercased.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-linked-account-email-case-fix.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Three findings from the handoff check remain for the owner: the Oye cap, the refund reason shown to customers, and `limit: null`.
+
+## [2026-11-22] ingest | Bora 2026-11-22 Frontend Handoff Written
+
+What changed:
+
+- Preserved what the new dated frontend handoff covers, how it was checked (306 claims, 20 upheld findings fixed), and four undecided owner findings: the Oye cap breaking current app builds, password recovery failing for linked investors whose BCL email has capitals, the refund reason shown to customers, and `limit: null`.
+- Recorded the handoff on the backlog record, the handoff-rules record (read client code from the remote `develop`, not stale checkouts), and the backend and mobile app pages.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-frontend-handoff-2026-11-22.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- `docs/frontend-handoff-2026-11-22.md` is written, verified and unsent; the owner sends it and decides the four findings.
+
+## [2026-11-22] ingest | Bora A1 Customer Pays The Paystack Fee Built
+
+What changed:
+
+- Preserved the A1 evidence and the owner's choices: the fee is on at deploy, and card auto top-ups add it too.
+- Recorded A1 as built and uncommitted on the backlog record and the backend page, with the fee-charging convention; updated the mobile app handoff item with the new fields.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-a1-customer-pays-paystack-fee-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Every approved backend item (A2, A3, A6, B7, B8, B10, B11, B12, B14, B15 and A1) is built and uncommitted; what remains is the frontend handoffs and the owner's live settlement check.
+
+Follow-ups:
+
+- The owner commits and deploys, then confirms settlement with one small live deposit.
+- Write the dated frontend handoff (mobile app and admin portal) when the owner asks.
+
+## [2026-11-22] update | Bora B11 Look-Back Back To 72 Hours
+
+What changed:
+
+- Preserved the owner's statement that the 16 Nov GH¢1.00 production deposit was a test, and his instruction to set the B11 look-back back to 72 hours.
+- Updated the backlog record and the backend page from 30 days to 72 hours.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-b11-lookback-back-to-72-hours.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The vault matches the code: the hourly re-check looks back 72 hours.
+
+Follow-ups:
+
+- None.
+
+## [2026-11-22] ingest | Bora B11 Hourly Paystack Re-Check Built
+
+What changed:
+
+- Preserved the B11 evidence and the owner's choice of a 30-day look-back, which reaches deposits paid before the live webhook existed.
+- Recorded B11 as built and uncommitted on the backlog record and the backend page, with the re-check convention; removed it from the not-yet-built lists.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-b11-hourly-paystack-recheck-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6, B14, B15, B12, B10, B8 and B11 are built and uncommitted, and that A1 (customer pays the fee) remains, plus the frontend handoffs.
+
+Follow-ups:
+
+- The owner commits these fixes.
+- A1 next, only on the owner's go-ahead.
+
+## [2026-11-22] ingest | Bora B8 Auto Top-Up Never Charges A Period Twice
+
+What changed:
+
+- Preserved the B8 evidence: unknown charge outcomes wait and are settled with Paystack before any new charge; the review's older duplicate-period bug (a write error swallowed inside a MongoDB transaction) is fixed.
+- Recorded B8 as built and uncommitted on the backlog record and the backend page, with the waiting-charge and transaction-error conventions.
+- Recorded an incident: a deadlocked mutation run left one file mutated; it was restored and checked.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-b8-auto-top-up-unknown-charge-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6, B14, B15, B12, B10 and B8 are built and uncommitted, and that B11 and A1 remain.
+
+Follow-ups:
+
+- The owner commits these fixes.
+- B11 covers auto top-up deposits whose webhook never arrives.
+
+## [2026-11-21] ingest | Bora B10 Staff Transactions And Deposit Reconciliation Built
+
+What changed:
+
+- Preserved the owner's close-action choices (send to BCL again or mark refunded; refunds made in the Paystack dashboard and recorded in Bora; per-deposit Sentry alert removed) and the B10 build evidence.
+- Recorded B10 as built and uncommitted on the backlog record and the backend page, with the staff close-action convention, and added the admin portal work to the next handoff list.
+- Recorded an incident: an overwritten test file was restored the same session.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-b10-staff-transactions-and-reconciliation-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6, B14, B15, B12 and B10 are built and uncommitted, and that B8, B11 and A1 remain.
+
+Follow-ups:
+
+- The owner commits these fixes; the admin portal needs a dated handoff when the owner asks.
+- The owner decides what to do with `scripts/deposits_production`, whose README still names the removed alert.
+
+## [2026-11-21] ingest | Bora Reconciliation Is Staff Work In The Admin Portal
+
+What changed:
+
+- Preserved the owner's correction: staff reconcile deposits in the admin portal, not the owner. Sentry is not a reconciliation channel, and `scripts/deposits_production/inspectDeposit.ts` is a diagnostic script, not a reconciliation tool.
+- Added the decision to the backlog record, with B10 marked as being for staff in the admin portal, and added it as a convention on the backend page.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-reconciliation-is-staff-work-in-admin-portal.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents design reconciliation for staff in the admin portal and stop treating Sentry or the diagnostic script as the way cases get handled.
+
+Follow-ups:
+
+- Whether to undo the agent's B7 and B12 README edits, and what Sentry should keep, wait on the owner.
+
+## [2026-11-21] ingest | Bora B12 BCL Reply And Unsent Deposit Retry Built
+
+What changed:
+
+- Preserved the evidence for B12, built in the backend working tree and uncommitted.
+  - Every BCL deposit failure stores BCL's reply on the deposit; a finalize failure after BCL accepted also stores BCL's ERP reference.
+  - A deposit BCL certainly never received waits in the new `RETRY_PENDING` status and the hourly reconciliation job sends it again, after a fresh Paystack check, up to 25 posts in all; timeouts and every other BCL answer stay manual cases.
+  - One hourly summary alert names deposits still waiting after 3 posts; they must never be posted by hand.
+- Recorded the verification: full suite, build, eleven mutation checks, and an independent review whose 3 confirmed findings were fixed.
+- Moved B12 to "built" on the backlog record and the backend page, added the `RETRY_PENDING` convention, and noted what the B10 admin view must show for waiting deposits.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-b12-bcl-reply-and-unsent-deposit-retry-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6, B14, B15 and B12 are built and uncommitted, and that B8, B10, B11 and A1 remain.
+
+Follow-ups:
+
+- The owner commits these fixes with the other uncommitted backend work.
+- Next backlog item only after the owner's go-ahead.
+
+## [2026-11-21] ingest | Record LivelyCura HRM Shift Management Scope Decision
+
+What changed:
+
+- Preserved the product owner's 2026-11-21 shift-management concern and his answer "B: roles decide" verbatim, with the investigation findings and the two options, as conversation evidence.
+- Added a Source Record, plus a "Shift Management Scope (Decided, Not Yet Built)" subsection and an Evidence entry on the backend page.
+- Added one decision line to the Pharmacy Portal and SERLP Mobile pages, the source to all three pages' sources, and refreshed their index entries.
+
+Files touched:
+
+- `raw/sources/2026-11-21-livelycura-hrm-shift-management-scope-decision.md`
+- `wiki/sources/livelycura-hrm-shift-management-scope-decision.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/serlp-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Shift work is HR-led through roles: every shift action counts roles at the shift's own branch on every screen and in SERLP AI, HR's organization-wide role covers every branch, a branch manager needs a branch role with shift rights, and nothing is locked to organization level. Open-shift publishing and pickup approvals keep counting roles at the branch; the rest of Employees decision 5 stays organization-level.
+
+Follow-ups:
+
+- Nothing is built yet; verify the pages against the implementation once it lands.
+- The Employees decisions, including decision 5, have no Source Record yet.
+
+## [2026-11-21] ingest | Bora Decimal-Comma Note For The Frontend Handoff
+
+What changed:
+
+- Preserved the owner's decision, in their words, to tell the frontend developer in the next dated handoff that a decimal-comma keyboard turns the withdrawal amount "500,50" into 50050, which the confirm screen shows before the customer confirms.
+- Added the item to the handoff lists on the backlog record and the mobile app page.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-handoff-decimal-comma-note.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `log.md`
+
+Key result:
+
+- Whoever writes the next frontend handoff sees this app-only note along with the other items.
+
+Follow-ups:
+
+- Include the note when the owner asks for the next dated frontend handoff.
+
+## [2026-11-21] ingest | Bora B15 Withdrawal Amount Format Built
+
+What changed:
+
+- Preserved the evidence for B15, built in the backend working tree and uncommitted.
+  - `requestWithdrawal` now refuses any amount that is not a plain number greater than zero with up to two decimal places (a 400), before saving or sending anything.
+  - It checks the format only; the limits stay with BCL.
+- Recorded the verification: full suite, build, five mutation checks, and one independent check. That check confirmed every amount the app can send still passes, and that no other path sends withdrawal amounts to BCL.
+- Moved B15 to "built" on the backlog record and the backend page.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-b15-withdrawal-amount-format-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6, B14 and B15 are built and uncommitted.
+
+Follow-ups:
+
+- The owner commits these fixes with the other uncommitted backend work.
+- Next backlog item only after the owner's go-ahead.
+
+## [2026-11-21] ingest | Bora B14 Withdrawal Refusal Messages Built
+
+What changed:
+
+- Preserved the evidence for B14, built in the backend working tree and uncommitted.
+  - BCL's own refusal text (`Status[0].Description`, then `Message`, whatever the HTTP status) now reaches the customer as a 400.
+  - BCL refusing our own sign-in or access token, unreadable replies and network failures stay a hidden 502.
+  - New pure helpers in `src/services/bcl/replies.ts` are used only by the withdrawal code.
+- Recorded what was tried and reverted: a shared BCL client change that would have stranded KYC submissions, and an "any 403" rule that would have hidden real BCL refusals.
+- Added the withdrawal rule to the backend's BCL-error convention. Moved B14 to "built". Recorded the BCL client 403 hang as an open item raised with the owner, and how B14 interacts with the C23 app item.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-b14-withdrawal-refusal-messages-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3, A6 and B14 are built and uncommitted, how withdrawal failures are reported, and which BCL client issue awaits the owner's decision.
+
+Follow-ups:
+
+- The owner decides whether to fix the BCL client 403 hang.
+- The owner commits these fixes with the other uncommitted backend work.
+- Ship C23 (app) with or after B14.
+- Next backlog item only after the owner's go-ahead.
+
+## [2026-11-21] ingest | Bora A6 Withdrawal Date Format Built
+
+What changed:
+
+- Preserved the evidence for A6, built in the backend working tree and uncommitted. The withdrawal `TransactionDate` is now sent to BCL, and stored on the withdrawal record, as `DD MMM YYYY` (English month), the format deposits already use.
+- Recorded the verification: full suite, build, a revert check that fails six tests, and one independent review. The review found no reader of the stored date and no other BCL withdrawal path.
+- Moved A6 to "built". Resolved the stale "not yet implemented" notes on the backlog record and the backend page. Added to the B10 design note that withdrawal lists must sort on `createdAt` or `submittedAt`, never on the date text.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-a6-withdrawal-date-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2, A3 and A6 are built and uncommitted, and that the withdrawal date matches BCL's format.
+
+Follow-ups:
+
+- The owner commits these fixes with the other uncommitted backend work.
+- Next backlog item only after the owner's go-ahead.
+
+## [2026-11-21] ingest | Bora A2 And A3 Deposit Alerts Built
+
+What changed:
+
+- Preserved the evidence for A2 and A3, built in the backend working tree and uncommitted.
+  - Bora's only deposit alert is now the existing `DEPOSIT_PENDING` type, worded "Payment received, awaiting confirmation". It is sent alongside the BCL post only when the caller wins the deposit's claim.
+  - "Deposit completed" is no longer sent, and `DEPOSIT_SUCCESSFUL` is deprecated in the schema.
+  - `transferCash`'s dead after-BCL alert option is removed.
+- Recorded the verification: full suite, build, a rendered-email check, seven mutation checks on the alert's timing and count, and a three-lens review. The review's one confirmed test gap was covered.
+- Moved A2 and A3 to "built" on the backlog record and the backend page. Added a possible frontend handoff line for the owner to decide on.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-a2-a3-deposit-alerts-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7, A2 and A3 are built, how the deposit alert now behaves, and how it was verified.
+
+Follow-ups:
+
+- The owner may change the alert's wording.
+- The owner commits B7, A2 and A3 with the other uncommitted backend work.
+- Next backlog item only after the owner's go-ahead.
+
+## [2026-11-21] ingest | Bora B7 Deposit Double-Post Guard Built
+
+What changed:
+
+- Preserved the evidence for B7, the first item of the approved Bora backlog. It was built in the backend working tree and is uncommitted.
+  - Only a deposit with no `bclSync.status` may be claimed or take a non-success write.
+  - Finalize requires the caller's own claim.
+  - The auto top-up failure path leaves claimed deposits and their contributions alone.
+  - One shared deposit read replaces four identical queries.
+- Recorded the verification: the full suite, the build, seven mutation checks, a sift-backed race spec that fails on the pre-change code, and a three-lens review in which a skeptic checked each finding.
+- Added the deposit claim rule to the backend's durable conventions. Moved B7 from "approved" to "built". Widened the B10 reconciliation view to cover any deposit left with `bclSync.status IN_PROGRESS`.
+- Corrected the stale "unconfigured Paystack live webhook" in the backend index entry, and removed "Docker smoke checks" from the backend verification expectations, following the owner's 2026-11-21 no-Docker decision.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-b7-deposit-double-post-guard-implementation.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session sees that B7 is built, what rule it enforces, and how it was verified. The backlog continues from the next item.
+
+Follow-ups:
+
+- The owner reviews and commits B7 together with the other uncommitted backend work.
+- Next backlog items, one at a time, after the owner's go-ahead.
+
+## [2026-11-21] ingest | Bora Deposit And Withdrawal Flow Decisions And Fix Backlog
+
+What changed:
+
+- Preserved the owner's 2026-11-19 to 2026-11-21 Bora decisions:
+  - go-live audit fixes (one shared signup code, linking only after the emailed code, GraphQL operation limits, Oye and WebSocket caps, cooldown buckets), all uncommitted;
+  - the deposit and withdrawal flow sent to BCL: the customer bears the Paystack fee, Bora's "payment received, awaiting confirmation" alert, BCL's confirmation alerts, payout fields waiting on BCL;
+  - the owner's answers to a double-checked open-issue list.
+- Recorded the approved fix backlog, the next frontend-handoff items, findings never to re-raise, and the Paystack live webhook now configured.
+- Marked as superseded the subaccount-as-fee-bearer decision, the withdrawal `YYYY-MM-DD` date, and the separate-signup-codes rationale.
+- Added three working preferences: plain explanations, never re-raise decided findings, and partner documents covering only what was asked.
+
+Files touched:
+
+- `raw/sources/2026-11-21-bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The next session can resume the Bora backlog from one record: what is approved, what waits on BCL, what goes in the frontend handoff, and what must not be raised again.
+
+Follow-ups:
+
+- Build the approved backlog one item at a time, starting with the double-post guard.
+- Get the owner's deposit result wording.
+- Write the dated frontend handoff.
+- Commit the uncommitted audit fixes.
+- Wait for BCL to enable production deposits and withdrawals and to add the payout fields.
+
+## [2026-11-19] ingest | Bora Accepted Risks, Deposit Path, And API Domain
+
+What changed:
+
+- Preserved the owner's 2026-11-19 Bora backend statements: the signup cap stays at 200 per IP per hour (raised from 20 in `8da3912`, 2026-10-30); four accepted risks never to re-flag in audits; `depositCash` removed from schema, resolver and shield (uncommitted, not deployed), leaving Paystack as the only deposit path; production App Platform host, `boracapital.com` not Bora's, `api.boradvisors.com` as the recommended API domain with a new app build for the pinned certificate; and the open item that the Paystack live webhook is not configured.
+- Marked the 20-per-hour signup cap and the "legacy direct-deposit mutation remains" note as superseded, and resolved the open `depositCash` concern pending deploy.
+
+Files touched:
+
+- `raw/sources/2026-11-19-bora-accepted-risks-deposit-path-and-api-domain.md`
+- `wiki/sources/bora-accepted-risks-deposit-path-and-api-domain.md`
+- `wiki/sources/bora-client-ip-app-platform.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Audits have one place listing the accepted Bora risks and the current signup cap; the cap, commit, CORS origins and uncommitted `depositCash` removal were checked in the local checkout.
+
+Follow-ups:
+
+- Configure the Paystack live webhook URL; commit and deploy the `depositCash` removal; move the app to `api.boradvisors.com` with its next build.
+
+## [2026-11-13] ingest | LivelyCura Customer Mobile iOS 27 Cart, Glass And Scene Startup
+
+What changed:
+
+- Preserved the owner's decisions on the iOS 27 cart tab, the Reduce Transparency glass fallback and the UIScene life cycle adoption, all committed on `feature/ui-updates`.
+- Marked the earlier iOS 27 "prominent" cart role as superseded.
+
+Files touched:
+
+- `raw/sources/2026-11-13-livelycura-customer-mobile-ios27-cart-glass-scenes.md`
+- `wiki/sources/livelycura-customer-mobile-ios27-cart-glass-scenes.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Xcode 27 builds of the customer app launch on iOS 27, and the cart follows each iOS version's tab bar.
+
+## [2026-11-13] ingest | LivelyCura Customer Portal Cancel Reason And Redesign Commit
+
+What changed:
+
+- Preserved the owner's decision to add an optional shopper cancel reason (web, mobile app and backend), the header-doubling fix, and the commit of the portal redesign.
+- Replaced the stale "uncommitted" and "no shopper cancel note" statements.
+
+Files touched:
+
+- `raw/sources/2026-11-13-livelycura-customer-portal-cancel-reason-and-commit.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The portal redesign is committed on `feature/portal-ui` (`fe03c61`); the backend cancel change on `feature/hrm` must go live first.
+
+## [2026-11-12] ingest | No Project Copies Direction
+
+What changed:
+
+- Preserved the owner's direction that agents never make a copy of a project folder (git worktree) to do work, after a second unexpected copy.
+- Added the rule to the Personal Operating Manual's change-work preferences.
+
+Files touched:
+
+- `raw/sources/2026-11-12-no-project-copies-direction.md`
+- `wiki/sources/no-project-copies-direction.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Branch work stays in the existing folder; blockers are raised plainly with in-place choices.
+
+## [2026-11-12] update | Bora Live NIA Matches A JPEG Selfie
+
+What changed:
+
+- Preserved the user's live run with `--format jpg`: their own selfie as a 129 KB JPEG with `dataType` `JPG` returned HTTP 200, code `00`, "Verified Successfully". Closed the JPEG open question, and recorded that earlier `.jpg` runs were converted to PNG by the script.
+
+Files touched:
+
+- `raw/sources/2026-11-12-bora-nia-live-jpeg-match.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- NIA accepts JPEG selfies with `dataType` `JPG`; the backend change and the 2026-11-12 handoff are confirmed.
+
+## [2026-11-12] update | Bora KYC Selfie Can Be A JPEG
+
+What changed:
+
+- Preserved the user's request to accept JPEG selfies as well as PNG: the backend reads the format from the bytes and sends NIA `dataType` `PNG` or `JPG`. Recorded that NIA's document shows only PNG, so a live JPEG check through `scripts/nia_staging/testNiaSelfie.ts --format jpg` comes before release, and the new `docs/frontend-handoff-2026-11-12.md`.
+
+Files touched:
+
+- `raw/sources/2026-11-12-bora-kyc-jpeg-selfie.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- PNG and JPEG selfies reach NIA; whether live NIA accepts `JPG` as the `dataType` is the open check.
+
+## [2026-11-12] ingest | LivelyCura Customer Portal Privacy And Terms Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned Privacy and Terms pages and their two additions ("On this page" for Privacy, the reading marker on both).
+- Recorded the Privacy Policy text review and the pending commit as open questions.
+
+Files touched:
+
+- `raw/sources/2026-11-12-livelycura-customer-portal-policy-pages-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Every page in the customer portal redesign is built and approved; all of it is uncommitted on `feature/portal-ui`.
+
+## [2026-11-12] ingest | LivelyCura Customer Portal Login Frame Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned Login page frame and the move of sign-in messages to the forest toast.
+
+Files touched:
+
+- `raw/sources/2026-11-12-livelycura-customer-portal-login-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Only Privacy and Terms remain in the old design.
+
+## [2026-11-12] ingest | LivelyCura Customer Portal Get Care Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned Get Care page, its two additions (phone number shown, WhatsApp wording) and the dial-directly fix.
+
+Files touched:
+
+- `raw/sources/2026-11-12-livelycura-customer-portal-get-care-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Only the Login page frame and the Privacy and Terms pages remain in the old design.
+
+## [2026-11-12] ingest | LivelyCura Customer Portal Account Pages Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned account area (frame, Dashboard, Orders, Prescriptions, Notifications, Support, Settings), the bugs fixed on the way, and the owner's calls: no note on the shopper's cancel, no side-stripe borders.
+- Updated the support rendering convention: inbox rows keep the latest-chat preview and also show the case number and status.
+- Recorded backend follow-ups (refill orders, prescription edit permissions, cancel note).
+
+Files touched:
+
+- `raw/sources/2026-11-12-livelycura-customer-portal-account-pages-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/sources/customer-portal-support-rendering-conventions.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Home, Products, the product page, the checkout flow and the whole account area are approved; Get Care, the Login frame and the policy pages remain.
+
+## [2026-11-11] ingest | LivelyCura Customer Portal Checkout Flow Approved
+
+What changed:
+
+- Preserved the owner's acceptance of the redesigned checkout flow and its five additions, plus the preference for spinners (not bar loaders) on busy buttons. Added the spinner convention to the project page.
+
+Files touched:
+
+- `raw/sources/2026-11-11-livelycura-customer-portal-checkout-flow-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Home, Products, the product page and the checkout flow are built and approved; the account orders pages are next.
+
+## [2026-11-11] ingest | LivelyCura Customer Portal Product Page Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned single product page and its five additions, the lean build approach, and the dark-mode footer-corner fix. Recorded the cache-first arrival, the scroll-snap gallery and the footer-band overlap convention in the redesign Source Record.
+
+Files touched:
+
+- `raw/sources/2026-11-11-livelycura-customer-portal-product-page-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Home, Products and the product page are approved, still uncommitted on `feature/portal-ui` at the owner's request.
+
+## [2026-11-11] ingest | LivelyCura Customer Portal Products Page Approved
+
+What changed:
+
+- Preserved the owner's approval of the redesigned Products list and category pages, the four approved additions, the cost question and the "keep full run" choice, and the SSR head-tag fix that affects every page. Recorded the Products conventions (history-state search, 24 per page, view-transition naming safe under the SSR router, the whole-document crawler render) on the project page and in the redesign Source Record.
+
+Files touched:
+
+- `raw/sources/2026-11-11-livelycura-customer-portal-products-page-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Home and Products are built and approved, still uncommitted on `feature/portal-ui` at the owner's request. Crawlers now get head tags in `<head>` once the branch ships.
+
+## [2026-11-10] update | LivelyCura HRM Review Screen Items Belong To Their Module
+
+What changed:
+
+- Preserved the user's 2026-11-10 correction during the Roles review: a "boxes that do nothing, and misleading names" decision mixed other modules' permission boxes (Products, Accounting, CRM, Leaves, Shifts) into Roles. Added the rule that an item merely shown on the current feature's screen belongs to its own module, and that briefs are filtered before presenting, to the feature-by-feature Source Record and the operating manual.
+
+Files touched:
+
+- `raw/sources/2026-11-10-livelycura-hrm-review-screen-items-belong-to-their-module.md`
+- `wiki/sources/livelycura-hrm-feature-by-feature-review.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The feature-by-feature scope rule now covers items that appear on the current screen but belong to other modules.
+
+## [2026-11-10] update | LivelyCura Customer Portal Home Scroll Motion Approved
+
+What changed:
+
+- Preserved the owner's approval ("Looks right") of the customer portal Home's scroll layer after scrolling the built page, with no changes asked, including the hero plus's turn that briefly reads as an "×". Marked it approved in the redesign Source Record (core claim and open question) and in the project page's motion convention.
+
+Files touched:
+
+- `raw/sources/2026-11-10-livelycura-customer-portal-home-scroll-motion-approved.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Home's per-section scroll moments are approved; the work is still uncommitted on `feature/portal-ui`, and whether later pages get their own scroll moments stays open.
+
+## [2026-11-10] update | Bora Live NIA Match And Non-Match
+
+What changed:
+
+- Preserved the user's two live NIA runs through `scripts/nia_staging/testNiaSelfie.ts`: a photo of someone else returned HTTP 200, code `01`, "Not Matched Found", `verified` "FALSE" (backend 400 "Your selfie did not match…"); their own selfie returned HTTP 200, code `00`, "Verified Successfully", `verified` "TRUE" (on to BCL). `success` is true for both. Code `11` was not reproduced.
+
+Files touched:
+
+- `raw/sources/2026-11-10-bora-nia-live-selfie-results.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The live NIA contract matches the backend's reading: only `code` and `verified` decide, and the customer gets verified or not verified.
+
+## [2026-11-09] update | Bora NIA Unrecognised Answers Return 400
+
+What changed:
+
+- Preserved the user's decision that an NIA answer the backend does not recognise is a 400 "NIA could not verify this Ghana Card and selfie", not a 502, after staging got code `11` with `code`, `success` and `msg` beside `data`; recorded the code-11 open question and the `scripts/nia_staging` test script.
+
+Files touched:
+
+- `raw/sources/2026-11-09-bora-nia-unrecognised-answer-400.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- Only an NIA outage or a reply with no code is a 502; every other non-match is a 400 and never reaches BCL.
+
+## [2026-11-09] ingest | LivelyCura Customer Portal Home Scroll Motion
+
+What changed:
+
+- Preserved the owner's 2026-11-09 follow-up on the customer portal redesign: after reviewing the rebuilt Home they asked to keep its animations and add scroll animations before moving to the next page. Recorded what was built (uncommitted on `feature/portal-ui`, owner review pending): one CSS scroll-scrubbed moment fitted to each Home section, with the Shop tiles' rolling forest doors as the signature, behind an `@supports` test and a reduced-motion gate so Firefox, reduced motion and print show the finished page.
+- Extended the redesign Source Record with the new raw file, the refined motion claim, the mechanics, a load-time lesson (a scrubbed reveal freezes part-way at the bottom edge on load, so ranges must keep common window heights from loading cut text), a tension note reconciling it with "not scroll-reveal on every section", and an open question about later pages.
+- Updated the project page's motion convention and rationale.
+
+Files touched:
+
+- `raw/sources/2026-11-09-livelycura-customer-portal-home-scroll-motion.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future portal pages treat scroll motion as part of Green Room: one fitted moment per section, never a repeated fade-up, CSS only, gated, and text never moving on its own.
+
+Follow-ups:
+
+- The owner reviews Home's scroll layer; Safari 26, Firefox and real Android phones were not run at recording.
+
+## [2026-11-09] ingest | Bora Fund NAV History From BCL
+
+What changed:
+
+- Preserved the user's 2026-11-09 decision, after Bora told the client presentation that BCL keeps each fund's NAV history and updates it daily: customer fund NAV history loads from BCL's `CIPortfolioPrices` (through `fetchBclData`, cached 30 minutes with a 7-day last-known fallback, `[]` with a warning when BCL fails and nothing is cached), and the stored `navHistory` is removed from the facts, types, model, validation, seeds and production fund scripts and unset on deploy by `REMOVE_FUND_NAV_HISTORY_V1`. The customer GraphQL contract is unchanged; the admin portal must ship with the backend release.
+- Marked the superseded claims rather than deleting them: local facts owning NAV history, the seed's `navHistory` as the 1 Year Price Trend shown to customers, and the 2026-10-27 no-silent-shrink rule, now noted as lapsed with the field. Added Contradictions Or Tensions notes with sources on each side and a confidence split (high for code, medium for BCL data depth), plus an open question on how far back BCL's history goes.
+- Left the mobile app page alone: it does not describe the fund chart's data source, and the app needs no change.
+
+Files touched:
+
+- `raw/sources/2026-11-09-bora-fund-nav-history-from-bcl.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future Bora fund work treats BCL as the only customer NAV-history source and does not reintroduce a stored series; `sinceInceptionJourney` and `factSheetNav` stay local.
+
+Follow-ups:
+
+- Verify BCL's history depth with a live `CIPortfolioPrices` call; the user runs credentialed calls.
+- The backend change was uncommitted at recording; `docs/frontend-handoff-2026-11-09.md` goes to the admin-portal developer.
+
+## [2026-11-09] ingest | LivelyCura Customer Portal Redesign Direction
+
+What changed:
+
+- Preserved the owner's 2026-11-09 decisions for the customer web portal: a page-by-page restyle, Home first, on `feature/portal-ui` (cut from `develop` at `72b656b`), merged only when the owner says so; the same colours as the customer app but a web style of its own; the "Green Room" direction picked from three probes; a few signature motion moments with CSS and View Transitions instead of scroll-reveal everywhere; Unsplash stock checked for foreign signage until real photos; and the approved Home plan with its additions, bundled fixes and the create-the-router-once prerequisite.
+- Added the redesign, motion and imagery conventions, the rationale, the router constraint, an open question on real photos, and a tension note to the project page. The older "extend the existing theme" convention stays, marked with the redesign as its exception.
+- Left the software development manual alone: its LivelyCura section holds family-wide rules and already links the project page, and this direction is portal-specific.
+
+Files touched:
+
+- `raw/sources/2026-11-09-livelycura-customer-portal-redesign-direction.md`
+- `wiki/sources/livelycura-customer-portal-redesign-direction.md`
+- `wiki/projects/livelycura-customer-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future customer-portal UI work on `feature/portal-ui` follows Green Room and its motion rules and does not copy the mobile app's look.
+
+Follow-ups:
+
+- Replace the Unsplash stock with real photos, ideally from Kumasi, when they exist.
+
+## [2026-11-08] ingest | LivelyCura Customer Mobile Dark Mode And Drawn Tab Bar
+
+What changed:
+
+- Preserved the user's request that Android and pre-iOS 26 devices keep the same tab bar design as iOS 26, drawn on solid surfaces like Telegram, and the built dark mode (iOS-style, following the phone by default, with a Light/Dark/System choice).
+- Removed the open question about how dark mode is chosen, now settled, and the superseded "light first" convention. Visual approval is pending.
+
+Files touched:
+
+- `raw/sources/2026-11-08-livelycura-customer-mobile-dark-mode-and-drawn-tab-bar.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `log.md`
+
+Key result:
+
+- Future customer-mobile work keeps one tab bar design on every platform and builds every screen for both light and dark mode.
+
+## [2026-11-08] ingest | LivelyCura Customer Mobile Cart Button Cover
+
+What changed:
+
+- Preserved the user's approved cart design: the tab bar's separate round button with a full count badge, which grows a full-screen cart cover out of itself (tab bar included) and shrinks it back on close, like Telegram's iOS 26 search. The floating cart bubble is gone.
+- Recorded the correction that the first version, a normal Cart tab, was not what the user meant.
+- Updated the glass Home Source Record, the project page's conventions and the index line.
+
+Files touched:
+
+- `raw/sources/2026-11-08-livelycura-customer-mobile-cart-button-cover.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future customer-mobile work keeps the cart as a cover opened from the tab bar's round button, not a tab or a floating bubble.
+
+## [2026-11-08] update | LivelyCura Customer Mobile Profile Title
+
+What changed:
+
+- Preserved the user's instruction that Profile also gets a title centred on its back-button row. This replaces the earlier note that Profile has none.
+
+Files touched:
+
+- `raw/sources/2026-11-08-livelycura-customer-mobile-profile-title.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `log.md`
+
+Key result:
+
+- Pushed customer-mobile screens with a back button carry their title centred on that row, Profile included.
+
+## [2026-11-08] ingest | LivelyCura Customer Mobile Pushed-Screen Headers
+
+What changed:
+
+- Preserved the user's correction that customer-mobile pushed screens never put a title under the back button. A title, if any, sits centred on the same row as the glass back button, and Profile has none.
+- Preserved the correction that inspo images are style references, not templates: Sign out and Delete Account get their own group, and settings tiles are brand green.
+- Added both to the glass Home Source Record and the project page's conventions, and updated the index line.
+
+Files touched:
+
+- `raw/sources/2026-11-08-livelycura-customer-mobile-pushed-screen-headers.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future customer-mobile screens use the shared back-and-title row instead of stacking titles under the back button.
+
+## [2026-11-07] ingest | LivelyCura Customer Mobile Native Glass Approved
+
+What changed:
+
+- Preserved the user's approved customer-mobile design. The tab bar is the platform's native one (Liquid Glass with the sliding selection on iOS 26, Material on Android), header controls use clear glass, and the Home top row floats with no bar behind it. Tab screens run edge to edge, and the hero green runs from `primary`, fading from the search bar to the banner.
+- Rewrote the glass Home Source Record to the approved state, which drops the superseded custom tab bar and strip-colouring details. Updated the project page's visual-direction convention.
+
+Files touched:
+
+- `raw/sources/2026-11-07-livelycura-customer-mobile-native-glass-approved.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future customer-mobile work keeps the native tab bar and the approved Home top instead of rebuilding them.
+
+Follow-ups:
+
+- Record how dark mode is chosen once the user decides.
+
+## [2026-11-07] ingest | LivelyCura Customer Mobile Hero Fade Clarification
+
+What changed:
+
+- Preserved the user's clarification that the Home hero green fades softly into the page behind the banner, not ending with a hard edge above it. That reverses the agent's reading recorded in the previous entry.
+- Updated the glass Home Source Record's sources and Core Claims, and its index line.
+
+Files touched:
+
+- `raw/sources/2026-11-07-livelycura-customer-mobile-hero-fade-clarification.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The Source Record describes the shipped hero: solid green behind the controls, fading behind the banner.
+
+Follow-ups:
+
+- None.
+
+## [2026-11-07] ingest | LivelyCura Customer Mobile Home Header Correction
+
+What changed:
+
+- Preserved the user's correction that the Home header must follow the inspo: green ends below the search bar, location picker left, Favourites and Profile right, no greeting, banner on the page as a solid green card.
+- Updated the glass Home Source Record's sources and Core Claims (the banner is no longer glass).
+
+Files touched:
+
+- `raw/sources/2026-11-07-livelycura-customer-mobile-home-header-correction.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `log.md`
+
+Key result:
+
+- The Source Record now matches the shipped Home layout.
+
+Follow-ups:
+
+- None.
+
+## [2026-11-07] ingest | LivelyCura Customer Mobile Glass Home Direction
+
+What changed:
+
+- Preserved the user's design decisions for the customer app: iOS Liquid Glass on the controls layer only with solid content cards, no blur on Android, light mode first then dark, and the support card holding the Home banner slot until marketing banners exist.
+- Updated the project page's Stack (Expo SDK 57), Durable Conventions, Evidence and Open Questions.
+
+Files touched:
+
+- `raw/sources/2026-11-07-livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/sources/livelycura-customer-mobile-glass-home-direction.md`
+- `wiki/projects/livelycura-customer-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future customer-mobile work reads the glass direction from the vault and the repo `PRODUCT.md`, which no longer lists glassmorphism as an anti-reference.
+
+Follow-ups:
+
+- Record how dark mode is chosen once the user decides.
+
+## [2026-11-06] update | Bora Refused KYC Form Saved In One Transaction
+
+What changed:
+
+- Preserved the user's same-day decision to move the refused-form save into one `withTransaction` with the claim release, which removed the best-effort exception to the 2026-10-16 `withTransaction` rule recorded in the previous entry.
+- Updated the KYC Source Record's Core Claims and Contradictions, and the backend project page's KYC and Evidence bullets.
+
+Files touched:
+
+- `raw/sources/2026-11-06-bora-refused-form-one-transaction.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- A refused KYC form and its claim release now commit or roll back together; if either fails, the claim stays `SUBMITTED` for reconciliation.
+
+## [2026-11-06] ingest | Record Bora KYC NIA Gate, ID Image, And Refused Forms
+
+What changed:
+
+- Preserved the user's 2026-11-06 Bora backend decisions after a production `413 PayloadTooLargeError` on a KYC submission: the NIA selfie check gates the BCL post and returns any NIA error to the customer; the Express JSON body limit stays at 5 MB for security (shrink payloads, never raise it); the app sends the ID front image once as `imgIDFrontString` (`imgIDString` removed from both KYC inputs, sent to BCL by `formatPayload`); refused KYC forms are saved while the claim is held so `updateKyc` serves refused `PENDING` users as well as `REJECTED` ones.
+- Recorded the user's statement that the customer app ships only through TestFlight as of 2026-11-06, which allowed the breaking input change without a deprecation phase.
+- Extended the existing KYC Source Record instead of creating a near-duplicate; added KYC, Constraints, and Evidence bullets on the backend project page and a distribution note on the mobile app page.
+- Flagged the best-effort refused-form save as a narrow exception to the 2026-10-16 `withTransaction` rule, and the 413 cause as likely rather than confirmed.
+
+Files touched:
+
+- `raw/sources/2026-11-06-bora-kyc-id-image-and-refused-form.md`
+- `wiki/sources/bora-kyc-supervision-and-statement-update.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- KYC submissions stop at NIA before BCL, refused forms survive for correction, and 413s are fixed by smaller payloads, not a larger body limit.
+
+Follow-ups:
+
+- Re-check the TestFlight-only status before the next breaking GraphQL input change.
+- The backend change was uncommitted at recording, with no live NIA or BCL call.
+
+## [2026-11-05] ingest | Record LivelyCura SERLP Mobile Portal Parity
+
+What changed:
+
+- Preserved the user's 2026-11-05 rule from the HRM Employees work: serlp-mobile is the mobile version of the ERP, so anything the SERLP portal (`livelycura-pharmacy-portal`) does, serlp-mobile must also do, adapted to mobile. Agents never offer "portal-only" or ask how much of a feature belongs on serlp-mobile; gaps are parity work.
+- Added a Source Record, a Durable Conventions bullet on the serlp-mobile and pharmacy portal project pages, and a LivelyCura Family bullet in the development manual.
+- Updated the development manual's index source count to match its frontmatter (62).
+
+Files touched:
+
+- `raw/sources/2026-11-05-livelycura-serlp-mobile-portal-parity.md`
+- `wiki/sources/livelycura-serlp-mobile-portal-parity.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Portal features are in scope for serlp-mobile by default; how much belongs on mobile is not offered as a choice.
+
+Follow-ups:
+
+- None.
+
+## [2026-11-02] ingest | Record LivelyCura Refetch Queries After Mutation
+
+What changed:
+
+- Preserved the user's 2026-11-02 rule from the HRM Employees review: LivelyCura client apps (SERLP portal, serlp-mobile, Loop) refresh screen data after a mutation with Apollo `refetchQueries` project-wide; the brief old value after Save (about 2–3 seconds on the Employees page) is accepted; don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it.
+- Added a Source Record with a repository usage check, a Durable Conventions bullet on the portal, serlp-mobile and Loop project pages, and a LivelyCura Family bullet in the development manual.
+- Corrected the development manual's index source count to match its frontmatter (61).
+
+Files touched:
+
+- `raw/sources/2026-11-02-livelycura-refetch-queries-after-mutation.md`
+- `wiki/sources/livelycura-refetch-queries-after-mutation.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Post-mutation refresh stays on `refetchQueries`; the save delay is not offered as a fix.
+
+Follow-ups:
+
+- None.
+
+## [2026-11-01] ingest | Record LivelyCura HRM Feature-By-Feature Review Scope
+
+What changed:
+
+- Preserved the user's 2026-11-01 correction from the HRM Employees review: report and decide only the current feature's items, keep finished features closed even for findings the current change caused, park later-feature items silently until that feature is reached, and don't call a message vague when it already tells the user what happened. Earlier consistent statements (Payroll 2026-10-19, Admin Portal 2026-10-25) are kept as context.
+- Added a Source Record, one bullet under the Personal Operating Manual's Change And Remediation Work, and a Durable Conventions bullet on the portal, serlp-mobile and Loop project pages.
+
+Files touched:
+
+- `raw/sources/2026-11-01-livelycura-hrm-feature-by-feature-review.md`
+- `wiki/sources/livelycura-hrm-feature-by-feature-review.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- HRM review reports stay inside the current feature; closed and later features are not raised.
+
+Follow-ups:
+
+- None.
+
+## [2026-10-31] ingest | C.E.Q.A React Hook Form Migration
+
+What changed:
+
+- Recorded the user's decision to move Call Center Web App and Keks Admin Portal from Formik to React Hook Form with the Yup resolver, and the correction to keep the existing form structure ("follow how I do things already").
+- Replaced the Formik form rules in the development manual with the React Hook Form convention, keeping the structural rules (private schema, named form hook, screen-owned submission, no form controllers) and noting that unmigrated repositories stay on Formik.
+- Updated both project pages: stack, form conventions, verification expectations, evidence, and the production Keks CORS ports.
+
+Files touched:
+
+- `raw/sources/2026-10-31-ceqa-react-hook-form-migration.md`
+- `wiki/sources/ceqa-react-hook-form-migration.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `wiki/projects/call-center-web-app.md`
+- `wiki/projects/keks-admin-portal.md`
+- `index.md`
+
+Key result:
+
+- React Hook Form is the current form convention; verified pitfalls (stale `isValid` after `reset()`, `setValue` without validation, schema-inferred form types) are recorded with the fixes used.
+
+Follow-ups:
+
+- Decide whether and in what order the remaining Formik repositories migrate.
+
+## [2026-10-29] correction | Bora Production Scripts Follow paystack_production
+
+What changed:
+
+- Recorded the user's correction that production scripts must follow the `scripts/paystack_production` pattern: `PROD_` env values and pasted production data in `constants`, never the local runtime, which is staging, and never fetching what the constants hold.
+- Replaced the production seed and admin bootstrap description on the project page.
+
+Files touched:
+
+- `raw/sources/2026-10-29-bora-production-scripts-follow-paystack-production.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The project page names the production-script pattern and the two corrected scripts.
+
+## [2026-10-28] update | Bora Production Admin Bootstrap And Fund Seed
+
+What changed:
+
+- Recorded the production fund seed for `BBF1100`, from the printed sheet and created hidden, and the bootstrap path that invites a missing first administrator.
+
+Files touched:
+
+- `raw/sources/2026-10-28-bora-production-admin-and-fund-seed.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The project page says how production gets its first administrator and its funds.
+
+## [2026-10-28] decision | Bora Journey Since Inception Cannot Be Cleared
+
+What changed:
+
+- Recorded the user's decision that `updateFund` refuses an explicit `null` or `[]` for `sinceInceptionJourney` once a fund has a journey.
+
+Files touched:
+
+- `raw/sources/2026-10-28-bora-journey-cannot-be-cleared.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The Bora fund convention states how a stored journey is protected from clearing.
+
+## [2026-10-28] correction | Bora New Handoff Per Update And Admin Portal Ownership
+
+What changed:
+
+- Recorded the user's repeated correction that each new backend update gets a new dated handoff, and that the sent 2026-10-24 handoff was restored and the journey change moved to 2026-10-28.
+- Recorded that the admin portal is the frontend developer's work, its data is unverified, and Bora's PDFs are the only fund data source.
+
+Files touched:
+
+- `raw/sources/2026-10-28-bora-new-handoff-per-update-and-portal-ownership.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Handoff and data-source rules now name the per-update file and the portal's ownership.
+
+## [2026-10-28] correction | Bora Fund Chart Series Are The Printed Points
+
+What changed:
+
+- Recorded the user's correction that each chart series holds the values printed on that chart. `navHistory` holds the trend's NAV prices. The new `sinceInceptionJourney` holds the journey's GH¢ amounts.
+- Recorded that the earlier seed data came from the portal's chart-line-reconstructed CSVs.
+
+Files touched:
+
+- `raw/sources/2026-10-28-bora-fund-charts-are-printed-points.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The fund convention names both series, their units, and their source.
+
+## [2026-10-27] correction | Bora Funds Keep Two NAV Series
+
+What changed:
+
+- Recorded the user's correction that the 1 Year Price Trend (customers) and the Journey since inception (admin) are separate. `navHistory` is now the year only, and a new admin-only `sinceInceptionNavHistory` holds the journey. The seed writes both inline, with no CSV.
+
+Files touched:
+
+- `raw/sources/2026-10-27-bora-two-nav-series.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The fund convention names both series and who sees each.
+
+## [2026-10-27] correction | Bora Seed Restored And NAV History Is The 1 Year Price Trend
+
+What changed:
+
+- Recorded that `navHistory` is the sheet's 1 Year Price Trend.
+- Recorded that the 30 Sep seed is the user's original file restored and updated in place, keeping its original wording.
+
+Files touched:
+
+- `raw/sources/2026-10-27-bora-seed-restored-with-price-trend.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The seed convention names the price trend and the update-in-place rule.
+
+## [2026-10-27] correction | Bora Fund Seed Keeps The Full NAV History
+
+What changed:
+
+- Recorded the user's correction that the 30 Sep seed must keep each fund's full daily NAV series. Its single printed point had wiped the dev history.
+- The seed rule now includes the portal's 30 Sep NAV CSVs and forbids shrinking `navHistory` without confirmation.
+
+Files touched:
+
+- `raw/sources/2026-10-27-bora-seed-keeps-full-nav-history.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The seed convention no longer says single printed point.
+
+## [2026-10-26] decision | Bora Fund Facts In One Stored Format
+
+What changed:
+
+- Preserved the user's decisions and the audit behind them. Fund facts are now stored in one format: known sheet wording is normalized and unknown wording rejected. A benchmark figure is required on every performance row. NAV series are allowed with range checks. The seed uses the 30 Sep 2026 sheets with the printed text verbatim.
+- Recorded that the sheets' '1H' is calendar H1, not trailing 6M, and the open Bora sheet questions.
+
+Files touched:
+
+- `raw/sources/2026-10-26-bora-fund-fact-formats-and-sep-seed.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The fund-administration record carries the stored-format rules and the seed's 30 Sep basis.
+
+## [2026-10-26] decision | Empty Bora Exit-Fee List Means Nil
+
+What changed:
+
+- Recorded that the dev fund values are the 30 Sep sheets, republished through the portal on 2026-10-23, not seed errors.
+- Recorded that the portal saves a "Nil" redemption fee as an empty list, and the user's decision that an empty list shows "No exit fee".
+- Added an open question about the Balanced 30 Sep sheet's NAV label.
+
+Files touched:
+
+- `raw/sources/2026-10-26-bora-empty-exit-fees-mean-nil.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The customer exit-fee contract defines what an empty list means.
+
+## [2026-10-26] decision | Show Bora Customers Holding Period And Exit Fees
+
+What changed:
+
+- Preserved the user's requirement that customers see each fund's recommended holding period and redemption (exit) fee tiers before investing. Both were already stored; `CISFundDetails` now exposes them.
+- Recorded that `totalAum` is the fact sheet's "Fund Size".
+
+Files touched:
+
+- `raw/sources/2026-10-26-bora-customer-holding-period-exit-fees.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The customer fund contract carries the two disclosures customers need before investing.
+
+## [2026-10-26] correction | Bora Handoffs Carry Only Frontend Items
+
+What changed:
+
+- Recorded the user's correction that a frontend handoff is written for the frontend developer: backend open questions, deferred backend decisions, backend-owned issues, and questions for the user go to the user in chat, never into the handoff.
+- Recorded that the staging 502 was the 2026-10-23 `SPACES_ENDPOINT` fix (missing `https://`), and that earlier session transcripts are searched before a status claim is repeated.
+
+Files touched:
+
+- `raw/sources/2026-10-26-bora-handoff-audience-frontend-only.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `wiki/sources/bora-fund-fact-sheet-pdfs.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The handoff convention states its audience and what stays out of it.
+
+## [2026-10-26] correction | Remove Stale Bora Staging Storage Claim
+
+What changed:
+
+- Recorded the user's correction that staging storage was already fixed. The "staging banner uploads return 502" claim came from Kusantec's 23 Oct handoff and was stale; it was removed from the fact-sheet Source Record and the backend page.
+- Added the rule that status claims from third-party documents are confirmed with the user before they go into a handoff.
+
+Files touched:
+
+- `raw/sources/2026-10-26-bora-staging-storage-already-fixed.md`
+- `wiki/sources/bora-fund-fact-sheet-pdfs.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- No vault page says staging storage is broken.
+
+## [2026-10-25] ingest | Record LivelyCura HRM Employee Record Design
+
+What changed:
+
+- Preserved the user's 2026-10-25 employee-record redesign request, the "ERP is general-purpose" correction and their four plan answers.
+- Added a Source Record and a backend Durable Conventions bullet.
+
+Files touched:
+
+- `raw/sources/2026-10-25-livelycura-hrm-employee-record-design.md`
+- `wiki/sources/livelycura-hrm-employee-record-design.md`
+- `wiki/projects/livelycura-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Employee work starts from industry-neutral built-in fields plus organization-defined questions.
+
+## [2026-10-25] ingest | Record LivelyCura User Account Versus Employee Rule
+
+What changed:
+
+- Preserved the user's 2026-10-25 rule that the shared login account and an organization's employee record stay separate, with no syncing of HR edits.
+- Added a Source Record, a backend Durable Conventions bullet and a Loop App note.
+
+Files touched:
+
+- `raw/sources/2026-10-25-livelycura-user-account-vs-employee.md`
+- `wiki/sources/livelycura-user-account-vs-employee.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Employee fixes and account fixes stay separate; Loop shows employee details.
+
+## [2026-10-25] ingest | Record Think-Like-A-User Direction
+
+What changed:
+
+- Preserved the user's 2026-10-25 direction to judge fixes by real user behaviour, skip guards against unlikely actions, and avoid internal jargon.
+- Added a Source Record and one bullet under the Personal Operating Manual's Change And Remediation Work.
+
+Files touched:
+
+- `raw/sources/2026-10-25-think-like-a-user-direction.md`
+- `wiki/sources/think-like-a-user-direction.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future proposals are weighed by what real users would plausibly do.
+
+## [2026-10-25] decision | Record Bora Fund Fact-Sheet PDF Storage
+
+What changed:
+
+- Preserved the user's 2026-10-24 decisions on official fund fact-sheet PDFs: no versioning, extraction stays in the portal, a 3 MiB cap, a publish date guard, a new dated handoff, and the `SetFundVisibilityInput` rename.
+- Added a Source Record and updated the Bora backend page (fund model, private signed URLs and reference-checked deletes, current handoff, offline codegen) and the frozen-handoff record.
+
+Files touched:
+
+- `raw/sources/2026-10-25-bora-fund-fact-sheet-pdfs.md`
+- `wiki/sources/bora-fund-fact-sheet-pdfs.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The backend page carries the fact-sheet slot model, the private-upload serving rule, and `docs/frontend-handoff-2026-10-24.md` as the current handoff.
+
+## [2026-10-24] update | Drop the Holidays "Still to be announced" Card
+
+What changed:
+
+- Preserved the product owner's 2026-10-24 decision to remove the Eid "still to be announced" card: HR adds announced holidays itself, and a day HR doesn't add was not a holiday for that organization.
+- Updated the holidays Source Record, the backend and Pharmacy Portal pages, and the index entry.
+
+Files touched:
+
+- `raw/sources/2026-10-24-livelycura-hrm-holidays-no-expected-card.md`
+- `wiki/sources/livelycura-hrm-holidays-decisions.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- No holiday reminder card on any screen; Eid and other announced days are created with New Holiday.
+
+## [2026-10-24] update | Record LivelyCura HRM Holidays Build-Spec Answers
+
+What changed:
+
+- Preserved the product owner's two answers to the Holidays build spec as conversation evidence.
+- Added them to the holidays Source Record and the backend page's Holidays subsection.
+
+Files touched:
+
+- `raw/sources/2026-10-24-livelycura-hrm-holidays-spec-answers.md`
+- `wiki/sources/livelycura-hrm-holidays-decisions.md`
+- `wiki/projects/livelycura-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Holiday open-shift pickups count only for the picked-up shift, and unmarked holiday clock-ins are allowed but flagged for the manager.
+
+## [2026-10-23] ingest | Record LivelyCura HRM Holidays Decisions
+
+What changed:
+
+- Preserved the product owner's nine 2026-10-23 holiday decisions verbatim, with the research findings that prompted them, as conversation evidence.
+- Added a Source Record and a "Holidays (Decided, Not Yet Built)" subsection under the backend page's Decisions And Rationale.
+- Linked the Pharmacy Portal, Loop App, SERLP Mobile and Admin Portal pages to the backend rules.
+
+Files touched:
+
+- `raw/sources/2026-10-23-livelycura-hrm-holidays-decisions.md`
+- `wiki/sources/livelycura-hrm-holidays-decisions.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/projects/livelycura-admin-portal.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future HRM holiday work starts from the decided rules: everyone off by default with a per-holiday working list, one entry per year with a type, and attendance that corrects itself without overwriting clock-ins or manual corrections.
+
+Follow-ups:
+
+- Nothing is built yet; verify the pages against the implementation once it lands. Holiday pay waits for the Payroll feature.
+
+## [2026-10-23] ingest | Record LivelyCura HRM Leave Balances Decisions
+
+What changed:
+
+- Preserved the product owner's 2026-10-22/23 leave-balance decisions, the Labour Act 2003 (Act 651) sections they rely on, and the adopted review safeguards as conversation evidence.
+- Added a Source Record and a "Leave Balances (Decided, Not Yet Built)" subsection under the backend page's Decisions And Rationale.
+- Linked the Pharmacy Portal, Loop App, and SERLP Mobile pages to the backend rules.
+
+Files touched:
+
+- `raw/sources/2026-10-23-livelycura-hrm-leave-balances-decisions.md`
+- `wiki/sources/livelycura-hrm-leave-balances-decisions.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `wiki/projects/serlp-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future HRM leave work starts from the decided rules: hard annual balance in working days, reasoned append-only HR adjustments as the only override, full carry-over, and warn-only limits for other leave types.
+
+Follow-ups:
+
+- Nothing is built yet; verify the pages against the implementation once it lands. Payroll links (unpaid deductions, exit payout) wait for the Payroll feature.
+
+## [2026-10-22] update | Record Bora Handoff Sent-Status Correction
+
+What changed:
+
+- Recorded the user's correction that git state does not show whether a frontend handoff was sent: ask before adding to an existing dated handoff, and start a new one if it was sent or the answer is unknown.
+- Recorded that `docs/frontend-handoff-2026-10-17.md` was already sent and restored to that version, and that the push-device contract moved to `docs/frontend-handoff-2026-10-22.md`.
+- Pointed the backend, mobile, and push-device pages at the 2026-10-22 handoff.
+
+Files touched:
+
+- `raw/sources/2026-10-22-bora-handoff-sent-status-correction.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `wiki/sources/bora-push-device-binding.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future Bora work asks before extending a dated handoff instead of inferring sent status from git.
+
+## [2026-10-21] update | Record Nalo Recipient Format For Bora
+
+What changed:
+
+- Recorded the user's correction that Nalo rejects a number with a leading `+`, and that the adapter must remove it itself, as LivelyCura's does.
+- Recorded the user's own adapter rewrite, which is not matched to LivelyCura: any failure now returns false instead of throwing, and Hubtel always sends from `BoraCapital`.
+
+Files touched:
+
+- `raw/sources/2026-10-21-bora-nalo-msisdn-plus.md`
+- `wiki/sources/bora-notifications-marketing.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The Bora SMS records match the current adapter: numbers are sent without the plus, and failures return false.
+
+## [2026-10-21] update | Correct Bora Nalo SMS Record To The Simplified Build
+
+What changed:
+
+- Recorded the user's correction that the first Nalo build was over-engineered, given that LivelyCura had been named as the reference, and the simplified build that replaced it: a LivelyCura-shaped Nalo adapter, `SMS_PROVIDER=hubtel` as the only switch, bulk sending of identical texts, and every failure retried.
+- Removed the outcome classification, batch fallback, send budget, and startup credential check claims from the Bora pages.
+- Added a Change Control rule: build to a named reference implementation's scope, and propose any extra layers separately.
+
+Files touched:
+
+- `raw/sources/2026-10-21-bora-nalo-sms-simplification.md`
+- `wiki/sources/bora-notifications-marketing.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The Bora SMS records now match the simplified Nalo build, and the manual records how to build from a named reference.
+
+## [2026-10-21] ingest | Record Bora Nalo SMS Provider And Hubtel Switch
+
+What changed:
+
+- Recorded the user's requirement that Nalo becomes Bora's SMS provider while Hubtel stays switchable, and the five approved decisions: `SMS_PROVIDER` defaulting to `nalo`, a staging/production credential check at startup, unknown-outcome-no-resend for Nalo only, Nalo pacing of 100 SMS per 30 seconds with up to 100 recipients per request, and the campaign SMS hold unchanged.
+- Recorded the Nalo API facts (JSON send-message, a comma-separated recipient list with one job ID, documented status codes, no published rate limit) and the LivelyCura conventions followed.
+- Replaced the stale Hubtel-only pacing and hold wording, corrected the claim that Bora's `.env.default` is untracked, and replaced the Hubtel batch open question with the Nalo live checks.
+
+Files touched:
+
+- `raw/sources/2026-10-21-bora-nalo-sms-provider.md`
+- `wiki/sources/bora-notifications-marketing.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Bora SMS conventions now name Nalo as the default provider, Hubtel as the switchable alternative, the per-provider pacing, and the live checks still required before campaign SMS can be enabled.
+
+## [2026-10-21] ingest | Record Altin Onboarding And Post-Sign-In Gate
+
+What changed:
+
+- Recorded the user's onboarding request and decisions: onboarding (KYC) is how an organization gets approved, so pending or rejected organizations open it as the root screen; members with no organization, or a paused or closed one, see a blocking notice with contact support; approved organizations reach onboarding from More → Compliance.
+- Recorded the gate design (status and VIEW_KYC only, composite navigation key), the System freshness rules, the one-screen tabs layout the user chose over an Apps module or separate More rows, and the instruction to verify KYC writes and uploads offline only.
+- Noted the live finding that an active organization had no profile, and the open support-contact values and token-expiry remount.
+
+Files touched:
+
+- `raw/sources/2026-10-21-altin-onboarding-gate.md`
+- `wiki/sources/altin-onboarding-gate.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Future Altin work treats onboarding as the pre-approval root screen and keeps the gate keyed on status alone.
+
+Follow-ups:
+
+- Record the support contact values when the user supplies them.
 
 ## [2026-10-21] ingest | Record Bora Push Device Binding And Input-Object Convention
 
@@ -5201,3 +6993,322 @@ Files touched:
 Key result:
 
 - The project page no longer describes deleted files as present.
+
+## [2026-10-26] decision | Record LivelyCura Match-Existing-UI Correction
+
+What changed:
+
+- Recorded the user's correction that new LivelyCura screens copy existing ones: placeholders instead of hint text under inputs, no extra links or shortcuts in forms, no "Private" tags or lock badges, aligned grids, and HRM date inputs as DD MMM YYYY.
+
+Files touched:
+
+- `raw/sources/2026-10-26-livelycura-match-existing-ui.md`
+- `wiki/sources/livelycura-match-existing-ui.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Portal, serlp-mobile and Loop conventions and the development manual now carry the UI-matching rule.
+
+## [2026-10-30] update | Record Bora Remaining Funds Production Scripts
+
+What changed:
+
+- Recorded that production BCL now returns `BFI1100`, `BGF1100` and the new `CBF1100` alongside `BBF1100`. Fixed Income and Global Balanced received production Paystack setup and hidden fund seeds from the 30 Sep 2026 sheets, with Paystack bank code `240100` for both Fidelity accounts. `CBF1100` waits for a fact sheet and settlement account.
+
+Files touched:
+
+- `raw/sources/2026-10-30-bora-remaining-funds-production-scripts.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The project page no longer says `BBF1100` is the only production portfolio.
+
+## [2026-11-03] update | Record Bora CDH Balanced Paystack Setup
+
+What changed:
+
+- Recorded that `CBF1100` (CDH Balanced Fund) received production Paystack setup with Republic Bank code `110100`. Its fund seed still waits for a fact sheet.
+
+Files touched:
+
+- `raw/sources/2026-11-03-bora-cdh-balanced-paystack.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The project page no longer says `CBF1100` has no settlement account.
+
+## [2026-11-03] decision | Record Bora No Same-Database Guard Rule
+
+What changed:
+
+- Recorded the user's correction that Bora production scripts carry no guard against `PROD_MONGODB_URI` equalling `MONGODB_URI`, because the user sets both values. Agents must not add the guard, test for it, or flag its absence.
+
+Files touched:
+
+- `raw/sources/2026-11-03-bora-no-same-database-guard.md`
+- `wiki/sources/bora-fund-administration-access-control.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- The backend project page now states the rule next to the production-script conventions.
+
+## [2026-11-04] decision | Record Bora Node 26 Runtime And Shield chain() Ban
+
+What changed:
+
+- Recorded the production `util.isUndefined` incident and its cause: the buildpack installed the newest Node, and graphql-shield `chain()` calls `util.isUndefined`, which Node 23 removed.
+- Recorded the user's decisions: replace `chain()` with `allInOrder()` and run Node 26 LTS everywhere (`>=26.12.1 <27`).
+
+Files touched:
+
+- `raw/sources/2026-11-04-bora-node-26-and-shield-chain.md`
+- `wiki/sources/bora-node-runtime-and-shield-composition.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The backend project page states the Node policy and the `chain()`/`race()` ban.
+
+## [2026-11-04] update | Record Bora Dependency Advisories Cleared
+
+What changed:
+
+- Recorded the user-approved dependency upgrade. The unused nodemailer senders and package were removed, `fast-uri` is pinned to 3.1.9, and `qs`, `@protobufjs/utf8` and `uuid` were refreshed. The production audit is down from 20 moderate and 7 low findings to one unreachable low (`deepmerge`).
+
+Files touched:
+
+- `raw/sources/2026-11-04-bora-dependency-advisories-cleared.md`
+- `wiki/sources/bora-node-runtime-and-shield-composition.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The source record no longer lists the advisories as open.
+
+## [2026-11-10] update | Record LivelyCura Red And Hot App Kickoff
+
+What changed:
+
+- Recorded the owner's new project: Red and Hot, a second branded food-ordering app copied from Check City with identical logic and its own UI later. Captured the identity-only port, the unconfirmed identity defaults, the release-setup steps (including that `eas init` does not restore `updates.url`), the adversarial review result, and inherited Check City defects left unchanged.
+
+Files touched:
+
+- `raw/sources/2026-11-10-livelycura-red-and-hot-app-kickoff.md`
+- `wiki/sources/livelycura-red-and-hot-app-kickoff.md`
+- `wiki/projects/livelycura-red-and-hot-app.md`
+- `wiki/projects/livelycura-check-city-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Red and Hot has its own project page linked to Check City, with the "logic identical, fixes in both apps" convention.
+
+## [2026-11-10] update | Record Red And Hot UI Direction
+
+What changed:
+
+- Recorded the owner's choice of the "Chop Bar" UI direction for Red and Hot, the rule that the UI must look totally different from Check City, what is kept (card price sticker and add button) and what is redesigned (tab bar, product card image, item detail).
+
+Files touched:
+
+- `raw/sources/2026-11-10-livelycura-red-and-hot-ui-direction.md`
+- `wiki/sources/livelycura-red-and-hot-ui-direction.md`
+- `wiki/projects/livelycura-red-and-hot-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- The Red and Hot project page carries the direction, the distinctness rule and the `black` token prerequisite.
+
+## [2026-11-10] update | Record Red And Hot Chop Bar Picks And Build
+
+What changed:
+
+- Recorded the owner's Chop Bar part picks (Signboard plank tab bar, Edge to edge card, Torn paper item screen, photo fill), the build into the app, and that the owner chooses designs by seeing and clicking options.
+
+Files touched:
+
+- `raw/sources/2026-11-10-livelycura-red-and-hot-chop-bar-picks.md`
+- `wiki/sources/livelycura-red-and-hot-ui-direction.md`
+- `wiki/projects/livelycura-red-and-hot-app.md`
+- `log.md`
+
+Key result:
+
+- The Red and Hot pages carry the final picks and the pending device review.
+
+## [2026-11-11] update | Record Red And Hot Brand Colours
+
+What changed:
+
+- Recorded the owner's real logo and brand colours (red and white, red and black), the R&H app icon, the Menu tab icon and the rounded tab bar corners.
+
+Files touched:
+
+- `raw/sources/2026-11-11-livelycura-red-and-hot-brand-colours.md`
+- `wiki/sources/livelycura-red-and-hot-ui-direction.md`
+- `log.md`
+
+Key result:
+
+- The UI direction record now carries the brand colours that replace Chop Bar's warm palette.
+
+## [2026-11-16] update | Record Agent Workload Limit
+
+What changed:
+
+- Recorded the owner's limit for multi-agent runs on their 16 GB laptop (about four agents at once, a shared two-slot limiter for heavy commands, one headless Chrome at a time) and added it to the software development manual.
+
+Files touched:
+
+- `raw/sources/2026-11-16-agent-workload-limit-on-owner-laptop.md`
+- `wiki/sources/agent-workload-limit-on-owner-laptop.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Every agent reading the manual sees the workload limit before starting a parallel run.
+
+## [2026-11-19] ingest | Whole Fix And No Dev Test People Direction
+
+What changed:
+
+- Preserved the owner's direction that an approved fix is delivered whole, including review findings, without "leftovers" questions, and that agents never create test people on the shared dev database for on-screen checks.
+- Added both rules to the Personal Operating Manual's change-work preferences.
+
+Files touched:
+
+- `raw/sources/2026-11-19-whole-fix-and-no-dev-test-people-direction.md`
+- `wiki/sources/whole-fix-and-no-dev-test-people-direction.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Every agent sees that approved fixes are finished in one pass and that on-screen checks never seed the shared dev database.
+
+## [2026-11-20] ingest | SERLP AI Tab And Chats Drawer Direction
+
+What changed:
+
+- Preserved the owner's correction that SERLP AI stays a bottom tab whose tap slides in a full-screen AI screen (no header button, no swipe between pages), that the chats drawer pushes the chat aside like the Claude and ChatGPT apps, and that "tab" in the owner's action descriptions means "tap".
+- Added it to the SERLP Mobile project page's durable conventions.
+
+Files touched:
+
+- `raw/sources/2026-11-20-serlp-ai-tab-and-chats-drawer-direction.md`
+- `wiki/sources/serlp-ai-tab-and-chats-drawer-direction.md`
+- `wiki/projects/serlp-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Every agent working on serlp-mobile sees how SERLP AI opens and how its drawer moves, and reads the owner's "tab" as "tap".
+
+## [2026-11-20] update | SERLP AI Drawer Reference And Icons Reversal
+
+What changed:
+
+- Preserved the owner's follow-up: the chats drawer copies the Claude and ChatGPT iPhone apps (from screenshots and a recording), the organization and credits sit at the drawer's foot, and the arrow-up send and boxed-pencil New chat icons go back after the owner withdrew the earlier change.
+- Corrected the Source Record and the SERLP Mobile convention, which still said the opposite about the icons.
+
+Files touched:
+
+- `raw/sources/2026-11-20-serlp-ai-drawer-reference-and-icons-reversal.md`
+- `wiki/sources/serlp-ai-tab-and-chats-drawer-direction.md`
+- `wiki/projects/serlp-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents see the current drawer design and icons, not the withdrawn ones.
+
+## [2026-11-22] update | Bora Backlog Committed And Deposits Script Made Local-Only
+
+What changed:
+
+- Preserved the owner's "commit everything" instruction and the decision to gitignore `scripts/deposits_production`, like the other production script folders.
+- Recorded commit `ca3cfa1` on `feature/updates`: the audit fixes and deposit and withdrawal backlog work that the project page listed as uncommitted, plus the 2026-11-22 handoff. Not pushed.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-backlog-committed-and-deposits-script-gitignored.md`
+- `wiki/sources/bora-local-only-scripts.md`
+- `wiki/projects/bora-capital-backend.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents know the backlog work is committed, not loose in the working tree, and that `scripts/deposits_production` must never be committed.
+
+## [2026-11-22] update | Bora Emails Matched Ignoring Letter Case
+
+What changed:
+
+- Preserved the owner's reversal of the same day's "lookups stay exact" decision and the approval of case-insensitive matching, with emails still stored and sent exactly as typed.
+- Recorded the `email_ci_1` collation index, the users-query guard, the migration, the read-only production audit, and the new same-day handoff `docs/frontend-handoff-2026-11-22-emails.md`.
+- Replaced the project convention that stored emails lowercase.
+
+Files touched:
+
+- `raw/sources/2026-11-22-bora-email-case-insensitive-matching.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/sources/bora-frontend-handoff-frozen.md`
+- `log.md`
+
+Key result:
+
+- Agents know Bora matches emails ignoring letter case and never lowercases a stored or sent email, and that the app's no-lowercase build must ship after this backend.
+
+## [2026-11-23] ingest | Record LivelyCura HRM Roles Decide For All HRM
+
+What changed:
+
+- Preserved the product owner's 2026-11-23 answer verbatim: "roles decide" (HR-led through roles) now covers every HRM approval and action, including open-shift pickups, overtime and leave.
+- Added a Source Record and one decision line, plus the source, on the Backend, Pharmacy Portal and SERLP Mobile pages, and an index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-23-livelycura-hrm-roles-decide-all-hrm.md`
+- `wiki/sources/livelycura-hrm-roles-decide-all-hrm.md`
+- `wiki/projects/livelycura-backend.md`
+- `wiki/projects/livelycura-pharmacy-portal.md`
+- `wiki/projects/serlp-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents design every HRM approval and approver notification around roles at the record's branch, with organization-wide roles counting everywhere: HR runs it all where a business has an HR team, branch managers only when given the permissions.
+
+Follow-ups:
+
+- Check the existing HRM approvals and approver notifications against the rule.

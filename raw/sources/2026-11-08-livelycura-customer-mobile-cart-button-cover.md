@@ -1,0 +1,10 @@
+# LivelyCura customer mobile: cart button in the tab bar opens a cover
+
+Date: 2026-11-08
+Source: direct user requests, corrections and approval in a `livelycura-customer-mobile` session, plus the code changed and verified in that session (paraphrased).
+
+The user felt the floating cart bubble and the floating orders-in-progress bar crowded the screen. They shared an inspo (a shopping-app tab bar with a separate round cart button holding a count badge) and described Telegram's iOS 26 search button: tapping it opens a screen that grows out of the button and covers the phone.
+
+The agent's first build made the cart a normal tab in the separate slot; the user rejected it ("what I explained is not what you did") because the cart opened as a tab with the tab bar still showing, and because the count badge was clipped ("not showing in full"). Asked to confirm, the user agreed the intended behaviour is: the cart grows out of the round button into a full screen covering everything, tab bar included, and a close button shrinks it back into the button.
+
+Implemented (uncommitted, branch `feature/ui-updates`): the cart button is the native tab bar's separate round button (`tabBarRole` "prominent" on iOS 27+, the search slot on iOS 26.1+, a normal fifth tab on older iOS and Android) with `tabBarSelectionEnabled: false`, so it never becomes the selected tab. Its press pushes a transparent-modal `cart` route whose content animates from the button's frame to full screen (rounded card, items fading in) and back on close; Android back closes it the same way. iOS clips native badges on the separate button, so the count is a JS badge drawn over the button's corner. Product details' "View cart" opens the same cover. The floating cart bubble was removed. The user then said the opening was too fast; it was slowed to a smooth 0.7 s open and 0.5 s close, and the user approved ("Looks right"). Verified on the iPhone 17 Pro simulator (iOS 26) with screen recordings; iOS 27, older iOS and Android were not run.

@@ -16,6 +16,11 @@ sources:
   - ../sources/altin-module-builds-and-scope-corrections.md
   - ../sources/altin-profile-support-ui-corrections.md
   - ../sources/bora-bcl-error-passthrough-and-secret-files.md
+  - ../sources/think-like-a-user-direction.md
+  - ../sources/livelycura-hrm-feature-by-feature-review.md
+  - ../sources/no-project-copies-direction.md
+  - ../sources/whole-fix-and-no-dev-test-people-direction.md
+  - ../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md
   - ../sources/agent-context-handoffs-directive.md
   - ../sources/vault-capture-first-auto-publish-directive.md
 confidence: high
@@ -35,6 +40,9 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Explain architecture, relationships, and rationale so the user can see how the pieces fit together and learn along the way.
 - Avoid generic tutorial padding; connect explanation directly to the current decision or implementation.
 - Do not agree automatically. When a proposed approach is technically wrong or unsafe, say so plainly, explain why, and recommend the stronger design.
+- Keep explanations in plain words. An overcomplicated explanation of a simple change gets rejected. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-20 Bora corrections]].
+- Once the owner decides or rejects a finding, never raise it again in later reviews or audits. Record decided items and brief reviewers with them as known non-issues. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-21 Bora decisions]].
+- A document for an outside party, such as a partner's API team, covers only what that party asked for. It must not carry decisions for either side, the owner's own to-do lists, or unrelated topics. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-20 BCL flow document correction]].
 
 ### Change And Remediation Work
 
@@ -44,8 +52,13 @@ This page is the central map of durable knowledge about how the user prefers to 
 - A question about whether work can continue is not authorization to edit. During a paced sequence, wait for an explicit next instruction.
 - Change only what was asked for. Treat an unanswered proposal as declined; a broader instruction does not approve it. See [[../sources/altin-module-builds-and-scope-corrections|the Altin scope corrections]].
 - When the user says to update or do something, complete its whole reasonable scope. Do not do part of it and then ask whether to do the rest. See [[../sources/altin-module-builds-and-scope-corrections|the Altin scope corrections]].
+- When the owner approves a fix, deliver it whole: every app, screen, message and follow-on effect it touches, including what a review of that fix finds. Never come back with "leftovers" to ask about; only separate features or decisions that are truly the owner's (such as exact wording) go back as a question. See [[../sources/whole-fix-and-no-dev-test-people-direction|the 2026-11-19 whole-fix direction]].
+- Never create test users, employees or organizations on a shared dev database to check a flow on screen, and don't offer to. Verify with tests that seed their own data and with fake client-side state on a separate origin. See [[../sources/whole-fix-and-no-dev-test-people-direction|the 2026-11-19 whole-fix direction]].
 - Do not report UI work done until every new or changed screen has been viewed on the running device; type-checks and code review are not enough. If the device is unavailable, say the UI is unverified. Mirror the reference app's fields and explain any that cannot work instead of dropping them. See [[../sources/altin-profile-support-ui-corrections|the Altin UI corrections]].
 - Never read `.env` or other secret-bearing files in any project, even to make a live provider call; the user runs credentialed calls. See [[../sources/bora-bcl-error-passthrough-and-secret-files|the 2026-10-11 secret-file direction]].
+- Judge proposed fixes and decisions by how real users would behave, not only by what the system allows. Don't propose guards against things users would realistically never do, and explain options in the app's own words rather than internal terms. See [[../sources/think-like-a-user-direction|the 2026-10-25 think-like-a-user direction]].
+- In a feature-by-feature review, report and decide only the current feature's items. A finished feature stays closed, even when the current feature's change caused a new finding there. Items for a later feature are parked silently and raised only when that feature is reached; never list them to the user. An item that only appears on the current feature's screen (a Products permission box on the Roles page) still belongs to its own module. Don't call a message vague, or flag it for rewording, when it already tells the user what happened. See [[../sources/livelycura-hrm-feature-by-feature-review|the 2026-11-01 feature-by-feature correction]].
+- Never make a copy of a project folder (a git worktree) to do work, and never start side sessions that do. Work in the existing folder, on the current branch or a branch made there. If uncommitted work or a running dev server stands in the way of a separate branch, say so plainly before acting and offer in-place choices; a "second folder" mentioned inside an option's description is not consent. See [[../sources/no-project-copies-direction|the 2026-11-12 no-project-copies direction]].
 
 ### Project-Specific Constraints
 
@@ -114,6 +127,9 @@ This page is the central map of durable knowledge about how the user prefers to 
 - [[../sources/altin-module-builds-and-scope-corrections|Altin Module Builds and Scope Corrections]]
 - [[../sources/altin-profile-support-ui-corrections|Altin Profile and Support UI Corrections]]
 - [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]]
+- [[../sources/think-like-a-user-direction|Think Like A User Direction]]
+- [[../sources/livelycura-hrm-feature-by-feature-review|LivelyCura HRM Feature-By-Feature Review Scope]]
+- [[../sources/no-project-copies-direction|No Project Copies Direction]]
 - [[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]]
 - [[../sources/vault-capture-first-auto-publish-directive|Vault Capture-First Auto-Publish Directive]]
 

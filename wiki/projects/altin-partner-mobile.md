@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [project, ceqa, altin, expo, react-native, partner-operations]
 sources:
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
@@ -24,6 +24,7 @@ sources:
   - ../sources/altin-support-chat-first-redo.md
   - ../sources/altin-profile-separate-editors-correction.md
   - ../sources/altin-reports-mobile.md
+  - ../sources/altin-onboarding-gate.md
 confidence: high
 ---
 
@@ -31,7 +32,7 @@ confidence: high
 
 ## Summary
 
-Altin Partner Mobile is an Expo application scaffold for authenticated partner operations across orders, outlets, fleet, team, accounting, and billing. Orders has an organization-aware overview, Delivery Orders and Tips lists, record details, and API-integrated creation and issue reporting. Outlets now has overview/list/details, create/edit, and CSV bulk-import API integration, with live testing reserved to the user. Fleet has a first pass: overview, six section lists, details, and permission-gated courier-group create/edit, with native/live verification pending. Team (members, invite, change role, remove, roles with create/edit), Accounting (Today card, transactions, wallet statement), and Billing (current billing, invoices, settlements) are built, as are API keys and Webhooks on More, and Notifications with support-ticket details and reply. Home analytics, Search, and organization selection are implemented. Profile (view and in-place edit of photo, phone number with inline OTP change or verification, and alternate phone) and Support (ticket list, Raise a ticket with attachments and order links, ticket details) open from More. The Reports tab (built 2026-10-18; the unused `ComingSoon` component was deleted on 2026-10-20) lists the permitted web reports, six SHIPPER then four FLEET, as one mobile card per record, with Print, PDF, and CSV exports that match the web partner app's. Push notifications are deferred. Guarded screens use `withPermission`; Profile and Support are deliberately ungated, as on the web.
+Altin Partner Mobile is an Expo application scaffold for authenticated partner operations across orders, outlets, fleet, team, accounting, and billing. Orders has an organization-aware overview, Delivery Orders and Tips lists, record details, and API-integrated creation and issue reporting. Outlets now has overview/list/details, create/edit, and CSV bulk-import API integration, with live testing reserved to the user. Fleet has a first pass: overview, six section lists, details, and permission-gated courier-group create/edit, with native/live verification pending. Team (members, invite, change role, remove, roles with create/edit), Accounting (Today card, transactions, wallet statement), and Billing (current billing, invoices, settlements) are built, as are API keys and Webhooks on More, and Notifications with support-ticket details and reply. Home analytics, Search, and organization selection are implemented. Profile (view and in-place edit of photo, phone number with inline OTP change or verification, and alternate phone) and Support (ticket list, Raise a ticket with attachments and order links, ticket details) open from More. The Reports tab (built 2026-10-18; the unused `ComingSoon` component was deleted on 2026-10-20) lists the permitted web reports, six SHIPPER then four FLEET, as one mobile card per record, with Print, PDF, and CSV exports that match the web partner app's. Organization onboarding (KYC) and a post-sign-in gate were built on 2026-10-20 to 2026-10-21: members without an organization, or whose organization is paused or closed, see a blocking notice; pending or rejected organizations open onboarding as the root screen until approved; approved organizations reach it from More → Compliance. See [[../sources/altin-onboarding-gate|the onboarding record]]. Push notifications are deferred. Guarded screens use `withPermission`; Profile and Support are deliberately ungated, as on the web.
 
 ## Purpose
 
@@ -49,7 +50,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 ## Architecture
 
 - `App.tsx` composes Redux, theme, Apollo, gesture handling, and navigation.
-- The root stack selects Login or authenticated routes from persisted authentication state.
+- The root stack selects Login, the no-organization notice, the organization picker, the status gate (onboarding or a status notice for an organization that isn't active), or the authenticated routes. The gate reads only the organization status and `VIEW_KYC` from System; its route group uses the composite navigation key `${org}:${gate}`. Memberships are reloaded from System every launch and never persisted. See [[../sources/altin-onboarding-gate|the onboarding record]].
 - The authenticated bottom tabs are Home, Search, Reports, and More. The center Apps action opens a root-stack directory with a header Back button and preserves the selected tab underneath. Notifications is a root-stack screen opened from the Home header bell. See [[../sources/altin-theme-navigation-runtime-corrections|the Reports tab correction]].
 - The Apps directory links to Orders, Outlets, Fleet, Team, Accounting, and Billing stacks.
 - Apollo reads the current Redux access token, attaches the bearer header, and sends operations to the configured API. Verify live client configuration before assuming token refresh or additional headers.
@@ -66,6 +67,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 - `src/apps`: active module-directory metadata plus tracked legacy generic shell files that currently have no route or barrel consumers.
 - `src/orders`, `src/outlets`, `src/fleet`, `src/team`, `src/accounting`, `src/billing`: module-owned roots, drawers, constants/styles, and feature screens.
 - `src/more/apikeys`, `src/more/webhooks`, and `src/more/profile` own the More-tab screens; `src/notifications` owns the inbox; `src/support` owns `ticketList`, `ticketCreate`, and `ticketDetail`. File uploads use the shared `src/helpers/uploadBlob.ts`, and `src/components/toastHost` renders toasts at the root and inside mutation-running modals.
+- `src/onboarding` owns the one Onboarding screen (status card, Profile/Documents/History tabs, in-place KYC editors, uploads); `src/organizations` owns the picker and the status notices. Shared `Notice`, `ContactSupport`, `DatePickerSheet`, and `DetailTabs` live in `src/components`. See [[../sources/altin-onboarding-gate|the onboarding record]].
 - `src/reports` owns the Reports tab, its catalog, and the shared report layout, filters, builders and export service; each report is a sibling feature folder with its own operation hook, screen hook, builder and screen. See [[../sources/altin-reports-mobile|the Reports record]].
 - Shared hooks in `src/hooks` include `usePermissions`, `useSheetTransition` (bottom-sheet motion), `useCopyText` (lazy `expo-clipboard`), and `useUnreadNotificationCount`. Combined permission rules live in `src/constants/permissions.ts`.
 - Orders lists belong to `deliveryOrders` and `tips`; read-only detail features belong to sibling `deliveryOrderDetail` and `tipDetail` folders. Do not put the detail screen and list screen in the same feature folder.
@@ -154,6 +156,9 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 - The report screen is mobile-native: one card per record (period, courier, or leaderboard) holds all its figures and status breakdowns. No horizontal-scrolling tables, no separate status tables, and no "Summary" label on the totals card. Each report's loading skeleton matches the shape of its own cards. On screen, missing values show "—", never 0, and rates come from counts. See [[../sources/altin-reports-mobile|the Reports record]].
 - Print, PDF, and CSV are the web partner app's exports, not a mobile design: the web's `PrintAdminReportModal` page and `exportToCSV` rows, columns, formatting, and file names, with Print printing the generated PDF. Order funnel, Payment attempts, and Assignment efficiency use A4 landscape, the rest portrait, as on the web, and Print passes the matching orientation to the print sheet. The only differences are the documented deliberate ones: backend rate fractions scaled to percentages, a UTF-8 BOM written as bytes, doubled embedded quotes, CSV headings from all rows, plain-text courier lines that keep the web `CourierCell` wording ("Pending Verification", "No ratings"), and a 297 × 210 mm sheet for landscape reports (`print.landscape`). One builder per report returns `{ preview, print, csv }` from the same data. See [[../sources/altin-reports-mobile|the Reports record]].
 - Report exports scale backend rate fractions to percentages (user decision, 2026-10-18). The backend sends rates such as `acceptanceRate`, `successRate`, and `commissionRate` as fractions (0.5275 = 52.75%). Print, PDF, and CSV for Assignment efficiency, Payment attempts, and Revenue & commission scale them with `fractionToPercent`, which moves the decimal point two places in the Decimal string instead of multiplying a float. The web's percent format and "%" headings stay. See [[../sources/altin-reports-mobile|the Reports record]].
+- Onboarding is how an organization gets approved, so pending or rejected organizations open it as the root screen until approved; it is never a post-approval step (user decision, 2026-10-20). Paused and closed organizations, and members with no organization, see a blocking notice with contact support. See [[../sources/altin-onboarding-gate|the onboarding record]].
+- Onboarding is one screen: the status card on top, then Profile · Documents · History tabs opening on the next job, with account actions in a header menu before approval and a Compliance section on More after (user decision, 2026-10-21). Do not move it into Apps or split it into separate More rows. See [[../sources/altin-onboarding-gate|the onboarding record]].
+- KYC writes, document uploads, resubmit for approval and support contacts are never exercised against production; verify them offline and only open and cancel editors on the device (user instruction, 2026-10-21). See [[../sources/altin-onboarding-gate|the onboarding record]].
 - Report dates use the six web presets with the web's day ranges: Last 7 and Last 30 days start 7 and 30 days before today, and This month runs to its last day. The range is computed once per "Generate report" and stored in `useReportFilters`; the query, the scope line, and every export use that stored range, and refresh moves it forward after midnight. Receivables aging has no date filter, so refresh always just refetches it. See [[../sources/altin-reports-mobile|the Reports record]].
 
 - Desired architecture: every module owns its root, drawer, sections, constants, styles, hooks, data, and concrete feature screens. `Apps` owns directory metadata and root navigation only; shared components remain presentation-only.
@@ -186,6 +191,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 - The Orders implementation follows [[../sources/altin-orders-mobile-web-reference|the approved web-reference and mobile-architecture decisions]]. Web sidebar sections become mobile overview/drawer/list/detail experiences rather than a copied desktop layout.
 - Reports split the screen from the documents (user corrections, 2026-10-18). The first build copied the web's wide tables with horizontal scrolling and a separate status table; the user replaced it with one card per record, because on a phone each record's figures belong together. The exports went the other way: Print, PDF, and CSV stay identical to the web's, so a report reads the same from either app. Each deliberate difference fixes a defect in the web output: Excel needs the BOM to read "GH₵", unescaped quotes break the CSV, first-row headings drop status columns, and the web's courier cell loses its styles in the print page. Rate scaling is the same kind of fix: the web prints the backend's fractions unscaled, so its exports show "0.53%" for a 52.75% rate. So is the landscape sheet: the web keeps its 210 mm sheet inside a landscape page and lets the browser shrink the table, but iOS clips it, which cut off Payment attempts' last columns until the sheet became 297 × 210 mm. See [[../sources/altin-reports-mobile|the Reports record]].
+- The onboarding gate keys on organization status rather than a KYC flag because no "onboarded" flag exists and onboarding precedes approval; the user's first ordering would have locked pending members out of the KYC that approves them. Tabs won over an Apps module or separate More rows because pending members can reach neither Apps nor More. See [[../sources/altin-onboarding-gate|the onboarding record]].
 - Revenue & commission is kept despite the schema's deprecation (it overcounts cash COD), because its replacement, `revenueSummary`, is super-admin only. See [[../sources/altin-reports-mobile|the Reports record]].
 
 ## Verification Expectations
@@ -201,6 +207,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Evidence
 
+- [[../sources/altin-onboarding-gate|Altin Onboarding and the Post-Sign-In Gate]]: direct user requests and decisions on 2026-10-20 and 2026-10-21, research in the web partner and admin apps, the repository's `docs/onboarding.md` and `AGENTS.md` section, 118 offline checks, and read-only simulator checks. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-reports-mobile|Altin Reports Mobile]]: direct user corrections and decisions on 2026-10-18 and user-approved fixes on 2026-10-20, the repository's `docs/reports.md` and `AGENTS.md` Reports section, offline checks, and a read-only simulator check of every report screen and most exports. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-profile-separate-editors-correction|Altin Profile Separate Editors Correction]]: direct user correction on 2026-10-09 and the LivelyCura phone helpers.
 - [[../sources/altin-support-chat-first-redo|Altin Support Chat-First Redo]]: user decisions on 2026-10-09, the Check City reference, an adversarial review, and simulator checks.
@@ -227,6 +234,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Contradictions
 
+- The admin app says approval requires a verified KYC profile, but a live active organization had no profile or documents. The onboarding screen calls approved organizations "approved", not "verified". See [[../sources/altin-onboarding-gate|the onboarding record]].
 - The Reports build supersedes the statement that the Reports tab is a placeholder. Its card-per-record correction replaces the first build's horizontally scrolling tables. See [[../sources/altin-reports-mobile|the Reports record]].
 - Scaling rate fractions is a user-approved departure from exports identical to the web's, because the web's rates are 100 times too small. Since 2026-10-20 the repository's `docs/reports.md` and `AGENTS.md` say exports print the web's values except rates, which are scaled to percentages. See [[../sources/altin-reports-mobile|the Reports record]].
 - The inline edit correction replaces the separate Edit profile, Change phone number, and Verify phone screens with in-place editing on Profile. See [[../sources/altin-profile-inline-edit-correction|the inline edit correction]].
@@ -264,7 +272,8 @@ High for current static architecture and explicit repository conventions; medium
 - Should the web partner app scale its rates too, so both apps' exports match?
 - Is the blob upload path `/v1/blobs` (the mobile REST base) or `/blobs` (the web)? Does `updateProfile` accept partner members?
 - When will the backend add name, city, and about to `updateProfile` and make the photo optional?
-- Should `useSystemQuery` block only on its first load? The user deferred this hardening.
+- What are the support WhatsApp, phone and email values? They are placeholders and a release blocker. The earlier question of System blocking only on its first load was settled by the onboarding pass.
+- Should the Apollo auth link await the token refresh so an expired token on resume no longer unmounts navigation?
 - Should the shared keyboard-avoiding view change for Android so the ticket reply composer stays visible?
 - When will the generic module-shell files be removed after module-local screens replace them?
 - Should token persistence move to platform secure storage before production?

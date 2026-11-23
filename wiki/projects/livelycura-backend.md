@@ -2,9 +2,15 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-10
-tags: [project, livelycura, backend, graphql, erp]
+updated: 2026-11-21
+tags: [project, livelycura, backend, graphql, erp, hrm]
 sources:
+  - ../sources/livelycura-hrm-shift-management-scope-decision.md
+  - ../sources/livelycura-hrm-roles-decide-all-hrm.md
+  - ../sources/livelycura-hrm-employee-record-design.md
+  - ../sources/livelycura-user-account-vs-employee.md
+  - ../sources/livelycura-hrm-holidays-decisions.md
+  - ../sources/livelycura-hrm-leave-balances-decisions.md
   - ../sources/livelycura-marketplace-single-delivery.md
   - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/livelycura-graphql-contract-compatibility.md
@@ -82,6 +88,8 @@ Dockerfile plus database, development, and production Compose files. GitHub work
 
 ## Durable Conventions
 
+- The ERP is general-purpose, not pharmacy-only: HRM built-in fields, defaults and copy stay industry-neutral, and industry-specific data goes into each organization's own questions. Employee records get built-in Job and Personal details, Don't ask/Optional/Required switches and organization custom fields, with private details behind a dedicated permission. Source: [[../sources/livelycura-hrm-employee-record-design|Employee record design]].
+- One User account (keyed by phone number) serves every client app, including Check City; an Employee record is one organization's data. HR edits to an employee never change the User account, and staff screens such as Loop's personal information show the Employee record. Source: [[../sources/livelycura-user-account-vs-employee|User account versus employee record]].
 - Fleet GraphQL mirrors the established HRM module architecture. Define named, documented resolver functions that call feature services directly; let GraphQL Shield own endpoint permission and tenant-context checks; compose feature SDL through one interpolated `#graphql` template; and compose the root map explicitly by `Query`, `Mutation`, and object type. Do not add a Fleet principal/module/facility validation layer between Shield and services. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Fleet GraphQL architecture correction]].
 - Fleet services receive one typed parameter named `data`. Resolvers pass generated GraphQL data directly and add only an authenticated actor user ID when required; services fetch the user rather than receiving a full user document. Do not restore `{ principal, input }` wrappers or positional actor arguments. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Fleet feature-slice correction]].
 - Fleet service errors start with the missing entity and name the scope as facility when `facilityId` is supplied, otherwise organization. Avoid Fleet prefixes and workspace wording. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Fleet error-scope correction]].
@@ -172,12 +180,46 @@ Dockerfile plus database, development, and production Compose files. GitHub work
 - Order Live Activities remain deferred on a local feature branch. The active backend branch has no Live Activity implementation.
 - Marketplace Orders describe bidding demand and lifecycle. Direct Orders describe ordinary organization fulfillment, including accepted manual/automatic bids; accepted bids intentionally appear in both views.
 
+### Leave Balances (Decided, Not Yet Built)
+
+HRM leave balances were decided by the product owner on 2026-10-22/23 and follow the Ghana Labour Act 2003 (Act 651). Source: [[../sources/livelycura-hrm-leave-balances-decisions|LivelyCura HRM Leave Balances Decisions]].
+
+- Annual leave is a hard balance on a calendar leave year. A request, recording or approval that does not fit is refused for employees and managers alike; HR's only override is a manual adjustment with a written reason in an append-only adjustment log.
+- Each organization sets one annual allowance, never below 15 working days (s.20(1)). Individual exceptions are yearly reasoned HR adjustments. Mid-year joiners get `ceil(allowance × days employed in the year ÷ days in the year)`, usable at once, from an optional employee employment start date (empty means a full year). An organization starting mid-year enters each employee's days already taken as one opening adjustment.
+- Annual leave is charged in the employee's own working days from their weekly shifts; off days and organization holidays are not charged. Staff without weekly shifts use an organization default working week (Monday–Friday, HR-editable).
+- Unused annual days carry over in full with no cap (s.31). Sickness, pregnancy and public holidays never reduce the entitlement, and special, compassionate and unpaid leave never count as annual leave (s.22, s.23). Certified sickness during annual leave is not charged, and recalled workers keep the remainder (s.24, s.25).
+- Pending requests hold their days; rejected, withdrawn, cancelled and expired requests release them; leave ended early returns unused days.
+- Sick, paternity and compassionate leave take optional yearly limits that only warn and are empty by default. Maternity is per pregnancy with a default of 12 weeks that HR can raise but never lower (s.57); a longer maternity leave only warns. Unpaid and other leave are counted with no limit.
+- Safeguards: holiday changes re-price leave only in the current and later years, with past years frozen and corrected by adjustment; approval must not push already-approved future-year leave below zero; balance checks are scoped to the leave's branch; managers cannot adjust their own balance; employment start date edits are audited.
+- Unpaid-leave deductions and payout at exit belong to the later Payroll feature.
+
+### Holidays (Decided, Not Yet Built)
+
+HRM holidays were decided by the product owner on 2026-10-23. Source: [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]].
+
+- Everyone is off on a public holiday by default; each holiday carries a "working that day" list that managers fill, and new hires are covered automatically. One shared "is this employee off for a holiday on this day" rule drives attendance, schedules, shortfall views, open-shift eligibility and Loop. Picking up an open shift on a holiday counts as working; shortfall views show holiday shifts as "Holiday" with the number working.
+- Holidays are one entry per year. "Repeats every year" means the system creates next year's entry itself, and this year's and next year's entries always exist, so a date edit changes one year only. Each holiday has a type, Public holiday or Company day off; imported holidays are Public, and HR must choose the type and "Every year" or "This year only" when creating one, with nothing pre-selected.
+- Attendance corrects itself after holiday or working-list changes for people who did not clock in, records who caused the change, and never overwrites a clock-in or a manager's manual correction; the leave resync follows the same rule.
+- Public holidays come from the feed only when it covers the country, nationwide public days only, with an "add your holidays" warning otherwise; every screen uses one 88-country picker. Eid and other short-notice or government-moved days are added by each organization's HR with New Holiday when declared; the "still to be announced" card was dropped on 2026-10-24.
+- Loop notifies staff when a holiday is added, moved or deleted or when they are marked as working on it, and lists the year's holidays.
+- A picked-up open shift on a holiday counts only for that shift. Clock-in on a holiday is never refused: an unmarked person's clock-in is recorded as Present and flagged "Clocked in but not marked" for a one-click "Mark as working" (owner answers, 2026-10-24).
+- Holiday pay belongs to the later Payroll feature and will follow the working list.
+
+### Shift Management Scope (Decided, Not Yet Built)
+
+Shift actions (create or edit a shift and its day slots, assign, unassign, edit an assignment) count roles at the shift's own branch on every screen and in SERLP AI: HR's organization-wide role covers every branch, a branch manager needs a branch role with shift rights, and there is no organization-only lock (product owner, 2026-11-21). Source: [[../sources/livelycura-hrm-shift-management-scope-decision|LivelyCura HRM Shift Management Scope Decision]].
+
+On 2026-11-23 the owner widened "roles decide" to all of HRM: approving open-shift pickups, overtime and leave, and every other day-to-day HRM action, count roles at the record's branch with organization-wide roles counting everywhere, so HR runs it all where a business has an HR team and branch managers act only when given the permissions; approver notifications follow the same rule. Source: [[../sources/livelycura-hrm-roles-decide-all-hrm|LivelyCura HRM Roles Decide For All HRM]].
+
 ## Verification Expectations
 
 Run generation, lint/format, Vitest unit and integration suites, build, then live HTTP/GraphQL/subscription smoke checks for runtime changes. For stock/schema evolution, test migration reruns, reference repointing, movement-based `lineCost` backfill, zero-quantity behavior, active uniqueness, malformed-identifier diagnostics, and transaction boundaries without opening a second database connection. Product non-null changes must cover null/missing legacy fields, create defaults, and update null suppression. For sale/MLS integration, verify stock and non-stock lab sales, zero-inventory services, stock-default misclassification, no request merely on order placement, transaction rollback, one-request-per-item idempotency, lifecycle permissions, and definition/version pinning. For custom apps, verify assignment ownership, no write-on-read behavior, enablement, banner lifecycle/targeting, and analytics. For courier changes, verify the full ERP creation through rider completion and cash-remittance journey, not only isolated service tests. Marketplace administration changes additionally require a dry-run migration, exact cross-organization category filtering, publication validation, access-revocation cleanup, referenced-category protection, existing ProductLinking coverage, and Direct Orders coverage.
 
 ## Evidence
 
+- [[../sources/livelycura-hrm-shift-management-scope-decision|LivelyCura HRM Shift Management Scope Decision]] records the product owner's 2026-11-21 "roles decide" choice with the investigation that prompted it. Nothing is implemented yet.
+- [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]] records the product owner's 2026-10-23 holiday decisions with the research context that prompted them. Nothing is implemented yet.
+- [[../sources/livelycura-hrm-leave-balances-decisions|LivelyCura HRM Leave Balances Decisions]] records the product owner's 2026-10-22/23 leave-balance decisions and the Act 651 sections they rely on. Nothing is implemented yet.
 - [[../sources/livelycura-marketplace-single-delivery|LivelyCura Marketplace Single Delivery]] records the 2026-10-04 removal of split fulfillment and multi-stop routes, and the single LivelyCura-dispatched marketplace delivery task.
 - [[../sources/livelycura-lab-order-agent-environment-correction|LivelyCura Lab Sale And Agent Environment Corrections]] records both directions in sequence: the user withdrew Order POS and restored Sale POS, with a verified product-sync stock-default gap.
 - Current package/scripts, server and domain source, MLS/courier models and services, tests, Docker/Compose, and workflows.

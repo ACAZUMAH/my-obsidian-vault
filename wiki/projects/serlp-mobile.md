@@ -2,9 +2,18 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-10
+updated: 2026-11-21
 tags: [project, serlp, expo, erp, mobile]
 sources:
+  - ../sources/livelycura-serlp-mobile-portal-parity.md
+  - ../sources/serlp-ai-tab-and-chats-drawer-direction.md
+  - ../sources/livelycura-refetch-queries-after-mutation.md
+  - ../sources/livelycura-match-existing-ui.md
+  - ../sources/livelycura-hrm-feature-by-feature-review.md
+  - ../sources/livelycura-hrm-shift-management-scope-decision.md
+  - ../sources/livelycura-hrm-roles-decide-all-hrm.md
+  - ../sources/livelycura-hrm-holidays-decisions.md
+  - ../sources/livelycura-hrm-leave-balances-decisions.md
   - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/marketplace-scoped-admin-catalog-order-restructure.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
@@ -55,6 +64,11 @@ Expo/EAS application with CI, preview, and production GitHub workflows.
 
 ## Durable Conventions
 
+- SERLP Mobile is the mobile version of the ERP: anything the SERLP portal (`livelycura-pharmacy-portal`) does, this app must also do, adapted to mobile. Never offer "portal-only" or ask how much of a feature belongs here; a gap is parity work to build. Source: [[../sources/livelycura-serlp-mobile-portal-parity|Portal parity]].
+- New screens follow the app's existing form and detail components: no hint text under fields, no extra links, and no "Private" markers (private employee details are hidden from people without the permission). Source: [[../sources/livelycura-match-existing-ui|Match existing UI]].
+- The HRM review runs one feature at a time: report and decide only the current feature's items, leave finished features closed, park later-feature items silently until that feature is reached, and don't flag a message as vague when it already tells the user what happened. Source: [[../sources/livelycura-hrm-feature-by-feature-review|HRM feature-by-feature review]].
+- SERLP AI stays a bottom tab: tapping it slides a full-screen AI screen in from the right (no tab bar), and its back button returns. No AI button in the Apps header, no swipe between the tabs and the AI screen. The chats drawer copies the Claude and ChatGPT apps (swipe right or ☰ slides the chat aside as a rounded, dimmed card over the chats list, which fades in; "SERLP AI" with search at the top; plain chat titles; the organization and its credits beside New chat at the foot); send is the arrow-up and New chat the boxed pencil. In the owner's action descriptions "tab" means "tap". Source: [[../sources/serlp-ai-tab-and-chats-drawer-direction|SERLP AI tab and chats drawer]].
+- After a mutation, screens refresh with Apollo `refetchQueries`, as across all LivelyCura client apps. The brief old value after Save, until the refetch lands, is accepted; don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it. Source: [[../sources/livelycura-refetch-queries-after-mutation|Refetch queries after mutation]].
 - Follow `livelycura-loop-app` architecture, not Expo Router.
 - Use Pharmacy Portal as the ERP GraphQL/domain reference, adapted to mobile interaction rather than copied as desktop UI.
 - Apollo hooks own GraphQL operations; Redux persistence owns auth, workspace, and settings state.
@@ -75,6 +89,10 @@ Expo/EAS application with CI, preview, and production GitHub workflows.
 
 - Retire the existing company Courier navigation as part of the independent Fleet rebuild. SERLP Mobile is distinct from SERLP Dispatch, which continues to fulfill platform network work. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Independent Fleet and platform dispatch decision]].
 - Fleet jobs use the `FleetJob` naming (2026-10-10): `src/fleet/fleetJobs`, `createFleetJob`, `fleetJobDetails`, `FleetJob*` components, hooks and helpers, and the navigation param `fleetJobId`. Deep-link paths (`fleet/jobs...`), `routes.fleetJob*` keys and visible labels stay unchanged. Source: [[../sources/livelycura-independent-fleet-and-platform-dispatch|Fleet jobs naming decision]].
+- HRM leave balances were decided on 2026-10-22/23 and are not yet built: annual leave that does not fit the balance is refused for employees and managers alike, and HR's only override is a reasoned adjustment. The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Leave Balances). Source: [[../sources/livelycura-hrm-leave-balances-decisions|LivelyCura HRM Leave Balances Decisions]].
+- HRM holidays were decided on 2026-10-23 and are not yet built: everyone is off on public holidays unless marked as working, and creating a holiday requires choosing its type and "Every year" or "This year only". The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Holidays); source: [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]].
+- HRM shift management was decided on 2026-11-21 and is not yet built: shift actions count roles at the shift's own branch on every shift screen and in SERLP AI, so HR's organization-wide role covers every branch and a branch manager needs a branch role with shift rights. Source: [[../sources/livelycura-hrm-shift-management-scope-decision|LivelyCura HRM Shift Management Scope Decision]].
+- On 2026-11-23 the owner widened "roles decide" to all of HRM: approving open-shift pickups, overtime and leave, and every other day-to-day HRM action, count roles at the record's branch with organization-wide roles counting everywhere, so HR runs it all where a business has an HR team and branch managers act only when given the permissions; approver notifications follow the same rule. Source: [[../sources/livelycura-hrm-roles-decide-all-hrm|LivelyCura HRM Roles Decide For All HRM]].
 
 Reusing the proven family mobile shell reduces divergent navigation, state, and GraphQL patterns while allowing SERLP operator features to remain mobile-specific. Keeping marketplace classification out of product forms preserves the same ordinary ERP contract for organizations regardless of marketplace access.
 

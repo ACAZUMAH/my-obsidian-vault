@@ -2,9 +2,17 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-10
+updated: 2026-11-21
 tags: [project, livelycura, erp, web, desktop]
 sources:
+  - ../sources/livelycura-serlp-mobile-portal-parity.md
+  - ../sources/livelycura-refetch-queries-after-mutation.md
+  - ../sources/livelycura-match-existing-ui.md
+  - ../sources/livelycura-hrm-feature-by-feature-review.md
+  - ../sources/livelycura-hrm-shift-management-scope-decision.md
+  - ../sources/livelycura-hrm-roles-decide-all-hrm.md
+  - ../sources/livelycura-hrm-holidays-decisions.md
+  - ../sources/livelycura-hrm-leave-balances-decisions.md
   - ../sources/livelycura-marketplace-single-delivery.md
   - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/livelycura-graphql-contract-compatibility.md
@@ -77,6 +85,10 @@ Vite web app with Docker/Compose, CI/staging/production workflows, and Electron 
 
 ## Durable Conventions
 
+- [[../projects/serlp-mobile|SERLP Mobile]] is the mobile version of this ERP: anything this portal does, serlp-mobile must also do, adapted to mobile. Never offer "portal-only" or ask how much of a portal feature belongs on serlp-mobile; a gap there is parity work to build. Source: [[../sources/livelycura-serlp-mobile-portal-parity|Portal parity]].
+- New screens copy the closest existing screen: placeholders in the house wording ("Enter …" / "Select …") instead of hint text under inputs, no extra links or shortcuts inside forms, no "Private" tags or lock badges (hide what the viewer may not see), aligned 2-column grids, and HRM date inputs with `valueFormat="DD MMM YYYY"`; reference form `src/hrm/createLeave/components/CreateLeaveForm.tsx`. Source: [[../sources/livelycura-match-existing-ui|Match existing UI]].
+- The HRM review runs one feature at a time: report and decide only the current feature's items, leave finished features closed, park later-feature items silently until that feature is reached, and don't flag a message as vague when it already tells the user what happened. Source: [[../sources/livelycura-hrm-feature-by-feature-review|HRM feature-by-feature review]].
+- After a mutation, screens refresh with Apollo `refetchQueries`, as across all LivelyCura client apps. The brief old value after Save, until the refetch lands (about 2–3 seconds on the HRM Employees page), is accepted; don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it. Source: [[../sources/livelycura-refetch-queries-after-mutation|Refetch queries after mutation]].
 - Agent is available in local development and staging, hidden in production, and always subject to `agent.access`. Share the environment gate across Home, the main header, and the panel; Vite's optimized-build flag alone cannot distinguish staging from production.
 - Keep global search, fullscreen/agent actions, and profile/logout accessible from Home without requiring entry into an app.
 - Prevent header congestion by giving context, search, and actions explicit ownership.
@@ -144,6 +156,14 @@ Missing facility pricing is handled through action safety rather than hiding or 
 Custom-app configuration is operational ownership, not platform assignment ownership. This portal manages banners, targeting, lifecycle, and analytics only after Admin Portal has assigned the app to the organization.
 
 Marketplace catalog classification follows the same ownership boundary: ERP organizations maintain ordinary products and internal categories, while Admin Portal assigns canonical marketplace categories and publication state for Business Products.
+
+HRM leave balances were decided on 2026-10-22/23 and are not yet built: annual leave is a hard balance charged in working days, and HR's only override is a reasoned adjustment in an append-only log. The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Leave Balances); source: [[../sources/livelycura-hrm-leave-balances-decisions|LivelyCura HRM Leave Balances Decisions]].
+
+HRM holidays were decided on 2026-10-23 and are not yet built: everyone is off on public holidays unless a manager marks them as working, holidays are one entry per year with a type, and HR adds Eid with New Holiday when it is declared (no reminder card). The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Holidays); source: [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]].
+
+HRM shift management was decided on 2026-11-21 and is not yet built: shift actions on the shift page, Shifts, Schedules and the employee page count roles at the shift's own branch, so HR's organization-wide role covers every branch and a branch manager needs a branch role with shift rights. Source: [[../sources/livelycura-hrm-shift-management-scope-decision|LivelyCura HRM Shift Management Scope Decision]].
+
+On 2026-11-23 the owner widened "roles decide" to all of HRM: approving open-shift pickups, overtime and leave, and every other day-to-day HRM action, count roles at the record's branch with organization-wide roles counting everywhere, so HR runs it all where a business has an HR team and branch managers act only when given the permissions; approver notifications follow the same rule. Source: [[../sources/livelycura-hrm-roles-decide-all-hrm|LivelyCura HRM Roles Decide For All HRM]].
 
 ## Verification Expectations
 

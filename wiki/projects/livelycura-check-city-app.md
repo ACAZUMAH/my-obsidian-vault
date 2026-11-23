@@ -63,6 +63,8 @@ Expo/EAS application with preview and production GitHub workflows.
 
 ## Durable Conventions
 
+- [[livelycura-red-and-hot-app|LivelyCura Red And Hot App]] (started 2026-11-10) is a copy of this app with identical logic. A logic fix made here must also be made there, and the reverse. See [[../sources/livelycura-red-and-hot-app-kickoff|the Red and Hot kickoff record]].
+
 - Write Cart tests in TypeScript (`.test.ts`, or `.test.tsx` for JSX), with typed mocks/fixtures and valid imports after moves. See [[../sources/checkcity-typescript-tests|the direct TypeScript test correction]].
 
 - Confirm unusually distant or expensive delivery locations after the current estimate completes. Show destination, branch, approximate distance, and fee; require explicit acceptance and invalidate it when location, branch, or fee changes. Require both GH₵60+ and at least 15 km before warning (September 21 correction; 15 km is the interpreted start of the user’s 15–20 km range). A 10.2 km / GH₵41 estimate must not warn. Allow continuation after confirmation, including beyond 20 km; the latest warning-only correction supersedes the earlier hard cap. See [[../sources/checkcity-delivery-location-confirmation|the delivery confirmation requirement]].

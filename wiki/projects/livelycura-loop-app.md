@@ -2,9 +2,15 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-11-02
 tags: [project, livelycura, expo, workforce, mobile]
 sources:
+  - ../sources/livelycura-refetch-queries-after-mutation.md
+  - ../sources/livelycura-match-existing-ui.md
+  - ../sources/livelycura-hrm-feature-by-feature-review.md
+  - ../sources/livelycura-user-account-vs-employee.md
+  - ../sources/livelycura-hrm-holidays-decisions.md
+  - ../sources/livelycura-hrm-leave-balances-decisions.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
   - ../sources/livelycura-project-knowledge-harvest-batch-3.md
 confidence: medium
@@ -50,6 +56,9 @@ Expo/EAS application with CI and preview/production deployment workflows.
 
 ## Durable Conventions
 
+- Personal information shows the person's own record as plain rows with no "Private" markers; new screens copy existing design-system patterns. Source: [[../sources/livelycura-match-existing-ui|Match existing UI]].
+- The HRM review runs one feature at a time: report and decide only the current feature's items, leave finished features closed, park later-feature items silently until that feature is reached, and don't flag a message as vague when it already tells the user what happened. Source: [[../sources/livelycura-hrm-feature-by-feature-review|HRM feature-by-feature review]].
+- After a mutation, screens refresh with Apollo `refetchQueries`, as across all LivelyCura client apps. The brief old value after Save, until the refetch lands, is accepted; don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it. Source: [[../sources/livelycura-refetch-queries-after-mutation|Refetch queries after mutation]].
 - This repository is a reference for the family’s Expo plus React Navigation structure.
 - Keep workforce features locally owned; shared design-system components remain presentational.
 - Distribution artwork uses the actual transparent app icon and the identity “Loop by SERLP,” with real app screenshots rather than invented UI. The proven iPhone export is `1242x2688` RGB without alpha; the Play composition uses one large center phone and two smaller side phones on solid brand green.
@@ -61,6 +70,12 @@ Expo/EAS application with CI and preview/production deployment workflows.
 ## Decisions And Rationale
 
 An independent workforce app gives employees a focused surface without exposing the ERP operator portal.
+
+HRM leave balances were decided on 2026-10-22/23 and are not yet built: an annual leave request that does not fit the employee's balance is refused, and HR's only override is a reasoned adjustment. The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Leave Balances); source: [[../sources/livelycura-hrm-leave-balances-decisions|LivelyCura HRM Leave Balances Decisions]].
+
+HRM holidays were decided on 2026-10-23 and are not yet built: employees are off on public holidays unless marked as working, Loop notifies them when a holiday is added, moved or deleted or when they are marked as working, and shows a "Holidays this year" list. The full rules live on [[../projects/livelycura-backend|LivelyCura Backend]] (Holidays); source: [[../sources/livelycura-hrm-holidays-decisions|LivelyCura HRM Holidays Decisions]].
+
+Loop's personal information shows the employee record of the organization being viewed, never the shared login account, and HR edits never change the account. Source: [[../sources/livelycura-user-account-vs-employee|User account versus employee record]].
 
 ## Verification Expectations
 

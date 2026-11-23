@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-09-16
+updated: 2026-10-31
 tags: [project, ceqa, keks, admin, hrm, permissions]
 sources:
   - ../sources/keks-backend-errors-and-bulk-time-punches.md
@@ -12,6 +12,7 @@ sources:
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-3.md
   - ../sources/ceqa-altin-hermes-conversation-harvest-supplement-1.md
   - ../sources/hermes-livelycura-skills-keks-pharmacy-harvest-batch-1.md
+  - ../sources/ceqa-react-hook-form-migration.md
 confidence: high
 ---
 
@@ -32,7 +33,7 @@ Give administrators a protected operational interface for employees, organizatio
 - React Router 7.
 - Redux Toolkit/Redux Persist.
 - TanStack Query and TanStack Table.
-- Axios, Formik/Yup, Day.js, PDF/CSV tooling, Recharts, and Vitest/Testing Library.
+- Axios, React Hook Form with the Yup resolver (Formik removed 2026-10-31), Day.js, PDF/CSV tooling, Recharts, and Vitest/Testing Library.
 - ESLint, Prettier, Husky, Commitlint, and Commitizen.
 
 ## Architecture
@@ -75,6 +76,7 @@ Give administrators a protected operational interface for employees, organizatio
 - The client reads a public API base URL and attaches the persisted bearer token at request time.
 - GitHub Actions use Node 22, Yarn frozen-lockfile installation, build, and tests.
 - No tracked Netlify, Vercel, Docker, Procfile, or other deployment configuration was found. Deployment destinations and credentials remain external and unverified.
+- The production API accepted CORS preflight from `localhost:5173` and `localhost:3000` and rejected `5175` and `5180` on 2026-10-31. Run the dev server on an accepted port (for example `yarn dev --port 3000`) when it targets production; a CORS login failure there is not an application defect.
 
 ## Durable Conventions
 
@@ -86,7 +88,7 @@ Give administrators a protected operational interface for employees, organizatio
 - Add features without redesigning unrelated existing interfaces.
 - UI criticism means restyle the requested section while preserving its data, actions, and presence. When feedback targets recent additions, change only those additions; do not redesign the whole page or remove a disliked section. For analytics, preserve both Workforce Attendance and Needs Attention. See [[../sources/keks-analytics-ui-scope-correction|Keks Analytics UI Scope Correction]].
 - Roles and Designations remain separate domain folders with independent components, hooks, interfaces, helpers, bulk import, and exports.
-- Use Formik for input-heavy forms when that is the established local form pattern. Reuse onBlur and touched/error handling at the inputs. In stepped forms, disable Next until the current step is valid; avoid submit-time bulk-touching and automatic step jumping. See [[../sources/keks-backend-errors-and-bulk-time-punches|Keks Backend Errors And Bulk Time Punches]].
+- Use React Hook Form with the Yup resolver for forms, keeping the established form-hook structure. `FieldInput` and `FieldTextarea` take `{...form.register("x")}` (they accept `ref`); `FieldSelector`, radios, checkboxes, switches and the phone input bind through `Controller`; errors show as `formState.errors.x?.message` after blur. In stepped forms, disable Next until the current step's picked schema passes `isValidSync` against watched values; avoid submit-time bulk-touching and automatic step jumping. The existing validate-all submit guards (transfer, API key, webhook) call `trigger()` before any request, and forms gated on `isValid` re-check validity after reset. See [[../sources/keks-backend-errors-and-bulk-time-punches|Keks Backend Errors And Bulk Time Punches]] and [[../sources/ceqa-react-hook-form-migration|C.E.Q.A React Hook Form Migration]].
 - Send supported `search` filters to APIs, normally through debounced/URL-backed state; do not replace server search with local filtering of one fetched page.
 - Make report filters match the selected endpoint. Employee/user reports do not send or display `scope`; branch and exceptions reports keep it where the backend supports it.
 - Keep report filters URL-driven across query cards, headers, and detail navigation. A selected branch and date range must remain visible after navigating to a single-branch report.
@@ -138,10 +140,12 @@ Give administrators a protected operational interface for employees, organizatio
 - Verify the protected root with no permission, one module permission, multiple module permissions, `super_admin`, and an authenticated user who has credentials but no selected tenant.
 - Verify every visible launch card resolves to an active route, keyboard activation and accessible names remain intact, theme selection is shared across all three surfaces, and reduced-motion removes decorative movement.
 - Verify the employee hero at narrow and wide breakpoints without changing the established page header or actions.
+- Verify forms through blur errors, `Controller` bindings, edit refill, stepper gating, guard-before-request submits and reset revalidation, without saving against production data.
 - Historical batch outcomes reported 29 tests for permission synchronization and 33 tests for the later Designations work. Batch 2 also reported focused report tests, TypeScript/build checks, and browser review at different task endpoints; treat all of these as session provenance, not current test results.
 
 ## Evidence
 
+- [[../sources/ceqa-react-hook-form-migration|C.E.Q.A React Hook Form Migration]]: all 21 forms migrated in commit `d80126c` on `feature/react-hook-form`; each verified live without submitting.
 - Current repository: `/Users/acazumah/Documents/C.E.Q.A/keks-admin-portal`, branch `develop`, base commit `3521aaadf7ba`, clean at inspection.
 - Current package manifest, provider/router composition, API client, permission constants/helpers/tests, HRM modules, report selectors, settings/API-key code, and CI workflows.
 - Processed records: `019f591c-6c7e-71d1-97ef-a9106eea3397`, `019ee1a9-7cd2-7d90-a4fb-b8c25b09f2ef`, `019ecd35-0464-7ab0-9e64-f30a23af157c`, `019ecd33-ffcc-76c1-ac22-bf74103288c3`, `019e6f57-af39-74d0-8386-cd0434ad8830`, `019e6b33-73e7-7890-aad5-e482daa302eb`, `019e64df-8e38-7ef3-ad28-96a779d99465`, `019e5a50-7389-7092-9165-8019d403ed52`, `019e5639-855c-7730-a277-f4543d021d3e`, `019e17fc-ab90-7390-8ae8-bc670a4738fb`, and `019e087e-8415-7fb0-b296-bf7897049dbf`.
