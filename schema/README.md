@@ -10,7 +10,7 @@ This directory owns the canonical operational documentation and machine-readable
 | Operational references | This directory | Schema, workflows, naming, lint, and local-skill guidance |
 | Structural contract | [vault-structure.json](vault-structure.json) | Canonical paths, required directories, Source Record coverage policy, schema documents, templates, skills, statuses, page locations, and sections |
 | Property contract | [wiki-frontmatter.schema.json](wiki-frontmatter.schema.json) | Frontmatter types, required properties, dates, statuses, and confidence values |
-| Enforcement | [wiki_tool.py](../scripts/wiki_tool.py) | Runs canonical structural validation and the separate advisory audit |
+| Enforcement | [wiki_tool.py](../scripts/wiki_tool.py) | Runs canonical structural validation and the separate advisory audit, and publishes changes behind secret-scan and validation gates |
 
 `AGENTS.md` is authoritative when a semantic rule cannot be represented in JSON. Stable structural changes must update the human and machine contracts together.
 

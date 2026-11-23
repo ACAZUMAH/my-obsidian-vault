@@ -18,7 +18,8 @@ description: Integrate user-provided documents, conversation evidence, approved 
 3. Create or update a concise Source Record under `wiki/sources/` using the [Source Record template](../../../_template/source-summary-template.md). Reference every covered raw file and retain only decision-relevant claims, details, connections, tensions, and questions.
 4. Promote supported knowledge into existing concept, entity, project, question, and synthesis pages. Search before creating, preserve contradictions, and distinguish historical evidence from current verification.
 5. Update `index.md` for every new durable page and append exactly one `log.md` entry for the completed ingest operation.
-6. Run `python3 scripts/validate_vault.py`, review the exact diff, and report evidence boundaries and verification accurately.
+6. Run `python3 scripts/validate_vault.py`, review the exact diff, and publish the changed files with `python3 scripts/wiki_tool.py publish -m "<message>" -- <paths>`.
+7. Report what was added, the evidence boundaries, the verification, and the pushed commit hash.
 
 ## Guardrails
 
@@ -26,7 +27,7 @@ description: Integrate user-provided documents, conversation evidence, approved 
 - Never substitute a different archive, repository match, saved session, or agent inference for the requested evidence source.
 - Never copy secret values, full private transcripts, private payloads, or sensitive identifiers into this public vault.
 - Preserve existing raw evidence and concurrent changes unless the user explicitly authorizes a targeted change.
-- Do not commit or push unless the user requests it.
+- Ingest without asking for permission first; report afterward (Capture And Publish in `AGENTS.md`). Publish only through `wiki_tool.py publish`, never `git add -A`, and never bypass its gates.
 
 ## Completion Criteria
 
@@ -34,3 +35,4 @@ description: Integrate user-provided documents, conversation evidence, approved 
 - Connect promoted claims to their provenance.
 - Preserve contradictions, confidence, current-versus-historical boundaries, and open questions.
 - Pass the canonical validator and applicable privacy, link, and diff checks.
+- Publish the change (`PUBLISH=PUSHED`) and report the commit hash.

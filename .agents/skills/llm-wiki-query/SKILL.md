@@ -8,7 +8,7 @@ description: Retrieve and answer questions from the canonical Obsidian vault wit
 ## Authority
 
 1. Read the live [vault authority](../../../AGENTS.md), [index](../../../index.md), and [query workflow](../../../schema/workflows.md).
-2. Follow [vault-maintenance](../vault-maintenance/SKILL.md) only when the query is authorized to create or update durable vault content.
+2. Follow [vault-maintenance](../vault-maintenance/SKILL.md) whenever the answer is durable enough to file.
 
 ## Retrieval Workflow
 
@@ -21,14 +21,14 @@ description: Retrieve and answer questions from the canonical Obsidian vault wit
 ## Filing Decision
 
 - Remain read-only for ordinary questions.
-- File an answer only when the user explicitly requests it or the durable-capture rules in `AGENTS.md` authorize automatic promotion.
+- File a durable answer directly, without asking, under the Capture And Publish rule in `AGENTS.md`; then tell the user where it went and the commit hash.
 - Prefer updating an existing page over creating a competing page.
-- When filing, follow `vault-maintenance`, update `index.md` when navigation changes, append exactly one `log.md` entry, and run the canonical validator.
+- When filing, follow `vault-maintenance`, update `index.md` when navigation changes, append exactly one `log.md` entry, run the canonical validator, and publish with `python3 scripts/wiki_tool.py publish`.
 - Do not create a Source Record unless new evidence is actually being ingested.
 
 ## Completion Criteria
 
 - Answer from the smallest sufficient evidence set.
 - Cite provenance and label uncertainty or inference.
-- Leave the vault unchanged when filing is not authorized.
+- Leave the vault unchanged when the answer is not durable.
 - Validate and report the exact durable changes when filing occurs.

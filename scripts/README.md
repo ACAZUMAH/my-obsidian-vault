@@ -1,6 +1,6 @@
 # Vault Script Commands
 
-Repository-owned automation is standard-library-only and read-only. The wrapper resolves the vault from its own file location, so an absolute script path works from any current working directory. The examples below assume the vault root. The commands never mutate raw evidence or repair findings automatically.
+Repository-owned automation is standard-library-only. The wrapper resolves the vault from its own file location, so an absolute script path works from any current working directory. The examples below assume the vault root. Validation and audit are read-only; `publish` only commits and pushes the files it is given. No command mutates raw evidence or repairs findings automatically.
 
 ## Unified Commands
 
@@ -8,6 +8,7 @@ Repository-owned automation is standard-library-only and read-only. The wrapper 
 python3 scripts/wiki_tool.py validate
 python3 scripts/wiki_tool.py audit
 python3 scripts/wiki_tool.py check
+python3 scripts/wiki_tool.py publish -m "<message>" -- <path> [<path> ...]
 ```
 
 | Command | Purpose | Default exit behavior |
@@ -18,6 +19,7 @@ python3 scripts/wiki_tool.py check
 | `audit --json` | Emit machine-readable audit output | Same as non-strict audit |
 | `check` | Run validation, then the advisory audit | Nonzero only when validation or execution fails |
 | `check --strict-audit` | Run both stages as a strict gate | Nonzero when validation fails or the audit finds anything |
+| `publish` | Commit and push exactly the named files behind secret-scan and validation gates | 0 pushed or no-op; 1 usage or Git error; 2 blocked by a gate; 3 committed locally but not pushed |
 
 `wiki_tool.py` delegates to the authoritative scripts rather than reimplementing their checks. Use `python3 scripts/wiki_tool.py --help` for the live interface.
 
@@ -47,6 +49,19 @@ A zero exit code is the canonical structural result. It does not prove semantic 
 - Unreferenced Markdown files under `raw/assets/` that need classification.
 
 The audit always prints `AUDIT_MODE=READ_ONLY`. Findings are advisory unless `--strict` or `check --strict-audit` is explicitly selected.
+
+## Gated Publishing
+
+`publish_vault.py` implements the vault's Capture And Publish rule (see [AGENTS.md](../AGENTS.md)). Several agents edit this public repository at once in one working tree, so it never stages "everything dirty":
+
+1. It takes an exclusive lock, so parallel publishes run one at a time.
+2. It builds the commit in a private Git index from `HEAD` plus only the named paths, then syncs just those paths in the shared index. Other agents' staged or unstaged work is untouched. A named shared file is committed whole, including any concurrent lines it already holds.
+3. It refuses directories, paths outside the vault, gitignored paths (`raw/agent-contexts/`), and credential-looking files.
+4. It scans added lines for private keys, cloud and SaaS tokens, JWTs, credentialed URLs, secret assignments, and personal email addresses. Automated no-reply and example addresses are allowed. Findings print redacted and block with `PUBLISH=BLOCKED stage=secret-scan`.
+5. It runs the canonical validator on a checkout of the exact tree being committed. A failure blocks with `PUBLISH=BLOCKED stage=validation`.
+6. It commits with compare-and-swap on the branch ref and pushes to the upstream. A network failure leaves the commit local for the next publish to push; a diverged remote prints `push=diverged` and is never force-pushed.
+
+Options: `--dry-run` runs the gates without committing; `--no-push` commits without pushing; `-m` may repeat for extra paragraphs such as trailers. Pattern scanning reduces leaks but cannot prove that secrets are absent.
 
 ## Optional Git Hook
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unified command entry point for canonical vault validation and advisory audit."""
+"""Unified command entry point for canonical vault validation, advisory audit, and gated publishing."""
 
 from __future__ import annotations
 
@@ -18,8 +18,17 @@ def run_script(name: str, arguments: list[str] | None = None) -> int:
 
 
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] == "publish":
+        return run_script("publish_vault.py", sys.argv[2:])
+
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    subparsers.add_parser(
+        "publish",
+        add_help=False,
+        help="commit and push named files behind secret-scan and validation gates (see publish --help)",
+    )
 
     subparsers.add_parser("validate", help="run the canonical structural validator")
 

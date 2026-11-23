@@ -2,6 +2,21 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-23] maintenance | Capture-First Auto-Publish Rule
+
+What changed:
+
+- Recorded the user's directive: add vault-worthy knowledge straight away and tell the user afterward, and push every vault change right away.
+- Added `scripts/publish_vault.py`, exposed as `python3 scripts/wiki_tool.py publish -m "<message>" -- <paths>`. It commits exactly the named files from a private index under an exclusive lock, scans added lines for secrets and personal emails, validates the exact committed tree, commits with compare-and-swap, and pushes without force.
+- Added a Capture And Publish section to `AGENTS.md`. Rewrote the ingest, query, lint, and default-behavior rules, the workflow guide, the lint checklist, the scripts README, and the ingest, query, lint, and vault-maintenance skills. Schema contract v6 registers the publisher.
+- Replaced "never push unless asked" in `~/.claude/CLAUDE.md` and added the same rule to `~/.codex/AGENTS.md`. Neither file is versioned. Hermes profile memories defer to `AGENTS.md` and needed no change.
+
+Files touched: `AGENTS.md`, `schema/{workflows.md,lint-checklist.md,README.md,vault-structure.json}`, `scripts/{publish_vault.py,wiki_tool.py,README.md}`, four skill files, `raw/sources/2026-11-23-vault-capture-first-auto-publish-directive.md`, `wiki/sources/vault-capture-first-auto-publish-directive.md`, `wiki/syntheses/personal-operating-manual.md`, `index.md`, `log.md`.
+
+Key result: the publisher was tested in a throwaway clone with a bare remote. Covered: push, isolation from other agents' staged and untracked work, secret and email blocks, validation blocks, refusals, no-op, deletion, diverged remote, offline recovery, and lock serialization. Each publish takes about 0.4 s.
+
+Follow-ups: decide whether to publish the uncommitted backlog from earlier sessions, and whether a Claude Code hook should enforce publishing.
+
 ## [2026-11-23] maintenance | Agent Context SessionStart Hook
 
 What changed:

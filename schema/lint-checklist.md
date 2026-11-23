@@ -46,9 +46,9 @@ The wrapper preserves two separate results: `validate_vault.py` is the canonical
 - [ ] `git status --short` contains only understood changes.
 - [ ] `git diff --check` passes.
 - [ ] The exact diff was reviewed after concurrent-writer rereads.
-- [ ] Only intended paths are staged.
+- [ ] The change was published with `python3 scripts/wiki_tool.py publish` naming only the intended files (never `git add -A`, `git add .`, or `git commit -a`).
 - [ ] The commit message states the durable outcome.
-- [ ] Push is performed only when requested.
+- [ ] The publish result (`PUBLISH=PUSHED` and the short commit hash) was reported to the user.
 - [ ] The optional `.githooks/pre-commit` hook is enabled only when the user wants repository-local automatic checks.
 
 Report the canonical validator result separately from semantic review, secret scanning, and Git checks. Do not compress them into an unsupported “everything passed” claim.

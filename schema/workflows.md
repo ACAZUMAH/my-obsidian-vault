@@ -1,6 +1,6 @@
 # Vault Workflow Guide
 
-This is the canonical sequence for retrieving existing knowledge, integrating evidence, maintaining shared pages safely, validating the result, and committing only the intended change.
+This is the canonical sequence for retrieving existing knowledge, integrating evidence, maintaining shared pages safely, validating the result, and publishing exactly the intended change.
 
 ## Before Editing
 
@@ -19,7 +19,7 @@ Use [llm-wiki-ingest](../.agents/skills/llm-wiki-ingest/SKILL.md) for source ing
 3. Promote only supported claims into existing concept, entity, project, question, and synthesis pages.
 4. Preserve contradictions, current-versus-historical differences, confidence, and open questions.
 5. Update `index.md` and append exactly one `log.md` entry.
-6. Run the canonical validator and review the exact diff.
+6. Run the canonical validator, review the exact diff, and publish (see Maintenance And Publish Workflow).
 
 Conversation harvests require direct conversation evidence before project knowledge is promoted. A repository match, saved session, profile-memory write, or agent inference is not equivalent to an integrated source.
 
@@ -31,20 +31,21 @@ Use [llm-wiki-query](../.agents/skills/llm-wiki-query/SKILL.md) for retrieval, v
 2. Read the smallest relevant page set.
 3. Consult raw evidence only to verify exact evidence, resolve ambiguity, or fill a documented gap.
 4. Cite stable vault pages and distinguish fact, source claim, and inference.
-5. File the answer only when it is durable and useful beyond the immediate exchange.
+5. File the answer only when it is durable and useful beyond the immediate exchange. Then file it without asking, publish it, and tell the user where it went.
 
 ## Lint Workflow
 
-Use [llm-wiki-lint](../.agents/skills/llm-wiki-lint/SKILL.md) with the canonical [lint checklist](lint-checklist.md). Keep audits read-only by default, separate structural validation from semantic review, and use `vault-maintenance` only for explicitly authorized repairs.
+Use [llm-wiki-lint](../.agents/skills/llm-wiki-lint/SKILL.md) with the canonical [lint checklist](lint-checklist.md). Separate structural validation from semantic review. Apply non-destructive repairs directly with `vault-maintenance` and report them; merges, deletions, renames, raw-evidence changes, and contradiction resolutions that discard a claim need approval.
 
-## Maintenance And Commit Workflow
+## Maintenance And Publish Workflow
+
+Capture first and publish every change in the same turn; see Capture And Publish in [AGENTS.md](../AGENTS.md).
 
 1. Apply focused edits; never overwrite unrelated concurrent work.
 2. Run `python3 scripts/wiki_tool.py check` and complete the [Vault Lint Checklist](lint-checklist.md).
-3. Review `git status`, `git diff --check`, and the exact diff.
-4. Stage explicit intended paths rather than every dirty file.
-5. Commit with a scoped message that describes the durable outcome.
-6. Push only when explicitly requested.
+3. Review `git diff --check` and the exact diff of the files you changed.
+4. Publish exactly those files with a scoped message that describes the durable outcome: `python3 scripts/wiki_tool.py publish -m "<message>" -- <paths>`. It commits only the named paths, gates on a secret scan and on the canonical validator run against the exact committed tree, and pushes.
+5. Tell the user what was added and the short commit hash. On `PUBLISH=BLOCKED`, fix the content and publish again; never bypass a gate. On `push=diverged`, stop and ask the user.
 
 ## Concurrent Writers
 

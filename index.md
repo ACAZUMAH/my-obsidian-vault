@@ -10,8 +10,8 @@ This is the content-oriented map of the wiki. Read this first before answering w
 - [[wiki/syntheses/project-knowledge-harvest-status|Project Knowledge Harvest Status]] — Frozen non-subagent checkpoint complete at 130 of 130 exact IDs; 90 `source='subagent'` records remain separate. Type: synthesis. Updated: 2026-07-21. Sources: 52.
 - [[wiki/syntheses/new-project-bootstrap-operating-manual|New Project Bootstrap Operating Manual]] — Foundation with provider-test boundaries, multi-channel OTP, authorization coverage, migrations, and verification. Type: synthesis. Updated: 2026-07-21. Sources: 25 plus live repositories.
 - [[wiki/concepts/hermes-obsidian-memory-architecture|Hermes–Codex–Obsidian Shared Brain Architecture]] — Defines the canonical vault, Hermes/Codex/Claude Code integration layers, separate archive layers, and explicit promotion boundary. Type: concept. Updated: 2026-11-23. Sources: 5.
-- [Vault Workflow Guide](schema/workflows.md) — Canonical sequence for retrieval, ingest, query, concurrent maintenance, validation, and safe commits. Updated: 2026-07-22.
-- [Vault Schema Reference](schema/README.md) — Human and machine contracts, canonical paths, page ownership, properties, and coordinated schema changes. Updated: 2026-07-22.
+- [Vault Workflow Guide](schema/workflows.md) — Canonical sequence for retrieval, ingest, query, concurrent maintenance, validation, and gated same-turn publishing. Updated: 2026-11-23.
+- [Vault Schema Reference](schema/README.md) — Human and machine contracts, canonical paths, page ownership, properties, and coordinated schema changes. Updated: 2026-11-23.
 - [[wiki/syntheses/llm-wiki-operating-model|LLM Wiki Operating Model]] — The current synthesis of how this second brain works. Type: synthesis. Updated: 2026-07-20. Sources: 2.
 - [[wiki/concepts/persistent-compounding-wiki|Persistent Compounding Wiki]] — The core concept: knowledge is integrated once, linked, maintained, and reused. Type: concept. Updated: 2026-05-13. Sources: 1.
 - [[wiki/sources/llm-wiki-idea|LLM Wiki Idea]] — Source Record for the initial idea file pasted by the user. Type: source. Updated: 2026-05-13.
@@ -20,6 +20,7 @@ This is the content-oriented map of the wiki. Read this first before answering w
 
 - [[wiki/sources/claude-code-shared-brain-integration|Claude Code Shared Brain Integration]] — Connects Claude Code to the canonical vault through `~/.claude/CLAUDE.md`, `OBSIDIAN_VAULT_PATH`, and symlinked vault skills; records Obsidian CLI vault targeting. Type: source. Updated: 2026-09-29.
 - [[wiki/sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]] — The user's 2026-11-23 directive to save agent contexts so work continues across account switches: local-only, append-only snapshots in `raw/agent-contexts/` via the `agent-context` skill, with recovery from native transcripts and a Claude Code SessionStart hook that surfaces open handoffs. Type: source. Updated: 2026-11-23.
+- [[wiki/sources/vault-capture-first-auto-publish-directive|Vault Capture-First Auto-Publish Directive]] — The user's 2026-11-23 rule that agents add vault-worthy knowledge straight away and report afterward, and push every vault change in the same turn through the gated `wiki_tool.py publish` command; destructive changes still need approval. Type: source. Updated: 2026-11-23.
 
 - [[wiki/sources/bora-fund-administration-access-control|Bora Fund Administration And Access Control]] — LivelyCura-aligned `Role`/`platformRoles` RBAC, named transport-only resolvers, generated GraphQL enum reuse, documented services, staff invitations/admin authentication, single-record draft/published fund facts, CIS enrichment, and production seeds. Type: source. Updated: 2026-09-28.
 

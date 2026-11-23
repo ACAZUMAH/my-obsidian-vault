@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "canonical_paths": {
     "raw_sources": "raw/sources",
     "raw_assets": "raw/assets",
@@ -37,7 +37,8 @@
     "canonical_validator": "scripts/validate_vault.py",
     "advisory_audit": "scripts/audit_vault.py",
     "command_documentation": "scripts/README.md",
-    "optional_pre_commit_hook": ".githooks/pre-commit"
+    "optional_pre_commit_hook": ".githooks/pre-commit",
+    "gated_publisher": "scripts/publish_vault.py"
   },
   "templates": {
     "source": "_template/source-summary-template.md",

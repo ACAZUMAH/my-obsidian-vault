@@ -1,7 +1,7 @@
 ---
 name: vault-maintenance
 description: Use when creating, moving, validating, or maintaining content and infrastructure in this canonical Obsidian vault. Enforces the vault schema, template paths, concurrent-writer rules, and post-change validation.
-version: 1.1.0
+version: 1.2.0
 author: ACAZUMAH
 license: MIT
 metadata:
@@ -26,6 +26,7 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 6. Update `index.md` and append exactly one `log.md` entry for durable wiki or structural maintenance. Completion criterion: navigation and history describe the resulting state.
 7. Run `python3 scripts/wiki_tool.py check`. Completion criterion: canonical validation exits zero and advisory audit findings remain separate from structural status.
 8. Review `git status` and the exact diff. Completion criterion: no unrelated concurrent work is staged, discarded, or claimed as part of the change.
+9. Publish in the same turn: `python3 scripts/wiki_tool.py publish -m "<message>" -- <every file you created, edited, or deleted>`, then tell the user what was added and the commit hash. Completion criterion: `PUBLISH=PUSHED`. Do not ask permission before capturing or publishing; ask only before deleting, merging, renaming, or moving pages, or changing raw evidence.
 
 ## Path Contract
 
@@ -43,7 +44,8 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 - Do not use symlinks to profile-local skill folders; they are machine-specific and break repository portability.
 - Do not rewrite `index.md`, `log.md`, manuals, or checkpoints wholesale while another agent may be active.
 - Do not call an ad-hoc probe the canonical suite. `scripts/validate_vault.py` is the repository's canonical structural validator.
-- Do not stage all dirty files in this public repository without reviewing concurrent harvest work and secret hygiene.
+- Do not stage dirty files with `git add -A`, `git add .`, or `git commit -a`; publish named files through `wiki_tool.py publish`, which keeps other agents' work out of the commit.
+- Do not bypass a `PUBLISH=BLOCKED` gate or force-push a diverged remote; fix the content, or ask the user about the divergence.
 
 ## Verification Checklist
 
@@ -56,3 +58,4 @@ Use the repository's own contracts rather than inventing a parallel structure. `
 - [ ] Real wikilinks resolve.
 - [ ] `python3 scripts/wiki_tool.py check` preserves a passing canonical result and separate advisory findings.
 - [ ] Git diff contains only intended work.
+- [ ] The change was published (`PUBLISH=PUSHED`) and the commit hash was reported.

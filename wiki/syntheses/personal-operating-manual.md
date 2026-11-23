@@ -17,6 +17,7 @@ sources:
   - ../sources/altin-profile-support-ui-corrections.md
   - ../sources/bora-bcl-error-passthrough-and-secret-files.md
   - ../sources/agent-context-handoffs-directive.md
+  - ../sources/vault-capture-first-auto-publish-directive.md
 confidence: high
 ---
 
@@ -60,6 +61,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Preserve exact project skill libraries for project fidelity, and synthesize recurring conventions into generalized backend, frontend-web, and frontend-mobile skills when they represent how the user builds across future projects. Keep source inventories so generalized rules remain auditable.
 - Expect multiple agents to operate simultaneously; reread shared notes before editing and preserve concurrent changes.
 - The user switches agent accounts often, so in-flight work must be resumable by the next agent. Use the `agent-context` skill: save a snapshot to `raw/agent-contexts/` after verified milestones, decisions, and authorization changes, and when the user says they are switching. Check for an open handoff before starting repository work. Snapshots stay local and never contain secrets. See [[../sources/agent-context-handoffs-directive|the 2026-11-23 agent-context handoffs directive]].
+- Capture first, report after: when something belongs in the vault, add it straight away and tell the user what was added, rather than asking first. Push every vault change in the same turn with `python3 scripts/wiki_tool.py publish`, which commits only the named files behind secret-scan and validation gates. Ask first only before deleting, merging, renaming, or moving pages, or changing raw evidence. See [[../sources/vault-capture-first-auto-publish-directive|Vault Capture-First Auto-Publish Directive]].
 - When asked to add guidance, documentation, conventions, checklists, or skills “to the vault,” place each artifact in its canonical vault layer and connect it through `index.md`. A tracked file in the wrong ownership layer does not satisfy the request.
 - For a Hermes-conversation knowledge harvest, require a directly relevant Hermes conversation before creating a project page or promoting durable claims. Filesystem and Git-root discovery alone are not evidence; repository inspection may verify conversation-derived claims but must not replace them.
 - Expect every substantive Hermes conversation to be evaluated for durable project or workflow knowledge and promoted into this vault in the same session when safe. If promotion is deferred, preserve the exact session ID in the harvest checkpoint. Hermes session storage and compact profile memory are not substitutes for Obsidian integration.
@@ -113,6 +115,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - [[../sources/altin-profile-support-ui-corrections|Altin Profile and Support UI Corrections]]
 - [[../sources/bora-bcl-error-passthrough-and-secret-files|Bora BCL Error Passthrough And Secret-File Boundary]]
 - [[../sources/agent-context-handoffs-directive|Agent Context Handoffs Directive]]
+- [[../sources/vault-capture-first-auto-publish-directive|Vault Capture-First Auto-Publish Directive]]
 
 ## Open Questions
 

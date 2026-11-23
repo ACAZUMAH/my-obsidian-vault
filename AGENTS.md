@@ -211,6 +211,31 @@ Required sections:
 - `## Citations`
 - `## Follow-Up Questions`
 
+## Capture And Publish
+
+User directive, 2026-11-23: add vault-worthy knowledge right away and tell the user afterward, and push every vault change right away. Provenance: [Source Record](wiki/sources/vault-capture-first-auto-publish-directive.md).
+
+### Capture First, Report After
+
+- When something qualifies for the vault (a durable preference, correction, decision rule, procedure, project convention, reusable lesson, ingestible source, or durable answer), write it immediately. Do not ask whether to add it. Afterward, tell the user in one or two lines what was added, where, and the pushed commit hash. The user corrects or reverts after the fact.
+- Ask first only for destructive or evidence-altering changes: deleting, merging, renaming, or moving existing pages; editing or removing raw evidence; and resolving a contradiction by discarding one side. Capture uncertain claims with `confidence: low` or `status: needs-review` instead of asking.
+- Secrets, credentials, and raw private identifiers are never captured, with or without permission.
+
+### Publish Every Change
+
+- Push every vault change in the same turn it is made. When a coherent change is complete, publish exactly the files you created, edited, or deleted:
+
+  ```bash
+  python3 scripts/wiki_tool.py publish -m "<scoped message>" -- <path> [<path> ...]
+  ```
+
+- The unit is one coherent change, for example a raw source with its Source Record, the pages it updates, `index.md`, and `log.md`. It is not each file write, so no published commit leaves the vault half-updated.
+- `publish` builds the commit in a private index from `HEAD` plus only the named paths, so other agents' uncommitted work is never swept in. Named shared files (`index.md`, `log.md`, manuals) go in whole, including any concurrent lines they already hold. It refuses directories, gitignored paths, and credential-looking files. It blocks on secret patterns and on canonical-validator failure of the exact tree being committed, then commits with compare-and-swap and pushes.
+- Never bypass a gate. Never use `git add -A`, `git add .`, or `git commit -a` in this vault, and never force-push or rewrite pushed history. If a gate blocks, fix the content and publish again. If another agent's unfinished lines in a shared file break validation, wait briefly and retry; tell the user if it still fails.
+- If the push fails, the commit stays local. The next publish retries a network failure. A diverged remote (`push=diverged`) goes to the user, who decides how to integrate it.
+- Pattern scanning reduces leaks but does not prove that secrets are absent. Keep sensitive material out while writing.
+- Handoff snapshots in `raw/agent-contexts/` stay local-only and are never published.
+
 ## Ingest Workflow
 
 Operation skill: [llm-wiki-ingest](.agents/skills/llm-wiki-ingest/SKILL.md)
@@ -228,7 +253,7 @@ For a conversation-harvest task, direct conversation evidence is a prerequisite 
 7. Add missing internal links across touched pages.
 8. Update `index.md`.
 9. Append exactly one entry to `log.md`.
-10. Run `python3 scripts/validate_vault.py`, then report the changed files and key takeaways.
+10. Run `python3 scripts/validate_vault.py`, publish the change (see Capture And Publish), then report the changed files, key takeaways, and commit hash.
 
 If the source is large, inspect structure first, then process section by section. If images or attachments are central, view them separately and record what they add.
 
@@ -243,8 +268,8 @@ When the user asks a question:
 3. Read the most relevant wiki pages and Source Records.
 4. Use raw sources only to verify exact evidence, fill gaps, or resolve ambiguity.
 5. Answer with citations to wiki pages and/or raw sources.
-6. If the answer is durable, ask whether to file it, or file it directly when the user has asked for the wiki to compound automatically.
-7. If filed, update `index.md` and append to `log.md`.
+6. If the answer is durable, file it directly without asking (see Capture And Publish), then tell the user where it was filed.
+7. If filed, update `index.md`, append to `log.md`, and publish.
 
 ## Lint Workflow
 
@@ -263,7 +288,7 @@ When asked to lint or health-check the wiki, inspect for:
 - Raw sources without a Source Record, Source Records without valid raw evidence, and Source Records missing from `index.md`.
 - Data gaps that could be filled by future sources or web research.
 
-Run `python3 scripts/wiki_tool.py check` to preserve the canonical structural result and a separate advisory audit. Produce a prioritized list of semantic fixes, then apply only the fixes the user approves or explicitly requests.
+Run `python3 scripts/wiki_tool.py check` to preserve the canonical structural result and a separate advisory audit. Produce a prioritized list of semantic fixes. Apply non-destructive repairs (broken links, missing frontmatter or sections, index drift, missing provenance) directly, publish them, and report them. Merges, deletions, renames, raw-evidence changes, and contradiction resolutions that discard a claim need the user's approval.
 
 ## Index Rules
 
@@ -380,9 +405,10 @@ Hermes profiles and Codex may edit this vault simultaneously. Reread every share
 
 From now on, treat every interaction in this vault as part of the LLM Wiki workflow unless the user explicitly says otherwise.
 
-- For source-like input, offer or perform ingest.
-- For durable answers, file them into `wiki/questions/` or `wiki/syntheses/` when useful.
-- For maintenance discoveries, update the wiki or propose a concise fix.
+- For source-like input, perform ingest, then report what was added.
+- For durable answers, file them into `wiki/questions/` or `wiki/syntheses/` without asking, then say where.
+- For maintenance discoveries, apply non-destructive fixes directly; propose destructive ones.
+- Always publish each completed vault change with `python3 scripts/wiki_tool.py publish` in the same turn and report the commit hash.
 - For substantive Hermes project work, either complete the durable vault promotion or leave an explicit session-ID checkpoint; never imply that session persistence alone harvested the knowledge.
 - Always protect raw sources.
 - Always keep `index.md` and `log.md` synchronized with durable wiki changes.
