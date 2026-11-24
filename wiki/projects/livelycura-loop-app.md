@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-02
+updated: 2026-11-24
 tags: [project, livelycura, expo, workforce, mobile]
 sources:
   - ../sources/livelycura-refetch-queries-after-mutation.md
@@ -13,6 +13,7 @@ sources:
   - ../sources/livelycura-hrm-leave-balances-decisions.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
   - ../sources/livelycura-project-knowledge-harvest-batch-3.md
+  - ../sources/livelycura-loop-renamed-serlp-team.md
 confidence: medium
 ---
 
@@ -20,7 +21,7 @@ confidence: medium
 
 ## Summary
 
-Employee/workforce Expo application in the LivelyCura family.
+Employee/workforce Expo application in the LivelyCura family. Its product name is **SERLP Team** (renamed from Loop / "SERLP Loop" on 2026-11-24); "Loop" survives only as the internal code name in the repo, IDs and identifiers. Source: [[../sources/livelycura-loop-renamed-serlp-team|Loop renamed SERLP Team]].
 
 ## Purpose
 
@@ -61,7 +62,8 @@ Expo/EAS application with CI and preview/production deployment workflows.
 - After a mutation, screens refresh with Apollo `refetchQueries`, as across all LivelyCura client apps. The brief old value after Save, until the refetch lands, is accepted; don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it. Source: [[../sources/livelycura-refetch-queries-after-mutation|Refetch queries after mutation]].
 - This repository is a reference for the family’s Expo plus React Navigation structure.
 - Keep workforce features locally owned; shared design-system components remain presentational.
-- Distribution artwork uses the actual transparent app icon and the identity “Loop by SERLP,” with real app screenshots rather than invented UI. The proven iPhone export is `1242x2688` RGB without alpha; the Play composition uses one large center phone and two smaller side phones on solid brand green.
+- Everything people read names the app "SERLP Team" ("the SERLP Team app" where a sentence puts a person into it); bundle IDs `com.livelycura.loop*`, slug, schemes, storage keys, wire values like `LOOP_MOBILE`, identifiers and the old `/apps/mobile/loop/install` path stay as code names so installs and sent links keep working. Source: [[../sources/livelycura-loop-renamed-serlp-team|Loop renamed SERLP Team]].
+- Distribution artwork uses the actual transparent app icon and the identity “Loop by SERLP” (superseded by SERLP Team on 2026-11-24; new artwork comes from the designer), with real app screenshots rather than invented UI. The proven iPhone export is `1242x2688` RGB without alpha; the Play composition uses one large center phone and two smaller side phones on solid brand green.
 
 ## Constraints
 

@@ -7437,3 +7437,26 @@ Key result:
 Follow-ups:
 
 - Owner decision on the 0.3 card border rule versus no-outline light cards.
+
+## [2026-11-24] ingest | Record LivelyCura Loop Renamed SERLP Team
+
+What changed:
+
+- Preserved the product owner's 2026-11-24 request listing six name combinations and their answer, which accepted the session's pick: the staff app Loop is renamed "SERLP Team" in both stores and on the phone.
+- Added a Source Record, a summary line, a convention line and a superseded note for the old artwork identity on the Loop project page, and an index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-24-livelycura-loop-renamed-serlp-team.md`
+- `wiki/sources/livelycura-loop-renamed-serlp-team.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents write the staff app's name as "SERLP Team" in everything people read and keep "loop" only in IDs, schemes, storage keys, wire values and identifiers.
+
+Follow-ups:
+
+- Record the Expo SDK on the project page once the upgrade is verified.
