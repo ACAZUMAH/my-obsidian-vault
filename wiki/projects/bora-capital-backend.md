@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-23
+updated: 2026-11-24
 tags: [project, bora-capital, backend, graphql, fintech]
 sources:
   - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
@@ -397,7 +397,7 @@ High for current static architecture, explicit session corrections, and financia
   - **Refund reason (B10).** Fixed 2026-11-22, uncommitted ([evidence](../../raw/sources/2026-11-22-bora-remaining-fixes-and-handoff-ready.md)). The goal contribution now gets customer wording ("Refunded to you. This top-up was not invested."), and the staff deposit keeps the BCL wording. Customer-visible failure reasons never name BCL.
   - **`getSanitizeLimit(null)`** returned 1 row. Fixed 2026-11-22, uncommitted: a missing, null or blank limit means 15. The same pass made `getWallets` fetch `limit + 1` so it can report a next page, and restored the dropped `NEW_SIGNIN` schema description ([evidence](../../raw/sources/2026-11-22-bora-remaining-fixes-and-handoff-ready.md)).
 - Fixed (raised with the owner 2026-11-21, approved and built 2026-11-23, committed as `6f053be` and pushed; [evidence](../../raw/sources/2026-11-23-bora-bcl-sign-in-403-hang-fix.md)): in `src/services/bcl/client.ts` the "retry on 403" response interceptor also runs for the sign-in request itself. A 403 on the sign-in call (for example an address block in front of BCL) makes the client wait on its own token request, so every BCL call hangs until a restart. The suggested fix is to skip the retry for the sign-in URL. BCL documents 400 for a refused sign-in. Reproduced 2026-11-23 against the real client: calls hang, and the fix makes them fail at once ([evidence](../../raw/sources/2026-11-23-bora-a4-wording-approved-bcl-email-case-deferred.md)). The retry now skips any request whose URL contains `/auth/generate`; `tests/unit/services/bcl/clientSignInRefusal.spec.ts` runs the real client against a fake BCL.
-- Waiting on BCL: enabling production deposits and withdrawals, the stuck 16 Nov 2026 deposit, and payout fields on `addcicashwithdrawal_bcl`.
+- Waiting on BCL: the stuck 16 Nov 2026 deposit. BCL enabled production deposits and withdrawals on 2026-11-24 and agreed to add payout fields to `addcicashwithdrawal_bcl`; it asked for Bora's field names (agent proposal pending the owner; bank payouts need Bora-side work first: [evidence](../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md)).
 - Undecided (2026-11-21):
   - the admin portal's broken fund pages (`navHistory`, `SetFundVisibility`);
   - the portal's missing fact-sheet PDF upload and journey editor;

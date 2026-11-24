@@ -2,7 +2,7 @@
 type: source
 status: active
 created: 2026-11-21
-updated: 2026-11-23
+updated: 2026-11-24
 tags: [bora-capital, backend, mobile, payments, paystack, bcl, withdrawals, notifications, security]
 sources:
   - ../../raw/sources/2026-11-21-bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md
@@ -28,6 +28,7 @@ sources:
   - ../../raw/sources/2026-11-23-bora-a4-wording-approved-bcl-email-case-deferred.md
   - ../../raw/sources/2026-11-23-bora-bcl-sign-in-403-hang-fix.md
   - ../../raw/sources/2026-11-23-bora-email-matching-and-bcl-fix-committed-and-pushed.md
+  - ../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md
 source_date: 2026-11-21
 ingested: 2026-11-21
 confidence: high
@@ -60,6 +61,7 @@ confidence: high
 - Raw file: [A4 wording approved, BCL email case deferred, sign-in 403 hang reproduced](../../raw/sources/2026-11-23-bora-a4-wording-approved-bcl-email-case-deferred.md) (direct owner decisions and agent reproduction, 2026-11-23)
 - Raw file: [BCL sign-in 403 hang fixed](../../raw/sources/2026-11-23-bora-bcl-sign-in-403-hang-fix.md) (owner approval and repository change, 2026-11-23)
 - Raw file: [Email matching and BCL sign-in fix committed and pushed](../../raw/sources/2026-11-23-bora-email-matching-and-bcl-fix-committed-and-pushed.md) (owner instructions and Git results, 2026-11-23)
+- Raw file: [BCL live in production, payout field names requested](../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md) (owner statement, paraphrased BCL chat and agent mapping, 2026-11-24)
 - Date: 2026-11-19 to 2026-11-21
 - Author: Direct user (repository owner) statements in a Claude Code session; repository facts from a read-only, double-checked review of the backend, mobile app and admin portal on 2026-11-20/21
 - Ingested: 2026-11-21
@@ -138,7 +140,7 @@ confidence: high
 - Supersedes the backend page's "deposit initialization must always route through the real configured subaccount with the subaccount as fee bearer". The customer now bears the fee; the subaccount routing itself stays.
 - Supersedes the 2026-08-28 choice to send the withdrawal `TransactionDate` as `YYYY-MM-DD`; the owner approved BCL's `DD MMM YYYY`, built on 2026-11-21 (uncommitted; [evidence](../../raw/sources/2026-11-21-bora-a6-withdrawal-date-implementation.md)). Withdrawal records saved before it keep `YYYY-MM-DD` dates; nothing reads the field.
 - Supersedes the backend page's "Separate signup channel codes prove ownership of both registered contacts". The owner chose one shared code on 2026-11-19.
-- The BCL flow document lists a "Payout account" field that BCL's API does not yet accept; it depends on BCL adding the fields.
+- The BCL flow document lists a "Payout account" field that BCL's API does not yet accept; it depends on BCL adding the fields. Update 2026-11-24: BCL enabled production deposits and withdrawals, agreed to add payout fields, and asked what Bora calls them. The agent proposed `PayoutType`, `PayoutAccountName`, `PayoutAccountNumber`, `PayoutBankID`, `PayoutBankName`, `PayoutNetwork` (not yet approved). Bora cannot send a bank payout yet: bank wallets keep only the last 4 digits, the holder name is a nickname, and `BankID` is not stored ([evidence](../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md)).
 
 ## Open Questions
 

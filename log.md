@@ -2,6 +2,33 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-24] ingest | BCL Production Live, Payout Field Names Requested
+
+What changed:
+
+- Recorded that BCL enabled production deposits and withdrawals, and that BCL agreed to add payout fields to `addcicashwithdrawal_bcl` and asked what Bora calls them.
+- Captured the agent's mapping of payout data:
+  - bank wallets keep only the last 4 digits and a nickname as `accountName`;
+  - the app drops `BankID`;
+  - `mobileNetwork` is free text.
+- Captured the proposed field names (pending the owner).
+
+Files touched:
+
+- `raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- Agents know BCL is live and that the payout fields are being agreed. Bank payouts need Bora-side storage changes before any field can be filled.
+
+Follow-ups:
+
+- Owner approves or changes the field names and sends them to BCL.
+- Get BCL's answers on branch codes, network codes, investor-name rule and number format.
+
 ## [2026-11-23] ingest | Bora Email Matching And BCL Fix Pushed
 
 What changed:
