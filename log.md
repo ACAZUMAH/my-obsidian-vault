@@ -2,6 +2,30 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-24] ingest | Bora Optional Withdrawal Reason
+
+What changed:
+
+- Preserved the owner's decision that customers may give an optional reason for a withdrawal, sent to BCL as `Comment`.
+- Recorded the backend change, the new handoff, and the schema-description quoting gotcha.
+- Marked the "Comment is always Withdrawal" note superseded.
+
+Files touched:
+
+- `raw/sources/2026-11-24-bora-withdrawal-reason-comment.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `log.md`
+
+Key result:
+
+- Agents know `requestWithdrawal.comment` is optional: up to 100 characters, "Withdrawal" by default.
+
+Follow-ups:
+
+- Commit and push when the owner asks.
+- Correct the Comment line in the payout-field message to BCL.
+
 ## [2026-11-24] ingest | Bora Withdrawal Payouts Built
 
 What changed:

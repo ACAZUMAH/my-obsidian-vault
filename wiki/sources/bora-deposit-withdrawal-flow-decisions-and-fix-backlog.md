@@ -30,6 +30,7 @@ sources:
   - ../../raw/sources/2026-11-23-bora-email-matching-and-bcl-fix-committed-and-pushed.md
   - ../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md
   - ../../raw/sources/2026-11-24-bora-withdrawal-payouts-built.md
+  - ../../raw/sources/2026-11-24-bora-withdrawal-reason-comment.md
 source_date: 2026-11-21
 ingested: 2026-11-21
 confidence: high
@@ -64,6 +65,7 @@ confidence: high
 - Raw file: [Email matching and BCL sign-in fix committed and pushed](../../raw/sources/2026-11-23-bora-email-matching-and-bcl-fix-committed-and-pushed.md) (owner instructions and Git results, 2026-11-23)
 - Raw file: [BCL live in production, payout field names requested](../../raw/sources/2026-11-24-bora-bcl-production-live-and-payout-fields-request.md) (owner statement, paraphrased BCL chat and agent mapping, 2026-11-24)
 - Raw file: [Withdrawal payouts built](../../raw/sources/2026-11-24-bora-withdrawal-payouts-built.md) (owner decisions, production bank-list check and repository change, 2026-11-24)
+- Raw file: [Optional withdrawal reason](../../raw/sources/2026-11-24-bora-withdrawal-reason-comment.md) (owner decision and repository change, 2026-11-24)
 - Date: 2026-11-19 to 2026-11-21
 - Author: Direct user (repository owner) statements in a Claude Code session; repository facts from a read-only, double-checked review of the backend, mobile app and admin portal on 2026-11-20/21
 - Ingested: 2026-11-21
@@ -126,7 +128,7 @@ confidence: high
   - server-returned `PROCESSING`: "Payment received, awaiting confirmation".
   - Keep the neutral "checking your payment, do not pay again" wording for the `PROCESSING` the app invents after client errors.
   - Avoid the word "BCL", because the app hides backend messages that contain it.
-- The withdrawal `Comment` is always the literal "Withdrawal" (the app has no note box); the BCL flow document must say so.
+- ~~The withdrawal `Comment` is always the literal "Withdrawal" (the app has no note box); the BCL flow document must say so.~~ Superseded 2026-11-24: the customer may give an optional reason (up to 100 characters), sent as `Comment`, with "Withdrawal" when none ([evidence](../../raw/sources/2026-11-24-bora-withdrawal-reason-comment.md)).
 - Fee math: with surcharge `S = ceil(A·r/(1−r))` on deposit `A` (in pesewas), `S ≥ r·(A+S)`, so Bora's share always covers Paystack's fee. At `r = 0.0195`, GH¢1.00 is charged GH¢1.02 and GH¢100.00 is charged GH¢101.99.
 - C19, owner questioned, not approved. Explanation given: Express reads and parses up to 5 MB of body before any login check, so a logged-out request is refused only after it has been read.
 - The Paystack live webhook URL is now configured (owner, 2026-11-21).
