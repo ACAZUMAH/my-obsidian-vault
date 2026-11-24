@@ -7363,3 +7363,28 @@ Key result:
 Follow-ups:
 
 - Check the glass on Android, where chrome falls back to opaque fills.
+
+## [2026-11-24] ingest | Record Altin UI SERLP Reference Correction
+
+What changed:
+
+- Preserved the user's 2026-11-24 corrections rejecting the 2026-11-23 glassmorphism pass and naming SERLP Mobile as the reference, with the side-by-side comparison and the rebuilt shell.
+- Added a Source Record; marked the glass redesign record superseded; replaced the Altin Partner Mobile look convention, contradiction and evidence lines; made SERLP the Altin UI shell reference in the development manual and added two React Native findings; updated the index.
+
+Files touched:
+
+- `raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md`
+- `wiki/sources/altin-ui-serlp-reference-correction.md`
+- `wiki/sources/altin-glass-ui-redesign.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Altin Partner Mobile looks like SERLP Mobile: grouped surfaces, Liquid Glass only on floating controls, solid content and header fades, with no decorative glows; agents open the reference app and compare before UI work.
+
+Follow-ups:
+
+- Decide whether Altin moves to a newer Expo SDK for the native iOS 26 tab bar.

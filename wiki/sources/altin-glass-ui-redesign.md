@@ -1,8 +1,8 @@
 ---
 type: source
-status: active
+status: superseded
 created: 2026-11-23
-updated: 2026-11-23
+updated: 2026-11-24
 tags: [altin, mobile, design-system, glassmorphism, react-native, expo]
 sources:
   - ../../raw/sources/2026-11-23-altin-glass-ui-redesign.md
@@ -10,6 +10,9 @@ confidence: high
 ---
 
 # Altin Glass UI Redesign
+
+> [!warning] Superseded 2026-11-24
+> The user rejected this pass as unbusinesslike (red glows on black and white, see-through cards, blurred bars and sheets) and pointed to SERLP Mobile as the reference. It was reverted. See [[altin-ui-serlp-reference-correction|Altin UI Follows SERLP Mobile]]. The React Native gotchas below remain technically true.
 
 ## Source
 
