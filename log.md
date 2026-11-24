@@ -7484,3 +7484,22 @@ Key result:
 Follow-ups:
 
 - Record the Expo SDK on the project page once the upgrade is verified.
+
+## [2026-11-24] update | LivelyCura Loop Stack Now Expo SDK 58
+
+What changed:
+
+- Updated the Loop project page's stack line from Expo SDK 54 to SDK 58 (React Native 0.88, React 19.3, TypeScript 6). The Xcode 27 workarounds are gone, and the lowest supported iOS is now 16.4. This closes the follow-up from the SERLP Team rename record.
+
+Files touched:
+
+- `wiki/projects/livelycura-loop-app.md`
+- `log.md`
+
+Key result:
+
+- Agents treat Loop as an SDK 58 app that builds on Xcode 27 without patches or config-plugin workarounds.
+
+Follow-ups:
+
+- None.

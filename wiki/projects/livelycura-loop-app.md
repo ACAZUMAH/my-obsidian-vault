@@ -29,7 +29,7 @@ Current features support workspace selection, announcements, attendance, schedul
 
 ## Stack
 
-- Expo SDK 54, React Native 0.81, React 19, TypeScript.
+- Expo SDK 58, React Native 0.88, React 19.3, TypeScript 6 (upgraded from SDK 54 on 2026-11-24). Builds on Xcode 27 without workarounds; the old `patches/` (@expo/cli DeviceHub backport) and `plugins/` (pod deployment-target raise) are gone. Lowest iOS is 16.4, Android minSdk 24.
 - React Navigation, Apollo Client/GraphQL, Redux Toolkit.
 - Shared design system, GraphQL Codegen, EAS.
 - Yarn.
