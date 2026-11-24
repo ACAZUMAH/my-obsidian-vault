@@ -2,6 +2,31 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-24] ingest | Bora Withdrawal Payouts Built
+
+What changed:
+
+- Preserved the owner's answers and the build instruction for withdrawal payouts.
+- Recorded the production check: BCL's `fetchbanks` returns `{}` in production and has no `BankCode` in staging, so banks go by `BankID`.
+- Recorded the owner's decision against name checks, and the build and push of `4310bb5`.
+
+Files touched:
+
+- `raw/sources/2026-11-24-bora-withdrawal-payouts-built.md`
+- `wiki/sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog.md`
+- `wiki/projects/bora-capital-backend.md`
+- `wiki/projects/bora-capital-mobile-app.md`
+- `log.md`
+
+Key result:
+
+- Agents know the payout field contract, that bank numbers are stored only encrypted, and that payout accounts are never name-checked.
+
+Follow-ups:
+
+- BCL must load its production bank list, add the payout fields, and confirm `BankID` is enough.
+- The frontend implements the 2026-11-24 handoff.
+
 ## [2026-11-24] ingest | BCL Production Live, Payout Field Names Requested
 
 What changed:

@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-23
+updated: 2026-11-24
 tags: [project, bora-capital, mobile, expo, investment]
 sources:
   - ../sources/kusantec-bora-project-knowledge-harvest-batch-1.md
@@ -111,7 +111,7 @@ API host (user statements, 2026-11-19): production uses `api-production-bora-x7e
   - Deposit result copy. BCL accepting the deposit means it went through, and BCL has already alerted the customer, so drop "your investment account has been credited". Proposed: "Deposit successful. You'll get a confirmation message when it reflects on your portfolio." When the server returns `PROCESSING`, show "Payment received, awaiting confirmation". Keep the neutral "checking your payment, do not pay again" wording for the `PROCESSING` the app sets itself after client errors. The exact wording is the owner's.
   - "That verification code is incorrect" only for the server's own code errors (wrong, expired, too many attempts). Today `mapVerificationError` matches any message containing "invalid", so BCL's "Invalid Account Number" refusal shows as a code error. Show BCL's refusal text instead.
   - Show amount, Paystack fee and total on the deposit, goal top-up and auto top-up screens. The customer bears the fee. The backend fee change is built (A1, 2026-11-22, uncommitted) and is on at deploy, so builds without it show only the deposit while Paystack asks for the total. Read the quote from `getDepositFeeQuote(amount)` before confirming, or from `amount`/`fee`/`total` on the checkout reply; payment results carry the same fields; `AutoTopUp` has `fee` and `total` per run. Keep "Total Investment" meaning the deposit. Evidence: [A1](../../raw/sources/2026-11-22-bora-a1-customer-pays-paystack-fee-implementation.md).
-  - Later, a "pay to" step (bank or Mobile Money) for withdrawals, once BCL adds payout fields.
+  - Later, a "pay to" step (bank or Mobile Money) for withdrawals, once BCL adds payout fields. Backend built 2026-11-24 (`4310bb5`). The app work is in the backend's `docs/frontend-handoff-2026-11-24-payouts.md`: send `bankId` when adding a bank account, show Telecel and AT, add a "Pay to" step listing wallets with `canReceivePayouts`, and pass `walletId` to `requestWithdrawal` ([evidence](../../raw/sources/2026-11-24-bora-withdrawal-payouts-built.md)).
   - App-only side note, the developer's call (owner decision, 2026-11-21): on a phone keyboard that uses a decimal comma, typing "500,50" in the withdrawal amount becomes "50050". The confirm screen shows 50,050 before the customer confirms, so the customer can see it, but it is an older input issue in `sanitizeAmountInput` (`app/withdrawals/amount.tsx`).
 
   See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|Bora Deposit And Withdrawal Flow Decisions And Fix Backlog]].
