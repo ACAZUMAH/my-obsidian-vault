@@ -7388,3 +7388,27 @@ Key result:
 Follow-ups:
 
 - Decide whether Altin moves to a newer Expo SDK for the native iOS 26 tab bar.
+
+## [2026-11-24] update | Correct Altin UI SERLP Reference To Method, Not Copy
+
+What changed:
+
+- Preserved the owner's second 2026-11-24 correction: SERLP Mobile is a reference for the redesign method and quality, not a look to paste into Altin; the apps do different jobs.
+- Rewrote the SERLP reference Source Record's claims around the transferable method; corrected the Altin project convention and contradiction lines, the development manual's Altin family bullet, and the index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-24-altin-serlp-reference-not-copy.md`
+- `wiki/sources/altin-ui-serlp-reference-correction.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents reuse the SERLP redesign method in Altin's own identity and never describe Altin's UI as matching SERLP.
+
+Follow-ups:
+
+- Owner decision on the 0.3 card border rule versus no-outline light cards.

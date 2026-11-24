@@ -327,7 +327,13 @@ This page centralizes durable development preferences and project conventions th
 - Workforce administration and reports: [[../projects/keks-admin-portal|Keks Admin Portal]].
 - Assisted selling and order operations: [[../projects/call-center-web-app|Call Center Web App]].
 - Altin mobile theming follows the repository's `docs/app-theme-guide.md` (palette, light/dark semantic colors, system typography, spacing, radii), with the user's later token tuning taking precedence. The user rejected the [[../sources/altin-mobile-brand-system|Brand Book]] palette and Plus Jakarta Sans / IBM Plex fonts as the app theme; never restore them or the old look. Keep the supplied lockups and app icon masters. Primary icons in icon wells look identical in both appearances, and a visual request changes only the named detail. See [[../sources/altin-theme-navigation-runtime-corrections|the theme correction]].
-- SERLP is the architecture and configuration reference and, since 2026-11-24, the UI shell reference for Altin: grouped surfaces (grey page and white cards in light), Liquid Glass only on floating controls, solid content, a header band with a short fade on every screen, and no decorative gradients or glows, because these are business apps. Before UI work, open SERLP on the simulator and compare screen by screen in both appearances. Altin keeps its own palette, icon wells and identity. See [[../sources/altin-ui-serlp-reference-correction|Altin UI Follows SERLP Mobile]].
+- SERLP is the architecture and configuration reference. For Altin UI work, the SERLP Mobile redesign (2026-11) is a reference for method and quality, never a template: "use it as a reference not copy everything from there and paste, the two different apps that does different things" (owner, 2026-11-24). Reuse the method:
+  - Tab by tab, with the owner checking each.
+  - Glass only on floating controls; solid content; header fades.
+  - Calm light mode; dark mode untouched.
+  - Messy screens reworked keeping every fact.
+  - An independent review per area.
+  Design Altin's own screens in Altin's identity. No decorative gradients or glows in business apps. See [[../sources/altin-ui-serlp-reference-correction|Altin UI Uses the SERLP Redesign as a Reference]].
 - SERLP does not authorize copying Altin branding, typography, spacing, radii, shadows, modules, or product identity.
 - Each app module owns its root screen, local drawer, sections, constants, styles, hooks, data, and concrete feature screens.
 - `Apps` provides directory metadata and root navigation only; shared components are presentation-only.

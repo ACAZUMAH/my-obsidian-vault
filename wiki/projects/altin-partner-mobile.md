@@ -98,7 +98,14 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Durable Conventions
 
-- The app's look follows SERLP Mobile (user correction, 2026-11-24): grey page with white cards in light (`cloud` `#F6F7F8`), the unchanged dark theme, Apple's Liquid Glass only on floating controls (`expo-glass-effect` via `src/components/glass`: tab bar, Apps button, header buttons, list search), solid content, and a solid header band with a 24pt `HeaderFade` on every screen. No decorative gradients or coloured glows: it is a business app. The 2026-11-23 glassmorphism pass was rejected and reverted. Repository rules live in `DESIGN.md` "Glass controls and header fades" and `AGENTS.md`. See [[../sources/altin-ui-serlp-reference-correction|the SERLP reference correction]].
+- UI direction (user corrections, 2026-11-24): the SERLP Mobile redesign is the reference for method and quality, not a template; Altin is a different app and keeps its own identity. The method:
+  - Tab by tab, with the owner checking each.
+  - Glass only on floating controls; solid content; header fades.
+  - Calm light mode on neutral greys; dark mode untouched.
+  - A black modal dim that fades in.
+  - Crowded or repetitive screens reworked keeping every fact.
+  - An independent review per area.
+  No decorative gradients or glows: it is a business app. The 2026-11-23 glassmorphism pass was rejected and reverted. See [[../sources/altin-ui-serlp-reference-correction|the SERLP reference record]].
 - Mutation hooks own business/API validation and transport error toasts, including returned field messages. Remove assertion/ApiError/unwrapping layers and rethrows; forms keep client Yup validation and drafts, and advance only on successful results. Current mobile hooks expose named actions and loading. Use Apollo loading and `form.isValid` instead of saving refs; Formik never submits requests (superseded 2026-10-09, see [[../sources/altin-formik-onsubmit-correction|the Formik onSubmit correction]]). See [[../sources/altin-orders-mobile-web-reference|the latest mutation error correction]].
 
 - Do not recreate the rejected outlet/group form-feature layers or extra edit-form wrappers. Bind fields in the owning screens, keep straightforward field rules in the form hooks and prefer built-in numeric Yup validators. The supplied multi-schema/promise-controller code is rejected evidence. Preserve the user’s `src/orders/createOrder` rename. See [[../sources/altin-orders-mobile-web-reference|the latest form-layer correction]].
@@ -211,7 +218,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 ## Evidence
 
 - [[../sources/altin-glass-ui-redesign|Altin Glass UI Redesign]]: the user's 2026-11-23 request, the built theme and shared glass components, and four React Native findings verified on the iPhone 17 Pro simulator in light and dark. The work was uncommitted on `feature/apps` when recorded. Superseded and reverted on 2026-11-24.
-- [[../sources/altin-ui-serlp-reference-correction|Altin UI Follows SERLP Mobile]]: the user's 2026-11-24 correction, the side-by-side SERLP comparison, the rebuilt shell, and the Expo SDK 54 native tab bar block; verified on the iPhone 17 Pro simulator in light and dark, uncommitted on `feature/apps`.
+- [[../sources/altin-ui-serlp-reference-correction|Altin UI Uses the SERLP Redesign as a Reference]]: the owner's two 2026-11-24 corrections (no decorative glass; SERLP is a reference, not a copy), the SERLP redesign method, and the Expo SDK 54 native tab bar block.
 - [[../sources/altin-onboarding-gate|Altin Onboarding and the Post-Sign-In Gate]]: direct user requests and decisions on 2026-10-20 and 2026-10-21, research in the web partner and admin apps, the repository's `docs/onboarding.md` and `AGENTS.md` section, 118 offline checks, and read-only simulator checks. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-reports-mobile|Altin Reports Mobile]]: direct user corrections and decisions on 2026-10-18 and user-approved fixes on 2026-10-20, the repository's `docs/reports.md` and `AGENTS.md` Reports section, offline checks, and a read-only simulator check of every report screen and most exports. The work was uncommitted on `feature/apps` when recorded.
 - [[../sources/altin-profile-separate-editors-correction|Altin Profile Separate Editors Correction]]: direct user correction on 2026-10-09 and the LivelyCura phone helpers.
@@ -239,7 +246,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Contradictions
 
-- The 2026-11-23 glass redesign was superseded the next day by the SERLP-reference look; the theme guide still governs palette values, type, spacing and radii, while the light page moved from white to grey. See [[../sources/altin-ui-serlp-reference-correction|the SERLP reference correction]].
+- The 2026-11-23 glass redesign was superseded the next day. A first follow-up copied SERLP's look (grey light page and more), which the owner rejected as copying; the current shell is being reviewed against the SERLP method in Altin's own terms. See [[../sources/altin-ui-serlp-reference-correction|the SERLP reference record]].
 - The admin app says approval requires a verified KYC profile, but a live active organization had no profile or documents. The onboarding screen calls approved organizations "approved", not "verified". See [[../sources/altin-onboarding-gate|the onboarding record]].
 - The Reports build supersedes the statement that the Reports tab is a placeholder. Its card-per-record correction replaces the first build's horizontally scrolling tables. See [[../sources/altin-reports-mobile|the Reports record]].
 - Scaling rate fractions is a user-approved departure from exports identical to the web's, because the web's rates are 100 times too small. Since 2026-10-20 the repository's `docs/reports.md` and `AGENTS.md` say exports print the web's values except rates, which are scaled to percentages. See [[../sources/altin-reports-mobile|the Reports record]].
