@@ -6,6 +6,7 @@ updated: 2026-11-25
 tags: [livelycura, loop, design, dark-mode, mobile, decision]
 sources:
   - ../../raw/sources/2026-11-25-livelycura-serlp-team-matches-serlp-mobile-design.md
+  - ../../raw/sources/2026-11-25-livelycura-serlp-team-no-header-fade.md
 source_date: 2026-11-24
 ingested: 2026-11-25
 confidence: high
@@ -26,10 +27,11 @@ confidence: high
 - Colours are SERLP Mobile's palette in both modes (brand green #256C4A, dark #3B7559; neutral greys in light; black page with #1C1C1E cards in dark). Light cards get the soft even shadow, dark cards the 1pt #38383A rim; row lines are inset hairlines in light and full-width 1pt lines in dark.
 - Dark mode is the app's own switch in More → Preferences, and native views follow it, as in SERLP Mobile.
 - Exceptions kept for readability: lighter dark-mode red (#F97066) and blue (#5AA2FF) for words; fills keep SERLP Mobile's colours.
+- No header fades in SERLP Team (owner, 2026-11-25: "remove the header fades away"): content scrolls under a solid header band. SERLP Mobile keeps its fade. Raw: [no header fade](../../raw/sources/2026-11-25-livelycura-serlp-team-no-header-fade.md).
 
 ## Useful Details
 
-- Chrome copied from SERLP Mobile: the native iOS 26 Liquid Glass tab bar (iPhone, iOS 26.1+; drawn capsule elsewhere), glass round header buttons via `expo-glass-effect`, centred pushed titles on the back-button row, large left tab-root titles, header fade, fade-and-slide sheets, four-box sign-in code, and the installed-version line "SERLP Team v… · by SERLP".
+- Chrome copied from SERLP Mobile: the native iOS 26 Liquid Glass tab bar (iPhone, iOS 26.1+; drawn capsule elsewhere), glass round header buttons via `expo-glass-effect`, centred pushed titles on the back-button row, large left tab-root titles (no header fade, by the owner's later request), fade-and-slide sheets, four-box sign-in code, and the installed-version line "SERLP Team v… · by SERLP".
 - The native tab bar required React Navigation bottom-tabs 7.22 / native 7.5 / native-stack 7.21. `expo-glass-effect` is native, so a new store build is needed before the glass shows.
 
 ## Connections

@@ -7551,3 +7551,25 @@ Key result:
 Follow-ups:
 
 - None.
+
+## [2026-11-25] update | SERLP Team Drops Header Fades
+
+What changed:
+
+- Preserved the product owner's 2026-11-25 request verbatim ("remove the header fades away") and recorded it as a SERLP Team exception to matching SERLP Mobile: no fade under screen headers.
+- Updated the SERLP Team design Source Record and the convention line on the Loop project page.
+
+Files touched:
+
+- `raw/sources/2026-11-25-livelycura-serlp-team-no-header-fade.md`
+- `wiki/sources/livelycura-serlp-team-matches-serlp-mobile-design.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `log.md`
+
+Key result:
+
+- Agents keep SERLP Team's headers as a solid band with no fade, while SERLP Mobile keeps its own.
+
+Follow-ups:
+
+- None.
