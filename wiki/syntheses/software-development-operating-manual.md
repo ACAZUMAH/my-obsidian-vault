@@ -2,7 +2,7 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-11-24
+updated: 2026-11-25
 tags: [software-development, operating-manual, project-conventions]
 sources:
   - ../sources/agent-workload-limit-on-owner-laptop.md
@@ -329,7 +329,7 @@ This page centralizes durable development preferences and project conventions th
 - Altin mobile theming follows the repository's `docs/app-theme-guide.md` (palette, light/dark semantic colors, system typography, spacing, radii), with the user's later token tuning taking precedence. The user rejected the [[../sources/altin-mobile-brand-system|Brand Book]] palette and Plus Jakarta Sans / IBM Plex fonts as the app theme; never restore them or the old look. Keep the supplied lockups and app icon masters. Primary icons in icon wells look identical in both appearances, and a visual request changes only the named detail. See [[../sources/altin-theme-navigation-runtime-corrections|the theme correction]].
 - SERLP is the architecture and configuration reference. For Altin UI work, the SERLP Mobile redesign (2026-11) is a reference for method and quality, never a template: "use it as a reference not copy everything from there and paste, the two different apps that does different things" (owner, 2026-11-24). Reuse the method:
   - Tab by tab, with the owner checking each.
-  - Glass only on floating controls; solid content; header fades.
+  - Glass only on floating controls; solid content; a solid header band (Altin has no fade under headers, owner decision 2026-11-25).
   - Calm light mode; dark mode untouched.
   - Messy screens reworked keeping every fact.
   - An independent review per area.

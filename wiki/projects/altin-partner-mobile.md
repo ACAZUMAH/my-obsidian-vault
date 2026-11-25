@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-24
+updated: 2026-11-25
 tags: [project, ceqa, altin, expo, react-native, partner-operations]
 sources:
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
@@ -100,7 +100,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 - UI direction (user corrections, 2026-11-24): the SERLP Mobile redesign is the reference for method and quality, not a template; Altin is a different app and keeps its own identity. The method:
   - Tab by tab, with the owner checking each.
-  - Glass only on floating controls; solid content; header fades.
+  - Glass only on floating controls; solid content; a solid header band with no fade under it (user decision 2026-11-25).
   - Calm light mode on neutral greys; dark mode untouched.
   - A black modal dim that fades in.
   - Crowded or repetitive screens reworked keeping every fact.

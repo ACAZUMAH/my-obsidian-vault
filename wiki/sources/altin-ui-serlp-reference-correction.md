@@ -2,11 +2,12 @@
 type: source
 status: active
 created: 2026-11-24
-updated: 2026-11-24
+updated: 2026-11-25
 tags: [altin, mobile, design-system, react-native, expo, correction]
 sources:
   - ../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md
   - ../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md
+  - ../../raw/sources/2026-11-25-altin-no-header-fade.md
 confidence: high
 ---
 
@@ -14,7 +15,7 @@ confidence: high
 
 ## Source
 
-- Raw files: [Altin UI SERLP reference correction](../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md); [SERLP is a reference, not a template](../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md)
+- Raw files: [Altin UI SERLP reference correction](../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md); [SERLP is a reference, not a template](../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md); [No header fade](../../raw/sources/2026-11-25-altin-no-header-fade.md)
 - Date: 2026-11-24
 - Author: user, through an Altin Partner Mobile Claude Code session; repository `DESIGN.md` and `AGENTS.md`
 - Ingested: 2026-11-24
@@ -27,7 +28,7 @@ confidence: high
 - The session first misread "check the serlp mobile" as "make Altin look like SERLP" and rebuilt Altin's shell to SERLP's look (grey page, glass controls, header fades). That copy is under review, not the target.
 - The transferable part is the SERLP redesign method (serlp-mobile `dbd1a835`; board `livelycura-hq/tasks/mobile-ui-redesign.md`; handoff `docs/mobile-ui-redesign-2026-11/handoff.md`):
   - Tab by tab, with the owner checking each.
-  - Glass only on floating controls; solid content; header fades; list ends clear of the tab bar.
+  - Glass only on floating controls; solid content; header fades; list ends clear of the tab bar. In Altin the owner dropped the header fade on 2026-11-25: headers are a solid band with no fade.
   - Light mode on neutral greys: no harsh outlines, a soft shadow, inset hairlines, near-black text, darker status words. Dark mode untouched.
   - A black modal dim that fades in.
   - Every module audited for crowded or repetitive screens, each reworked keeping every fact.

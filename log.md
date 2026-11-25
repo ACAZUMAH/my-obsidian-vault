@@ -7573,3 +7573,23 @@ Key result:
 Follow-ups:
 
 - None.
+
+## [2026-11-25] update | Record Altin No Header Fade Decision
+
+What changed:
+
+- Preserved the owner's 2026-11-25 decision that Altin headers are a solid band with no fade under them, after the owner removed the fade themselves and confirmed "remove everywhere".
+- Updated the Altin project convention, the SERLP reference Source Record, the development manual's Altin bullet and the index.
+
+Files touched:
+
+- `raw/sources/2026-11-25-altin-no-header-fade.md`
+- `wiki/sources/altin-ui-serlp-reference-correction.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents do not add fades under Altin headers; the tab bar and report export bar fades stay.
