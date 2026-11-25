@@ -105,6 +105,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
   - A black modal dim that fades in.
   - Crowded or repetitive screens reworked keeping every fact.
   - An independent review per area.
+  - An app row's feature names (Search and the Apps directory) stay on one line, truncated; never wrap them to show every feature (user correction 2026-11-25).
   No decorative gradients or glows: it is a business app. The 2026-11-23 glassmorphism pass was rejected and reverted. See [[../sources/altin-ui-serlp-reference-correction|the SERLP reference record]].
 - Mutation hooks own business/API validation and transport error toasts, including returned field messages. Remove assertion/ApiError/unwrapping layers and rethrows; forms keep client Yup validation and drafts, and advance only on successful results. Current mobile hooks expose named actions and loading. Use Apollo loading and `form.isValid` instead of saving refs; Formik never submits requests (superseded 2026-10-09, see [[../sources/altin-formik-onsubmit-correction|the Formik onSubmit correction]]). See [[../sources/altin-orders-mobile-web-reference|the latest mutation error correction]].
 

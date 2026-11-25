@@ -7593,3 +7593,22 @@ Files touched:
 Key result:
 
 - Agents do not add fades under Altin headers; the tab bar and report export bar fades stay.
+
+## [2026-11-25] update | Record Altin App Feature Names Stay On One Line
+
+What changed:
+
+- Preserved the user's 2026-11-25 correction rejecting wrapped feature-name lines under app rows on Search and the Apps directory.
+- Added the rule to the Altin project UI direction and the SERLP reference Source Record; updated the index source count.
+
+Files touched:
+
+- `raw/sources/2026-11-25-altin-app-feature-names-one-line.md`
+- `wiki/sources/altin-ui-serlp-reference-correction.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents keep app feature names on one truncated line and do not "fix" the truncation by wrapping.

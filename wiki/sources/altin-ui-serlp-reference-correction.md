@@ -8,6 +8,7 @@ sources:
   - ../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md
   - ../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md
   - ../../raw/sources/2026-11-25-altin-no-header-fade.md
+  - ../../raw/sources/2026-11-25-altin-app-feature-names-one-line.md
 confidence: high
 ---
 
@@ -15,7 +16,7 @@ confidence: high
 
 ## Source
 
-- Raw files: [Altin UI SERLP reference correction](../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md); [SERLP is a reference, not a template](../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md); [No header fade](../../raw/sources/2026-11-25-altin-no-header-fade.md)
+- Raw files: [Altin UI SERLP reference correction](../../raw/sources/2026-11-24-altin-ui-serlp-reference-correction.md); [SERLP is a reference, not a template](../../raw/sources/2026-11-24-altin-serlp-reference-not-copy.md); [No header fade](../../raw/sources/2026-11-25-altin-no-header-fade.md); [Feature names one line](../../raw/sources/2026-11-25-altin-app-feature-names-one-line.md)
 - Date: 2026-11-24
 - Author: user, through an Altin Partner Mobile Claude Code session; repository `DESIGN.md` and `AGENTS.md`
 - Ingested: 2026-11-24
@@ -37,6 +38,7 @@ confidence: high
 
 ## Useful Details
 
+- App rows list their feature names on one line, truncated, on Search and in the Apps directory; the user rejected wrapping them (2026-11-25).
 - Before UI work, read the SERLP board and handoff for the method and the owner's standing UI preferences, and look at SERLP on the simulator for the quality bar; then design for Altin's own screens and data.
 - Native tab bar: blocked on Expo SDK 54, where `bottom-tabs/unstable` needs `Tabs` from a newer `react-native-screens` than the pinned 4.16. Altin keeps a drawn glass capsule with a sliding selection pill, as SERLP's own fallback bar does.
 - React Native 0.81: an absolute child with `top: "100%"` in a parent without a fixed height lands at the parent's centre; anchor with a negative `bottom` and an explicit `height`.
