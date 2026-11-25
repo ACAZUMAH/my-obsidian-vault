@@ -7528,3 +7528,26 @@ Key result:
 Follow-ups:
 
 - None.
+
+## [2026-11-25] ingest | Record LivelyCura SERLP Team Matches SERLP Mobile Design
+
+What changed:
+
+- Preserved the product owner's 2026-11-24 request verbatim: SERLP Team gets SERLP Mobile's pattern, redesign, dark mode and colours. Recorded how conflicts with SERLP Team's older design-system rules were resolved (SERLP Mobile wins) and the two readability exceptions.
+- Added a Source Record, a convention line on the Loop project page, and an index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-25-livelycura-serlp-team-matches-serlp-mobile-design.md`
+- `wiki/sources/livelycura-serlp-team-matches-serlp-mobile-design.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents style SERLP Team after SERLP Mobile and treat SERLP Mobile as the reference when the two apps' design rules disagree.
+
+Follow-ups:
+
+- None.
