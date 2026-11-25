@@ -7612,3 +7612,18 @@ Files touched:
 Key result:
 
 - Agents keep app feature names on one truncated line and do not "fix" the truncation by wrapping.
+
+## [2026-11-25] update | Record Altin UI Redesign Commits
+
+What changed:
+
+- Recorded that the owner-approved Altin UI rework landed on `feature/apps` (`ec4c43f`), with behaviour fixes as separate commits and the owner's environment switch left uncommitted.
+
+Files touched:
+
+- `wiki/projects/altin-partner-mobile.md`
+- `log.md`
+
+Key result:
+
+- The Altin project page no longer describes the UI rework as under review.
