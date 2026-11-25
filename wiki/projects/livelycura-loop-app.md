@@ -16,6 +16,7 @@ sources:
   - ../sources/livelycura-project-knowledge-harvest-batch-3.md
   - ../sources/livelycura-loop-renamed-serlp-team.md
   - ../sources/livelycura-serlp-team-matches-serlp-mobile-design.md
+  - ../sources/livelycura-request-for-wording.md
 confidence: medium
 ---
 
@@ -67,6 +68,7 @@ Expo/EAS application with CI and preview/production deployment workflows.
 - This repository is a reference for the family’s Expo plus React Navigation structure.
 - Keep workforce features locally owned; shared design-system components remain presentational.
 - Everything people read names the app "SERLP Team" ("the SERLP Team app" where a sentence puts a person into it); bundle IDs `com.livelycura.loop*`, slug, schemes, storage keys, wire values like `LOOP_MOBILE`, identifiers and the old `/apps/mobile/loop/install` path stay as code names so installs and sent links keep working. Source: [[../sources/livelycura-loop-renamed-serlp-team|Loop renamed SERLP Team]].
+- Staff copy says "request for" a shift, never "request this shift" / "request it": "Request for this shift" button, "Request for this shift?" confirmation, "You can't request for this shift.", "you can request for it again." and the push "Tap to request for it."; "request" as a noun ("Send request", "Withdraw your request?", "Request sent") stays. Source: [[../sources/livelycura-request-for-wording|Request for wording]].
 - Distribution artwork uses the actual transparent app icon and the identity “Loop by SERLP” (superseded by SERLP Team on 2026-11-24; new artwork comes from the designer), with real app screenshots rather than invented UI. The proven iPhone export is `1242x2688` RGB without alpha; the Play composition uses one large center phone and two smaller side phones on solid brand green.
 
 ## Constraints

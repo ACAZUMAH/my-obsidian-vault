@@ -7646,3 +7646,22 @@ Files touched:
 Key result:
 
 - Agents put each decision item to the owner as: the issue (how it works today, with an example person), numbered options with what each covers or leaves out (including ones that won't work, and why), then "My recommendation" with the reasons.
+
+## [2026-11-25] ingest | Record LivelyCura "Request For" A Shift Wording
+
+What changed:
+
+- Preserved the product owner's 2026-11-25 wording correction verbatim ("it should either request for this shift or just request not request this shift") and the pick "Option 1": staff copy says "request for" a shift everywhere staff read it; "request" as a noun stays.
+- Added a Source Record, one convention line on the Loop app page, and index entries. Built in livelycura-loop-app `a6d0662` and livelycura-backend `2f72bdf57`.
+
+Files touched:
+
+- `raw/sources/2026-11-25-livelycura-request-for-wording.md`
+- `wiki/sources/livelycura-request-for-wording.md`
+- `wiki/projects/livelycura-loop-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents write "Request for this shift", "Request for this shift?", "You can't request for this shift.", "you can request for it again." and "Tap to request for it.", never "request this shift" / "request it".
