@@ -31,6 +31,9 @@ confidence: high
 
 - The native tab bar shows on iPhones with iOS 26.1+ and falls back to a drawn capsule elsewhere. React Navigation is pinned to bottom-tabs 7.16.2, native 7.2.5 and native-stack 7.16.0.
 - `expo-glass-effect` and `react-native-view-shot` are new native packages, so a new store build is needed before the glass buttons and the crossfade show.
+- Committed and pushed at the owner's "Commit and push" (2026-11-25): livelycura-courier-mobile `feature/redesign` d0746b0. The Dark mode fixes found on the way went to the sister apps the same day, at the owner's "yes fix them": serlp-mobile `feature/hrm` efdc927c and livelycura-loop-app `feature/hrm` 0419c15.
+- Lesson: React Native's iOS `Switch` puts `alignSelf: 'flex-start'` ahead of the style passed in, so in a row taller than the switch it sits high. A switch in a row needs `alignSelf: "center"` (SERLP Mobile: `SWITCH_IN_ROW` in `src/components/styled`).
+- Lesson: when a quick second tap can overtake a first tap that is still waiting (here, the crossfade's screen picture), count the taps and let only the latest apply. Comparing the chosen value fails on three taps, where the first and third ask for the same thing.
 
 ## Connections
 

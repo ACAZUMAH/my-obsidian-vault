@@ -7688,3 +7688,22 @@ Key result:
 Follow-ups:
 
 - None.
+
+## [2026-11-25] update | SERLP Dispatch Redesign Committed, Switch Lessons
+
+What changed:
+
+- Added the commit hashes for the SERLP Dispatch redesign (owner: "Commit and push") and the Dark mode fixes carried to SERLP Mobile and SERLP Team (owner: "yes fix them"), plus two reusable lessons: React Native's iOS Switch sits high in taller rows unless given `alignSelf: "center"`, and overtaken taps are resolved by counting taps rather than comparing values.
+
+Files touched:
+
+- `wiki/sources/livelycura-serlp-dispatch-matches-serlp-mobile-design.md`
+- `log.md`
+
+Key result:
+
+- Agents centre every iOS switch in a row and count taps when a later tap can overtake an earlier one still waiting.
+
+Follow-ups:
+
+- None.
