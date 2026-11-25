@@ -7665,3 +7665,26 @@ Files touched:
 Key result:
 
 - Agents write "Request for this shift", "Request for this shift?", "You can't request for this shift.", "you can request for it again." and "Tap to request for it.", never "request this shift" / "request it".
+
+## [2026-11-25] ingest | Record LivelyCura SERLP Dispatch Matches SERLP Mobile Design
+
+What changed:
+
+- Preserved the product owner's 2026-11-25 words verbatim: move the redesign on to the courier app, and "Keep removed" for the "SERLP DISPATCH" and "Rider account" labels. Recorded how the sessions applied SERLP Mobile's design to SERLP Dispatch (restyle only, no header fades, one Dark mode switch with the crossfade, sign-in artwork kept) and the new native packages.
+- Added a Source Record, a convention line on the Courier Mobile project page (marking the older flat-layout and theme-choice-row rules as superseded), and index entries.
+
+Files touched:
+
+- `raw/sources/2026-11-25-livelycura-serlp-dispatch-matches-serlp-mobile-design.md`
+- `wiki/sources/livelycura-serlp-dispatch-matches-serlp-mobile-design.md`
+- `wiki/projects/livelycura-courier-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents style SERLP Dispatch after SERLP Mobile, as SERLP Team, and do not bring back the "SERLP DISPATCH" or "Rider account" labels.
+
+Follow-ups:
+
+- None.

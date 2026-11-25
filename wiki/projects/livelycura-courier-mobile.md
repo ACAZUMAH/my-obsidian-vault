@@ -2,9 +2,10 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-10-06
+updated: 2026-11-25
 tags: [project, livelycura, expo, courier, mobile]
 sources:
+  - ../sources/livelycura-serlp-dispatch-matches-serlp-mobile-design.md
   - ../sources/livelycura-marketplace-single-delivery.md
   - ../sources/livelycura-independent-fleet-and-platform-dispatch.md
   - ../sources/livelycura-project-knowledge-harvest-batch-1.md
@@ -75,8 +76,9 @@ Expo/EAS application with CI, preview, and production GitHub workflows. Public a
 - Binary store updates are production-only and dynamically load the optional native module. Android starts only an allowed immediate flow; iOS prompts; failures never block startup. OTA `expo-updates` remains separate.
 - Public store artwork and copy use `SERLP Dispatch`, never the internal repository name. The Play featured graphic uses the courier identity at `1024x500`; current phone/tablet screenshot artifacts are external release assets.
 - When exact sibling behavior is requested, transfer the real component, dependency, theme, and form contract, then adapt only Courier-owned mutations and navigation. Do not substitute a visual approximation.
-- Preserve Courier’s flat tab/header layout when the request concerns color consistency. Normalize every mounted layer—root, safe area, status bar, navigation theme, scene/tab containers, screens, and headers—rather than redesigning the navigation.
-- Account appearance uses explicit, accessible theme choice rows with descriptive copy and visible selected state. Do not use a segmented control for theme selection. Delivery-detail utility cards use semantic `surface`, `divider`, `text`, and `textSecondary` tokens so dark mode never pairs a light card with dark-theme text.
+- SERLP Dispatch uses SERLP Mobile's design pattern, colours and dark mode, as SERLP Team does: SERLP Mobile's palette, card edges and row lines, native iOS 26 tab bar, glass round header buttons, centred pushed titles, version line "SERLP Dispatch v… · by SERLP". Restyle only (every section kept), no header fades, and no "SERLP DISPATCH" line above screen titles or "Rider account" line on Account's card (owner, 2026-11-25: "Keep removed"). Source: [[../sources/livelycura-serlp-dispatch-matches-serlp-mobile-design|SERLP Dispatch matches SERLP Mobile design]].
+- (Superseded 2026-11-25 by the SERLP Mobile redesign above, which changes the tab bar and headers.) Preserve Courier’s flat tab/header layout when the request concerns color consistency. Normalize every mounted layer—root, safe area, status bar, navigation theme, scene/tab containers, screens, and headers—rather than redesigning the navigation.
+- Account appearance is one "Dark mode" switch row with SERLP Mobile's crossfade (2026-11-25 redesign; it replaced the earlier explicit Light / Dark theme choice rows). Do not use a segmented control for theme selection. Delivery-detail utility cards use semantic `surface`, `divider`, `text`, and `textSecondary` tokens so dark mode never pairs a light card with dark-theme text.
 - Rounded bottom header borders may need an absolute overlay with bottom/side borders and matching radii; a bottom border alone does not paint rounded side arcs reliably.
 
 ## Constraints
