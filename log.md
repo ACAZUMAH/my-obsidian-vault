@@ -7627,3 +7627,22 @@ Files touched:
 Key result:
 
 - The Altin project page no longer describes the UI rework as under review.
+
+## [2026-11-25] update | Record Issue-Options-Recommendation Write-Up For Owner Decisions
+
+What changed:
+
+- Preserved the user's 2026-11-25 HRM follow-ups correction asking for the issue explained, the options, and the recommendation, instead of a lone recommendation.
+- Added the per-item write-up shape to the LivelyCura HRM feature-by-feature review Source Record and one Communication And Learning bullet to the Personal Operating Manual; refreshed both index entries.
+
+Files touched:
+
+- `raw/sources/2026-11-25-livelycura-hrm-issue-options-recommendation.md`
+- `wiki/sources/livelycura-hrm-feature-by-feature-review.md`
+- `wiki/syntheses/personal-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents put each decision item to the owner as: the issue (how it works today, with an example person), numbered options with what each covers or leaves out (including ones that won't work, and why), then "My recommendation" with the reasons.

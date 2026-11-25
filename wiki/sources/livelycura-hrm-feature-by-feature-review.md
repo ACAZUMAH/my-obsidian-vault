@@ -2,11 +2,12 @@
 type: source
 status: active
 created: 2026-11-01
-updated: 2026-11-10
+updated: 2026-11-25
 tags: [livelycura, hrm, review, scope, communication, correction]
 sources:
   - ../../raw/sources/2026-11-01-livelycura-hrm-feature-by-feature-review.md
   - ../../raw/sources/2026-11-10-livelycura-hrm-review-screen-items-belong-to-their-module.md
+  - ../../raw/sources/2026-11-25-livelycura-hrm-issue-options-recommendation.md
 source_date: 2026-11-01
 ingested: 2026-11-01
 confidence: high
@@ -18,6 +19,7 @@ confidence: high
 
 - Raw file: [LivelyCura HRM review: one feature at a time, finished features stay closed](../../raw/sources/2026-11-01-livelycura-hrm-feature-by-feature-review.md)
 - Raw file: [LivelyCura HRM review: items shown on the current feature's screen still belong to their own module](../../raw/sources/2026-11-10-livelycura-hrm-review-screen-items-belong-to-their-module.md) (2026-11-10)
+- Raw file: [LivelyCura HRM follow-ups: explain the issue, give the options, then the recommendation](../../raw/sources/2026-11-25-livelycura-hrm-issue-options-recommendation.md) (2026-11-25)
 - Date: 2026-11-01 (with consistent earlier statements from 2026-10-19 and 2026-10-25)
 - Author: The user (verbatim messages)
 - Ingested: 2026-11-01
@@ -28,6 +30,7 @@ confidence: high
 - A finished feature stays closed. New findings in it are not raised, even when the current feature's change caused them.
 - Items belonging to a later feature are parked silently and raised only when that feature is reached; parked items are not listed to the user.
 - An item that merely appears on the current feature's screen still belongs to its own module: a "Delete Products" or "Create Leave" permission box on the Roles page is Products' or Leaves', not Roles'. Research briefs are filtered the same way before they are presented, and parked items are not listed even as a summary line (2026-11-10).
+- Each item is written up in three parts: the issue (how it works today, in plain words, with an example person); numbered options, each saying what it covers or leaves out, including options that won't work and why; then "My recommendation" naming the pick and the reasons. A lone recommendation without the issue and options is not enough; once the item was re-presented this way, the owner picked "Option 1" right away (2026-11-25).
 - A message that already tells the user what happened is not vague and is not flagged for rewording. "Employee already exists in this organization", shown when hiring someone who is already an active employee, is the example.
 
 ## Useful Details
@@ -37,7 +40,7 @@ confidence: high
 
 ## Connections
 
-- [[../syntheses/personal-operating-manual|Personal Operating Manual]] (Change And Remediation Work).
+- [[../syntheses/personal-operating-manual|Personal Operating Manual]] (Change And Remediation Work; the per-item write-up shape is under Communication And Learning).
 - [[../projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]], [[../projects/serlp-mobile|SERLP Mobile]] and [[../projects/livelycura-loop-app|LivelyCura Loop App]] carry the HRM screens under review.
 - [[think-like-a-user-direction|Think Like A User Direction]]: messages and findings are judged from what the user sees.
 - [[livelycura-match-existing-ui|LivelyCura Match Existing UI]] and [[livelycura-hrm-employee-record-design|LivelyCura HRM Employee Record Design]] come from the same Employees review.

@@ -2,7 +2,7 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-11-23
+updated: 2026-11-25
 tags: [personal-workflows, preferences, operating-manual, second-brain]
 sources:
   - ../sources/hermes-obsidian-second-brain-kickoff.md
@@ -41,6 +41,7 @@ This page is the central map of durable knowledge about how the user prefers to 
 - Avoid generic tutorial padding; connect explanation directly to the current decision or implementation.
 - Do not agree automatically. When a proposed approach is technically wrong or unsafe, say so plainly, explain why, and recommend the stronger design.
 - Keep explanations in plain words. An overcomplicated explanation of a simple change gets rejected. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-20 Bora corrections]].
+- When putting an item to the owner for a decision, explain the issue (how it works today, with an example person), list numbered options with what each covers or leaves out (including ones that won't work, and why), then give "My recommendation" with the reasons. A lone recommendation is not enough. See [[../sources/livelycura-hrm-feature-by-feature-review|the 2026-11-25 HRM follow-ups correction]].
 - Once the owner decides or rejects a finding, never raise it again in later reviews or audits. Record decided items and brief reviewers with them as known non-issues. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-21 Bora decisions]].
 - A document for an outside party, such as a partner's API team, covers only what that party asked for. It must not carry decisions for either side, the owner's own to-do lists, or unrelated topics. See [[../sources/bora-deposit-withdrawal-flow-decisions-and-fix-backlog|the 2026-11-20 BCL flow document correction]].
 
