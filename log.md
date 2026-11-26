@@ -7707,3 +7707,27 @@ Key result:
 Follow-ups:
 
 - None.
+
+## [2026-11-26] ingest | Record SERLP Mobile Create Actions In The Drawer
+
+What changed:
+
+- Preserved the product owner's 2026-11-26 correction verbatim ("remove the add job title button from the job titles screen, it's supposed to be at the create section of the drawer"): in serlp-mobile, list screens don't carry their own "Add X" button at the top; creating goes in the module drawer's Create section and the module home's matching actions as "New X", behind the same permission; a list's empty-state button may stay.
+- Added a Source Record, one convention line each on the SERLP Mobile project page and the Software Development Operating Manual, and index entries. Applied in serlp-mobile `0635209b` on `feature/hrm` ("New job title" after "New department" in HRM; the Job titles list lost its top button).
+
+Files touched:
+
+- `raw/sources/2026-11-26-livelycura-serlp-mobile-create-in-drawer.md`
+- `wiki/sources/livelycura-serlp-mobile-create-in-drawer.md`
+- `wiki/projects/serlp-mobile.md`
+- `wiki/syntheses/software-development-operating-manual.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents put serlp-mobile create actions in the module drawer's Create section (and home actions) as "New X", never as a list screen's top button.
+
+Follow-ups:
+
+- Other serlp-mobile lists still have a top create button (HRM Assignments; SMS Segments, Templates, Opt-outs, Lists); whether they move was not discussed with the owner (open question on the Source Record).

@@ -2,11 +2,12 @@
 type: synthesis
 status: active
 created: 2026-07-20
-updated: 2026-11-25
+updated: 2026-11-26
 tags: [software-development, operating-manual, project-conventions]
 sources:
   - ../sources/agent-workload-limit-on-owner-laptop.md
   - ../sources/livelycura-serlp-mobile-portal-parity.md
+  - ../sources/livelycura-serlp-mobile-create-in-drawer.md
   - ../sources/livelycura-refetch-queries-after-mutation.md
   - ../sources/livelycura-match-existing-ui.md
   - ../sources/altin-reports-mobile.md
@@ -260,6 +261,7 @@ This page centralizes durable development preferences and project conventions th
 - UI work copies the closest existing screen in that app: placeholders instead of hint text under inputs, no extra links or shortcuts in forms, no "Private" tags (hide what a viewer may not see), and aligned grids. Source: [[../sources/livelycura-match-existing-ui|Match existing UI]].
 - Client apps (SERLP portal, serlp-mobile, Loop) refresh screen data after a mutation with Apollo `refetchQueries`; the brief old value after Save, until the refetch lands, is accepted. Don't propose `awaitRefetchQueries`, extra returned fields for cache writes, or `cache.modify` to change it. Source: [[../sources/livelycura-refetch-queries-after-mutation|Refetch queries after mutation]].
 - serlp-mobile is the mobile version of the ERP: anything the SERLP portal (`livelycura-pharmacy-portal`) does, serlp-mobile must also do, adapted to mobile. Never offer "portal-only" or ask how much of a feature belongs on serlp-mobile; a gap there is parity work to build. Source: [[../sources/livelycura-serlp-mobile-portal-parity|Portal parity]].
+- serlp-mobile list screens don't carry their own "Add X" button at the top: creating goes in the module drawer's Create section and the module home's matching actions as "New X", behind the same permission; a list's empty-state button may stay. Source: [[../sources/livelycura-serlp-mobile-create-in-drawer|Create in the drawer]].
 - API and shared domains: [[../projects/livelycura-backend|LivelyCura Backend]].
 - ERP and administration: [[../projects/livelycura-pharmacy-portal|LivelyCura Pharmacy Portal]] and [[../projects/livelycura-admin-portal|LivelyCura Admin Portal]].
 - Customer surfaces: [[../projects/livelycura-customer-portal|LivelyCura Customer Portal]] and [[../projects/livelycura-customer-mobile|LivelyCura Customer Mobile]].
