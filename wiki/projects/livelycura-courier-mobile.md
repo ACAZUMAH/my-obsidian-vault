@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-25
+updated: 2026-11-26
 tags: [project, livelycura, expo, courier, mobile]
 sources:
   - ../sources/livelycura-serlp-dispatch-matches-serlp-mobile-design.md
@@ -12,6 +12,7 @@ sources:
   - ../sources/livelycura-project-knowledge-harvest-batch-4.md
   - ../sources/hermes-generalized-skills-courier-recovery-harvest-batch-1.md
   - ../sources/courier-mobile-evening-work-hermes-chain.md
+  - ../sources/livelycura-dispatch-offers-ring-until-answered.md
 confidence: high
 ---
 
@@ -79,6 +80,7 @@ Expo/EAS application with CI, preview, and production GitHub workflows. Public a
 - SERLP Dispatch uses SERLP Mobile's design pattern, colours and dark mode, as SERLP Team does: SERLP Mobile's palette, card edges and row lines, native iOS 26 tab bar, glass round header buttons, centred pushed titles, version line "SERLP Dispatch v… · by SERLP". Restyle only (every section kept), no header fades, and no "SERLP DISPATCH" line above screen titles or "Rider account" line on Account's card (owner, 2026-11-25: "Keep removed"). Source: [[../sources/livelycura-serlp-dispatch-matches-serlp-mobile-design|SERLP Dispatch matches SERLP Mobile design]].
 - (Superseded 2026-11-25 by the SERLP Mobile redesign above, which changes the tab bar and headers.) Preserve Courier’s flat tab/header layout when the request concerns color consistency. Normalize every mounted layer—root, safe area, status bar, navigation theme, scene/tab containers, screens, and headers—rather than redesigning the navigation.
 - Account appearance is one "Dark mode" switch row with SERLP Mobile's crossfade (2026-11-25 redesign; it replaced the earlier explicit Light / Dark theme choice rows). Do not use a segmented control for theme selection. Delivery-detail utility cards use semantic `surface`, `divider`, `text`, and `textSecondary` tokens so dark mode never pairs a light card with dark-theme text.
+- Delivery offers and assignments keep ringing until the rider answers (owner, 2026-11-26: "Yes, build it"): in-app loop on the offer sheet, an insistent Android alert from the app's own messaging service (`modules/dispatch-offer-ring`, data-only Expo pushes), and 30 s time-sensitive iPhone repeats from the backend. Source: [[../sources/livelycura-dispatch-offers-ring-until-answered|Dispatch offers ring until answered]].
 - Rounded bottom header borders may need an absolute overlay with bottom/side borders and matching radii; a bottom border alone does not paint rounded side arcs reliably.
 
 ## Constraints

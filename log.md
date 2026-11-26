@@ -7731,3 +7731,26 @@ Key result:
 Follow-ups:
 
 - Other serlp-mobile lists still have a top create button (HRM Assignments; SMS Segments, Templates, Opt-outs, Lists); whether they move was not discussed with the owner (open question on the Source Record).
+
+## [2026-11-26] ingest | Record LivelyCura Dispatch Offers Ring Until Answered
+
+What changed:
+
+- Preserved the product owner's 2026-11-26 request verbatim (offers keep ringing until the rider answers, like inDrive; customer "driver is here" ringing) and the answer "Yes, build it". Recorded the built design (in-app loop, insistent Android alert, 30 s time-sensitive iPhone repeats, offer-closed message, same who-rings rules, known iPhone limits) and three technical lessons (Expo title pushes are FCM notification messages on Android, so looping needs data-only pushes and the app's own messaging service; anchor `/android` and `/ios` in `.easignore`; cancel-then-repost an insistent alert first posted during a call).
+- Added a Source Record, a convention line on the Courier Mobile project page, and an index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-26-livelycura-dispatch-offers-ring-until-answered.md`
+- `wiki/sources/livelycura-dispatch-offers-ring-until-answered.md`
+- `wiki/projects/livelycura-courier-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents treat ringing-until-answered as the approved offer behaviour in SERLP Dispatch and send Android ring offers as data-only pushes.
+
+Follow-ups:
+
+- Customer-side "rider is here" ringing waits for the owner's choice of party (open question on the Source Record).
