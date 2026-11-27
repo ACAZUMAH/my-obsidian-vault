@@ -7,6 +7,7 @@ tags: [livelycura, courier, notifications, push, android, ios, decision]
 sources:
   - ../../raw/sources/2026-11-26-livelycura-dispatch-offers-ring-until-answered.md
   - ../../raw/sources/2026-11-27-livelycura-dispatch-ringing-packages-and-ringtone.md
+  - ../../raw/sources/2026-11-27-livelycura-dispatch-android-push-keys.md
 source_date: 2026-11-26
 ingested: 2026-11-26
 confidence: high
@@ -18,6 +19,7 @@ confidence: high
 
 - Raw file: [SERLP Dispatch delivery offers keep ringing until the rider answers](../../raw/sources/2026-11-26-livelycura-dispatch-offers-ring-until-answered.md)
 - Raw file: [Ringing uses packages, ringtone 1C, Android speed first](../../raw/sources/2026-11-27-livelycura-dispatch-ringing-packages-and-ringtone.md) (2026-11-27)
+- Raw file: [Android push keys only for the store app id; tested on production](../../raw/sources/2026-11-27-livelycura-dispatch-android-push-keys.md) (2026-11-27)
 - Date: 2026-11-26
 - Author: Product owner (verbatim request and answer), with the session's built design
 - Ingested: 2026-11-26
@@ -38,7 +40,8 @@ confidence: high
 - Lesson: an Expo push with title, body or channelId is an FCM notification message on Android, so in the background the OS shows it and the app never sees it. Looping alerts need data-only Expo messages. While the app is in front, Expo's own received-listener does get data-only pushes (ExpoHandlingDelegate), so don't handle them twice.
 - Lesson: bare `android`/`ios` lines in `.easignore` drop local modules' native folders from EAS builds; anchor them as `/android` and `/ios`.
 - Lesson: on Android 12+, an insistent notification first posted during a call stays silent on later re-posts; cancel and post it fresh after the call.
-- Needs a new store build (expo-audio, the native module, the time-sensitive entitlement); real-phone checks are the owner's.
+- Needs a new store build (expo-audio, react-native-notify-kit, the time-sensitive entitlement; the production workflow's fingerprint check makes one instead of an over-the-air update); real-phone checks are the owner's. Owner 2026-11-27: Android is tested on production ("if it didn't work we can fix it").
+- Lesson: Expo holds an FCM V1 key only for SERLP Dispatch's store app id (`com.livelycura.dispatch`, Firebase `livelycura-production-3d769`); dev (`.dev`) and preview builds have none, so they receive no Android pushes and emulator push tests can't run. The `GOOGLE_SERVICES_JSON` EAS environment files are app-side config, not that key. A dev-project token sent with the production key fails with "SenderId mismatch"; Expo keeps a re-registered token's old app id for about 2 minutes.
 
 ## Connections
 

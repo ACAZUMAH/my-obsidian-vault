@@ -7777,3 +7777,25 @@ Key result:
 Follow-ups:
 
 - Android emulator and real-phone checks of the ringing; customer-side "rider is here" ringing still waits for the owner's choice of party.
+
+## [2026-11-27] update | SERLP Dispatch Android Push Keys
+
+What changed:
+
+- Preserved what the session observed when an Android emulator test of the ringing failed (Expo holds an FCM V1 key only for SERLP Dispatch's store app id; dev and preview builds have none; dev variant id `.dev` doesn't match the dev Firebase file) and the product owner's 2026-11-27 decision, verbatim: "okay then we have to test it in production, and if it didn't work we can fix it".
+- Added the push-key lesson to the Dispatch ringing Source Record and an Android push line to the Courier Mobile project page.
+
+Files touched:
+
+- `raw/sources/2026-11-27-livelycura-dispatch-android-push-keys.md`
+- `wiki/sources/livelycura-dispatch-offers-ring-until-answered.md`
+- `wiki/projects/livelycura-courier-mobile.md`
+- `log.md`
+
+Key result:
+
+- Agents know SERLP Dispatch dev and preview Android builds can't receive pushes and check Android push behaviour on production builds.
+
+Follow-ups:
+
+- Real-phone checks of the ringing on the production build; customer-side "rider is here" ringing still waits for the owner's choice of party.

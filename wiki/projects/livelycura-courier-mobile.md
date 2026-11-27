@@ -58,6 +58,8 @@ Lets eligible couriers sign up and, after operational approval, manage available
 
 Expo/EAS application with CI, preview, and production GitHub workflows. Public app/config naming is `SERLP Dispatch`, including development/preview variants; iPad remains supported.
 
+Android push: Expo holds an FCM V1 key only for the store app id `com.livelycura.dispatch`; development (`com.livelycura.dispatch.dev`, which also doesn't match the dev Firebase file's `.development`) and preview builds get no pushes, so Android push behaviour is checked on production builds (owner, 2026-11-27). Source: [[../sources/livelycura-dispatch-offers-ring-until-answered|Dispatch offers ring until answered]].
+
 ## Durable Conventions
 
 - The product is not pharmacy-only; riders serve any ERP merchant.
