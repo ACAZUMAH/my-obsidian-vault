@@ -7799,3 +7799,26 @@ Key result:
 Follow-ups:
 
 - Real-phone checks of the ringing on the production build; customer-side "rider is here" ringing still waits for the owner's choice of party.
+
+## [2026-11-27] ingest | Call Center Agent Dashboard Shows The Agent's Own Live Fulfilled Sales
+
+What changed:
+
+- Preserved the user's 2026-11-27 request and their manager's relayed request, verbatim, for a dashboard showing only the signed-in agent's own sales, counted on fulfilled orders and updated live, plus read-only probes from an agent session of which totals, reports and chat reads an agent may use.
+- Added a Source Record and updated the Call Center Web App project page (dashboard ownership line, agent-scoping rule, verification step, evidence, open question) and index entries.
+
+Files touched:
+
+- `raw/sources/2026-11-27-call-center-agent-dashboard-contract.md`
+- `wiki/sources/call-center-agent-dashboard-contract.md`
+- `wiki/projects/call-center-web-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents know the call-center totals queries are brand-wide unless `callCenterAgentId` is passed, sales count on `DELIVERED`/`COMPLETED`, and the sales and chat operations reports are admin-only.
+
+Follow-ups:
+
+- A self-scoped agent chat-stats read on the backend would replace paging the brand's closed support queue.
