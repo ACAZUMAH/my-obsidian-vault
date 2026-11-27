@@ -7754,3 +7754,26 @@ Key result:
 Follow-ups:
 
 - Customer-side "rider is here" ringing waits for the owner's choice of party (open question on the Source Record).
+
+## [2026-11-27] update | SERLP Dispatch Ringing Uses Packages, Ringtone 1C
+
+What changed:
+
+- Preserved the product owner's 2026-11-27 words verbatim: use a package for Android instead of a custom module ("notify-kit route"; "I don't want us to build any module we either use the package and make sure it works"), make the ringtone "something disturbing" and pick 1C, accept the short start-up gap on a fully closed app, keep the app efficient for Android riders in Ghana, and test on the owner's iPhone 17 Pro Max simulator.
+- Updated the Dispatch ringing Source Record (architecture now react-native-notify-kit + Expo background task, expo-task-manager 57.0.24 lessons, foreground data-only lesson corrected) and the Courier Mobile project page (ringing line, speed-first convention), and refreshed index entries.
+
+Files touched:
+
+- `raw/sources/2026-11-27-livelycura-dispatch-ringing-packages-and-ringtone.md`
+- `wiki/sources/livelycura-dispatch-offers-ring-until-answered.md`
+- `wiki/projects/livelycura-courier-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents build SERLP Dispatch native features with maintained packages, not custom modules, keep expo-task-manager on the SDK's latest patch, and design for low-end Android on weak data first.
+
+Follow-ups:
+
+- Android emulator and real-phone checks of the ringing; customer-side "rider is here" ringing still waits for the owner's choice of party.
