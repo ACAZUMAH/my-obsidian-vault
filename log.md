@@ -2,6 +2,30 @@
 
 Append-only chronological record of wiki operations. New entries go directly under this note.
 
+## [2026-11-28] ingest | Altin Booking-First Plan Approved, Phase 0 Started
+
+What changed:
+
+- Preserved the user's 2026-11-28 report that their boss approved the booking-first plan for Altin Partner Mobile and accepted plan section 10's recommendations 6 to 10, with the tab sets, the phase 0 scope and the API facts the plan established.
+- Recorded the decision as approved and in progress, not built; annotated the five-control bottom-bar convention as superseded once phase 0 lands, and noted the conflict in Contradictions.
+
+Files touched:
+
+- `raw/sources/2026-11-28-altin-booking-first-approval.md`
+- `wiki/sources/altin-booking-first-approval.md`
+- `wiki/projects/altin-partner-mobile.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents know the mobile app is becoming the phone-first booking app with organization-type tab sets (shipper Book/Orders/Money/More, outlet-limited staff Book/My orders/More, fleet Today/Riders/Orders/Money/More), and that the old navigation rules hold only until phase 0 lands.
+
+Follow-ups:
+
+- When phase 0 lands, mark the superseded navigation, Search, Apps-directory, Home-analytics and module-overview conventions and the Architecture tab line accordingly.
+- Confirm partner access to `order.cancel` with the backend, and whether section 10's brief questions 3 to 5 were settled as recommended.
+
 ## [2026-11-24] ingest | Bora Optional Withdrawal Reason
 
 What changed:

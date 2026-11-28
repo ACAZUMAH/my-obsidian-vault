@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-25
+updated: 2026-11-28
 tags: [project, ceqa, altin, expo, react-native, partner-operations]
 sources:
   - ../sources/ceqa-altin-project-knowledge-harvest-batch-1.md
@@ -27,6 +27,7 @@ sources:
   - ../sources/altin-onboarding-gate.md
   - ../sources/altin-glass-ui-redesign.md
   - ../sources/altin-ui-serlp-reference-correction.md
+  - ../sources/altin-booking-first-approval.md
 confidence: high
 ---
 
@@ -35,6 +36,8 @@ confidence: high
 ## Summary
 
 Altin Partner Mobile is an Expo application scaffold for authenticated partner operations across orders, outlets, fleet, team, accounting, and billing. Orders has an organization-aware overview, Delivery Orders and Tips lists, record details, and API-integrated creation and issue reporting. Outlets now has overview/list/details, create/edit, and CSV bulk-import API integration, with live testing reserved to the user. Fleet has a first pass: overview, six section lists, details, and permission-gated courier-group create/edit, with native/live verification pending. Team (members, invite, change role, remove, roles with create/edit), Accounting (Today card, transactions, wallet statement), and Billing (current billing, invoices, settlements) are built, as are API keys and Webhooks on More, and Notifications with support-ticket details and reply. Home analytics, Search, and organization selection are implemented. Profile (view and in-place edit of photo, phone number with inline OTP change or verification, and alternate phone) and Support (ticket list, Raise a ticket with attachments and order links, ticket details) open from More. The Reports tab (built 2026-10-18; the unused `ComingSoon` component was deleted on 2026-10-20) lists the permitted web reports, six SHIPPER then four FLEET, as one mobile card per record, with Print, PDF, and CSV exports that match the web partner app's. Organization onboarding (KYC) and a post-sign-in gate were built on 2026-10-20 to 2026-10-21: members without an organization, or whose organization is paused or closed, see a blocking notice; pending or rejected organizations open onboarding as the root screen until approved; approved organizations reach it from More → Compliance. See [[../sources/altin-onboarding-gate|the onboarding record]]. Push notifications are deferred. Guarded screens use `withPermission`; Profile and Support are deliberately ungated, as on the web.
+
+Approved 2026-11-28 and in progress, not built: the app is being restructured into the separate, phone-first, booking-first partner app, with tab sets chosen by organization type (shipper, outlet-limited staff, fleet) and permissions deciding what shows inside them; the web partner portal stays the back office. Phase 0 started on `feature/booking-first`; until it lands, the description above is the built app. See [[../sources/altin-booking-first-approval|the booking-first approval]].
 
 ## Purpose
 
@@ -137,7 +140,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 - OAuth testing requires the development build; Expo Go's redirect is not registered. Never leave a background Metro server on port 8081 after verification.
 - Treat SERLP Mobile as an architecture/configuration reference only. Preserve Altin typography, spacing, radii, shadows, modules, and product identity rather than copying SERLP visual tokens.
 - Search owns its styles and row presentation while reading Apps directory metadata. With an empty query, show one grouped Browse section for available apps, followed by Actions and Suggestions. After typing starts, preserve the existing browse/search sections and feature previews; keep the Apps directory’s own grouping separate. See [[../sources/altin-search-browse-grouping|the direct Search corrections]].
-- Keep five visible bottom-bar controls: Home, Search, raised-center Apps, Reports, and More. The user intentionally replaced Notifications with Reports; never restore it as a tab. Apps pushes the directory on the root stack instead of selecting a tab; Back returns to the previous tab. Derive the four real tabs and active state from React Navigation route state, with one typed configuration for all controls.
+- Superseded once booking-first phase 0 lands (approved 2026-11-28; still the built app until then): tab sets by organization type replace this bar, Reports moves to More → Owner tools, and Search and the Apps directory retire. See [[../sources/altin-booking-first-approval|the booking-first approval]]. Keep five visible bottom-bar controls: Home, Search, raised-center Apps, Reports, and More. The user intentionally replaced Notifications with Reports; never restore it as a tab. Apps pushes the directory on the root stack instead of selecting a tab; Back returns to the previous tab. Derive the four real tabs and active state from React Navigation route state, with one typed configuration for all controls.
 - Derive React Native Elements and styled-components themes from one Redux-controlled light/dark state.
 - Keep safe-area, status-bar, and home-indicator backgrounds consistent.
 - Feature folders own logic through hooks/services and keep screens thin.
@@ -204,6 +207,13 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 - Reports split the screen from the documents (user corrections, 2026-10-18). The first build copied the web's wide tables with horizontal scrolling and a separate status table; the user replaced it with one card per record, because on a phone each record's figures belong together. The exports went the other way: Print, PDF, and CSV stay identical to the web's, so a report reads the same from either app. Each deliberate difference fixes a defect in the web output: Excel needs the BOM to read "GH₵", unescaped quotes break the CSV, first-row headings drop status columns, and the web's courier cell loses its styles in the print page. Rate scaling is the same kind of fix: the web prints the backend's fractions unscaled, so its exports show "0.53%" for a 52.75% rate. So is the landscape sheet: the web keeps its 210 mm sheet inside a landscape page and lets the browser shrink the table, but iOS clips it, which cut off Payment attempts' last columns until the sheet became 297 × 210 mm. See [[../sources/altin-reports-mobile|the Reports record]].
 - The onboarding gate keys on organization status rather than a KYC flag because no "onboarded" flag exists and onboarding precedes approval; the user's first ordering would have locked pending members out of the KYC that approves them. Tabs won over an Apps module or separate More rows because pending members can reach neither Apps nor More. See [[../sources/altin-onboarding-gate|the onboarding record]].
 - Revenue & commission is kept despite the schema's deprecation (it overcounts cash COD), because its replacement, `revenueSummary`, is super-admin only. See [[../sources/altin-reports-mobile|the Reports record]].
+- Booking-first restructure (boss approval reported by the user, 2026-11-28; approved and in progress, not built). The brief `docs/partner-booking-app.md` asked for a tool shippers pick up to book and track, and fleets to run riders, not a control room; the plan `docs/proposals/booking-first/plan.md` applies it here because the mobile app already is a separate, phone-first app on the same API, permissions and sign-in. The web partner portal stays the back office.
+  - Tab sets by organization type; permissions decide what shows inside them. Shipper: Book · Orders · Money · More. Outlet-limited staff (membership `isOutletRestricted` and the role isn't ADMIN): Book · My orders · More. Fleet: Today · Riders · Orders · Money · More.
+  - The set is chosen at the root with a composite navigation key, like the onboarding gate. The tab bar skips tabs the member can't open, but routes stay registered behind `withPermission`. Outlet-limited members get the web's `usablePermissions`, so `can()` respects outlet limits.
+  - Plan section 10, all accepted: built owner features stay under More → Owner tools (Reports, CSV import, custom roles, API keys, webhooks, Tips, vehicles, availability sessions); keep the current onboarding gate; retire Home analytics; a mobile Google Places/Maps key plus `react-native-maps`, needed in phase 1; no Book tab for fleets, with a "Book a delivery" row in More for fleet members with CREATE_ORDERS.
+  - Phase 0 started on `feature/booking-first`: regenerate the schema, apply outlet limits, add the tab sets, move modules into the tabs and More, and retire Home analytics, the Search tab, the centre Apps button and module overviews. Once it lands, the five-control bar and the Reports-tab and Apps-directory navigation conventions stop applying.
+  - The plan established: the mobile schema copy was out of date; `order.cancel(orderId, {reason})` exists but only the admin app uses it, and partner access is unconfirmed; the `orderUpdated` and `courierLocation` subscriptions exist; `organization.order.confirmCashReceipt` exists; mobile ignored `isOutletRestricted`; mobile booking took typed latitude and longitude.
+  See [[../sources/altin-booking-first-approval|the booking-first approval]].
 
 ## Verification Expectations
 
@@ -218,6 +228,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 
 ## Evidence
 
+- [[../sources/altin-booking-first-approval|Altin Booking-First Plan Approval]]: the user's 2026-11-28 report of the boss's approval, the repository's brief `docs/partner-booking-app.md` and plan `docs/proposals/booking-first/plan.md`. Phase 0 had started on `feature/booking-first` and nothing was built when recorded.
 - [[../sources/altin-glass-ui-redesign|Altin Glass UI Redesign]]: the user's 2026-11-23 request, the built theme and shared glass components, and four React Native findings verified on the iPhone 17 Pro simulator in light and dark. The work was uncommitted on `feature/apps` when recorded. Superseded and reverted on 2026-11-24.
 - [[../sources/altin-ui-serlp-reference-correction|Altin UI Uses the SERLP Redesign as a Reference]]: the owner's two 2026-11-24 corrections (no decorative glass; SERLP is a reference, not a copy), the SERLP redesign method, and the Expo SDK 54 native tab bar block.
 - [[../sources/altin-onboarding-gate|Altin Onboarding and the Post-Sign-In Gate]]: direct user requests and decisions on 2026-10-20 and 2026-10-21, research in the web partner and admin apps, the repository's `docs/onboarding.md` and `AGENTS.md` section, 118 offline checks, and read-only simulator checks. The work was uncommitted on `feature/apps` when recorded.
@@ -264,6 +275,7 @@ Provide mobile partners a single Altin-authenticated entry point to operational 
 - The direct mutation correction explicitly authorizes removing useMutationResource, superseding the earlier interpretation that the user had only asked for an explanation. The later exact Apollo hook correction also replaces the remaining imperative read-resource wrappers. See [[../sources/altin-outlets-mobile|the recorded correction]].
 
 - The earlier five-route tab contract is superseded by the direct 2026-09-11 instruction: Apps opens a separate stack screen with Back. Historical source records remain evidence of the earlier decision, not current route ownership.
+- The approved booking-first plan (2026-11-28) conflicts with the five-control bar, the Reports tab, Search and the Apps directory, and the Home analytics and module-overview conventions. Best current reading: those rules describe the built app and still govern work outside phase 0 until phase 0 lands, then stop applying; the phase 0 branch follows the plan. See [[../sources/altin-booking-first-approval|the booking-first approval]].
 
 - The user rejected the initial Orders UI and a later combined-card replacement. Prior assistant visual review does not establish acceptance. The later explicit correction removes the drawer from list headers and all detail screens, overriding the earlier all-screen drawer plan. See [[../sources/altin-orders-mobile-web-reference|the recorded corrections]].
 
