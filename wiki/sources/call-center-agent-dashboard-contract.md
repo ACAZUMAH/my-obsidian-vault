@@ -7,6 +7,7 @@ tags: [ceqa, call-center, dashboard, sales, graphql, charts]
 sources:
   - ../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md
   - ../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md
+  - ../../raw/sources/2026-11-28-call-center-agent-dashboard-analytics.md
 ---
 
 # Call Center Agent Dashboard Contract
@@ -15,6 +16,7 @@ sources:
 
 - Raw file: [2026-11-27-call-center-agent-dashboard-contract.md](../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md)
 - Raw file: [2026-11-28-call-center-agent-dashboard-ui.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md) (UI rework after the user's "this is okay but improve the ui")
+- Raw file: [2026-11-28-call-center-agent-dashboard-analytics.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-analytics.md) (analytics rebuild after "I want to see that analytics feel in it")
 - Date: 2026-11-27
 - Author: the user, relaying their manager's request; read-only probes from the user's local agent session
 - Ingested: 2026-11-27
@@ -33,6 +35,9 @@ sources:
 
 - UI (2026-11-28): one "My sales" panel in the Customers page shell, with one dominant net-sales figure and its change in cedis (no % deltas), the not-counted amount beside it, then a support band and the latest orders. A failed poll keeps the last numbers and flips the Live badge to Paused instead of replacing panels with errors.
 - Mantine 7.17 BarChart on recharts 3.8.1: don't enable `barProps.isAnimationActive` (bars stay unpainted); use `gridProps={{ yAxisId: "left", syncWithTicks: true }}` for one hairline per tick; set `--chart-text-color` through a className with `light-dark(gray-7, dark-1)`, because ticks otherwise fall back to dimmed.
+
+- Analytics (2026-11-28, supersedes the single-panel UI): KPI tiles with sparklines and % chips, a this-period-vs-last chart (running total or per bucket, Now marker, pace sentence), and cards for branch, delivery vs pickup, payment and order status. Brand colour marks only the agent's own sales; payment and status use fixed palettes. Agent tokens can read the per-branch list and the `pickup`/`paymentOption` filters; the list type spells it `totalCouponCashWorth`.
+- Chart and state lessons from review: running custom ranges compare with the same day-count shift up to the same time; nothing is said about last period until its line loads; a longer previous month folds into the last slot; recharts 3 svgs need `role: "img"` (sparklines and the donut `inert`); Mantine reference lines take no `color`; TanStack `onlineManager` plus `isPaused` drive Paused; cards in grids switch layout with container queries.
 
 ## Connections
 

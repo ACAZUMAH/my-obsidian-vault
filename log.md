@@ -7844,3 +7844,25 @@ Key result:
 Follow-ups:
 
 - The app-wide `primaryShade: 5` makes some light-mode `-light` text low-contrast; that needs its own pass.
+
+## [2026-11-28] update | Call Center Agent Dashboard Rebuilt As Analytics
+
+What changed:
+
+- Preserved the user's 2026-11-28 request, verbatim ("I want to see that analytics feel in it"), the agent-readable data confirmed by probe (per-branch list, delivery/pickup and payment filters), what was built, and the chart and state lessons from a five-lens review.
+- Updated the agent dashboard Source Record and the Call Center Web App dashboard ownership line.
+
+Files touched:
+
+- `raw/sources/2026-11-28-call-center-agent-dashboard-analytics.md`
+- `wiki/sources/call-center-agent-dashboard-contract.md`
+- `wiki/projects/call-center-web-app.md`
+- `log.md`
+
+Key result:
+
+- Agents know the call-center dashboard is an analytics page built from four aliased, agent-scoped operations, and how to avoid the comparison, accessibility and offline-state traps the review found.
+
+Follow-ups:
+
+- Commit on the user's word; app-wide `primaryShade: 5` contrast still needs its own pass.
