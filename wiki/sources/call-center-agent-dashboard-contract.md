@@ -2,10 +2,11 @@
 type: source
 status: active
 created: 2026-11-27
-updated: 2026-11-27
-tags: [ceqa, call-center, dashboard, sales, graphql]
+updated: 2026-11-28
+tags: [ceqa, call-center, dashboard, sales, graphql, charts]
 sources:
   - ../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md
+  - ../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md
 ---
 
 # Call Center Agent Dashboard Contract
@@ -13,6 +14,7 @@ sources:
 ## Source
 
 - Raw file: [2026-11-27-call-center-agent-dashboard-contract.md](../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md)
+- Raw file: [2026-11-28-call-center-agent-dashboard-ui.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md) (UI rework after the user's "this is okay but improve the ui")
 - Date: 2026-11-27
 - Author: the user, relaying their manager's request; read-only probes from the user's local agent session
 - Ingested: 2026-11-27
@@ -28,6 +30,9 @@ sources:
 - `getCallCenterAgentSalesReport` and `getChatOperationsReport` are admin-only (401 for agents). Agent support figures come from `getStaffChatQueue`: mine/pool from the default view, resolved chats from `status: "CLOSED"` filtered by `assignee.id` and `updatedAt`.
 - `callCenterAgentGetAllCallCenterAgentOrders` needs `allTime: true` or a date range, otherwise it returns nothing.
 - Aliased root fields let one request carry all summary totals, or one sales total per chart bucket.
+
+- UI (2026-11-28): one "My sales" panel in the Customers page shell, with one dominant net-sales figure and its change in cedis (no % deltas), the not-counted amount beside it, then a support band and the latest orders. A failed poll keeps the last numbers and flips the Live badge to Paused instead of replacing panels with errors.
+- Mantine 7.17 BarChart on recharts 3.8.1: don't enable `barProps.isAnimationActive` (bars stay unpainted); use `gridProps={{ yAxisId: "left", syncWithTicks: true }}` for one hairline per tick; set `--chart-text-color` through a className with `light-dark(gray-7, dark-1)`, because ticks otherwise fall back to dimmed.
 
 ## Connections
 

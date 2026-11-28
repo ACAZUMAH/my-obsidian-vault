@@ -7822,3 +7822,25 @@ Key result:
 Follow-ups:
 
 - A self-scoped agent chat-stats read on the backend would replace paging the brand's closed support queue.
+
+## [2026-11-28] update | Call Center Agent Dashboard UI Rework And BarChart Lessons
+
+What changed:
+
+- Preserved the user's 2026-11-28 request, verbatim ("this is okay but improve the ui"), the layout a design panel chose, and three Mantine BarChart behaviours seen in the browser.
+- Updated the agent dashboard Source Record (second raw file, UI and chart lessons) and the Call Center Web App dashboard ownership line.
+
+Files touched:
+
+- `raw/sources/2026-11-28-call-center-agent-dashboard-ui.md`
+- `wiki/sources/call-center-agent-dashboard-contract.md`
+- `wiki/projects/call-center-web-app.md`
+- `log.md`
+
+Key result:
+
+- Agents keep the dashboard to one dominant net-sales figure in the Customers page shell, and know that on recharts 3 Mantine bars must stay unanimated, the grid needs `syncWithTicks`, and tick contrast needs `--chart-text-color`.
+
+Follow-ups:
+
+- The app-wide `primaryShade: 5` makes some light-mode `-light` text low-contrast; that needs its own pass.
