@@ -2,7 +2,7 @@
 type: project
 status: active
 created: 2026-07-21
-updated: 2026-11-27
+updated: 2026-11-28
 tags: [project, ceqa, call-center, checkout, orders, react]
 sources:
   - ../sources/call-center-customer-detail-navigation-correction.md
@@ -65,7 +65,7 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 - `src/cart/interface`: cart-owned contracts for location, delivery, pricing, checkout, and component boundaries.
 - `src/orders`, `src/order`: order lists, filters, details, timelines, fulfillment, payment, and print views.
 - `src/customers`, `src/customer`: phone-driven customer search and standalone customer details respectively. Each owns its screen, components, query hooks, interfaces and styles; shared private-request lifecycle primitives live under `src/hooks`.
-- `src/dashboard`: the signed-in agent's own live "My sales" analytics page: a Customers-style panel with KPI tiles (sparklines, change chips) and a this-period-vs-last chart, then the support band, cards for branch, delivery vs pickup, payment and order status, and the latest orders (table, or Orders mobile cards below 48em). Helpers, interfaces, one-operation hooks, a CSS module and presentation components live in their own folders. Mantine BarChart lessons are in [[../sources/call-center-agent-dashboard-contract|Call Center Agent Dashboard Contract]].
+- `src/dashboard`: the signed-in agent's own live sales analytics page: a greeting header with the period buttons, then a bento grid of cards (KPI cards with sparklines and change chips, a this-period-vs-last chart, customer support, order status, payment, branch, delivery vs pickup, and the latest orders as a table, or Orders mobile cards below 48em). Helpers, interfaces, one-operation hooks, a CSS module and presentation components live in their own folders. Mantine BarChart lessons are in [[../sources/call-center-agent-dashboard-contract|Call Center Agent Dashboard Contract]].
 - `src/chat`: call-centre support-chat queue, conversation UI, staff notifications, attachments, order links, GraphQL request hooks, access helpers, and focused tests. The feature root orchestrates hooks while typed presentation components live under `components`.
 - `src/notifications/firebaseMessaging.ts` and `public/firebase-messaging-sw.js`: optional browser FCM registration and background push routing; sign-in remains usable when messaging is unconfigured or denied.
 - `src/router`, `src/layouts`: route protection and authenticated/order layouts.
@@ -97,6 +97,7 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 - Match new feature UI to the existing call-center pages. Before implementation, inspect rendered Orders, Sales and Dashboard views; compare fluid width, panel containment, header/search treatments, typography, spacing, tables and mobile behavior. Verify inside the real application shell and theme rather than relying on an isolated component preview. This workflow follows the user's explicit rejection in [[../sources/call-center-customer-ui-consistency-correction|Call Center Customer UI Consistency Correction]].
 
 - The dashboard narrows every total to the signed-in agent with `callCenterAgentId`; the totals queries are brand-wide without it. A sale counts only when the order is `DELIVERED` or `COMPLETED`, and net sales are products less product discounts and coupons. Agents cannot read `getCallCenterAgentSalesReport` or `getChatOperationsReport` (401), so support figures come from `getStaffChatQueue`. See [[../sources/call-center-agent-dashboard-contract|Call Center Agent Dashboard Contract]].
+- Live dashboards need no manual refresh button: the user called it unnecessary once figures poll on their own (2026-11-28). Arrange dashboard pages as a bento grid of separate cards under a greeting header with the period control on the right; see [[../sources/call-center-agent-dashboard-contract|Call Center Agent Dashboard Contract]].
 - Support chat is brand-wide and separate from branch sales/order chat. Call-centre agents operate only on server-authorized `SUPPORT` conversations; the UI must drive claim, reply, and disabled feedback from `canClaim`, `canReply`, and `accessReason` rather than recreating access rules.
 - `/chats` owns the shared unclaimed pool and current-agent assignments; `/chats/:conversationId` is the deep-linkable conversation route. Poll queue state every 15–30 seconds and staff notifications every 30 seconds, but subscribe to `chatNewMessage(channelId)` only while a conversation is open.
 - `getChatConversation` is most-recent-first. Normalize it to chronological display, deduplicate live messages, and render `role: "event"` as centered state text rather than a participant bubble.
@@ -176,7 +177,7 @@ Give call-center agents a resilient assisted-ordering surface that integrates ca
 
 - Validate maintained chat/login/logout GraphQL operation documents against the current staging schema before relying on generated-type presence alone. Verify pool/mine separation, claim-gated reply, assigned reply, chronological event rendering, notification deep links/read state, attach/detach order, close confirmation, attachment-only send, failed-send retention, queue polling, and live-message subscription.
 - Verify chat controls with backend-denied access messages and cross-brand/non-support conversations; never assume disabled UI replaces authorization. Exercise `/chats` and `/chats/:conversationId` with a mock or safe agent session and inspect the browser console for JavaScript failures.
-- Verify the dashboard with a signed-in agent session: every totals variable carries `callCenterAgentId`, figures match the agent's own fulfilled orders, Year/Week/Today/Custom windows, auto-refresh time advancing, and the refresh button.
+- Verify the dashboard with a signed-in agent session: every totals variable carries `callCenterAgentId`, figures match the agent's own fulfilled orders, Year/Week/Today/Custom windows, the Live/Updated label advancing on its own, and the bento layout at 1440, 1024 and 375 wide in both themes.
 - Run focused checkout idempotency, gift-recipient, availability, exact-location, and address-reset tests.
 - Run `yarn build` and `yarn test --run`; distinguish assertion passes from unhandled-error exit failures.
 - Verify duplicate clicks, retry after transient failure, changed payload, successful completion, and mobile-payment confirmation.

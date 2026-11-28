@@ -8,6 +8,7 @@ sources:
   - ../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md
   - ../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md
   - ../../raw/sources/2026-11-28-call-center-agent-dashboard-analytics.md
+  - ../../raw/sources/2026-11-28-call-center-agent-dashboard-bento.md
 ---
 
 # Call Center Agent Dashboard Contract
@@ -17,6 +18,7 @@ sources:
 - Raw file: [2026-11-27-call-center-agent-dashboard-contract.md](../../raw/sources/2026-11-27-call-center-agent-dashboard-contract.md)
 - Raw file: [2026-11-28-call-center-agent-dashboard-ui.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-ui.md) (UI rework after the user's "this is okay but improve the ui")
 - Raw file: [2026-11-28-call-center-agent-dashboard-analytics.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-analytics.md) (analytics rebuild after "I want to see that analytics feel in it")
+- Raw file: [2026-11-28-call-center-agent-dashboard-bento.md](../../raw/sources/2026-11-28-call-center-agent-dashboard-bento.md) (bento rearrangement from the user's inspiration shots; refresh button removed)
 - Date: 2026-11-27
 - Author: the user, relaying their manager's request; read-only probes from the user's local agent session
 - Ingested: 2026-11-27
@@ -38,6 +40,8 @@ sources:
 
 - Analytics (2026-11-28, supersedes the single-panel UI): KPI tiles with sparklines and % chips, a this-period-vs-last chart (running total or per bucket, Now marker, pace sentence), and cards for branch, delivery vs pickup, payment and order status. Brand colour marks only the agent's own sales; payment and status use fixed palettes. Agent tokens can read the per-branch list and the `pickup`/`paymentOption` filters; the list type spells it `totalCouponCashWorth`.
 - Chart and state lessons from review: running custom ranges compare with the same day-count shift up to the same time; nothing is said about last period until its line loads; a longer previous month folds into the last slot; recharts 3 svgs need `role: "img"` (sparklines and the donut `inert`); Mantine reference lines take no `color`; TanStack `onlineManager` plus `isPaused` drive Paused; cards in grids switch layout with container queries.
+
+- Layout (2026-11-28, supersedes the single panel): a greeting header with the period buttons on the right and no refresh button, then a bento grid of separate cards placed by `grid-template-areas` (three columns from 75em, two on tablets, one on phones, DOM in phone reading order). Every card shares one heading: icon, title, subtitle, control. Balance the rows a spanning card covers: order status runs full width so the three breakdown cards stack level with the latest-orders table.
 
 ## Connections
 

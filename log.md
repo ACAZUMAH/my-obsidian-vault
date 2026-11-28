@@ -7866,3 +7866,26 @@ Key result:
 Follow-ups:
 
 - Commit on the user's word; app-wide `primaryShade: 5` contrast still needs its own pass.
+
+## [2026-11-28] update | Call Center Agent Dashboard Rearranged As A Bento Grid
+
+What changed:
+
+- Preserved the user's 2026-11-28 request, verbatim ("arrangement and the refresh button is not necessary"), what the three inspiration shots had in common, the bento layout built from them, and two layout lessons.
+- Updated the agent dashboard Source Record, the Call Center Web App dashboard ownership, convention and verification lines, and the index entry.
+
+Files touched:
+
+- `raw/sources/2026-11-28-call-center-agent-dashboard-bento.md`
+- `wiki/sources/call-center-agent-dashboard-contract.md`
+- `wiki/projects/call-center-web-app.md`
+- `index.md`
+- `log.md`
+
+Key result:
+
+- Agents lay the call-center dashboard out as a bento grid of separate cards under a greeting header, with no manual refresh button, and balance the rows that a spanning card covers.
+
+Follow-ups:
+
+- Commit on the user's word.
